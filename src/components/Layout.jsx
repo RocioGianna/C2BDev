@@ -9,7 +9,7 @@ function Layout(props, children) {
 
 	return (
 		<Container maxWidth="xl" sx={{ minHeight: "100vh", display: "flex" }}>
-			{location.pathname === "/login" ? (
+			{location.pathname === "/" || location.pathname === "/login" ? (
 				<Grid container alignItems="center" justifyContent="center">
 					<Grid item>
 						<Outlet />

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { MemoryRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import CssBaseline from "@mui/material/CssBaseline";
 import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
@@ -19,13 +19,13 @@ const theme = createTheme({
 });
 
 ReactDOM.render(
-	<MemoryRouter>
+	<HashRouter>
 		<ThemeProvider theme={theme}>
 			<CssBaseline />
 			<Provider store={store}>
 				<App />
 			</Provider>
 		</ThemeProvider>
-	</MemoryRouter>,
+	</HashRouter>,
 	document.getElementById("root")
 );

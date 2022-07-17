@@ -1,17 +1,42 @@
-import React from "react";
-import Avatar from "@mui/material/Avatar";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import Stack from "@mui/material/Stack";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import { deepOrange } from "@mui/material/colors";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 function ProfileMenu() {
-	const userName = useSelector((state) => state.user.user.name);
-	const userLastname = useSelector((state) => state.user.user.lastname);
+	const firstname = useSelector((state) => state.user.user?.firstname);
+	const lastname = useSelector((state) => state.user.user?.lastname);
+	const [initial, setInitial] = useState("");
 
-	const initials = userName.slice(0, 1).toUppercase() + userLastname.slice(0, 1).toUppercase();
+	useEffect(() => {
+		if (firstname) {
+			setInitial(firstname.slice(0, 1)?.toUpperCase());
+		}
+	}, [firstname]);
 
 	return (
-		<div>
-			<Avatar>{initials}</Avatar>
-		</div>
+		<Button variant="text" sx={{ color: (theme) => theme.palette.common.white }}>
+			<Stack alignItems="center" spacing={1} direction="row">
+				<Avatar
+					sx={{
+						width: 32,
+						height: 32,
+						bgcolor: deepOrange[400],
+						color: (theme) => theme.palette.common.white,
+					}}
+				>
+					{initial}
+				</Avatar>
+				<Stack alignItems="center" direction="row">
+					<Typography variant="button">{firstname + " " + lastname}</Typography>
+					<ArrowDropDownIcon />
+				</Stack>
+			</Stack>
+		</Button>
 	);
 }
 
