@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import com.example.demo.security.jwt.RefreshToken;
 import com.example.demo.security.jwt.RefreshTokenService;
+import com.example.demo.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,9 +32,7 @@ public class AuthResource {
             refreshTokenService.verifyExpiration(refreshToken);
             CustomUserDetails userDetails = new CustomUserDetails(refreshToken.getUser());
             String accessToken = generateJwtToken(userDetails, request.getRequestURL().toString());
-            Map<String,Object> user = new HashMap<>();
-            user.put("email",userDetails.getAppUser().getEmail());
-            user.put("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+            UserDTO user = new UserDTO(userDetails.getAppUser());
             Map<String,Object> res = new HashMap<>();
             res.put("user", user);
             res.put("accessToken", accessToken);

@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import com.example.demo.security.jwt.RefreshToken;
 import com.example.demo.security.jwt.RefreshTokenService;
+import com.example.demo.user.UserDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -50,9 +51,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         Map<String,String> tokens = new HashMap<>();
         tokens.put("accessToken", accessToken);
         tokens.put("refreshToken", refreshToken);
-        Map<String,Object> user = new HashMap<>();
-        user.put("email",userDetails.getAppUser().getEmail());
-        user.put("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        UserDTO user = new UserDTO(userDetails.getAppUser());
         Map<String,Object> res = new HashMap<>();
         res.put("user", user);
         res.put("tokens", tokens);

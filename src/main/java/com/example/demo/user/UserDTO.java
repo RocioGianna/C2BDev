@@ -11,7 +11,7 @@ public class UserDTO {
 
     public UserDTO(AppUser user){
         this.email = user.getEmail();
-        this.firstname = user.getEmail();
+        this.firstname = user.getFirstname();
         this.lastname = user.getLastname();
         this.roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
     }
