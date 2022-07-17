@@ -18,6 +18,10 @@ public class CustomUserDetails implements UserDetails {
         this.appUser = appUser;
     }
 
+    public AppUser getAppUser() {
+        return appUser;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> set = new HashSet<>();

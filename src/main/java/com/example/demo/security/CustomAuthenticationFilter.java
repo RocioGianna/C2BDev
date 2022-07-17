@@ -1,8 +1,10 @@
 package com.example.demo.security;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
+import com.example.demo.security.jwt.RefreshToken;
+import com.example.demo.security.jwt.RefreshTokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -11,23 +13,24 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.example.demo.security.jwt.JWTUtils.generateJwtToken;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    RefreshTokenService refreshTokenService;
     private AuthenticationManager authenticationManager;
 
-    public CustomAuthenticationFilter(AuthenticationManager authenticationManager){
+    public CustomAuthenticationFilter(AuthenticationManager authenticationManager, ApplicationContext ctx){
         this.authenticationManager = authenticationManager;
+        this.refreshTokenService= ctx.getBean(RefreshTokenService.class);
     }
 
     @Override
@@ -39,26 +42,23 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         CustomUserDetails userDetails = (CustomUserDetails) authResult.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("2bsecret".getBytes());
-        String accessToken = JWT.create()
-                .withSubject(userDetails.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-                .withIssuer(request.getRequestURL().toString())
-                .withClaim("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .sign(algorithm);
-        String refreshToken = JWT.create()
-                .withSubject(userDetails.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
-                .withIssuer(request.getRequestURL().toString())
-                .withClaim("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .sign(algorithm);
+        String accessToken = generateJwtToken(userDetails,request.getRequestURL().toString());
+        RefreshToken refreshTokenObject = refreshTokenService.createRefreshToken(userDetails.getAppUser().getId());
+        String refreshToken = refreshTokenObject.getToken();
         Map<String,String> tokens = new HashMap<>();
         tokens.put("accessToken", accessToken);
         tokens.put("refreshToken", refreshToken);
+        Map<String,Object> user = new HashMap<>();
+        user.put("email",userDetails.getAppUser().getEmail());
+        user.put("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        Map<String,Object> res = new HashMap<>();
+        res.put("user", user);
+        res.put("tokens", tokens);
+        res.put("ok", true);
         response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        new ObjectMapper().writeValue(response.getOutputStream(), res);
     }
 
 }

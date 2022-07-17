@@ -10,6 +10,8 @@ public class AppUser {
     private Long id;
     private String email;
     private String password;
+    private String firstname;
+    private String lastname;
     private boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -17,10 +19,12 @@ public class AppUser {
 
     public AppUser() {}
 
-    public AppUser(Long id, String email, String password, boolean enabled, List<Role> roles) {
+    public AppUser(Long id, String email, String password, String firstname, String lastname, boolean enabled, List<Role> roles) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.enabled = enabled;
         this.roles = roles;
     }
@@ -46,6 +50,22 @@ public class AppUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public boolean isEnabled() {

@@ -25,10 +25,10 @@ public class DemoApplication {
 			userService.saveRole(new Role("USER"));
 			userService.saveRole(new Role("ADMIN"));
 
-			userService.saveUser(new AppUser(null, "user@2bconexion.com", "pass", true, new ArrayList<>()));
+			userService.saveUser(new AppUser(null, "user@2bconexion.com", "pass", "User", "User",  true, new ArrayList<>()));
 			userService.addRoleToUser("user@2bconexion.com", "USER");
 
-			userService.saveUser(new AppUser(null, "admin@2bconexion.com", "pass", true, new ArrayList<>()));
+			userService.saveUser(new AppUser(null, "admin@2bconexion.com", "pass", "Admin", "Admin", true, new ArrayList<>()));
 			userService.addRoleToUser("admin@2bconexion.com", "ADMIN");
 
 		};
