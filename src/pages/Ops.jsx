@@ -1,9 +1,20 @@
-import React from 'react'
+import React from "react";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import { Outlet } from "react-router-dom";
 
 function Ops() {
-  return (
-    <div>Ops</div>
-  )
+	return (
+		<Grid container alignItems="center" justifyContent="center">
+			<Grid item>
+				<Stack alignItems="center" spacing={2}>
+					<Typography variant="h1">Operaciones</Typography>
+					<Outlet />
+				</Stack>
+			</Grid>
+		</Grid>
+	);
 }
 
-export default Ops
+export default Ops;
