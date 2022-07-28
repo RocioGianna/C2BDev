@@ -15,7 +15,6 @@ function Nav() {
 				setValue(newValue);
 			}}
 			sx={{
-				minHeight: 48,
 				py: 0.5,
 				"& 	.MuiTabs-indicator": {
 					backgroundColor: (theme) => theme.palette.common.white,
@@ -34,6 +33,7 @@ function Nav() {
 					},
 					"&.MuiButtonBase-root": {
 						minHeight: 40,
+						height: 40,
 					},
 				}}
 			/>
@@ -49,8 +49,8 @@ function Nav() {
 					},
 					"&.MuiButtonBase-root": {
 						minHeight: 40,
+						height: 40,
 					},
-					height: 6,
 				}}
 			/>
 			<Tab
@@ -65,8 +65,8 @@ function Nav() {
 					},
 					"&.MuiButtonBase-root": {
 						minHeight: 40,
+						height: 40,
 					},
-					height: 6,
 				}}
 			/>
 		</Tabs>

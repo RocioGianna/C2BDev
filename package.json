@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"clear-built": "",
+		"clear-built": "rm -rf dist",
 		"build": "npm run clear-built && esbuild src/index.js --loader:.js=jsx --bundle --minify --target=es2017 --outfile=dist/bundle.js --loader:.png=dataurl",
 		"build-dev": "npm run clear-built && esbuild src/index.js --loader:.js=jsx --bundle --target=es2017 --outfile=dist/bundle.js --loader:.png=dataurl",
 		"dev": "npm run clear-built && esbuild src/index.js --loader:.js=jsx --bundle --target=es2017 --outfile=dist/bundle.js --watch --loader:.png=dataurl",
