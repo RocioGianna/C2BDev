@@ -1,6 +1,8 @@
-package com.example.demo.security.jwt;
+package com.con2b.back.service;
 
-import com.example.demo.user.UserRepository;
+import com.con2b.back.model.RefreshToken;
+import com.con2b.back.repository.RefreshTokenRepository;
+import com.con2b.back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.example.demo.security.jwt;
+package com.con2b.back.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

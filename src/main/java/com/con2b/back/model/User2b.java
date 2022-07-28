@@ -1,10 +1,10 @@
-package com.example.demo.user;
+package com.con2b.back.model;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class AppUser {
+public class User2b {
 
     @Id @GeneratedValue
     private Long id;
@@ -13,13 +13,11 @@ public class AppUser {
     private String firstname;
     private String lastname;
     private boolean enabled;
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
+    public User2b() {}
 
-    public AppUser() {}
-
-    public AppUser(Long id, String email, String password, String firstname, String lastname, boolean enabled, List<Role> roles) {
+    public User2b(Long id, String email, String password, String firstname, String lastname, boolean enabled, List<Role> roles) {
         this.id = id;
         this.email = email;
         this.password = password;

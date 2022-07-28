@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.con2b.back.resource;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

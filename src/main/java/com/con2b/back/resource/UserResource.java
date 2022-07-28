@@ -1,5 +1,7 @@
-package com.example.demo.user;
+package com.con2b.back.resource;
 
+import com.con2b.back.service.UserService;
+import com.con2b.back.model.User2b;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +21,7 @@ public class UserResource {
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<AppUser>> getUsers() {
+    public ResponseEntity<List<User2b>> getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 }

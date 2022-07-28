@@ -1,19 +1,21 @@
-package com.example.demo.user;
+package com.con2b.back.dto;
+
+import com.con2b.back.model.User2b;
+import com.con2b.back.model.Role;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserDTO {
     private String email;
     private String firstname;
     private String lastname;
-    private List<String> roles;
+    private List<Role> roles;
 
-    public UserDTO(AppUser user){
+    public UserDTO(User2b user){
         this.email = user.getEmail();
         this.firstname = user.getFirstname();
         this.lastname = user.getLastname();
-        this.roles = user.getRoles().stream().map(Role::getName).collect(Collectors.toList());
+        this.roles = user.getRoles();
     }
 
     public String getEmail() {
@@ -40,11 +42,11 @@ public class UserDTO {
         this.lastname = lastname;
     }
 
-    public List<String> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }

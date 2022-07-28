@@ -1,20 +1,18 @@
-package com.example.demo.security;
+package com.con2b.back.resource;
 
-import com.example.demo.security.jwt.RefreshToken;
-import com.example.demo.security.jwt.RefreshTokenService;
-import com.example.demo.user.UserDTO;
+import com.con2b.back.model.UserDetails2b;
+import com.con2b.back.util.JWTUtils;
+import com.con2b.back.service.RefreshTokenService;
+import com.con2b.back.model.RefreshToken;
+import com.con2b.back.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import static com.example.demo.security.jwt.JWTUtils.generateJwtToken;
 
 @RestController
 @RequestMapping(("/"))
@@ -30,8 +28,8 @@ public class AuthResource {
         RefreshToken refreshToken = refreshTokenService.getByToken(token);
         if(refreshToken != null){
             refreshTokenService.verifyExpiration(refreshToken);
-            CustomUserDetails userDetails = new CustomUserDetails(refreshToken.getUser());
-            String accessToken = generateJwtToken(userDetails, request.getRequestURL().toString());
+            UserDetails2b userDetails = new UserDetails2b(refreshToken.getUser());
+            String accessToken = JWTUtils.generateJwtToken(userDetails, request.getRequestURL().toString());
             UserDTO user = new UserDTO(userDetails.getAppUser());
             Map<String,Object> res = new HashMap<>();
             res.put("user", user);

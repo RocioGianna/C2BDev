@@ -1,6 +1,5 @@
-package com.example.demo.security;
+package com.con2b.back.model;
 
-import com.example.demo.user.AppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,36 +8,36 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CustomUserDetails implements UserDetails {
+public class UserDetails2b implements UserDetails {
 
-    private AppUser appUser;
+    private User2b user;
 
-    public CustomUserDetails(AppUser appUser) {
+    public UserDetails2b(User2b user) {
         super();
-        this.appUser = appUser;
+        this.user = user;
     }
 
-    public AppUser getAppUser() {
-        return appUser;
+    public User2b getAppUser() {
+        return user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> set = new HashSet<>();
-        appUser.getRoles().forEach(role -> {
-            set.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        user.getRoles().forEach(role -> {
+            set.add(new SimpleGrantedAuthority("ROLE_" + role));
         });
         return set;
     }
 
     @Override
     public String getPassword() {
-        return appUser.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return appUser.getEmail();
+        return user.getEmail();
     }
 
     @Override
@@ -58,6 +57,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return appUser.isEnabled();
+        return user.isEnabled();
     }
 }

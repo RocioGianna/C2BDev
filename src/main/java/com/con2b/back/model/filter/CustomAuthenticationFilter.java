@@ -1,16 +1,15 @@
-package com.example.demo.security;
+package com.con2b.back.model.filter;
 
-import com.example.demo.security.jwt.RefreshToken;
-import com.example.demo.security.jwt.RefreshTokenService;
-import com.example.demo.user.UserDTO;
+import com.con2b.back.model.UserDetails2b;
+import com.con2b.back.model.RefreshToken;
+import com.con2b.back.service.RefreshTokenService;
+import com.con2b.back.dto.UserDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -19,9 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-import static com.example.demo.security.jwt.JWTUtils.generateJwtToken;
+import static com.con2b.back.util.JWTUtils.generateJwtToken;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -44,7 +42,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
-        CustomUserDetails userDetails = (CustomUserDetails) authResult.getPrincipal();
+        UserDetails2b userDetails = (UserDetails2b) authResult.getPrincipal();
         String accessToken = generateJwtToken(userDetails,request.getRequestURL().toString());
         RefreshToken refreshTokenObject = refreshTokenService.createRefreshToken(userDetails.getAppUser().getId());
         String refreshToken = refreshTokenObject.getToken();

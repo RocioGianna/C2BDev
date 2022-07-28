@@ -1,6 +1,9 @@
-package com.example.demo.user;
+package com.con2b.back.service;
 
-import com.example.demo.security.CustomUserDetails;
+import com.con2b.back.model.UserDetails2b;
+import com.con2b.back.model.User2b;
+import com.con2b.back.model.Role;
+import com.con2b.back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,38 +20,31 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
-    public void saveUser(AppUser appUser) throws Exception {
-        if(userRepository.findByEmail(appUser.getEmail()) != null){
+    public void saveUser(User2b user) throws Exception {
+        if(userRepository.findByEmail(user.getEmail()) != null){
             throw new Exception("Email already in use");
         };
-        appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
-        userRepository.save(appUser);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 
-    public void saveRole(Role role){
-        roleRepository.save(role);
-    }
 
-    public void addRoleToUser(String userEmail, String roleName){
-        AppUser user = userRepository.findByEmail(userEmail);
-        Role role = roleRepository.findByName(roleName);
+    public void addRoleToUser(String userEmail, Role role){
+        User2b user = userRepository.findByEmail(userEmail);
         user.addRole(role);
     }
 
-    public List<AppUser> getUsers(){
+    public List<User2b> getUsers(){
         return userRepository.findAll();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = this.userRepository.findByEmail(username);
-        if(appUser == null) throw new UsernameNotFoundException(username);
-        return new CustomUserDetails(appUser);
+        User2b user = this.userRepository.findByEmail(username);
+        if(user == null) throw new UsernameNotFoundException(username);
+        return new UserDetails2b(user);
     }
 }

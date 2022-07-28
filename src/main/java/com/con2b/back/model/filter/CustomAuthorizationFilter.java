@@ -1,4 +1,4 @@
-package com.example.demo.security;
+package com.con2b.back.model.filter;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
-import static com.example.demo.security.jwt.JWTUtils.getAuthoritiesFromJwtToken;
-import static com.example.demo.security.jwt.JWTUtils.getEmailFromJwtToken;
+import static com.con2b.back.util.JWTUtils.getAuthoritiesFromJwtToken;
+import static com.con2b.back.util.JWTUtils.getEmailFromJwtToken;
 
-public class CustomAuthorizationToken extends OncePerRequestFilter {
+public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);

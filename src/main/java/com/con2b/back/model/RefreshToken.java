@@ -1,6 +1,4 @@
-package com.example.demo.security.jwt;
-
-import com.example.demo.user.AppUser;
+package com.con2b.back.model;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -13,13 +11,13 @@ public class RefreshToken {
 
     private String token;
     @OneToOne
-    private AppUser user;
+    private User2b user;
 
     private Instant expirationDate;
 
     public RefreshToken() {}
 
-    public RefreshToken(Long id, String token, AppUser user, Instant expirationDate) {
+    public RefreshToken(Long id, String token, User2b user, Instant expirationDate) {
         this.id = id;
         this.token = token;
         this.user = user;
@@ -42,11 +40,11 @@ public class RefreshToken {
         this.token = token;
     }
 
-    public AppUser getUser() {
+    public User2b getUser() {
         return user;
     }
 
-    public void setUser(AppUser user) {
+    public void setUser(User2b user) {
         this.user = user;
     }
 
