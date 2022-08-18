@@ -9,7 +9,7 @@ function FormText(props) {
             label={props.label}
             value={props.value}
             onChange={props.onChange}
-            error={Boolean(props.error)}
+            error={!!props.error}
             disabled={!!props.disabled}
             type={props.type}
             helperText={props.helperText}
