@@ -2,11 +2,11 @@
 	"name": "2bconexion-front",
 	"version": "1.0.0",
 	"description": "",
+	"type": "module",
 	"scripts": {
-		"clear-built": "rm -rf dist",
-		"build": "npm run clear-built && esbuild src/index.js --loader:.js=jsx --bundle --minify --target=es2017 --outfile=dist/bundle.js --loader:.png=dataurl",
-		"build-dev": "npm run clear-built && esbuild src/index.js --loader:.js=jsx --bundle --target=es2017 --outfile=dist/bundle.js --loader:.png=dataurl",
-		"dev": "npm run clear-built && esbuild src/index.js --loader:.js=jsx --bundle --target=es2017 --outfile=dist/bundle.js --watch --loader:.png=dataurl",
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
 		"start": "npm run dev"
 	},
 	"keywords": [],
@@ -18,13 +18,16 @@
 		"@mui/icons-material": "^5.8.4",
 		"@mui/material": "^5.8.6",
 		"@reduxjs/toolkit": "^1.8.3",
+		"@types/react": "^18.0.17",
+		"@types/react-dom": "^18.0.6",
+		"@vitejs/plugin-react": "^2.0.1",
 		"axios": "^0.27.2",
-		"esbuild": "^0.14.48",
-		"formik": "^2.2.9",
+        "formik": "^2.2.9",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"react-redux": "^8.0.2",
 		"react-router-dom": "^6.3.0",
-		"yup": "^0.32.11"
+        "vite": "^3.0.7",
+        "yup": "^0.32.11"
 	}
 }
