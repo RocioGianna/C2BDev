@@ -10,10 +10,15 @@ import {
     Typography,
     Modal,
     Card,
-    TextField,
     Grid,
+    CircularProgress,
 } from "@mui/material";
+import { TextField } from "formik-material-ui";
+
 import { Field, Form, Formik } from "formik";
+import * as yup from "yup";
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default function NewOperationModal(props) {
     return (
@@ -30,7 +35,7 @@ export default function NewOperationModal(props) {
                     left: "50%",
                     transform: "translate(-50%, -50%)",
                     bgcolor: "background.paper",
-                    p: 16,
+                    p: 8,
                     width: "80%",
                 }}
             >
@@ -48,16 +53,62 @@ export default function NewOperationModal(props) {
                         province: "",
                         demo: "",
                     }}
-                    onSubmit={() => {}}
+                    onSubmit={async () => {
+                        await sleep(3000);
+                        console.log("submit");
+                    }}
                 >
-                    <div label="Primer pantalla">Ema re capo</div>
+                    <div label="Primer pantalla">Primer paso</div>
 
-                    <ClientDataStep label="Atributos del cliente" />
+                    <ClientDataStep
+                        label="Atributos del cliente"
+                        validationSchema={yup.object({
+                            clientName: yup
+                                .string()
+                                .required("El nombre es requerido"),
+                            clientSurname: yup
+                                .string()
+                                .required("El apellido es requerido"),
+                            dni: yup.string().required("El DNI es requerido"),
+                            phone: yup
+                                .number("El telefono debe ser un numero")
+                                .required("El telefono es requerido")
+                                .positive()
+                                .integer()
+                                .typeError("El telefono debe ser un numero"),
+                            email: yup
+                                .string("Ingrese su correo electronico")
+                                .email("Ingrese un correo electronico valido")
+                                .required("El correo electronico es requerido"),
+                            bankAccount: yup
+                                .string("Ingrese su cuenta bancaria")
+                                .required("La cuenta bancaria es requerida"),
+                            billingAddress: yup
+                                .string("Ingrese su direccion de facturacion")
+                                .required(
+                                    "La direccion de facturacion es requerida"
+                                ),
+                            zipCode: yup
+                                .string("Ingrese su codigo postal")
+                                .required("El codigo postal es requerido"),
+                            municipality: yup
+                                .string("Ingrese su municipio")
+                                .required("El municipio es requerido"),
+                            province: yup
+                                .string("Ingrese su provincia")
+                                .required("La provincia es requerida"),
+                        })}
+                    />
                     <div label="Tercer">Tercer pantalla</div>
-                    <div label="Demo">
+                    <div
+                        label="Demo"
+                        validationSchema={yup.object({
+                            demo: yup.string().required("El demo es requerido"),
+                        })}
+                    >
                         <Field
-                            id="demo"
                             name="demo"
+                            fullWidth
                             label="DEMO"
                             component={TextField}
                         />
@@ -88,62 +139,77 @@ export function FormikStepper({ children, ...props }) {
                 } else {
                     setActiveStep((activeStep) => activeStep + 1);
                 }
+                helpers.setTouched({});
             }}
         >
-            <Form autoComplete="off">
-                <Grid container rowSpacing={4}>
-                    <Grid item xs={12}>
-                        <Typography
-                            id="modal-modal-title"
-                            variant="h5"
-                            align="center"
-                            component="h2"
-                        >
-                            Nueva operacion
-                        </Typography>
-                        Tercer
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Stepper alternativeLabel activeStep={activeStep}>
-                            {childrenArray.map((child) => (
-                                <Step key={child.props.label}>
-                                    <StepLabel>{child.props.label}</StepLabel>
-                                </Step>
-                            ))}
-                        </Stepper>
-                    </Grid>
-                    <Grid item xs={12}>
-                        {currentChild}
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={4}>
-                                {activeStep > 0 ? (
+            {({ isSubmitting }) => (
+                <Form autoComplete="off">
+                    <Grid container rowSpacing={4}>
+                        <Grid item xs={12}>
+                            <Typography
+                                id="modal-modal-title"
+                                variant="h5"
+                                align="center"
+                                component="h2"
+                            >
+                                Nueva operacion
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Stepper alternativeLabel activeStep={activeStep}>
+                                {childrenArray.map((child) => (
+                                    <Step key={child.props.label}>
+                                        <StepLabel>
+                                            {child.props.label}
+                                        </StepLabel>
+                                    </Step>
+                                ))}
+                            </Stepper>
+                        </Grid>
+                        <Grid item xs={12}>
+                            {currentChild}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={4}>
+                                    {activeStep > 0 ? (
+                                        <Button
+                                            onClick={() =>
+                                                setActiveStep(activeStep - 1)
+                                            }
+                                            variant="contained"
+                                            fullWidth
+                                            disabled={isSubmitting}
+                                        >
+                                            Paso anterior
+                                        </Button>
+                                    ) : null}
+                                </Grid>
+                                <Grid item xs={4}></Grid>
+                                <Grid item xs={4}>
                                     <Button
-                                        onClick={() =>
-                                            setActiveStep(activeStep - 1)
+                                        startIcon={
+                                            isSubmitting ? (
+                                                <CircularProgress size="1rem" />
+                                            ) : null
                                         }
+                                        type="submit"
                                         variant="contained"
                                         fullWidth
+                                        disabled={isSubmitting}
                                     >
-                                        Paso anterior
+                                        {isSubmitting
+                                            ? "Confirmando"
+                                            : isLastStep()
+                                            ? "Confirmar"
+                                            : "Siguiente"}
                                     </Button>
-                                ) : null}
-                            </Grid>
-                            <Grid item xs={4}></Grid>
-                            <Grid item xs={4}>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    fullWidth
-                                >
-                                    {isLastStep() ? "Guardar" : "Siguiente"}
-                                </Button>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-            </Form>
+                </Form>
+            )}
         </Formik>
     );
 }
