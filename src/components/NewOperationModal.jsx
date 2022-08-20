@@ -12,10 +12,15 @@ import {
     Grid,
     CircularProgress,
 } from "@mui/material";
-import { TextField } from "formik-material-ui";
+import { validationSchemas } from "../utils/validationSchema";
 
-import { Field, Form, Formik } from "formik";
-import * as yup from "yup";
+import { Form, Formik } from "formik";
+import { FirstPage } from "@mui/icons-material";
+import ThirdStep from "./newOperation/ThirdStep";
+import FourthStep from "./newOperation/FourthStep";
+import FifthStep from "./newOperation/FifthStep";
+
+import { QontoConnector, QontoStepIcon } from "../utils/StepFormStyling";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -57,61 +62,11 @@ export default function NewOperationModal(props) {
                         console.log("submit");
                     }}
                 >
-                    <div label="Primer pantalla">Primer paso</div>
-
-                    <ClientDataStep
-                        label="Atributos del cliente"
-                        validationSchema={yup.object({
-                            clientName: yup
-                                .string()
-                                .required("El nombre es requerido"),
-                            clientSurname: yup
-                                .string()
-                                .required("El apellido es requerido"),
-                            dni: yup.string().required("El DNI es requerido"),
-                            phone: yup
-                                .number("El telefono debe ser un numero")
-                                .required("El telefono es requerido")
-                                .positive()
-                                .integer()
-                                .typeError("El telefono debe ser un numero"),
-                            email: yup
-                                .string("Ingrese su correo electronico")
-                                .email("Ingrese un correo electronico valido")
-                                .required("El correo electronico es requerido"),
-                            bankAccount: yup
-                                .string("Ingrese su cuenta bancaria")
-                                .required("La cuenta bancaria es requerida"),
-                            billingAddress: yup
-                                .string("Ingrese su direccion de facturacion")
-                                .required(
-                                    "La direccion de facturacion es requerida"
-                                ),
-                            zipCode: yup
-                                .string("Ingrese su codigo postal")
-                                .required("El codigo postal es requerido"),
-                            municipality: yup
-                                .string("Ingrese su municipio")
-                                .required("El municipio es requerido"),
-                            province: yup
-                                .string("Ingrese su provincia")
-                                .required("La provincia es requerida"),
-                        })}
-                    />
-                    <div label="Tercer">Tercer pantalla</div>
-                    <div
-                        label="Demo"
-                        validationSchema={yup.object({
-                            demo: yup.string().required("El demo es requerido"),
-                        })}
-                    >
-                        <Field
-                            name="demo"
-                            fullWidth
-                            label="DEMO"
-                            component={TextField}
-                        />
-                    </div>
+                    <FirstPage label="Primer pantalla" />
+                    <ClientDataStep label="Atributos del cliente" />
+                    <ThirdStep label="Tercer paso" />
+                    <FourthStep label="Cuarto paso" />
+                    <FifthStep label="Quinto paso" />
                 </FormikStepper>
             </Card>
         </Modal>
@@ -131,7 +86,7 @@ export function FormikStepper({ children, ...props }) {
     return (
         <Formik
             {...props}
-            validationSchema={currentChild.props.validationSchema}
+            validationSchema={validationSchemas[activeStep]}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
                     await props.onSubmit(values, helpers);
@@ -147,7 +102,8 @@ export function FormikStepper({ children, ...props }) {
                         <Grid item xs={12}>
                             <Typography
                                 id="modal-modal-title"
-                                variant="h5"
+                                variant="h4"
+                                fontWeight="bold"
                                 align="center"
                                 component="h2"
                             >
@@ -155,15 +111,29 @@ export function FormikStepper({ children, ...props }) {
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Stepper alternativeLabel activeStep={activeStep}>
+                            <Stepper
+                                alternativeLabel
+                                activeStep={activeStep}
+                                connector={<QontoConnector />}
+                            >
                                 {childrenArray.map((child) => (
                                     <Step key={child.props.label}>
-                                        <StepLabel>
-                                            {child.props.label}
-                                        </StepLabel>
+                                        <StepLabel
+                                            StepIconComponent={QontoStepIcon}
+                                        ></StepLabel>
                                     </Step>
                                 ))}
                             </Stepper>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography
+                                id="modal-modal-title"
+                                variant="h6"
+                                align="center"
+                                component="h2"
+                            >
+                                {currentChild.props.label}
+                            </Typography>
                         </Grid>
                         <Grid item xs={12}>
                             {currentChild}
