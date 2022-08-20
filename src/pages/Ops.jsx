@@ -5,16 +5,16 @@ import Stack from "@mui/material/Stack";
 import { Outlet } from "react-router-dom";
 
 function Ops() {
-	return (
-		<Grid container alignItems="center" justifyContent="center">
-			<Grid item>
-				<Stack alignItems="center" spacing={2}>
-					<Typography variant="h1">Operaciones</Typography>
-					<Outlet />
-				</Stack>
-			</Grid>
-		</Grid>
-	);
+    return (
+        <Grid container alignItems="center" justifyContent="center">
+            <Grid item>
+                <Stack alignItems="center" spacing={2}>
+                    <Typography variant="h1">Operaciones</Typography>
+                    <Outlet />
+                </Stack>
+            </Grid>
+        </Grid>
+    );
 }
 
 export default Ops;

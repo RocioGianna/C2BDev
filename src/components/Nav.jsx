@@ -3,17 +3,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import NewOperationModal from "./NewOperationModal";
-
 function Nav() {
     const navigate = useNavigate();
     const location = useLocation();
     const [value, setValue] = useState(location.pathname);
-
-    // Modal Handling
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
     return (
         <Tabs
@@ -63,7 +56,7 @@ function Nav() {
             <Tab
                 label="Nueva Operacion"
                 value="/ops/new"
-                onClick={handleOpen}
+                onClick={() => navigate("/ops/new")}
                 sx={{
                     color: (theme) => theme.palette.grey[300],
                     transition: "color 0.4s ease",
@@ -76,7 +69,6 @@ function Nav() {
                     },
                 }}
             />
-            <NewOperationModal open={open} handleOpen={handleOpen} xs />
         </Tabs>
     );
 }
