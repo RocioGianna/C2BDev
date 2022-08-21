@@ -5,7 +5,7 @@ export const validationSchemas = [
     yup.object().shape({
         clientName: yup.string().required("El nombre es requerido"),
         clientSurname: yup.string().required("El apellido es requerido"),
-        dni: yup.string().required("El DNI es requerido"),
+        dni: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
         phone: yup
             .number("El telefono debe ser un numero")
             .required("El telefono es requerido")
