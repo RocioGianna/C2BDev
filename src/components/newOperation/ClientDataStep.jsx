@@ -1,8 +1,8 @@
 import React from "react";
-import * as yup from "yup";
 import { Box, Grid } from "@mui/material";
-import { TextField } from "formik-material-ui";
+import { TextField, CheckboxWithLabel } from "formik-material-ui";
 import { Field } from "formik";
+import ConditionalForm from "./ConditionalForm";
 
 export default function ClientDataStep(props) {
     return (
@@ -91,6 +91,20 @@ export default function ClientDataStep(props) {
                         label="Provincia"
                         component={TextField}
                     />
+                </Grid>
+                <Grid item xs={12}>
+                    <ConditionalForm
+                        label={
+                            "Direccion de instalacion distinta a la direccion de facturacion"
+                        }
+                    >
+                        <Field
+                            fullWidth
+                            name="instalattionAddress"
+                            label="Direccion de instalacion"
+                            component={TextField}
+                        />
+                    </ConditionalForm>
                 </Grid>
             </Grid>
         </Box>

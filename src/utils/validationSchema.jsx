@@ -31,6 +31,14 @@ export const validationSchemas = [
         province: yup
             .string("Ingrese su provincia")
             .required("La provincia es requerida"),
+        instalattionAddress: yup
+            .string("Ingrese su direccion de instalacion")
+            .when("conditionalField", {
+                is: true,
+                then: yup
+                    .string()
+                    .required("La direccion de instalacion es requerida"),
+            }),
     }),
     ,
     yup.object().shape({

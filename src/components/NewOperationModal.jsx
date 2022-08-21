@@ -55,7 +55,9 @@ export default function NewOperationModal(props) {
                         zipCode: "",
                         municipality: "",
                         province: "",
+                        conditionalField: false,
                         demo: "",
+                        instalattionAddress: "",
                     }}
                     onSubmit={async () => {
                         await sleep(3000);
