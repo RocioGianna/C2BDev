@@ -9,17 +9,19 @@ export default function ConditionalForm({ children, ...props }) {
     const [conditionalField, setConditionalField] = React.useState(false);
 
     return (
-        <div>
-            <Field
-                name="conditionalField"
-                type="checkbox"
-                component={CheckboxWithLabel}
-                onClick={() => setConditionalField(!conditionalField)}
-                Label={{
-                    label: props.label,
-                }}
-            />
+        <>
+            <Grid item xs={12}>
+                <Field
+                    name="conditionalField"
+                    type="checkbox"
+                    component={CheckboxWithLabel}
+                    onClick={() => setConditionalField(!conditionalField)}
+                    Label={{
+                        label: props.label,
+                    }}
+                />
+            </Grid>
             {conditionalField && children}
-        </div>
+        </>
     );
 }

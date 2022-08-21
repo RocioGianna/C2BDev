@@ -39,6 +39,30 @@ export const validationSchemas = [
                     .string()
                     .required("La direccion de instalacion es requerida"),
             }),
+        zipCodeInstallation: yup
+            .string("Ingrese su codigo postal de instalacion")
+            .when("conditionalField", {
+                is: true,
+                then: yup
+                    .string()
+                    .required("El codigo postal de instalacion es requerido"),
+            }),
+        municipalityInstallation: yup
+            .string("Ingrese su municipio de instalacion")
+            .when("conditionalField", {
+                is: true,
+                then: yup
+                    .string()
+                    .required("El municipio de instalacion es requerido"),
+            }),
+        provinceInstallation: yup
+            .string("Ingrese su provincia de instalacion")
+            .when("conditionalField", {
+                is: true,
+                then: yup
+                    .string()
+                    .required("La provincia de instalacion es requerida"),
+            }),
     }),
     ,
     yup.object().shape({

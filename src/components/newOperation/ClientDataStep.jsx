@@ -92,20 +92,44 @@ export default function ClientDataStep(props) {
                         component={TextField}
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <ConditionalForm
-                        label={
-                            "Direccion de instalacion distinta a la direccion de facturacion"
-                        }
-                    >
+                <ConditionalForm
+                    label={
+                        "Direccion de instalacion distinta a la direccion de facturacion"
+                    }
+                >
+                    <Grid item xs={9}>
                         <Field
                             fullWidth
                             name="instalattionAddress"
                             label="Direccion de instalacion"
                             component={TextField}
                         />
-                    </ConditionalForm>
-                </Grid>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Field
+                            fullWidth
+                            name="zipCodeInstallation"
+                            label="Codigo postal correspondiente a la direccion de instalacion"
+                            component={TextField}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Field
+                            fullWidth
+                            name="municipalityInstallation"
+                            label="Municipio correspondiente a la direccion de instalacion"
+                            component={TextField}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Field
+                            fullWidth
+                            name="provinceInstallation"
+                            label="Provincia correspondiente a la direccion de instalacion"
+                            component={TextField}
+                        />
+                    </Grid>
+                </ConditionalForm>
             </Grid>
         </Box>
     );
