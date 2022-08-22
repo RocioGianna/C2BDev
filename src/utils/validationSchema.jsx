@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { getPhoneRegex } from "./Utils.js";
 
 export const validationSchemas = [
     ,
@@ -7,11 +8,9 @@ export const validationSchemas = [
         clientSurname: yup.string().required("El apellido es requerido"),
         dni: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
         phone: yup
-            .number("El telefono debe ser un numero")
+            .string()
             .required("El telefono es requerido")
-            .positive()
-            .integer()
-            .typeError("El telefono debe ser un numero"),
+            .matches(getPhoneRegex(), "Numero de telefono no valido"),
         email: yup
             .string("Ingrese su correo electronico")
             .email("Ingrese un correo electronico valido")
