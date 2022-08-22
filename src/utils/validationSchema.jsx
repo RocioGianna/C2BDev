@@ -37,7 +37,11 @@ export const validationSchemas = [
                 is: true,
                 then: yup
                     .string()
-                    .required("La direccion de instalacion es requerida"),
+                    .required("La direccion de instalacion es requerida")
+                    .notOneOf(
+                        [yup.ref("billingAddress")],
+                        "Las direcciones no deben coincidir"
+                    ),
             }),
         zipCodeInstallation: yup
             .string("Ingrese su codigo postal de instalacion")
