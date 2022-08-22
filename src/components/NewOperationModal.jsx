@@ -29,6 +29,7 @@ export default function NewOperationModal(props) {
         <Modal
             open={props.open}
             onClose={props.handleClose}
+            sx={{ overflow: "scroll" }}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
@@ -40,7 +41,7 @@ export default function NewOperationModal(props) {
                     transform: "translate(-50%, -50%)",
                     bgcolor: "background.paper",
                     p: 8,
-                    width: "80%",
+                    width: "60%",
                 }}
             >
                 <FormikStepper
@@ -58,10 +59,12 @@ export default function NewOperationModal(props) {
                         conditionalField: false,
                         demo: "",
                         instalattionAddress: "",
+                        zipCodeInstallation: "",
+                        municipalityInstallation: "",
+                        provinceInstallation: "",
                     }}
                     onSubmit={async () => {
                         await sleep(3000);
-                        console.log("submit");
                     }}
                 >
                     <FirstPage label="Primer pantalla" />
