@@ -30,6 +30,7 @@ export const validationSchemas = [
         province: yup
             .string("Ingrese su provincia")
             .required("La provincia es requerida"),
+        files: yup.string().required("se requiere un archivo"),
     }),
     ,
     yup.object().shape({

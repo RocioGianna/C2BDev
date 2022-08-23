@@ -15,10 +15,10 @@ import {
 import { validationSchemas } from "../utils/validationSchema";
 
 import { Form, Formik } from "formik";
-import { FirstPage } from "@mui/icons-material";
 import ThirdStep from "./newOperation/ThirdStep";
 import FourthStep from "./newOperation/FourthStep";
 import FifthStep from "./newOperation/FifthStep";
+import FirstStep from "./newOperation/FirstStep";
 
 import { QontoConnector, QontoStepIcon } from "../utils/StepFormStyling";
 
@@ -56,13 +56,14 @@ export default function NewOperationModal(props) {
                         municipality: "",
                         province: "",
                         demo: "",
+                        files: "",
                     }}
                     onSubmit={async () => {
                         await sleep(3000);
                         console.log("submit");
                     }}
                 >
-                    <FirstPage label="Primer pantalla" />
+                    <FirstStep label="Primer pantalla" />
                     <ClientDataStep label="Atributos del cliente" />
                     <ThirdStep label="Tercer paso" />
                     <FourthStep label="Cuarto paso" />
