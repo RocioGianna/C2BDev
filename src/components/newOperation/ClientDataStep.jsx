@@ -3,7 +3,6 @@ import * as yup from "yup";
 import { Box, Grid } from "@mui/material";
 import { TextField } from "formik-material-ui";
 import { Field } from "formik";
-import { getPhoneRegex } from "../../utils/Utils";
 
 export default function ClientDataStep(props) {
     return (
