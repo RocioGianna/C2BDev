@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ClientDataStep from "./newOperation/ClientDataStep";
 import {
     Button,
     Typography,
@@ -8,13 +7,10 @@ import {
     Grid,
     CircularProgress,
 } from "@mui/material";
-import { validationSchemas } from "../utils/validationSchema";
 
 import { Form, Formik } from "formik";
-import { FirstPage } from "@mui/icons-material";
-import ThirdStep from "./newOperation/ThirdStep";
-import FourthStep from "./newOperation/FourthStep";
-import FifthStep from "./newOperation/FifthStep";
+
+import FormSteps from "../utils/Utils";
 
 import Stepper from "./Stepper";
 
@@ -57,32 +53,28 @@ export default function NewOperationModal(props) {
                         await sleep(3000);
                         console.log("submit");
                     }}
-                >
-                    <FirstPage label="Primer pantalla" />
-                    <ClientDataStep label="Atributos del cliente" />
-                    <ThirdStep label="Tercer paso" />
-                    <FourthStep label="Cuarto paso" />
-                    <FifthStep label="Quinto paso" />
-                </FormikStepper>
+                />
             </Card>
         </Modal>
     );
 }
 
-export function FormikStepper({ children, ...props }) {
-    const childrenArray = React.Children.toArray(children);
+export function FormikStepper(...props) {
     const [activeStep, setActiveStep] = useState(0);
+    const currentChild = FormSteps[activeStep];
 
-    const currentChild = childrenArray[activeStep];
+    const CurrentComponent = currentChild.Component;
+    const currentValidationSchema = currentChild.ValidationSchema;
+    const currentLabel = currentChild.Label;
 
     function isLastStep() {
-        return activeStep === childrenArray.length - 1;
+        return activeStep === FormSteps.length - 1;
     }
 
     return (
         <Formik
             {...props}
-            validationSchema={validationSchemas[activeStep]}
+            validationSchema={currentValidationSchema}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
                     await props.onSubmit(values, helpers);
@@ -109,7 +101,7 @@ export function FormikStepper({ children, ...props }) {
                         <Grid item xs={12}>
                             <Stepper
                                 activeStep={activeStep}
-                                childrenArray={childrenArray}
+                                childrenArray={FormSteps}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -119,11 +111,11 @@ export function FormikStepper({ children, ...props }) {
                                 align="center"
                                 component="h2"
                             >
-                                {currentChild.props.label}
+                                {currentLabel}
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            {currentChild}
+                            <CurrentComponent />
                         </Grid>
                         <Grid item xs={12}>
                             <Grid container spacing={2}>

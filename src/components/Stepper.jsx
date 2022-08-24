@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import StepConnector, {
     stepConnectorClasses,
 } from "@mui/material/StepConnector";
@@ -8,7 +8,7 @@ import LensRoundedIcon from "@mui/icons-material/LensRounded";
 import { Step, StepLabel } from "@mui/material";
 
 export default function Stepper({ activeStep, childrenArray }) {
-    if (!childrenArray) return <div></div>;
+    if (!childrenArray) return <div>Loading</div>;
 
     return (
         <Stepper
@@ -17,7 +17,7 @@ export default function Stepper({ activeStep, childrenArray }) {
             connector={<QontoConnector />}
         >
             {childrenArray.map((child) => (
-                <Step key={child.props.label}>
+                <Step key={child.Label}>
                     <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
                 </Step>
             ))}
