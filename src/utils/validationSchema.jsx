@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { phoneRegex } from "../../utils/RegexUtils";
+import { phoneRegex } from "./RegexUtils";
 
 export const validationSchemas = [
     ,

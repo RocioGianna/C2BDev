@@ -1,9 +1,29 @@
+import React from "react";
 import StepConnector, {
     stepConnectorClasses,
 } from "@mui/material/StepConnector";
 import { styled } from "@mui/material/styles";
 import TripOriginRoundedIcon from "@mui/icons-material/TripOriginRounded";
 import LensRoundedIcon from "@mui/icons-material/LensRounded";
+import { Step, StepLabel } from "@mui/material";
+
+export default function Stepper({ activeStep, childrenArray }) {
+    if (!childrenArray) return <div></div>;
+
+    return (
+        <Stepper
+            alternativeLabel
+            activeStep={activeStep}
+            connector={<QontoConnector />}
+        >
+            {childrenArray.map((child) => (
+                <Step key={child.props.label}>
+                    <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+                </Step>
+            ))}
+        </Stepper>
+    );
+}
 
 const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
     color: theme.palette.mode === "dark" ? theme.palette.grey[700] : "#eaeaf0",

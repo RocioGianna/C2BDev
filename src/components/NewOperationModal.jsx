@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import ClientDataStep from "./newOperation/ClientDataStep";
 import {
-    StepLabel,
-    Step,
-    Stepper,
-    Box,
     Button,
     Typography,
     Modal,
@@ -20,7 +16,7 @@ import ThirdStep from "./newOperation/ThirdStep";
 import FourthStep from "./newOperation/FourthStep";
 import FifthStep from "./newOperation/FifthStep";
 
-import { QontoConnector, QontoStepIcon } from "../utils/StepFormStyling";
+import Stepper from "./Stepper";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -112,18 +108,9 @@ export function FormikStepper({ children, ...props }) {
                         </Grid>
                         <Grid item xs={12}>
                             <Stepper
-                                alternativeLabel
                                 activeStep={activeStep}
-                                connector={<QontoConnector />}
-                            >
-                                {childrenArray.map((child) => (
-                                    <Step key={child.props.label}>
-                                        <StepLabel
-                                            StepIconComponent={QontoStepIcon}
-                                        ></StepLabel>
-                                    </Step>
-                                ))}
-                            </Stepper>
+                                childrenArray={childrenArray}
+                            />
                         </Grid>
                         <Grid item xs={12}>
                             <Typography
