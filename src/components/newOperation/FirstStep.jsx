@@ -9,7 +9,7 @@ export default function FirstStep() {
 
     return (
         <DropzoneArea
-            acceptedFiles={["image/*", "video/*", "application/*"]}
+            acceptedFiles={["application/pdf"]}
             showFileNames
             onChange={(e) => setValue(e)}
             dropzoneText="Arrastre su archivo aqui"
