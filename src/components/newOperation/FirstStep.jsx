@@ -9,6 +9,6 @@ function FirstStep() {
 
 export default {
     ValidationSchema: validationSchema,
-    Component: FirstStep,
+    ReactComponent: FirstStep,
     Label: "Primer paso",
 };
