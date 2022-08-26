@@ -8,6 +8,7 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    Box,
 } from "@mui/material";
 
 const multiStepInitialValues = {
@@ -23,6 +24,8 @@ const multiStepInitialValues = {
     province: "",
     demo: "",
 };
+import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 
 export function MultiStepForm({ ...props }) {
     const [activeStep, setActiveStep] = useState(0);
@@ -91,6 +94,7 @@ export function MultiStepForm({ ...props }) {
                                         fullWidth
                                         disabled={isSubmitting}
                                     >
+                                        <ArrowBackOutlinedIcon />
                                         Paso anterior
                                     </Button>
                                 ) : null}
@@ -113,6 +117,7 @@ export function MultiStepForm({ ...props }) {
                                         : isLastStep()
                                         ? "Confirmar"
                                         : "Siguiente"}
+                                    <ArrowForwardOutlinedIcon />
                                 </Button>
                             </Grid>
                         </DialogActions>

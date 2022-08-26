@@ -33,7 +33,7 @@ export default function NewOperationModal({ ...props }) {
             scroll={"paper"}
         >
             <DialogTitle>
-                <Typography fontWeight="bold" align="center" variant="h6">
+                <Typography variant="h4" component="span">
                     Nueva operacion
                 </Typography>
             </DialogTitle>
