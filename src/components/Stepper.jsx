@@ -5,13 +5,15 @@ import StepConnector, {
 import { styled } from "@mui/material/styles";
 import TripOriginRoundedIcon from "@mui/icons-material/TripOriginRounded";
 import LensRoundedIcon from "@mui/icons-material/LensRounded";
-import { Step, StepLabel } from "@mui/material";
+import { Step, StepLabel, Stepper as StepperMaterial } from "@mui/material";
 
 export default function Stepper({ activeStep, childrenArray }) {
+    const [open, setOpen] = React.useState(false);
+
     if (!childrenArray) return <div>Loading</div>;
 
     return (
-        <Stepper
+        <StepperMaterial
             alternativeLabel
             activeStep={activeStep}
             connector={<QontoConnector />}
@@ -21,7 +23,7 @@ export default function Stepper({ activeStep, childrenArray }) {
                     <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
                 </Step>
             ))}
-        </Stepper>
+        </StepperMaterial>
     );
 }
 

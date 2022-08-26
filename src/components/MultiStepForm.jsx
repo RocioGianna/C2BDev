@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Button, Typography, Grid, CircularProgress } from "@mui/material";
 import { Form, Formik } from "formik";
-import FormSteps from "../utils/Utils";
 import Stepper from "./Stepper";
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from "@mui/material";
 
 const multiStepInitialValues = {
     clientName: "",
@@ -18,16 +24,18 @@ const multiStepInitialValues = {
     demo: "",
 };
 
-export function MultiStepForm(...props) {
+export function MultiStepForm({ ...props }) {
     const [activeStep, setActiveStep] = useState(0);
-    const currentChild = FormSteps[activeStep];
+
+    const stepsArray = props.steps;
+    const currentChild = stepsArray[activeStep];
 
     const CurrentComponent = currentChild.ReactComponent;
     const currentValidationSchema = currentChild.ValidationSchema;
     const currentLabel = currentChild.Label;
 
     function isLastStep() {
-        return activeStep === FormSteps.length - 1;
+        return activeStep === stepsArray.length - 1;
     }
 
     return (
@@ -48,20 +56,9 @@ export function MultiStepForm(...props) {
                 <Form autoComplete="off">
                     <Grid container rowSpacing={4}>
                         <Grid item xs={12}>
-                            <Typography
-                                id="modal-modal-title"
-                                variant="h4"
-                                fontWeight="bold"
-                                align="center"
-                                component="h2"
-                            >
-                                Nueva operacion
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
                             <Stepper
                                 activeStep={activeStep}
-                                childrenArray={FormSteps}
+                                childrenArray={stepsArray}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -77,44 +74,48 @@ export function MultiStepForm(...props) {
                         <Grid item xs={12}>
                             <CurrentComponent />
                         </Grid>
-                        <Grid item xs={12}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={4}>
-                                    {activeStep > 0 ? (
-                                        <Button
-                                            onClick={() =>
-                                                setActiveStep(activeStep - 1)
-                                            }
-                                            variant="contained"
-                                            fullWidth
-                                            disabled={isSubmitting}
-                                        >
-                                            Paso anterior
-                                        </Button>
-                                    ) : null}
-                                </Grid>
-                                <Grid item xs={4}></Grid>
-                                <Grid item xs={4}>
+                        <DialogActions
+                            sx={{
+                                width: "100%",
+                                paddingLeft: 0,
+                                paddingRight: 0,
+                            }}
+                        >
+                            <Grid item xs={4}>
+                                {activeStep > 0 ? (
                                     <Button
-                                        startIcon={
-                                            isSubmitting ? (
-                                                <CircularProgress size="1rem" />
-                                            ) : null
+                                        onClick={() =>
+                                            setActiveStep(activeStep - 1)
                                         }
-                                        type="submit"
                                         variant="contained"
                                         fullWidth
                                         disabled={isSubmitting}
                                     >
-                                        {isSubmitting
-                                            ? "Confirmando"
-                                            : isLastStep()
-                                            ? "Confirmar"
-                                            : "Siguiente"}
+                                        Paso anterior
                                     </Button>
-                                </Grid>
+                                ) : null}
                             </Grid>
-                        </Grid>
+                            <Grid item xs={4}></Grid>
+                            <Grid item xs={4}>
+                                <Button
+                                    startIcon={
+                                        isSubmitting ? (
+                                            <CircularProgress size="1rem" />
+                                        ) : null
+                                    }
+                                    type="submit"
+                                    variant="contained"
+                                    fullWidth
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting
+                                        ? "Confirmando"
+                                        : isLastStep()
+                                        ? "Confirmar"
+                                        : "Siguiente"}
+                                </Button>
+                            </Grid>
+                        </DialogActions>
                     </Grid>
                 </Form>
             )}

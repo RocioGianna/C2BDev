@@ -1,35 +1,52 @@
 import React from "react";
-import { Modal, Card } from "@mui/material";
 import { MultiStepForm } from "./MultiStepForm";
+import FormSteps from "../utils/Utils";
+import { useNavigate } from "react-router-dom";
+
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Typography,
+} from "@mui/material";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export default function NewOperationModal(props) {
+export default function NewOperationModal({ ...props }) {
+    const [open, setOpen] = React.useState(true);
+    const navigate = useNavigate();
+
+    const handleClose = (value) => {
+        setOpen(false);
+        navigate("/home");
+    };
+
     return (
-        <Modal
-            open={props.open}
-            onClose={props.handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            maxWidth={"lg"}
+            width={"lg"}
+            fullWidth={true}
+            scroll={"paper"}
         >
-            <Card
-                sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    bgcolor: "background.paper",
-                    p: 8,
-                    width: "80%",
-                }}
-            >
+            <DialogTitle>
+                <Typography fontWeight="bold" align="center" variant="h6">
+                    Nueva operacion
+                </Typography>
+            </DialogTitle>
+
+            <DialogContent>
                 <MultiStepForm
                     onSubmit={async () => {
                         await sleep(3000);
                         console.log("submit");
                     }}
+                    steps={FormSteps}
                 />
-            </Card>
-        </Modal>
+            </DialogContent>
+        </Dialog>
     );
 }

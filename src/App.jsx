@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Ops from "./pages/Ops";
 import { refreshAccessToken } from "./services/AuthService";
 import RestrictedRoute from "./components/RestrictedRoute";
-import NewOperation from "./components/NewOperation";
+import NewOperationModal from "./components/NewOperationModal";
 
 function App() {
     useEffect(() => {
@@ -37,7 +37,7 @@ function App() {
                         </RestrictedRoute>
                     }
                 >
-                    <Route path="new" element={<NewOperation />} />
+                    <Route path="new" element={<NewOperationModal />} />
                 </Route>
             </Route>
         </Routes>
