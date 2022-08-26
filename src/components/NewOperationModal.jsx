@@ -1,6 +1,6 @@
 import React from "react";
 import { MultiStepForm } from "./MultiStepForm";
-import FormSteps from "../utils/Utils";
+import FormSteps from "./Steps/StepBundler";
 import { useNavigate } from "react-router-dom";
 
 import {

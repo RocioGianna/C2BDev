@@ -1,5 +1,5 @@
-import ClientDataStepBundle from "../components/newOperation/ClientDataStep";
-import FirstStepBundle from "../components/newOperation/FirstStep";
+import ClientDataStepBundle from "./ClientDataStep";
+import FirstStepBundle from "./FirstStep";
 
 const StepArray = [FirstStepBundle, ClientDataStepBundle];
 StepArray.forEach((value) => {
@@ -9,5 +9,3 @@ StepArray.forEach((value) => {
 });
 
 export default StepArray;
-// STEPBUNDLER
-// NEW OPERATIONS --> STEPS
