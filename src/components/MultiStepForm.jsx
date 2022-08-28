@@ -80,6 +80,7 @@ export function MultiStepForm({ ...props }) {
                         <DialogActions
                             sx={{
                                 width: "100%",
+                                pt: 5,
                                 paddingLeft: 0,
                                 paddingRight: 0,
                             }}
@@ -94,8 +95,17 @@ export function MultiStepForm({ ...props }) {
                                         fullWidth
                                         disabled={isSubmitting}
                                     >
-                                        <ArrowBackOutlinedIcon />
-                                        Paso anterior
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                width: "100%",
+                                            }}
+                                        >
+                                            <ArrowBackOutlinedIcon />
+                                            Paso anterior
+                                            <span> </span>
+                                        </Box>
                                     </Button>
                                 ) : null}
                             </Grid>
@@ -112,12 +122,21 @@ export function MultiStepForm({ ...props }) {
                                     fullWidth
                                     disabled={isSubmitting}
                                 >
-                                    {isSubmitting
-                                        ? "Confirmando"
-                                        : isLastStep()
-                                        ? "Confirmar"
-                                        : "Siguiente"}
-                                    <ArrowForwardOutlinedIcon />
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <span></span>
+                                        {isSubmitting
+                                            ? "Confirmando"
+                                            : isLastStep()
+                                            ? "Confirmar"
+                                            : "Siguiente"}
+                                        <ArrowForwardOutlinedIcon />
+                                    </Box>
                                 </Button>
                             </Grid>
                         </DialogActions>

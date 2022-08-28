@@ -39,8 +39,8 @@ export default function NewOperationModal({ ...props }) {
         <Dialog
             open={open}
             onClose={handleClose}
-            maxWidth={"lg"}
-            width={"lg"}
+            maxWidth={"md"}
+            width={"md"}
             fullWidth={true}
             scroll={"paper"}
         >
