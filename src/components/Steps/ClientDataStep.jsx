@@ -1,11 +1,81 @@
 import React from "react";
 import { Box, Grid } from "@mui/material";
-import { TextField, CheckboxWithLabel } from "formik-material-ui";
+import { TextField } from "formik-material-ui";
 import { Field, useField } from "formik";
+import { phoneRegex } from "../../utils/RegexUtils";
 import ConditionalForm from "./ConditionalForm";
+import * as yup from "yup";
 
-export default function ClientDataStep(props) {
+const validationSchema = yup.object().shape({
+    clientName: yup.string().required("El nombre es requerido"),
+    clientSurname: yup.string().required("El apellido es requerido"),
+    dni: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
+    phone: yup
+        .string()
+        .required("El telefono es requerido")
+        .matches(phoneRegex, "Numero de telefono no valido"),
+    email: yup
+        .string("Ingrese su correo electronico")
+        .email("Ingrese un correo electronico valido")
+        .required("El correo electronico es requerido"),
+    bankAccount: yup
+        .string("Ingrese su cuenta bancaria")
+        .required("La cuenta bancaria es requerida"),
+    billingAddress: yup
+        .string("Ingrese su direccion de facturacion")
+        .required("La direccion de facturacion es requerida"),
+    zipCode: yup
+        .string("Ingrese su codigo postal")
+        .required("El codigo postal es requerido"),
+    municipality: yup
+        .string("Ingrese su municipio")
+        .required("El municipio es requerido"),
+    province: yup
+        .string("Ingrese su provincia")
+        .required("La provincia es requerida"),
+    instalattionAddress: yup
+        .string("Ingrese su direccion de instalacion")
+        .when("conditionalField", {
+            is: true,
+            then: yup
+                .string()
+                .required("La direccion de instalacion es requerida")
+                .notOneOf(
+                    [yup.ref("billingAddress")],
+                    "Las direcciones no deben coincidir"
+                ),
+        }),
+    zipCodeInstallation: yup
+        .string("Ingrese su codigo postal de instalacion")
+        .when("conditionalField", {
+            is: true,
+            then: yup
+                .string()
+                .required("El codigo postal de instalacion es requerido"),
+        }),
+    municipalityInstallation: yup
+        .string("Ingrese su municipio de instalacion")
+        .when("conditionalField", {
+            is: true,
+            then: yup
+                .string()
+                .required("El municipio de instalacion es requerido"),
+        }),
+    provinceInstallation: yup
+        .string("Ingrese su provincia de instalacion")
+        .when("conditionalField", {
+            is: true,
+            then: yup
+                .string()
+                .required("La provincia de instalacion es requerida"),
+        }),
+});
+
+function ClientDataStep(props) {
     const [field] = useField("conditionalField");
+
+    console.log(field);
+
     return (
         <Box sx={{ flexGrow: 1 }} label={props.label}>
             <Grid container spacing={2}>
@@ -136,3 +206,9 @@ export default function ClientDataStep(props) {
         </Box>
     );
 }
+
+export default {
+    ValidationSchema: validationSchema,
+    ReactComponent: ClientDataStep,
+    Label: "Datos del cliente",
+};

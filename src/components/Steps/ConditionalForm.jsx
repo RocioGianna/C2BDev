@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import { Field } from "formik";
 import { CheckboxWithLabel } from "formik-material-ui";
-import { useField } from "formik";
 
 export default function ConditionalForm({ children, ...props }) {
-    const [conditionalField, setConditionalField] = React.useState(
-        props.fieldValue
-    );
+    const [conditionalField, setConditionalField] = useState(props.fieldValue);
 
     return (
         <>
