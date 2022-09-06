@@ -8,26 +8,24 @@ import LensRoundedIcon from "@mui/icons-material/LensRounded";
 import { Step, StepLabel, Stepper as StepperMaterial } from "@mui/material";
 
 export default function Stepper({ activeStep, childrenArray }) {
-    const [open, setOpen] = React.useState(false);
-
     if (!childrenArray) return <div>Loading</div>;
 
     return (
         <StepperMaterial
             alternativeLabel
             activeStep={activeStep}
-            connector={<QontoConnector />}
+            connector={<Connector />}
         >
             {childrenArray.map((child) => (
                 <Step key={child.Label}>
-                    <StepLabel StepIconComponent={QontoStepIcon}></StepLabel>
+                    <StepLabel StepIconComponent={StepIcon}></StepLabel>
                 </Step>
             ))}
         </StepperMaterial>
     );
 }
 
-const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
+const StepIconRoot = styled("div")(({ theme, ownerState }) => ({
     color: theme.palette.mode === "dark" ? theme.palette.grey[700] : "#eaeaf0",
     display: "flex",
     height: 22,
@@ -48,21 +46,21 @@ const QontoStepIconRoot = styled("div")(({ theme, ownerState }) => ({
     },
 }));
 
-export function QontoStepIcon(props) {
+function StepIcon(props) {
     const { active, completed, className } = props;
 
     return (
-        <QontoStepIconRoot ownerState={{ active }} className={className}>
+        <StepIconRoot ownerState={{ active }} className={className}>
             {completed ? (
                 <TripOriginRoundedIcon className="QontoStepIcon-completedIcon" />
             ) : (
                 <LensRoundedIcon />
             )}
-        </QontoStepIconRoot>
+        </StepIconRoot>
     );
 }
 
-export const QontoConnector = styled(StepConnector)(({ theme }) => ({
+const Connector = styled(StepConnector)(({ theme }) => ({
     [`&.${stepConnectorClasses.alternativeLabel}`]: {
         top: 10,
         left: "calc(-50% + 16px)",
