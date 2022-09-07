@@ -1,7 +1,8 @@
 import ClientDataStepBundle from "./ClientDataStep";
 import FirstStepBundle from "./FirstStep";
+import ProductStepBundle from "./ProductStep";
 
-const StepArray = [FirstStepBundle, ClientDataStepBundle];
+const StepArray = [ProductStepBundle, FirstStepBundle, ClientDataStepBundle];
 StepArray.forEach((value) => {
     const isStepValid =
         value.ValidationSchema && value.Label && value.ReactComponent;
