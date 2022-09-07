@@ -14,14 +14,10 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Title = ({ title }) => {
     return (
-        <DialogTitle>
-            <Box display="flex">
-                <Box m="auto">
-                    <Typography variant="h4" component="span">
-                        {title}
-                    </Typography>
-                </Box>
-            </Box>
+        <DialogTitle textAlign="center">
+            <Typography variant="h4" component="p">
+                {title}
+            </Typography>
         </DialogTitle>
     );
 };
