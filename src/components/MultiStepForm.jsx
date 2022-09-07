@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import { Button, Typography, Grid, CircularProgress } from "@mui/material";
 import { Form, Formik } from "formik";
 import Stepper from "./Stepper";
-import {
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Box,
-} from "@mui/material";
+import { DialogActions, Box } from "@mui/material";
 
 const multiStepInitialValues = {
     clientName: "",
@@ -23,6 +16,11 @@ const multiStepInitialValues = {
     municipality: "",
     province: "",
     demo: "",
+    conditionalField: false,
+    instalattionAddress: "",
+    zipCodeInstallation: "",
+    municipalityInstallation: "",
+    provinceInstallation: "",
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
