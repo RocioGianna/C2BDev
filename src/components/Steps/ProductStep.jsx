@@ -210,7 +210,10 @@ export function ProductStep() {
     );
 }
 
-const validationSchema = yup.object().shape({});
+const validationSchema = yup.object().shape({
+    productId: yup.string().required("El producto es requerido"),
+    productDetailId: yup.string().required("REQUERIDO"),
+});
 
 export default {
     ValidationSchema: validationSchema,
