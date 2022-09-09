@@ -23,6 +23,8 @@ const multiStepInitialValues = {
     municipality: "",
     province: "",
     demo: "",
+    productId: "",
+    productDetailId: "",
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
