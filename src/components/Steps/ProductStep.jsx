@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Field, useField } from "formik";
 import { Select, Box, Grid, MenuItem, InputLabel } from "@mui/material";
+import FormSelect from "../form/FormSelect";
 
 // GET /products
 const products = [
@@ -68,7 +69,6 @@ const products = [
         additionalTypes: [2],
     },
 ];
-
 // GET /additionals
 const additionals = [
     {
@@ -139,71 +139,47 @@ const additionals = [
     },
 ];
 
-const ProductSelect = ({ children, form, field }) => {
-    const { name, value } = field;
-    const { setFieldValue } = form;
-
-    return (
-        <Select
-            defaultValue=""
-            name={name}
-            value={value}
-            fullWidth
-            onChange={(e) => {
-                setFieldValue(name, e.target.value);
-            }}
-        >
-            {children}
-        </Select>
-    );
-};
-
 export function ProductStep() {
-    const [productIdField] = useField("productId");
-    const [productIdField2] = useField("productDetailId");
+    /* const productAdditionalsIds = products[productId].additionalTypes;
+    // Find
+    const productAdditionals = additionals.filter((a) =>
+        productAdditionalsIds.includes(a.id)
+    ); */
 
-    const currentProductId = productIdField;
-    const currentAdditionals = additionals[currentProductId.value];
+    const [productId] = useField("productId");
+
+    const optionsByProduct = (productId) => {
+        const product = products.find((p) => p.id == productId);
+        const productOptions = product.options;
+
+        return productOptions.map((option) => (
+            <MenuItem key={option.id} value={option.id}>
+                {option.name}
+            </MenuItem>
+        ));
+    };
 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <InputLabel id="helperLabel">Producto</InputLabel>
-                    <Field
-                        fullWidth
-                        id="helperLabel"
-                        labelId="helperLabel"
-                        component={ProductSelect}
-                        label="Producto"
-                        name="productId"
-                    >
-                        {products.map((prod) => (
-                            <MenuItem value={prod.id} key={prod.id}>
-                                {prod.name}
+                    <FormSelect name={"productId"} label={"Nombre de Producto"}>
+                        {products.map((p) => (
+                            <MenuItem key={p.id} value={p.id}>
+                                {p.name}
                             </MenuItem>
                         ))}
-                    </Field>
+                    </FormSelect>
                 </Grid>
                 <Grid item xs={12}>
-                    <InputLabel id="helperDetailLabel">
-                        Detalle de Producto
-                    </InputLabel>
-                    <Field
-                        fullWidth
-                        id="helperDetailLabel"
-                        labelId="helperDetailLabel"
-                        component={ProductSelect}
-                        label="Detalle de Producto"
-                        name="productDetailId"
+                    <FormSelect
+                        name={"productOptionId"}
+                        label={"Opcion de Producto"}
+                        // disabled={productId.value === ""}
                     >
-                        {currentAdditionals &&
-                            currentAdditionals.options.map((opt) => (
-                                <MenuItem value={opt.id} key={opt.id}>
-                                    {opt.name}
-                                </MenuItem>
-                            ))}
-                    </Field>
+                        {productId.value !== "" &&
+                            optionsByProduct(productId.value)}
+                    </FormSelect>
                 </Grid>
             </Grid>
         </Box>
@@ -212,7 +188,7 @@ export function ProductStep() {
 
 const validationSchema = yup.object().shape({
     productId: yup.string().required("El producto es requerido"),
-    productDetailId: yup.string().required("REQUERIDO"),
+    productOptionId: yup.string().required("La opcion es requerida"),
 });
 
 export default {
