@@ -46,7 +46,6 @@ export default function NewOperationModal({ ...props }) {
                 <MultiStepForm
                     onSubmit={async () => {
                         await sleep(3000);
-                        console.log("submit");
                     }}
                     steps={FormSteps}
                 />

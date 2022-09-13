@@ -12,26 +12,24 @@ export default function FormSelect({ name, children, label, disabled }) {
             component={({ children, form, field, label }) => {
                 const { name, value } = field;
                 const { setFieldValue, errors, getFieldMeta } = form;
-                console.log("meta: ", getFieldMeta(name).touched);
 
-                console.log(errors[name]);
-                console.log(field);
+                const wasTouched = getFieldMeta(name).touched;
 
                 return (
                     <FormControl
                         fullWidth
-                        error={!!errors[name] && getFieldMeta(name).touched}
+                        error={!!errors[name] && wasTouched && !disabled}
                         disabled={!!disabled}
                     >
                         <InputLabel id={name + "-label"}>{label}</InputLabel>
                         <Select
-                            defaultValue={""}
+                            defaultValue=""
                             labelId={name + "-label"}
                             name={name}
-                            // id={name}
                             label={label}
                             value={value}
                             onChange={(e) => {
+                                console.log(e.target.value);
                                 setFieldValue(name, e.target.value);
                             }}
                         >

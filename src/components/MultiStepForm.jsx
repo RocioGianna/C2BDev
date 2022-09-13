@@ -26,6 +26,7 @@ const multiStepInitialValues = {
     productId: "",
     productDetailId: "",
     productOptionId: "",
+    additionals: [""],
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
@@ -50,7 +51,6 @@ export function MultiStepForm({ ...props }) {
             initialValues={multiStepInitialValues}
             validationSchema={currentValidationSchema}
             onSubmit={async (values, helpers) => {
-                console.log("submit");
                 if (isLastStep()) {
                     await props.onSubmit(values, helpers);
                 } else {

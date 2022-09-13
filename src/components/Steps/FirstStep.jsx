@@ -5,7 +5,6 @@ const validationSchema = yup.object().shape({});
 
 function FirstStep() {
     return <div>firstStep</div>;
-    
 }
 
 export default {

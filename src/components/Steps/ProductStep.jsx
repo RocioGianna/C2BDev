@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import { Field, useField } from "formik";
-import { Select, Box, Grid, MenuItem, InputLabel } from "@mui/material";
+import {
+    Select,
+    Box,
+    Grid,
+    MenuItem,
+    InputLabel,
+    ListSubheader,
+} from "@mui/material";
 import FormSelect from "../form/FormSelect";
+import FormSelectGroup from "../form/FormSelectGroup";
+import AdditionalsMultiSelect from "../form/AdditionalsMultiSelect";
 
 // GET /products
 const products = [
@@ -140,12 +149,6 @@ const additionals = [
 ];
 
 export function ProductStep() {
-    /* const productAdditionalsIds = products[productId].additionalTypes;
-    // Find
-    const productAdditionals = additionals.filter((a) =>
-        productAdditionalsIds.includes(a.id)
-    ); */
-
     const [productId] = useField("productId");
 
     const optionsByProduct = (productId) => {
@@ -157,6 +160,12 @@ export function ProductStep() {
                 {option.name}
             </MenuItem>
         ));
+    };
+
+    const additionalsByProduct = (productId) => {
+        const product = products.find((p) => p.id == productId);
+        const additionalsIds = product.additionalTypes;
+        return additionals.filter((a) => additionalsIds.includes(a.id));
     };
 
     return (
@@ -175,11 +184,34 @@ export function ProductStep() {
                     <FormSelect
                         name={"productOptionId"}
                         label={"Opcion de Producto"}
-                        // disabled={productId.value === ""}
+                        disabled={productId.value === ""}
                     >
                         {productId.value !== "" &&
                             optionsByProduct(productId.value)}
                     </FormSelect>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <AdditionalsMultiSelect
+                        disabled={productId.value === ""}
+                        name={"additionals"}
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+
+                        {productId.value !== "" &&
+                            additionalsByProduct(productId.value).map((a) => (
+                                <div key={a.id}>
+                                    <ListSubheader>{a.name}</ListSubheader>
+                                    {a.options.map((o) => (
+                                        <MenuItem key={o.id} value={o}>
+                                            {o.name}
+                                        </MenuItem>
+                                    ))}
+                                </div>
+                            ))}
+                    </AdditionalsMultiSelect>
                 </Grid>
             </Grid>
         </Box>
