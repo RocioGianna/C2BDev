@@ -24,9 +24,8 @@ const multiStepInitialValues = {
     province: "",
     demo: "",
     productId: "",
-    productDetailId: "",
     productOptionId: "",
-    additionals: [""],
+    additionals: [],
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";

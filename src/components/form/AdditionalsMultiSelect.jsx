@@ -1,39 +1,78 @@
 import React from "react";
 import { FieldArray, useField } from "formik";
-import { Grid, Button } from "@mui/material";
-import FormSelect from "./FormSelect";
+import { Grid, Button, Typography, Box } from "@mui/material";
+import FormSelectFieldArray from "./FormSelectFieldArray";
+import { height } from "@mui/system";
 
-export default function AdditionalsMultiSelect({ disabled, name, children }) {
+export default function AdditionalsMultiSelect({
+    disabled,
+    name,
+    children,
+    title,
+}) {
     const [field, meta, helpers] = useField(name);
 
-    console.log(field);
+    const lastIsEmpty = () => {
+        const lastValue = field.value[field.value.length - 1];
+        return lastValue == "";
+    };
 
     return (
-        <FieldArray name="additionals">
-            {(push, remove) => (
-                <>
-                    {field.value.map((_, index) => (
-                        <div key={index}>
-                            <Grid container>
-                                <Grid item xs={10}>
-                                    <FormSelect
+        <>
+            <Typography
+                variant="h6"
+                align="center"
+                component="h2"
+                sx={{ m: 2 }}
+            >
+                {title}
+            </Typography>
+            <FieldArray name="additionals">
+                {({ push, remove }) => (
+                    <>
+                        {field.value.map((_, index) => (
+                            <Box
+                                key={index}
+                                sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        flexGrow: 1,
+                                    }}
+                                >
+                                    <FormSelectFieldArray
                                         name={`${name}[${index}]`}
                                         label={"Adicionales"}
                                         disabled={disabled}
                                     >
                                         {children}
-                                    </FormSelect>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    <Button onClick={() => remove(index)}>
-                                        Borrar
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </div>
-                    ))}
-                </>
-            )}
-        </FieldArray>
+                                    </FormSelectFieldArray>
+                                </Box>
+                                <Button
+                                    sx={{
+                                        width: "10%",
+                                        m: 3,
+                                    }}
+                                    onClick={() => remove(index)}
+                                    variant="contained"
+                                >
+                                    Borrar
+                                </Button>
+                            </Box>
+                        ))}
+                        <Button
+                            onClick={() => push("")}
+                            disabled={disabled || lastIsEmpty()}
+                            variant="contained"
+                        >
+                            Agregar
+                        </Button>
+                    </>
+                )}
+            </FieldArray>
+        </>
     );
 }

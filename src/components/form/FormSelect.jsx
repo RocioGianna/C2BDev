@@ -29,7 +29,6 @@ export default function FormSelect({ name, children, label, disabled }) {
                             label={label}
                             value={value}
                             onChange={(e) => {
-                                console.log(e.target.value);
                                 setFieldValue(name, e.target.value);
                             }}
                         >
