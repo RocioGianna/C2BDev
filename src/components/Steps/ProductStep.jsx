@@ -12,7 +12,6 @@ import {
     Typography,
 } from "@mui/material";
 import FormSelect from "../form/FormSelect";
-import FormSelectGroup from "../form/FormSelectGroup";
 import AdditionalsMultiSelect from "../form/AdditionalsMultiSelect";
 import { Autocomplete } from "formik-mui";
 
