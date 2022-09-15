@@ -1,9 +1,10 @@
 import React from "react";
-import * as yup from "yup";
 import { Box, Grid } from "@mui/material";
 import { TextField } from "formik-material-ui";
-import { Field } from "formik";
+import { Field, useField } from "formik";
 import { phoneRegex } from "../../utils/RegexUtils";
+import ConditionalForm from "./ConditionalForm";
+import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
     clientName: yup.string().required("El nombre es requerido"),
@@ -32,9 +33,49 @@ const validationSchema = yup.object().shape({
     province: yup
         .string("Ingrese su provincia")
         .required("La provincia es requerida"),
+    instalattionAddress: yup
+        .string("Ingrese su direccion de instalacion")
+        .when("conditionalField", {
+            is: true,
+            then: yup
+                .string()
+                .required("La direccion de instalacion es requerida")
+                .notOneOf(
+                    [yup.ref("billingAddress")],
+                    "Las direcciones no deben coincidir"
+                ),
+        }),
+    zipCodeInstallation: yup
+        .string("Ingrese su codigo postal de instalacion")
+        .when("conditionalField", {
+            is: true,
+            then: yup
+                .string()
+                .required("El codigo postal de instalacion es requerido"),
+        }),
+    municipalityInstallation: yup
+        .string("Ingrese su municipio de instalacion")
+        .when("conditionalField", {
+            is: true,
+            then: yup
+                .string()
+                .required("El municipio de instalacion es requerido"),
+        }),
+    provinceInstallation: yup
+        .string("Ingrese su provincia de instalacion")
+        .when("conditionalField", {
+            is: true,
+            then: yup
+                .string()
+                .required("La provincia de instalacion es requerida"),
+        }),
 });
 
 function ClientDataStep(props) {
+    const [field] = useField("conditionalField");
+
+    console.log(field);
+
     return (
         <Box sx={{ flexGrow: 1 }} label={props.label}>
             <Grid container spacing={2}>
@@ -122,6 +163,45 @@ function ClientDataStep(props) {
                         component={TextField}
                     />
                 </Grid>
+                <ConditionalForm
+                    label={
+                        "Direccion de instalacion distinta a la direccion de facturacion"
+                    }
+                    fieldValue={field.value}
+                >
+                    <Grid item xs={9}>
+                        <Field
+                            fullWidth
+                            name="instalattionAddress"
+                            label="Direccion de instalacion"
+                            component={TextField}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Field
+                            fullWidth
+                            name="zipCodeInstallation"
+                            label="Codigo postal correspondiente a la direccion de instalacion"
+                            component={TextField}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Field
+                            fullWidth
+                            name="municipalityInstallation"
+                            label="Municipio correspondiente a la direccion de instalacion"
+                            component={TextField}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Field
+                            fullWidth
+                            name="provinceInstallation"
+                            label="Provincia correspondiente a la direccion de instalacion"
+                            component={TextField}
+                        />
+                    </Grid>
+                </ConditionalForm>
             </Grid>
         </Box>
     );
