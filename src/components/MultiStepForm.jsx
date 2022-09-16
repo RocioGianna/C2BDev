@@ -25,6 +25,9 @@ const multiStepInitialValues = {
     zipCodeInstallation2: "",
     municipalityInstallation2: "",
     provinceInstallation2: "",
+    observations: "",
+    collaboratorEmail: "",
+    collaboratorPhone: "",
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
