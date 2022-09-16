@@ -10,6 +10,7 @@ import DropZone from "../DropZone";
 const validationSchema = yup.object().shape({
     collaboratorEmail: yup.string().required("El email es requerido"),
     collaboratorPhone: yup.string().required("El telefono es requerido"),
+    offeredPrice: yup.string().required("El precio es requerido"),
 });
 
 export function DocumentationStep() {
@@ -31,7 +32,15 @@ export function DocumentationStep() {
                 label="Observaciones"
                 component={TextField}
                 type="text"
-                InputProps={{ sx: { height: 120 } }}
+                InputProps={{ sx: { height: 100 } }}
+            />
+            <Field
+                fullWidth
+                name="offeredPrice"
+                label="Precio ofrecido por el cliente"
+                component={TextField}
+                type="text"
+                InputProps={{ sx: { height: 100 } }}
             />
             <EditableField
                 name={"collaboratorEmail"}

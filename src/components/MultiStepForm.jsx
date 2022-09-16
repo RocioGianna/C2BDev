@@ -26,6 +26,7 @@ const multiStepInitialValues = {
     municipalityInstallation2: "",
     provinceInstallation2: "",
     observations: "",
+    offeredPrice: "",
     collaboratorEmail: "",
     collaboratorPhone: "",
 };
