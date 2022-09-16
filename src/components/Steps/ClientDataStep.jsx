@@ -35,7 +35,7 @@ const validationSchema = yup.object().shape({
         .required("La provincia es requerida"),
     instalattionAddress: yup
         .string("Ingrese su direccion de instalacion")
-        .when("conditionalField", {
+        .when("checkbox", {
             is: true,
             then: yup
                 .string()
@@ -47,7 +47,7 @@ const validationSchema = yup.object().shape({
         }),
     zipCodeInstallation: yup
         .string("Ingrese su codigo postal de instalacion")
-        .when("conditionalField", {
+        .when("checkbox", {
             is: true,
             then: yup
                 .string()
@@ -55,7 +55,7 @@ const validationSchema = yup.object().shape({
         }),
     municipalityInstallation: yup
         .string("Ingrese su municipio de instalacion")
-        .when("conditionalField", {
+        .when("checkbox", {
             is: true,
             then: yup
                 .string()
@@ -63,7 +63,43 @@ const validationSchema = yup.object().shape({
         }),
     provinceInstallation: yup
         .string("Ingrese su provincia de instalacion")
-        .when("conditionalField", {
+        .when("checkbox", {
+            is: true,
+            then: yup
+                .string()
+                .required("La provincia de instalacion es requerida"),
+        }),
+    instalattionAddress2: yup
+        .string("Ingrese su direccion de instalacion")
+        .when("checkbox2", {
+            is: true,
+            then: yup
+                .string()
+                .required("La direccion de instalacion es requerida")
+                .notOneOf(
+                    [yup.ref("billingAddress")],
+                    "Las direcciones no deben coincidir"
+                ),
+        }),
+    zipCodeInstallation2: yup
+        .string("Ingrese su codigo postal de instalacion")
+        .when("checkbox2", {
+            is: true,
+            then: yup
+                .string()
+                .required("El codigo postal de instalacion es requerido"),
+        }),
+    municipalityInstallation2: yup
+        .string("Ingrese su municipio de instalacion")
+        .when("checkbox2", {
+            is: true,
+            then: yup
+                .string()
+                .required("El municipio de instalacion es requerido"),
+        }),
+    provinceInstallation2: yup
+        .string("Ingrese su provincia de instalacion")
+        .when("checkbox2", {
             is: true,
             then: yup
                 .string()
@@ -72,9 +108,8 @@ const validationSchema = yup.object().shape({
 });
 
 function ClientDataStep(props) {
-    const [field] = useField("conditionalField");
-
-    console.log(field);
+    const [checkbox] = useField("checkbox");
+    const [checkbox2] = useField("checkbox2");
 
     return (
         <Box sx={{ flexGrow: 1 }} label={props.label}>
@@ -167,7 +202,8 @@ function ClientDataStep(props) {
                     label={
                         "Direccion de instalacion distinta a la direccion de facturacion"
                     }
-                    fieldValue={field.value}
+                    fieldValue={checkbox.value}
+                    name={"checkbox"}
                 >
                     <Grid item xs={9}>
                         <Field
@@ -181,7 +217,7 @@ function ClientDataStep(props) {
                         <Field
                             fullWidth
                             name="zipCodeInstallation"
-                            label="Codigo postal correspondiente a la direccion de instalacion"
+                            label="Codigo postal"
                             component={TextField}
                         />
                     </Grid>
@@ -189,7 +225,7 @@ function ClientDataStep(props) {
                         <Field
                             fullWidth
                             name="municipalityInstallation"
-                            label="Municipio correspondiente a la direccion de instalacion"
+                            label="Municipio"
                             component={TextField}
                         />
                     </Grid>
@@ -197,7 +233,47 @@ function ClientDataStep(props) {
                         <Field
                             fullWidth
                             name="provinceInstallation"
-                            label="Provincia correspondiente a la direccion de instalacion"
+                            label="Provincia"
+                            component={TextField}
+                        />
+                    </Grid>
+                </ConditionalForm>
+                <ConditionalForm
+                    label={
+                        "Direccion de entrega lineas moviles distinta a la direccion de instalacion"
+                    }
+                    fieldValue={checkbox2.value}
+                    name={"checkbox2"}
+                >
+                    <Grid item xs={9}>
+                        <Field
+                            fullWidth
+                            name="instalattionAddress2"
+                            label="Direccion de instalacion"
+                            component={TextField}
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Field
+                            fullWidth
+                            name="zipCodeInstallation2"
+                            label="Codigo postal"
+                            component={TextField}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Field
+                            fullWidth
+                            name="municipalityInstallation2"
+                            label="Municipio"
+                            component={TextField}
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Field
+                            fullWidth
+                            name="provinceInstallation2"
+                            label="Provincia"
                             component={TextField}
                         />
                     </Grid>

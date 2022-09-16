@@ -15,12 +15,16 @@ const multiStepInitialValues = {
     zipCode: "",
     municipality: "",
     province: "",
-    demo: "",
-    conditionalField: false,
+    checkbox: false,
+    checkbox2: false,
     instalattionAddress: "",
     zipCodeInstallation: "",
     municipalityInstallation: "",
     provinceInstallation: "",
+    instalattionAddress2: "",
+    zipCodeInstallation2: "",
+    municipalityInstallation2: "",
+    provinceInstallation2: "",
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";

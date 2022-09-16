@@ -3,14 +3,14 @@ import { Grid } from "@mui/material";
 import { Field } from "formik";
 import { CheckboxWithLabel } from "formik-material-ui";
 
-export default function ConditionalForm({ children, ...props }) {
+export default function ConditionalForm({ children, name, ...props }) {
     const [conditionalField, setConditionalField] = useState(props.fieldValue);
 
     return (
         <>
             <Grid item xs={12}>
                 <Field
-                    name="conditionalField"
+                    name={name}
                     type="checkbox"
                     component={CheckboxWithLabel}
                     onClick={() => setConditionalField(!conditionalField)}
