@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { Field, useField, useFormikContext } from "formik";
 import { TextField } from "formik-material-ui";
 import { Box, Grid } from "@mui/material";
+import EditableField from "../EditableField";
 
 import DropZone from "../DropZone";
 
@@ -32,19 +33,13 @@ export function DocumentationStep() {
                 type="text"
                 InputProps={{ sx: { height: 120 } }}
             />
-            <Field
-                fullWidth
-                name="collaboratorEmail"
-                label="Email colaborador"
-                component={TextField}
-                type="text"
+            <EditableField
+                name={"collaboratorEmail"}
+                label={"Email colaborador"}
             />
-            <Field
-                fullWidth
-                name="collaboratorPhone"
-                label="Telefono colaborador"
-                component={TextField}
-                type="text"
+            <EditableField
+                name={"collaboratorPhone"}
+                label={"Telefono colaborador"}
             />
         </Grid>
     );
