@@ -29,6 +29,7 @@ const multiStepInitialValues = {
     offeredPrice: "",
     collaboratorEmail: "",
     collaboratorPhone: "",
+    images: [""],
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
