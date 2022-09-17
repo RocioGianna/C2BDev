@@ -1,9 +1,9 @@
 package com.con2b.back.model.filter;
 
-import com.con2b.back.model.UserDetails2b;
-import com.con2b.back.model.RefreshToken;
-import com.con2b.back.service.RefreshTokenService;
-import com.con2b.back.dto.UserDTO;
+import com.con2b.back.model.user.UserDetails2b;
+import com.con2b.back.model.user.RefreshToken;
+import com.con2b.back.service.user.RefreshTokenService;
+import com.con2b.back.dto.user.UserDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,9 +1,9 @@
-package com.con2b.back.service;
+package com.con2b.back.service.user;
 
-import com.con2b.back.model.UserDetails2b;
-import com.con2b.back.model.User2b;
-import com.con2b.back.model.Role;
-import com.con2b.back.repository.UserRepository;
+import com.con2b.back.model.user.UserDetails2b;
+import com.con2b.back.model.user.User2b;
+import com.con2b.back.model.user.Role;
+import com.con2b.back.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +16,7 @@ import java.util.List;
 
 @Service @Transactional
 public class UserService implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
 

@@ -1,4 +1,4 @@
-package com.con2b.back.model;
+package com.con2b.back.model.user;
 
 import javax.persistence.*;
 import java.util.List;

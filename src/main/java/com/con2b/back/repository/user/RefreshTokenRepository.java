@@ -1,7 +1,7 @@
-package com.con2b.back.repository;
+package com.con2b.back.repository.user;
 
-import com.con2b.back.model.RefreshToken;
-import com.con2b.back.model.User2b;
+import com.con2b.back.model.user.RefreshToken;
+import com.con2b.back.model.user.User2b;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {

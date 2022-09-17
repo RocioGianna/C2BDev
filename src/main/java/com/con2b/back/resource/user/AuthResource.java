@@ -1,10 +1,10 @@
-package com.con2b.back.resource;
+package com.con2b.back.resource.user;
 
-import com.con2b.back.model.UserDetails2b;
+import com.con2b.back.model.user.UserDetails2b;
 import com.con2b.back.util.JWTUtils;
-import com.con2b.back.service.RefreshTokenService;
-import com.con2b.back.model.RefreshToken;
-import com.con2b.back.dto.UserDTO;
+import com.con2b.back.service.user.RefreshTokenService;
+import com.con2b.back.model.user.RefreshToken;
+import com.con2b.back.dto.user.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,4 +1,6 @@
-package com.con2b.back.model;
+package com.con2b.back.model.user;
+
+import com.con2b.back.model.user.User2b;
 
 import javax.persistence.*;
 import java.time.Instant;

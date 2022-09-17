@@ -1,7 +1,7 @@
-package com.con2b.back.resource;
+package com.con2b.back.resource.user;
 
-import com.con2b.back.service.UserService;
-import com.con2b.back.model.User2b;
+import com.con2b.back.service.user.UserService;
+import com.con2b.back.model.user.User2b;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -2,7 +2,7 @@ package com.con2b.back.config;
 
 import com.con2b.back.model.filter.CustomAuthenticationFilter;
 import com.con2b.back.model.filter.CustomAuthorizationFilter;
-import com.con2b.back.service.UserService;
+import com.con2b.back.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;

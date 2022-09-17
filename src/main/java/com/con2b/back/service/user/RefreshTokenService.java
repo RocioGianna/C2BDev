@@ -1,8 +1,8 @@
-package com.con2b.back.service;
+package com.con2b.back.service.user;
 
-import com.con2b.back.model.RefreshToken;
-import com.con2b.back.repository.RefreshTokenRepository;
-import com.con2b.back.repository.UserRepository;
+import com.con2b.back.model.user.RefreshToken;
+import com.con2b.back.repository.user.RefreshTokenRepository;
+import com.con2b.back.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,11 +1,12 @@
-package com.con2b.back.dto;
+package com.con2b.back.dto.user;
 
-import com.con2b.back.model.User2b;
-import com.con2b.back.model.Role;
+import com.con2b.back.model.user.User2b;
+import com.con2b.back.model.user.Role;
 
 import java.util.List;
 
 public class UserDTO {
+
     private String email;
     private String firstname;
     private String lastname;
