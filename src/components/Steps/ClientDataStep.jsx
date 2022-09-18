@@ -242,8 +242,7 @@ function ClientDataStep(props) {
                     label={
                         "Direccion de entrega distinta a la direccion de instalacion"
                     }
-                    fieldValue={checkbox2.value}
-                    name={"checkbox2"}
+                    field={checkbox2.value}
                 >
                     <Grid item xs={9}>
                         <Field

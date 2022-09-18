@@ -3,8 +3,12 @@ import { Grid } from "@mui/material";
 import { Field } from "formik";
 import { CheckboxWithLabel } from "formik-material-ui";
 
-export default function ConditionalForm({ children, name, ...props }) {
-    const [conditionalField, setConditionalField] = useState(props.fieldValue);
+export default function ConditionalForm({ children, fieldValue, ...props }) {
+    if (!fieldValue) return <></>;
+
+    const name = fieldValue.name;
+    const value = fieldValue.value;
+    const [conditionalField, setConditionalField] = useState(value);
 
     return (
         <>

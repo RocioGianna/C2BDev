@@ -50,7 +50,7 @@ export function MultiStepForm({ ...props }) {
         <Formik
             {...props}
             initialValues={multiStepInitialValues}
-            validationSchema={currentValidationSchema}
+            validationSchema={() => currentValidationSchema(activeStep)}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
                     await props.onSubmit(values, helpers);
@@ -80,7 +80,8 @@ export function MultiStepForm({ ...props }) {
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <CurrentComponent />
+                            <CurrentComponent index={activeStep} />{" "}
+                            {/* //TODO : HACER QUE SE PASE LA PROP SII ES MAYOR A 2 EL STEP */}
                         </Grid>
                         <DialogActions
                             sx={{
