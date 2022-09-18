@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
-import { Field } from "formik";
+import { Field, useField } from "formik";
 import { CheckboxWithLabel } from "formik-material-ui";
 
-export default function ConditionalForm({ children, fieldValue, ...props }) {
-    if (!fieldValue) return <></>;
+export default function ConditionalForm({ children, name, ...props }) {
+    const [phoneCheckbox] = useField(name);
 
-    const name = fieldValue.name;
-    const value = fieldValue.value;
-    const [conditionalField, setConditionalField] = useState(value);
+    const value = phoneCheckbox.value;
+    // const [conditionalField, setConditionalField] = useState(value);
+
+    console.log(name);
 
     return (
         <>
@@ -17,13 +18,13 @@ export default function ConditionalForm({ children, fieldValue, ...props }) {
                     name={name}
                     type="checkbox"
                     component={CheckboxWithLabel}
-                    onClick={() => setConditionalField(!conditionalField)}
+                    // onClick={() => setConditionalField(!conditionalField)}
                     Label={{
                         label: props.label,
                     }}
                 />
             </Grid>
-            {conditionalField && children}
+            {value && children}
         </>
     );
 }

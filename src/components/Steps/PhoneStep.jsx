@@ -3,22 +3,21 @@ import * as yup from "yup";
 import { Box, Grid } from "@mui/material";
 import { TextField } from "formik-material-ui";
 import { Field, useField, useFormikContext } from "formik";
-import ConditionalForm from "./ConditionalForm";
+import ConditionalForm from "../form/ConditionalForm";
 
 export function PhoneStep({ index, type }) {
-    const [phoneCheckbox] = useField(`phoneStep_${index}_changePhoneOwner`);
+    const { setFieldValue, values, errors } = useFormikContext();
 
-    const { setFieldValue } = useFormikContext();
-
-    useEffect(() => {
-        setFieldValue(`phoneStep_${index}_phoneOperationType`, "", false);
-        setFieldValue(`phoneStep_${index}_phone`, "", false);
-        setFieldValue(`phoneStep_${index}_phoneOperator`, "", false);
-        setFieldValue(`phoneStep_${index}_surname`, "", false);
-        setFieldValue(`phoneStep_${index}_name`, "", false);
-        setFieldValue(`phoneStep_${index}_dni`, "", false);
-        setFieldValue(`phoneStep_${index}_changePhoneOwner`, false, false);
-    }, []);
+    // useEffect(() => {
+    //     setFieldValue(`phoneStep_${index}_phoneOperationType`, "", false);
+    //     setFieldValue(`phoneStep_${index}_phone`, "", false);
+    //     setFieldValue(`phoneStep_${index}_phoneOperator`, "", false);
+    //     setFieldValue(`phoneStep_${index}_surname`, "", false);
+    //     setFieldValue(`phoneStep_${index}_name`, "", false);
+    //     setFieldValue(`phoneStep_${index}_dni`, "", false);
+    //     setFieldValue(`phoneStep_${index}_changePhoneOwner`, false, false);
+    // }, []);
+    console.log(values);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -49,7 +48,7 @@ export function PhoneStep({ index, type }) {
                 </Grid>
                 <ConditionalForm
                     label={"Cambio de titular de telefono fijo"}
-                    fieldValue={phoneCheckbox}
+                    name={`phoneStep_${index}_changePhoneOwner`}
                 >
                     <Grid item xs={12}>
                         <Field
@@ -105,7 +104,7 @@ const validationSchema = (index) => {
 };
 
 export default {
-    ValidationSchema: validationSchema,
-    ReactComponent: PhoneStep,
-    Label: "Telefono fijo",
+    validationSchema: validationSchema,
+    reactComponent: PhoneStep,
+    label: "Telefono fijo",
 };

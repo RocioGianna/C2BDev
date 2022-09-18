@@ -1,9 +1,11 @@
 import ProductStepBundle from "../components/Steps/ProductStep";
 import ClientDataStepBundle from "../components/Steps/ClientDataStep";
-import FirstStepBundle from "../components/Steps/FirstStep"; // lastStep
+import DocumentationStep from "../components/Steps/DocumentationStep";
+import PhoneStep from "../components/Steps/PhoneStep";
 
 export const steps = {
     PRODUCT_STEP: ProductStepBundle,
     CLIENT_STEP: ClientDataStepBundle,
-    LAST_STEP: FirstStepBundle,
+    DOCUMENTATION_STEP: DocumentationStep,
+    PHONE_STEP: PhoneStep,
 };

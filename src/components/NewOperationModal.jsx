@@ -19,7 +19,7 @@ const Title = ({ title }) => {
 export default function NewOperationModal() {
     const [open, setOpen] = useState(true);
     const navigate = useNavigate();
-    const formSteps = useSelector((state) => state.formSteps);
+    const formSteps = useSelector((state) => state.formSteps.steps);
 
     const handleClose = () => {
         setOpen(false);
@@ -27,7 +27,14 @@ export default function NewOperationModal() {
     };
 
     return (
-        <Dialog open={open} onClose={handleClose} maxWidth={"md"} width={"md"} fullWidth={true} scroll={"paper"}>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            maxWidth={"md"}
+            width={"md"}
+            fullWidth={true}
+            scroll={"paper"}
+        >
             <Title title={"Nueva Operacion"} />
 
             <DialogContent>

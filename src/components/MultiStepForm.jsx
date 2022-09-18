@@ -29,6 +29,11 @@ const multiStepInitialValues = {
     zipCodeInstallation2: "",
     municipalityInstallation2: "",
     provinceInstallation2: "",
+    observations: "",
+    offeredPrice: "",
+    collaboratorEmail: "",
+    collaboratorPhone: "",
+    images: [""],
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
@@ -38,9 +43,10 @@ export function MultiStepForm({ ...props }) {
     const stepsArray = props.steps.map((s) => steps[s]);
     const currentChild = stepsArray[activeStep];
 
-    const CurrentComponent = currentChild.ReactComponent;
-    const currentValidationSchema = currentChild.ValidationSchema;
-    const currentLabel = currentChild.Label;
+    const CurrentComponent = currentChild.reactComponent;
+    const currentValidationSchema = currentChild.validationSchema;
+    const currentLabel = currentChild.label;
+    const currentOnSubmit = currentChild.onSubmit;
 
     function isLastStep() {
         return activeStep === stepsArray.length - 1;
@@ -50,11 +56,14 @@ export function MultiStepForm({ ...props }) {
         <Formik
             {...props}
             initialValues={multiStepInitialValues}
-            validationSchema={() => currentValidationSchema(activeStep)}
+            validationSchema={() => currentValidationSchema(activeStep - 2)}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
                     await props.onSubmit(values, helpers);
                 } else {
+                    if (currentOnSubmit) {
+                        currentOnSubmit(values, helpers.setFieldValue);
+                    }
                     setActiveStep((activeStep) => activeStep + 1);
                 }
                 helpers.setTouched({});
@@ -64,15 +73,23 @@ export function MultiStepForm({ ...props }) {
                 <Form autoComplete="off">
                     <Grid container rowSpacing={4}>
                         <Grid item xs={12}>
-                            <Stepper activeStep={activeStep} childrenArray={stepsArray} />
+                            <Stepper
+                                activeStep={activeStep}
+                                childrenArray={stepsArray}
+                            />
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography id="modal-modal-title" variant="h6" align="center" component="h2">
+                            <Typography
+                                id="modal-modal-title"
+                                variant="h6"
+                                align="center"
+                                component="h2"
+                            >
                                 {currentLabel}
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <CurrentComponent index={activeStep} />{" "}
+                            <CurrentComponent index={activeStep - 2} />
                             {/* //TODO : HACER QUE SE PASE LA PROP SII ES MAYOR A 2 EL STEP */}
                         </Grid>
                         <DialogActions
@@ -87,7 +104,9 @@ export function MultiStepForm({ ...props }) {
                             <Grid item xs={4}>
                                 {activeStep > 0 ? (
                                     <Button
-                                        onClick={() => setActiveStep(activeStep - 1)}
+                                        onClick={() =>
+                                            setActiveStep(activeStep - 1)
+                                        }
                                         variant="contained"
                                         fullWidth
                                         disabled={isSubmitting}
@@ -108,7 +127,11 @@ export function MultiStepForm({ ...props }) {
                             </Grid>
                             <Grid item xs={4}>
                                 <Button
-                                    startIcon={isSubmitting ? <CircularProgress size="1rem" /> : null}
+                                    startIcon={
+                                        isSubmitting ? (
+                                            <CircularProgress size="1rem" />
+                                        ) : null
+                                    }
                                     type="submit"
                                     variant="contained"
                                     fullWidth
@@ -122,7 +145,11 @@ export function MultiStepForm({ ...props }) {
                                         }}
                                     >
                                         <span />
-                                        {isSubmitting ? "Confirmando" : isLastStep() ? "Confirmar" : "Siguiente"}
+                                        {isSubmitting
+                                            ? "Confirmando"
+                                            : isLastStep()
+                                            ? "Confirmar"
+                                            : "Siguiente"}
                                         <ArrowForwardOutlinedIcon />
                                     </Box>
                                 </Button>

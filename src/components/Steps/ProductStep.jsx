@@ -5,6 +5,8 @@ import { Box, Grid, MenuItem, Typography } from "@mui/material";
 import FormSelect from "../form/FormSelect";
 import AdditionalsFieldArray from "../form/AdditionalsFieldArray";
 import { useSelector } from "react-redux";
+import { store } from "../../state/store";
+import { addStep } from "../../state/formStepsSlice";
 
 export function ProductStep() {
     const products = useSelector((state) => state.products.products);
@@ -43,17 +45,30 @@ export function ProductStep() {
                     </FormSelect>
                 </Grid>
                 <Grid item xs={12}>
-                    <FormSelect name={"productOptionId"} label={"Opcion de Producto"} disabled={productId.value === ""}>
-                        {productId.value !== "" && optionsByProduct(productId.value)}
+                    <FormSelect
+                        name={"productOptionId"}
+                        label={"Opcion de Producto"}
+                        disabled={productId.value === ""}
+                    >
+                        {productId.value !== "" &&
+                            optionsByProduct(productId.value)}
                     </FormSelect>
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Typography variant="h6" align="center" component="h2" sx={{ m: 2 }}>
+                    <Typography
+                        variant="h6"
+                        align="center"
+                        component="h2"
+                        sx={{ m: 2 }}
+                    >
                         Adicionales
                     </Typography>
                     <AdditionalsFieldArray
-                        disabled={productId.value === "" || productOptionId.value === ""}
+                        disabled={
+                            productId.value === "" ||
+                            productOptionId.value === ""
+                        }
                         name={"additionals"}
                     >
                         {productId.value !== "" &&
@@ -78,8 +93,38 @@ const validationSchema = (index) => {
     });
 };
 
+const onSubmit = (values, setFieldValue) => {
+    const selectedProductId = values.productId;
+    const selectedProductOptionId = values.productOptionId;
+    const productList = store.getState().products.products;
+    const product = productList.find((p) => p.id === selectedProductId);
+    const option = product.options.find(
+        (o) => o.id === selectedProductOptionId
+    );
+
+    let steps = [];
+    values.additionals.forEach((additional) => {
+        steps.push(additional.steps);
+    });
+
+    steps.push(option.steps);
+    steps = steps.flat();
+
+    steps.forEach((step, index) => {
+        store.dispatch(addStep(step));
+        setFieldValue(`phoneStep_${index}_phoneOperationType`, "", false);
+        setFieldValue(`phoneStep_${index}_phone`, "", false);
+        setFieldValue(`phoneStep_${index}_phoneOperator`, "", false);
+        setFieldValue(`phoneStep_${index}_surname`, "", false);
+        setFieldValue(`phoneStep_${index}_name`, "", false);
+        setFieldValue(`phoneStep_${index}_dni`, "", false);
+        setFieldValue(`phoneStep_${index}_changePhoneOwner`, false, false);
+    });
+};
+
 export default {
-    ValidationSchema: validationSchema,
-    ReactComponent: ProductStep,
-    Label: "Producto",
+    validationSchema: validationSchema,
+    reactComponent: ProductStep,
+    label: "Producto",
+    onSubmit: onSubmit,
 };

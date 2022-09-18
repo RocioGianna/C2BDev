@@ -3,19 +3,22 @@ import Dropzone from "react-dropzone-uploader";
 import "react-dropzone-uploader/dist/styles.css";
 
 const Preview = (props) => {
-    const { name, percent, status } = props.meta;
+    const { name, percent, status, id } = props.meta;
 
-    return (
-        <span
-            style={{
-                alignSelf: "flex-start",
-                margin: "10px 3%",
-                fontFamily: "Helvetica",
-            }}
-        >
-            {name}, {Math.round(percent)}%, {status}
-        </span>
-    );
+    if (status === "uploading")
+        return (
+            <span
+                style={{
+                    alignSelf: "flex-start",
+                    margin: "10px 3%",
+                    fontFamily: "Helvetica",
+                }}
+            >
+                {name}, {Math.round(percent)}%, {status}
+            </span>
+        );
+
+    return <span>{name} </span>;
 };
 
 export default function DocumentationDropZone({ name, children }) {
