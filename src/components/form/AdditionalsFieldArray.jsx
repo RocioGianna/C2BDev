@@ -18,7 +18,6 @@ export default function AdditionalsFieldArray({ disabled, name, children }) {
                     <>
                         {field.value.map((_, index) => (
                             <Box sx={{ mt: 2 }} key={index}>
-                                Adicional {index + 1}
                                 <Box
                                     key={index}
                                     sx={{
@@ -33,7 +32,7 @@ export default function AdditionalsFieldArray({ disabled, name, children }) {
                                     >
                                         <FormSelect
                                             name={`${name}[${index}]`}
-                                            label={"Adicionales"}
+                                            label={"Adicional " + (index + 1)}
                                             disabled={disabled}
                                         >
                                             {children}
@@ -52,11 +51,7 @@ export default function AdditionalsFieldArray({ disabled, name, children }) {
                                 </Box>
                             </Box>
                         ))}
-                        <Button
-                            onClick={() => push("")}
-                            disabled={disabled || lastIsEmpty()}
-                            variant="contained"
-                        >
+                        <Button onClick={() => push("")} disabled={disabled || lastIsEmpty()} variant="contained">
                             Agregar
                         </Button>
                     </>
