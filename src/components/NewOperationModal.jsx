@@ -28,7 +28,7 @@ export default function NewOperationModal({ ...props }) {
 
     const handleClose = (value) => {
         setOpen(false);
-        navigate("/home");
+        navigate("/ops");
     };
 
     return (

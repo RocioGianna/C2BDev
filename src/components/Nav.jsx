@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -7,6 +7,11 @@ function Nav() {
     const navigate = useNavigate();
     const location = useLocation();
     const [value, setValue] = useState(location.pathname);
+
+    useEffect(() => {
+        setValue(location.pathname);
+    }, [location])
+    
 
     return (
         <Tabs

@@ -10,10 +10,7 @@ import NewOperationModal from "./components/NewOperationModal";
 
 function App() {
     useEffect(() => {
-        const refreshToken = localStorage.getItem("refreshToken");
-        if (refreshToken) {
-            refreshAccessToken(refreshToken);
-        }
+        refreshAccessToken();
     }, []);
 
     return (
