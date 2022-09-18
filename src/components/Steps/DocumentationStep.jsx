@@ -5,7 +5,7 @@ import { TextField } from "formik-material-ui";
 import { Box, Grid } from "@mui/material";
 import EditableField from "../EditableField";
 
-import DropZone from "../DropZone";
+import DocumentationDropZone from "../DocumentationDropZone";
 
 const validationSchema = yup.object().shape({
     collaboratorEmail: yup.string().required("El email es requerido"),
@@ -25,7 +25,7 @@ export function DocumentationStep() {
 
     return (
         <Grid container gap={2}>
-            <DropZone name={"documentarionFiles"} />
+            <DocumentationDropZone name={"documentarionFiles"} />
             <Field
                 fullWidth
                 name="observations"
