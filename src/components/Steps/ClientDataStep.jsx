@@ -3,7 +3,7 @@ import { Box, Grid } from "@mui/material";
 import { TextField } from "formik-material-ui";
 import { Field, useField } from "formik";
 import { phoneRegex } from "../../utils/RegexUtils";
-import ConditionalForm from "./ConditionalForm";
+import ConditionalForm from "../form/ConditionalForm";
 import * as yup from "yup";
 
 const validationSchema = yup.object().shape({
