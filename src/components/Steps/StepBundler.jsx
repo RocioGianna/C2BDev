@@ -1,6 +1,7 @@
 import ClientDataStepBundle from "./ClientDataStep";
 import FirstStepBundle from "./FirstStep";
 import ProductStepBundle from "./ProductStep";
+import AdditionalStep from "./AdditionalStep";
 
 const StepArray = [ProductStepBundle, ClientDataStepBundle, FirstStepBundle];
 StepArray.forEach((value) => {
