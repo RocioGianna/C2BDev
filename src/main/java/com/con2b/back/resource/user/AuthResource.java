@@ -32,8 +32,10 @@ public class AuthResource {
             String accessToken = JWTUtils.generateJwtToken(userDetails, request.getRequestURL().toString());
             UserDTO user = new UserDTO(userDetails.getAppUser());
             Map<String,Object> res = new HashMap<>();
-            res.put("user", user);
-            res.put("accessToken", accessToken);
+            Map<String, Object> data = new HashMap<>();
+            data.put("user", user);
+            data.put("accessToken", accessToken);
+            res.put("data", data);
             res.put("ok", true);
             return ResponseEntity.ok().body(res);
         } else {

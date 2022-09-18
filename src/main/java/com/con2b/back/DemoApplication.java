@@ -117,7 +117,7 @@ public class DemoApplication {
 			productService.saveAdditionalProductOption(new AdditionalProductOption(null, "Classica", null,new ArrayList<>(),addProd1));
 			productService.saveAdditionalProductOption(new AdditionalProductOption(null, "Mezzo", null,new ArrayList<>(),addProd1));
 
-			AdditionalProduct addProd2 = productService.saveAdditionalProduct(new AdditionalProduct(null, "TV Particular", new HashSet<>(), new HashSet<>()));
+			AdditionalProduct addProd2 = productService.saveAdditionalProduct(new AdditionalProduct(null, "Linea Movil", new HashSet<>(), new HashSet<>()));
 			steps.clear();
 			steps.add(fiveGb);
 			productService.saveAdditionalProductOption(new AdditionalProductOption(null, "5GB + 0cent/min", "Llamadas 0Cent/Min Y 5Gb",steps,addProd2));
