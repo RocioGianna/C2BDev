@@ -3,6 +3,7 @@ import { Button, Typography, Grid, CircularProgress } from "@mui/material";
 import { Form, Formik } from "formik";
 import Stepper from "./Stepper";
 import { DialogActions, Box } from "@mui/material";
+import { steps } from "../model/Steps";
 
 const multiStepInitialValues = {
     clientName: "",
@@ -34,8 +35,7 @@ import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 
 export function MultiStepForm({ ...props }) {
     const [activeStep, setActiveStep] = useState(0);
-
-    const stepsArray = props.steps;
+    const stepsArray = props.steps.map((s) => steps[s]);
     const currentChild = stepsArray[activeStep];
 
     const CurrentComponent = currentChild.ReactComponent;

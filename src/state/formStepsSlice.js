@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import ProductStepBundle from "../components/Steps/ProductStep";
-import ClientDataStepBundle from "../components/Steps/ClientDataStep";
-import FirstStepBundle from "../components/Steps/FirstStep"; // lastStep
 
-const initialState = [ProductStepBundle, ClientDataStepBundle, FirstStepBundle];
+const initialState = ["PRODUCT_STEP", "CLIENT_STEP", "LAST_STEP"];
 
 export const formStepsSlice = createSlice({
     name: "formSteps",
