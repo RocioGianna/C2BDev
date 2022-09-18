@@ -1,45 +1,19 @@
 import React from "react";
-
-import { FormControl } from "@mui/material";
-import { Select, InputLabel, FormHelperText } from "@mui/material";
-import { Field, ErrorMessage } from "formik";
+import { Field } from "formik";
+import { TextField } from "formik-mui";
 
 export default function FormSelect({ name, children, label, disabled }) {
     return (
         <Field
+            component={TextField}
+            type="text"
+            select
+            fullWidth
             name={name}
             label={label}
-            component={({ children, form, field, label }) => {
-                const { name, value } = field;
-                const { setFieldValue, errors, getFieldMeta } = form;
-
-                const wasTouched = getFieldMeta(name).touched;
-
-                return (
-                    <FormControl
-                        fullWidth
-                        error={!!errors[name] && wasTouched && !disabled}
-                        disabled={!!disabled}
-                    >
-                        <InputLabel id={name + "-label"}>{label}</InputLabel>
-                        <Select
-                            defaultValue=""
-                            labelId={name + "-label"}
-                            name={name}
-                            label={label}
-                            value={value}
-                            onChange={(e) => {
-                                setFieldValue(name, e.target.value);
-                            }}
-                        >
-                            {children}
-                        </Select>
-                        <FormHelperText>
-                            <ErrorMessage name={name} />
-                        </FormHelperText>
-                    </FormControl>
-                );
-            }}
+            disabled={disabled}
+            variant="outlined"
+            margin="normal"
         >
             {children}
         </Field>

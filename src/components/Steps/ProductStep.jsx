@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import * as yup from "yup";
-import { Field, useField } from "formik";
-import {
-    Select,
-    Box,
-    Grid,
-    MenuItem,
-    Button,
-    InputLabel,
-    ListSubheader,
-    Typography,
-} from "@mui/material";
+import { useField } from "formik";
+import { Box, Grid, MenuItem, Typography } from "@mui/material";
 import FormSelect from "../form/FormSelect";
-import AdditionalsMultiSelect from "../form/AdditionalsMultiSelect";
-import { Autocomplete } from "formik-mui";
+import AdditionalsFieldArray from "../form/AdditionalsFieldArray";
 
 // GET /products
 const products = [
@@ -153,19 +143,6 @@ const additionals = [
 export function ProductStep() {
     const [productId] = useField("productId");
     const [productOptionId] = useField("productOptionId");
-    const [additionals3] = useField("additionals");
-
-    console.log(
-        "VALORES: " +
-            "productId.value : " +
-            productId.value +
-            "\n" +
-            "productOptionId.value : " +
-            productOptionId.value +
-            "\n" +
-            "additionals3.value : " +
-            additionals3.value
-    );
 
     const optionsByProduct = (productId) => {
         const product = products.find((p) => p.id == productId);
@@ -189,9 +166,6 @@ export function ProductStep() {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <FormSelect name={"productId"} label={"Nombre de Producto"}>
-                        <MenuItem value="">
-                            <em>Ninguno</em>
-                        </MenuItem>
                         {products.map((p) => (
                             <MenuItem key={p.id} value={p.id}>
                                 {p.name}
@@ -205,22 +179,26 @@ export function ProductStep() {
                         label={"Opcion de Producto"}
                         disabled={productId.value === ""}
                     >
-                        <MenuItem value="">
-                            <em>Ninguno</em>
-                        </MenuItem>
                         {productId.value !== "" &&
                             optionsByProduct(productId.value)}
                     </FormSelect>
                 </Grid>
 
                 <Grid item xs={12}>
-                    <AdditionalsMultiSelect
+                    <Typography
+                        variant="h6"
+                        align="center"
+                        component="h2"
+                        sx={{ m: 2 }}
+                    >
+                        Adicionales
+                    </Typography>
+                    <AdditionalsFieldArray
                         disabled={
                             productId.value === "" ||
                             productOptionId.value === ""
                         }
                         name={"additionals"}
-                        title={"Adicionales"}
                     >
                         {productId.value !== "" &&
                             additionalsByProduct(productId.value).map((a) => {
@@ -233,7 +211,7 @@ export function ProductStep() {
                                     </MenuItem>
                                 ));
                             })}
-                    </AdditionalsMultiSelect>
+                    </AdditionalsFieldArray>
                 </Grid>
             </Grid>
         </Box>
