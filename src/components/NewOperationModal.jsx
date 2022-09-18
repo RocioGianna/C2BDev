@@ -1,14 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { MultiStepForm } from "./MultiStepForm";
-import FormSteps from "./Steps/StepBundler";
 import { useNavigate } from "react-router-dom";
-import {
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    Typography,
-    Box,
-} from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -22,24 +16,18 @@ const Title = ({ title }) => {
     );
 };
 
-export default function NewOperationModal({ ...props }) {
-    const [open, setOpen] = React.useState(true);
+export default function NewOperationModal() {
+    const [open, setOpen] = useState(true);
     const navigate = useNavigate();
+    const formSteps = useSelector((state) => state.formSteps);
 
-    const handleClose = (value) => {
+    const handleClose = () => {
         setOpen(false);
-        navigate("/ops");
+        navigate("..");
     };
 
     return (
-        <Dialog
-            open={open}
-            onClose={handleClose}
-            maxWidth={"md"}
-            width={"md"}
-            fullWidth={true}
-            scroll={"paper"}
-        >
+        <Dialog open={open} onClose={handleClose} maxWidth={"md"} width={"md"} fullWidth={true} scroll={"paper"}>
             <Title title={"Nueva Operacion"} />
 
             <DialogContent>
@@ -47,7 +35,7 @@ export default function NewOperationModal({ ...props }) {
                     onSubmit={async () => {
                         await sleep(3000);
                     }}
-                    steps={FormSteps}
+                    steps={formSteps}
                 />
             </DialogContent>
         </Dialog>

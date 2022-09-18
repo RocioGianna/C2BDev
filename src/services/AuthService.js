@@ -1,12 +1,13 @@
 import axios from "axios";
 import { store } from "../state/store";
-import { loggedIn, loggedOut } from "../state/userSlice";
+import { loggedIn, loggedOut } from "../state/sessionSlice";
 
 export async function login(email, password) {
     try {
         const res = await axios.post(`http://localhost:8080/login?username=${email}&password=${password}`);
         if (res.data.ok) {
             localStorage.setItem("refreshToken", res.data.data.tokens.refreshToken);
+            console.log(res.data.data);
             store.dispatch(loggedIn({ user: res.data.data.user, accessToken: res.data.data.tokens.accessToken }));
             return true;
         }

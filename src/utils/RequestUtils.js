@@ -1,7 +1,7 @@
 import axios from "axios";
 import { refreshAccessToken } from "../services/AuthService";
 import { store } from "../state/store";
-import { loggedOut } from "../state/userSlice";
+import { loggedOut } from "../state/sessionSlice";
 
 export const doSecureGet = async (url, config) => {
     return doSecureRequest({ method: "get", url, ...config });
@@ -15,7 +15,7 @@ const doSecureRequest = async (config) => {
     try {
         return await axios({
             ...config,
-            headers: { ...config.headers, Authorization: "Bearer " + store.getState().user.accessToken },
+            headers: { ...config.headers, Authorization: "Bearer " + store.getState().session.accessToken },
         });
     } catch (error) {
         try {
@@ -24,7 +24,7 @@ const doSecureRequest = async (config) => {
                 await refreshAccessToken();
                 return await axios({
                     ...config,
-                    headers: { ...config.headers, Authorization: "Bearer " + store.getState().user.accessToken },
+                    headers: { ...config.headers, Authorization: "Bearer " + store.getState().session.accessToken },
                 });
             } else throw error;
         } catch (error) {

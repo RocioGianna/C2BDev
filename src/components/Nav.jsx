@@ -10,8 +10,7 @@ function Nav() {
 
     useEffect(() => {
         setValue(location.pathname);
-    }, [location])
-    
+    }, [location]);
 
     return (
         <Tabs
@@ -28,8 +27,8 @@ function Nav() {
         >
             <Tab
                 label="Home"
-                value="/home"
-                onClick={() => navigate("/home")}
+                value="/2b/home"
+                onClick={() => navigate("/2b/home")}
                 sx={{
                     color: (theme) => theme.palette.grey[300],
                     transition: "color 0.4s ease",
@@ -44,8 +43,8 @@ function Nav() {
             />
             <Tab
                 label="Operaciones"
-                value="/ops"
-                onClick={() => navigate("/ops")}
+                value="/2b/ops"
+                onClick={() => navigate("/2b/ops")}
                 sx={{
                     color: (theme) => theme.palette.grey[300],
                     transition: "color 0.4s ease",
@@ -60,8 +59,8 @@ function Nav() {
             />
             <Tab
                 label="Nueva Operacion"
-                value="/ops/new"
-                onClick={() => navigate("/ops/new")}
+                value="/2b/ops/new"
+                onClick={() => navigate("/2b/ops/new")}
                 sx={{
                     color: (theme) => theme.palette.grey[300],
                     transition: "color 0.4s ease",
