@@ -8,7 +8,7 @@ function useLogout() {
 
     return async () => {
         if (await logout(userEmail)) {
-            navigate("/login");
+            navigate("public/login");
         }
     };
 }
