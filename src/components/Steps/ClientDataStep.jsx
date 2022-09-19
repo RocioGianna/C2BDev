@@ -240,7 +240,7 @@ function ClientDataStep(props) {
                 </ConditionalForm>
                 <ConditionalForm
                     label={
-                        "Direccion de entrega lineas moviles distinta a la direccion de instalacion"
+                        "Direccion de entrega distinta a la direccion de instalacion"
                     }
                     fieldValue={checkbox2.value}
                     name={"checkbox2"}
