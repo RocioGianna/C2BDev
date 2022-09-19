@@ -15,6 +15,7 @@ export const formStepsSlice = createSlice({
         },
         reset: (prev) => {
             prev = initialState;
+            return prev;
         },
     },
 });

@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import Stepper from "./Stepper";
 import { DialogActions, Box } from "@mui/material";
 import { steps } from "../model/Steps";
+import { useSelector } from "react-redux";
 
 const multiStepInitialValues = {
     clientName: "",
@@ -39,14 +40,25 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 
 export function MultiStepForm({ ...props }) {
+    const additionals = useSelector((state) => state.formSteps);
     const [activeStep, setActiveStep] = useState(0);
     const stepsArray = props.steps.map((s) => steps[s]);
     const currentChild = stepsArray[activeStep];
 
     const CurrentComponent = currentChild.reactComponent;
     const currentValidationSchema = currentChild.validationSchema;
-    const currentLabel = currentChild.label;
+    const currentLabel = isAdditionalStep(activeStep, stepsArray.lenght)
+        ? additionals.phoneSteps[activeStep - 2].mobile
+            ? "Linea Movil - " + additionals.phoneSteps[activeStep - 2].name
+            : "Linea Fija - " + additionals.phoneSteps[activeStep - 2].name
+        : currentChild.label;
+
     const currentOnSubmit = currentChild.onSubmit;
+
+    function isAdditionalStep(index, size) {
+        console.log(index != 0 && index != 1 && index != size - 1);
+        return index != 0 && index != 1 && index != size - 1;
+    }
 
     function isLastStep() {
         return activeStep === stepsArray.length - 1;
@@ -90,7 +102,6 @@ export function MultiStepForm({ ...props }) {
                         </Grid>
                         <Grid item xs={12}>
                             <CurrentComponent index={activeStep - 2} />
-                            {/* //TODO : HACER QUE SE PASE LA PROP SII ES MAYOR A 2 EL STEP */}
                         </Grid>
                         <DialogActions
                             sx={{

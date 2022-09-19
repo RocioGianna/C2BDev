@@ -1,12 +1,12 @@
 import React from "react";
 import * as yup from "yup";
-import { useField } from "formik";
-import { Box, Grid, MenuItem, Typography } from "@mui/material";
+import { useField, useFormikContext } from "formik";
+import { Box, Grid, MenuItem, Typography, Button } from "@mui/material";
 import FormSelect from "../form/FormSelect";
 import AdditionalsFieldArray from "../form/AdditionalsFieldArray";
 import { useSelector } from "react-redux";
 import { store } from "../../state/store";
-import { addStep } from "../../state/formStepsSlice";
+import { addStep, reset } from "../../state/formStepsSlice";
 
 export function ProductStep() {
     const products = useSelector((state) => state.products.products);
@@ -67,7 +67,8 @@ export function ProductStep() {
                     <AdditionalsFieldArray
                         disabled={
                             productId.value === "" ||
-                            productOptionId.value === ""
+                            productOptionId.value === "" ||
+                            !additionalsByProduct(productId.value).length
                         }
                         name={"additionals"}
                     >
@@ -93,7 +94,8 @@ const validationSchema = (index) => {
     });
 };
 
-const onSubmit = (values, setFieldValue) => {
+const onSubmit = async (values, setFieldValue) => {
+    store.dispatch(reset());
     const selectedProductId = values.productId;
     const selectedProductOptionId = values.productOptionId;
     const productList = store.getState().products.products;
