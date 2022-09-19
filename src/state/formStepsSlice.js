@@ -1,16 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = ["PRODUCT_STEP", "CLIENT_STEP", "LAST_STEP"];
+const initialState = {
+    steps: ["PRODUCT_STEP", "CLIENT_STEP", "DOCUMENTATION_STEP"],
+    phoneSteps: [],
+};
 
 export const formStepsSlice = createSlice({
     name: "formSteps",
     initialState,
     reducers: {
         addStep: (prev, action) => {
-            prev.splice(prev.length - 1, 0, action.payload);
+            prev.steps.splice(prev.steps.length - 1, 0, "PHONE_STEP");
+            prev.phoneSteps.push(action.payload);
         },
         reset: (prev) => {
             prev = initialState;
+            return prev;
         },
     },
 });

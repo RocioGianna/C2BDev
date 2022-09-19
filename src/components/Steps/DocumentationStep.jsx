@@ -7,11 +7,13 @@ import EditableField from "../EditableField";
 
 import DocumentationDropZone from "../DocumentationDropZone";
 
-const validationSchema = yup.object().shape({
-    collaboratorEmail: yup.string().required("El email es requerido"),
-    collaboratorPhone: yup.string().required("El telefono es requerido"),
-    offeredPrice: yup.string().required("El precio es requerido"),
-});
+const validationSchema = (index) => {
+    return yup.object().shape({
+        collaboratorEmail: yup.string().required("El email es requerido"),
+        collaboratorPhone: yup.string().required("El telefono es requerido"),
+        offeredPrice: yup.string().required("El precio es requerido"),
+    });
+};
 
 export function DocumentationStep() {
     const email = useField("email")[0].value;
@@ -55,7 +57,7 @@ export function DocumentationStep() {
 }
 
 export default {
-    ValidationSchema: validationSchema,
-    ReactComponent: DocumentationStep,
-    Label: "Documentacion",
+    validationSchema: validationSchema,
+    reactComponent: DocumentationStep,
+    label: "Documentacion",
 };
