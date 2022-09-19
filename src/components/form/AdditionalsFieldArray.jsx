@@ -1,6 +1,6 @@
 import React from "react";
 import { FieldArray, useField } from "formik";
-import { Button, Typography, Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import FormSelect from "./FormSelect";
 
 export default function AdditionalsFieldArray({ disabled, name, children }) {
@@ -51,7 +51,11 @@ export default function AdditionalsFieldArray({ disabled, name, children }) {
                                 </Box>
                             </Box>
                         ))}
-                        <Button onClick={() => push("")} disabled={disabled || lastIsEmpty()} variant="contained">
+                        <Button
+                            onClick={() => push("")}
+                            disabled={disabled || lastIsEmpty()}
+                            variant="contained"
+                        >
                             Agregar
                         </Button>
                     </>

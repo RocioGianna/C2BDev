@@ -1,24 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as yup from "yup";
 import { Box, Grid } from "@mui/material";
 import { TextField } from "formik-material-ui";
-import { Field, useField, useFormikContext } from "formik";
+import { Field } from "formik";
 import ConditionalForm from "../form/ConditionalForm";
 
-export function PhoneStep({ index, type }) {
-    const { setFieldValue, values, errors } = useFormikContext();
-
-    // useEffect(() => {
-    //     setFieldValue(`phoneStep_${index}_phoneOperationType`, "", false);
-    //     setFieldValue(`phoneStep_${index}_phone`, "", false);
-    //     setFieldValue(`phoneStep_${index}_phoneOperator`, "", false);
-    //     setFieldValue(`phoneStep_${index}_surname`, "", false);
-    //     setFieldValue(`phoneStep_${index}_name`, "", false);
-    //     setFieldValue(`phoneStep_${index}_dni`, "", false);
-    //     setFieldValue(`phoneStep_${index}_changePhoneOwner`, false, false);
-    // }, []);
-    console.log(values);
-
+export function PhoneStep({ index }) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
@@ -93,18 +80,35 @@ const validationSchema = (index) => {
             .required("El operador es requerido"),
         [`phoneStep_${index}_surname`]: yup
             .string()
-            .required("El apellido es requerido"),
+            .when(`phoneStep_${index}_changePhoneOwner`, {
+                is: true,
+                then: yup.string().required("El apellido es requerido"),
+            }),
         [`phoneStep_${index}_name`]: yup
             .string()
-            .required("El nombre es requerido"),
+            .when(`phoneStep_${index}_changePhoneOwner`, {
+                is: true,
+                then: yup.string().required("El nombre es requerido"),
+            }),
         [`phoneStep_${index}_dni`]: yup
             .string()
-            .required("El DNI es requerido"),
+            .when(`phoneStep_${index}_changePhoneOwner`, {
+                is: true,
+                then: yup.string().required("El DNI es requerido"),
+            }),
     });
 };
+
+/* const getLabel = () => {
+    const additionals = useSelector((state) => state.formSteps);
+    const additional = additionals.phoneSteps[index].mobile;
+
+    const Label = additional.mobile ? "Telefono Movil" : "Telefono Fijo";
+    return Label;
+}; */
 
 export default {
     validationSchema: validationSchema,
     reactComponent: PhoneStep,
-    label: "Telefono fijo",
+    label: "Label",
 };

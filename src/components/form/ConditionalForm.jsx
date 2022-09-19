@@ -7,9 +7,6 @@ export default function ConditionalForm({ children, name, ...props }) {
     const [phoneCheckbox] = useField(name);
 
     const value = phoneCheckbox.value;
-    // const [conditionalField, setConditionalField] = useState(value);
-
-    console.log(name);
 
     return (
         <>
@@ -18,7 +15,6 @@ export default function ConditionalForm({ children, name, ...props }) {
                     name={name}
                     type="checkbox"
                     component={CheckboxWithLabel}
-                    // onClick={() => setConditionalField(!conditionalField)}
                     Label={{
                         label: props.label,
                     }}
