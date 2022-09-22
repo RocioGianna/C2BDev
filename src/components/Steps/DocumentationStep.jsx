@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import * as yup from "yup";
-import { Field, useField, useFormikContext } from "formik";
+import { Grid } from "@mui/material";
+import { useField, useFormikContext, Field } from "formik";
 import { TextField } from "formik-material-ui";
-import { Box, Grid } from "@mui/material";
-import EditableField from "../EditableField";
+import EditableField from "../form/EditableField";
 
-import DocumentationDropZone from "../DocumentationDropZone";
+import DocumentationDropZone from "../Dropzone";
 
 const validationSchema = (index) => {
     return yup.object().shape({
@@ -27,7 +27,7 @@ export function DocumentationStep() {
 
     return (
         <Grid container gap={2}>
-            <DocumentationDropZone name={"documentarionFiles"} />
+            <DocumentationDropZone />
             <Field
                 fullWidth
                 name="observations"
@@ -53,6 +53,12 @@ export function DocumentationStep() {
                 label={"Telefono colaborador"}
             />
         </Grid>
+    );
+
+    return (
+        <>
+            <DocumentationDropZone />
+        </>
     );
 }
 
