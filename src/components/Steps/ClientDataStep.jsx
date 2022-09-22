@@ -2,9 +2,9 @@ import React from "react";
 import { Box, Grid } from "@mui/material";
 import { TextField } from "formik-material-ui";
 import { Field, useField } from "formik";
-import { phoneRegex } from "../../utils/RegexUtils";
 import ConditionalForm from "../form/ConditionalForm";
 import * as yup from "yup";
+import "yup-phone";
 
 const validationSchema = () => {
     return yup.object().shape({
@@ -13,8 +13,8 @@ const validationSchema = () => {
         dni: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
         phone: yup
             .string()
-            .required("El telefono es requerido")
-            .matches(phoneRegex, "Numero de telefono no valido"),
+            .phone("IN", true, "El formato del telefono no es valido")
+            .required("El telefono es requerido"),
         email: yup
             .string("Ingrese su correo electronico")
             .email("Ingrese un correo electronico valido")
