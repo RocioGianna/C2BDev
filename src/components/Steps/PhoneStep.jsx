@@ -1,21 +1,24 @@
 import React from "react";
 import * as yup from "yup";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, MenuItem } from "@mui/material";
 import { TextField } from "formik-material-ui";
 import { Field } from "formik";
 import ConditionalForm from "../form/ConditionalForm";
+import FormSelect from "../form/FormSelect";
 
 export function PhoneStep({ index }) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Field
-                        fullWidth
+                    <FormSelect
                         name={`phoneStep_${index}_phoneOperationType`}
                         label="Tipo de Operacion"
-                        component={TextField}
-                    />
+                    >
+                        <MenuItem value={"Nuevo"}>Nuevo</MenuItem>
+                        <MenuItem value={"Portabilidad"}>Portabilidad</MenuItem>
+                        <MenuItem value={"Existente"}>Existente</MenuItem>
+                    </FormSelect>
                 </Grid>
                 <Grid item xs={12}>
                     <Field
