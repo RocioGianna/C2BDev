@@ -16,8 +16,8 @@ export default function Stepper({ activeStep, childrenArray }) {
             activeStep={activeStep}
             connector={<Connector />}
         >
-            {childrenArray.map((child) => (
-                <Step key={child.Label}>
+            {childrenArray.map((child, index) => (
+                <Step key={index}>
                     <StepLabel StepIconComponent={StepIcon}></StepLabel>
                 </Step>
             ))}
