@@ -20,7 +20,7 @@ export default function FilePreview({ file, onDelete, onUpload }) {
         fileType === "application/pdf" ? (
             <InsertDriveFileIcon style={{ height: "50%", width: "100%" }} />
         ) : (
-            <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></img>
+            <img src={URL.createObjectURL(file)}></img>
         );
 
     return (
