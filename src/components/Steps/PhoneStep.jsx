@@ -2,11 +2,12 @@ import React from "react";
 import * as yup from "yup";
 import { Box, Grid, MenuItem } from "@mui/material";
 import { TextField } from "formik-material-ui";
-import { Field } from "formik";
+import { Field, useField } from "formik";
 import ConditionalForm from "../form/ConditionalForm";
 import FormSelect from "../form/FormSelect";
 
 export function PhoneStep({ index }) {
+    const [operationType] = useField(`phoneStep_${index}_phoneOperationType`);
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
@@ -28,14 +29,17 @@ export function PhoneStep({ index }) {
                         component={TextField}
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <Field
-                        fullWidth
-                        name={`phoneStep_${index}_phoneOperator`}
-                        label="Operador Actual Fijo"
-                        component={TextField}
-                    />
-                </Grid>
+                {operationType.value === "Portabilidad" && (
+                    <Grid item xs={12}>
+                        <Field
+                            fullWidth
+                            name={`phoneStep_${index}_phoneOperator`}
+                            label="Operador Actual Fijo"
+                            component={TextField}
+                        />
+                    </Grid>
+                )}
+
                 <ConditionalForm
                     label={"Cambio de titular de telefono fijo"}
                     name={`phoneStep_${index}_changePhoneOwner`}
@@ -80,7 +84,11 @@ const validationSchema = (index) => {
             .required("El telefono es requerido"),
         [`phoneStep_${index}_phoneOperator`]: yup
             .string()
-            .required("El operador es requerido"),
+            .when(`phoneStep_${index}_phoneOperationType`, (opType) => {
+                if (opType == "Portabilidad") {
+                    return yup.string().required("El operador es obligatorio");
+                }
+            }),
         [`phoneStep_${index}_surname`]: yup
             .string()
             .when(`phoneStep_${index}_changePhoneOwner`, {
@@ -101,14 +109,6 @@ const validationSchema = (index) => {
             }),
     });
 };
-
-/* const getLabel = () => {
-    const additionals = useSelector((state) => state.formSteps);
-    const additional = additionals.phoneSteps[index].mobile;
-
-    const Label = additional.mobile ? "Telefono Movil" : "Telefono Fijo";
-    return Label;
-}; */
 
 export default {
     validationSchema: validationSchema,
