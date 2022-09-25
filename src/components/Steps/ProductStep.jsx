@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { useField, useFormikContext } from "formik";
-import { Box, Grid, MenuItem, Typography, Button } from "@mui/material";
+import { Box, Grid, MenuItem, Typography } from "@mui/material";
 import FormSelect from "../form/FormSelect";
 import AdditionalsFieldArray from "../form/AdditionalsFieldArray";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import { addStep, reset } from "../../state/formStepsSlice";
 export function ProductStep() {
     const products = useSelector((state) => state.products.products);
     const additionals = useSelector((state) => state.products.additionals);
+    const [firstTime, setFirstTime] = useState(true);
 
     const { setFieldValue } = useFormikContext();
 
@@ -19,8 +20,12 @@ export function ProductStep() {
     const [productType] = useField("isProfessionalProduct");
 
     useEffect(() => {
-        setFieldValue("productOptionId", "", false);
-        setFieldValue("productId", "", false);
+        if (!firstTime) {
+            setFieldValue("productOptionId", "", false);
+            setFieldValue("productId", "", false);
+        } else {
+            setFirstTime(false);
+        }
     }, [productType.value]);
 
     const optionsByProduct = (productId) => {
