@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as yup from "yup";
 import { useField, useFormikContext } from "formik";
 import { Box, Grid, MenuItem, Typography, Button } from "@mui/material";
@@ -12,8 +12,16 @@ export function ProductStep() {
     const products = useSelector((state) => state.products.products);
     const additionals = useSelector((state) => state.products.additionals);
 
+    const { setFieldValue } = useFormikContext();
+
     const [productId] = useField("productId");
     const [productOptionId] = useField("productOptionId");
+    const [productType] = useField("isProfessionalProduct");
+
+    useEffect(() => {
+        setFieldValue("productOptionId", "", false);
+        setFieldValue("productId", "", false);
+    }, [productType.value]);
 
     const optionsByProduct = (productId) => {
         const product = products.find((p) => p.id == productId);
@@ -32,16 +40,29 @@ export function ProductStep() {
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
 
+    console.log(products, "productType: " + productType.value);
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
+                    <FormSelect
+                        name={"isProfessionalProduct"}
+                        label={"Tipo de producto"}
+                    >
+                        <MenuItem value={true}>Profesional</MenuItem>
+                        <MenuItem value={false}>Particular</MenuItem>
+                    </FormSelect>
+                </Grid>
+                <Grid item xs={12}>
                     <FormSelect name={"productId"} label={"Nombre de Producto"}>
-                        {products.map((p) => (
-                            <MenuItem key={p.id} value={p.id}>
-                                {p.name}
-                            </MenuItem>
-                        ))}
+                        {products
+                            .filter((p) => p.professional == productType.value)
+                            .map((p) => (
+                                <MenuItem key={p.id} value={p.id}>
+                                    {p.name}
+                                </MenuItem>
+                            ))}
                     </FormSelect>
                 </Grid>
                 <Grid item xs={12}>

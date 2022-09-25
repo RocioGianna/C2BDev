@@ -5,9 +5,11 @@ import { TextField } from "formik-material-ui";
 import { Field, useField } from "formik";
 import ConditionalForm from "../form/ConditionalForm";
 import FormSelect from "../form/FormSelect";
+import "yup-phone-lite";
 
 export function PhoneStep({ index }) {
     const [operationType] = useField(`phoneStep_${index}_phoneOperationType`);
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
@@ -81,6 +83,7 @@ const validationSchema = (index) => {
             .required("El tipo de operacion es requerido"),
         [`phoneStep_${index}_phone`]: yup
             .string()
+            .phone("IN", true, "El formato del telefono no es valido")
             .required("El telefono es requerido"),
         [`phoneStep_${index}_phoneOperator`]: yup
             .string()

@@ -4,7 +4,7 @@ import { TextField } from "formik-material-ui";
 import { Field, useField } from "formik";
 import ConditionalForm from "../form/ConditionalForm";
 import * as yup from "yup";
-import "yup-phone";
+import "yup-phone-lite";
 
 const validationSchema = () => {
     return yup.object().shape({

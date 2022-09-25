@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    steps: ["DOCUMENTATION_STEP", "PRODUCT_STEP", "CLIENT_STEP"],
+    steps: ["PRODUCT_STEP", "CLIENT_STEP", "DOCUMENTATION_STEP"],
     phoneSteps: [],
 };
 

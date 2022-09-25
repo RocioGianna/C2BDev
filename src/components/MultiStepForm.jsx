@@ -12,6 +12,7 @@ const user = store.getState().session.user;
 const multiStepInitialValues = {
     clientName: "",
     clientSurname: "",
+    isProfessionalProduct: true,
     dni: "",
     phone: "",
     email: "",
@@ -50,16 +51,17 @@ export function MultiStepForm({ ...props }) {
 
     const CurrentComponent = currentChild.reactComponent;
     const currentValidationSchema = currentChild.validationSchema;
-    const currentLabel = isAdditionalStep(activeStep, stepsArray.lenght)
-        ? additionals.phoneSteps[activeStep - 2].mobile
-            ? "Linea Movil - " + additionals.phoneSteps[activeStep - 2].name
-            : "Linea Fija - " + additionals.phoneSteps[activeStep - 2].name
+
+    const isAdditional = isAdditionalStep(activeStep, stepsArray.length);
+    const currentLabel = isAdditional
+        ? additionals.phoneSteps[activeStep - 2]?.mobile
+            ? "Linea Movil - " + additionals.phoneSteps[activeStep - 2]?.name
+            : "Linea Fija"
         : currentChild.label;
 
     const currentOnSubmit = currentChild.onSubmit;
 
     function isAdditionalStep(index, size) {
-        console.log(index != 0 && index != 1 && index != size - 1);
         return index != 0 && index != 1 && index != size - 1;
     }
 
@@ -74,6 +76,7 @@ export function MultiStepForm({ ...props }) {
             validationSchema={() => currentValidationSchema(activeStep - 2)}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
+                    console.log(values);
                     await props.onSubmit(values, helpers);
                 } else {
                     if (currentOnSubmit) {

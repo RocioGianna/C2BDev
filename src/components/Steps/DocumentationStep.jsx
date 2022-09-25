@@ -4,13 +4,20 @@ import { Grid } from "@mui/material";
 import { useField, useFormikContext, Field } from "formik";
 import { TextField } from "formik-material-ui";
 import EditableField from "../form/EditableField";
+import "yup-phone-lite";
 
 import DocumentationDropZone from "../Dropzone";
 
 const validationSchema = (index) => {
     return yup.object().shape({
-        collaboratorEmail: yup.string().required("El email es requerido"),
-        collaboratorPhone: yup.string().required("El telefono es requerido"),
+        collaboratorEmail: yup
+            .string()
+            .email()
+            .required("El email es requerido"),
+        collaboratorPhone: yup
+            .string()
+            .phone("IN", true, "El formato del telefono no es valido")
+            .required("El telefono es requerido"),
         offeredPrice: yup.string().required("El precio es requerido"),
     });
 };
