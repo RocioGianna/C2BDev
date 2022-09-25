@@ -27,12 +27,24 @@ export default function Dropzone() {
                     p: 2,
                     textAlign: "center",
                     width: "100%",
-                    borderColor: "#8F9499",
+                    height: "100%",
+                    borderColor: "grey.400",
                     borderRadius: "4px",
+                    position: "relative",
                 }}
+                onClick={() => {}}
             >
-                <input {...getInputProps()} />
-                <Typography align="left">Documentacion</Typography>
+                <input
+                    style={{
+                        position: "absolute",
+                        width: "100%",
+                    }}
+                    {...getInputProps()}
+                />
+
+                <Typography align="left" sx={{ color: "grey.600" }}>
+                    Documentacion
+                </Typography>
                 <Box
                     sx={{
                         p: 0,
@@ -53,7 +65,10 @@ export default function Dropzone() {
                         mt: 5,
                     }}
                 >
-                    <Button variant="contained" {...getRootProps()}>
+                    <Button
+                        variant="contained"
+                        onClick={getRootProps().onClick}
+                    >
                         Subir archivos
                     </Button>
                 </Box>

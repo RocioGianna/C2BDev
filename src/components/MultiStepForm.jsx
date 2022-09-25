@@ -5,6 +5,9 @@ import Stepper from "./Stepper";
 import { DialogActions, Box } from "@mui/material";
 import { steps } from "../model/Steps";
 import { useSelector } from "react-redux";
+import { store } from "../state/store";
+
+const user = store.getState().session.user;
 
 const multiStepInitialValues = {
     clientName: "",
@@ -32,8 +35,8 @@ const multiStepInitialValues = {
     provinceInstallation2: "",
     observations: "",
     offeredPrice: "",
-    collaboratorEmail: "",
-    collaboratorPhone: "",
+    collaboratorEmail: user?.email,
+    collaboratorPhone: user?.phone || "",
     images: [""],
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Typography, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 
 export default function FilePreview({ file, onDelete, onUpload }) {
     const [progress, setProgress] = useState(0);
@@ -14,30 +15,46 @@ export default function FilePreview({ file, onDelete, onUpload }) {
         upload();
     }, []);
 
-    console.log(file);
     const fileType = file.type;
     const icon =
         fileType === "application/pdf" ? (
-            <InsertDriveFileIcon style={{ height: "50%", width: "100%" }} />
+            <PictureAsPdfIcon
+                style={{ height: "100%", width: "100%", color: "primary.dark" }}
+            />
+        ) : fileType === "image/png" ||
+          fileType === "image/jpeg" ||
+          fileType === "image/jpg" ? (
+            <img
+                style={{ width: "100%" }}
+                src={URL.createObjectURL(file)}
+            ></img>
         ) : (
-            <img src={URL.createObjectURL(file)}></img>
+            <InsertDriveFileIcon
+                style={{ height: "100%", width: "100%", color: "primary.dark" }}
+            />
         );
 
     return (
         <Box
             sx={{
                 p: 2,
-                height: 140,
-                width: 90,
+                height: 160,
+                width: 120,
                 mt: 2,
                 mr: 2,
                 border: 1,
                 display: "flex",
                 flexDirection: "column",
+                borderColor: "grey.400",
+                borderRadius: "4px",
             }}
         >
-            {icon}
-            <Typography style={{ overflow: "hidden" }} variant="caption">
+            <Box sx={{ flexBasis: "50%" }}>{icon}</Box>
+            <Typography
+                style={{ overflow: "hidden" }}
+                sx={{ flexBasis: "50%" }}
+                variant="caption"
+            >
                 {file.name}
             </Typography>
         </Box>

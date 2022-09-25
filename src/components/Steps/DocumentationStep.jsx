@@ -16,14 +16,7 @@ const validationSchema = (index) => {
 };
 
 export function DocumentationStep() {
-    const email = useField("email")[0].value;
-    const phone = useField("phone")[0].value;
-    const { setFieldValue } = useFormikContext();
-
-    useEffect(() => {
-        setFieldValue("collaboratorEmail", email);
-        setFieldValue("collaboratorPhone", phone);
-    }, []);
+    const { setFieldValue, values } = useFormikContext();
 
     return (
         <Grid container gap={2}>
@@ -53,12 +46,6 @@ export function DocumentationStep() {
                 label={"Telefono colaborador"}
             />
         </Grid>
-    );
-
-    return (
-        <>
-            <DocumentationDropZone />
-        </>
     );
 }
 
