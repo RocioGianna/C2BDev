@@ -116,7 +116,7 @@ function ClientDataStep(props) {
     return (
         <Box sx={{ flexGrow: 1 }} label={props.label}>
             <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field
                         fullWidth
                         name="clientName"
@@ -124,7 +124,7 @@ function ClientDataStep(props) {
                         component={TextField}
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field
                         fullWidth
                         name="clientSurname"
@@ -132,7 +132,7 @@ function ClientDataStep(props) {
                         component={TextField}
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field
                         fullWidth
                         name="dni"
@@ -141,7 +141,7 @@ function ClientDataStep(props) {
                         type="tel"
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field
                         fullWidth
                         name="phone"
@@ -167,7 +167,7 @@ function ClientDataStep(props) {
                         component={TextField}
                     />
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={12} xl={8}>
                     <Field
                         fullWidth
                         name="billingAddress"
@@ -175,7 +175,7 @@ function ClientDataStep(props) {
                         component={TextField}
                     />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} xl={4}>
                     <Field
                         fullWidth
                         name="zipCode"
@@ -184,7 +184,7 @@ function ClientDataStep(props) {
                         type="tel"
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field
                         fullWidth
                         name="municipality"
@@ -192,7 +192,7 @@ function ClientDataStep(props) {
                         component={TextField}
                     />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field
                         fullWidth
                         name="province"
@@ -206,7 +206,7 @@ function ClientDataStep(props) {
                     }
                     name={"checkbox"}
                 >
-                    <Grid item xs={9}>
+                    <Grid item xs={12} xl={9}>
                         <Field
                             fullWidth
                             name="instalattionAddress"
@@ -214,7 +214,7 @@ function ClientDataStep(props) {
                             component={TextField}
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12} xl={3}>
                         <Field
                             fullWidth
                             name="zipCodeInstallation"
@@ -222,7 +222,7 @@ function ClientDataStep(props) {
                             component={TextField}
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} xl={6}>
                         <Field
                             fullWidth
                             name="municipalityInstallation"
@@ -230,7 +230,7 @@ function ClientDataStep(props) {
                             component={TextField}
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} xl={6}>
                         <Field
                             fullWidth
                             name="provinceInstallation"
@@ -245,7 +245,7 @@ function ClientDataStep(props) {
                     }
                     name={"checkbox2"}
                 >
-                    <Grid item xs={9}>
+                    <Grid item xs={12} xl={9}>
                         <Field
                             fullWidth
                             name="instalattionAddress2"
@@ -253,7 +253,7 @@ function ClientDataStep(props) {
                             component={TextField}
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12} xl={3}>
                         <Field
                             fullWidth
                             name="zipCodeInstallation2"
@@ -261,7 +261,7 @@ function ClientDataStep(props) {
                             component={TextField}
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} xl={6}>
                         <Field
                             fullWidth
                             name="municipalityInstallation2"
@@ -269,7 +269,7 @@ function ClientDataStep(props) {
                             component={TextField}
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} xl={6}>
                         <Field
                             fullWidth
                             name="provinceInstallation2"

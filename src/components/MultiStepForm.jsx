@@ -115,10 +115,9 @@ export function MultiStepForm({ ...props }) {
                                 pt: 5,
                                 paddingLeft: 0,
                                 paddingRight: 0,
-                                justifyContent: "space-between",
                             }}
                         >
-                            <Grid item xs={4}>
+                            <Grid item xs={6} xl={4}>
                                 {activeStep > 0 ? (
                                     <Button
                                         onClick={() =>
@@ -142,7 +141,8 @@ export function MultiStepForm({ ...props }) {
                                     </Button>
                                 ) : null}
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={0} xl={4}></Grid>
+                            <Grid item xl={4} xs={6}>
                                 <Button
                                     startIcon={
                                         isSubmitting ? (
