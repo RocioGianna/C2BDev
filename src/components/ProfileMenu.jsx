@@ -44,8 +44,14 @@ function ProfileMenu() {
                     >
                         {initial}
                     </Avatar>
-                    <Stack alignItems="center" direction="row">
-                        <Typography variant="button">{firstname + " " + lastname}</Typography>
+                    <Stack
+                        alignItems="center"
+                        direction="row"
+                        sx={{ display: { xs: "none", md: "flex" } }}
+                    >
+                        <Typography variant="button">
+                            {firstname + " " + lastname}
+                        </Typography>
                         <ArrowDropDownIcon />
                     </Stack>
                 </Stack>
