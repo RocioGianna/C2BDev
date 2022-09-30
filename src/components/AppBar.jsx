@@ -78,7 +78,7 @@ function AppBar() {
 
     return (
         <MuiAppBar>
-            <Container maxWidth="xl">
+            <Container maxWidth="xxl">
                 <Toolbar disableGutters>
                     <Box sx={{ flexGrow: { xs: 1, md: 0 } }}>
                         <img
