@@ -13,7 +13,7 @@ const validationSchema = () => {
         dni: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
         phone: yup
             .string()
-            .phone("IN", true, "El formato del telefono no es valido")
+            .phone("IN", "El formato del telefono no es valido")
             .required("El telefono es requerido"),
         email: yup
             .string("Ingrese su correo electronico")

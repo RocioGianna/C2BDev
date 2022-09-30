@@ -83,7 +83,7 @@ const validationSchema = (index) => {
             .required("El tipo de operacion es requerido"),
         [`phoneStep_${index}_phone`]: yup
             .string()
-            .phone("IN", true, "El formato del telefono no es valido")
+            .phone("IN", "El formato del telefono no es valido")
             .required("El telefono es requerido"),
         [`phoneStep_${index}_phoneOperator`]: yup
             .string()

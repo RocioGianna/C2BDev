@@ -16,7 +16,7 @@ const validationSchema = (index) => {
             .required("El email es requerido"),
         collaboratorPhone: yup
             .string()
-            .phone("IN", true, "El formato del telefono no es valido")
+            .phone("IN", "El formato del telefono no es valido")
             .required("El telefono es requerido"),
         offeredPrice: yup.string().required("El precio es requerido"),
     });
