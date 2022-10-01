@@ -7,13 +7,11 @@ import EditableField from "../form/EditableField";
 import "yup-phone-lite";
 
 import DocumentationDropZone from "../Dropzone";
+import { useSelector } from "react-redux";
 
 const validationSchema = (index) => {
     return yup.object().shape({
-        collaboratorEmail: yup
-            .string()
-            .email()
-            .required("El email es requerido"),
+        collaboratorEmail: yup.string().email().required("El email es requerido"),
         collaboratorPhone: yup
             .string()
             .phone("IN", "El formato del telefono no es valido")
@@ -24,6 +22,19 @@ const validationSchema = (index) => {
 
 export function DocumentationStep() {
     const { setFieldValue, values } = useFormikContext();
+
+    const user = useSelector((state) => state.session.user);
+
+    useEffect(() => {
+        if (user) {
+            if (values.collaboratorEmail === "") {
+                setFieldValue("collaboratorEmail", user.email);
+            }
+            if (values.collaboratorPhone === "") {
+                setFieldValue("collaboratorPhone", user.phone);
+            }
+        }
+    }, [user]);
 
     return (
         <Grid container gap={2}>
@@ -44,14 +55,8 @@ export function DocumentationStep() {
                 type="text"
                 InputProps={{ sx: { height: 100 } }}
             />
-            <EditableField
-                name={"collaboratorEmail"}
-                label={"Email colaborador"}
-            />
-            <EditableField
-                name={"collaboratorPhone"}
-                label={"Telefono colaborador"}
-            />
+            <EditableField name={"collaboratorEmail"} label={"Email colaborador"} />
+            <EditableField name={"collaboratorPhone"} label={"Telefono colaborador"} />
         </Grid>
     );
 }
