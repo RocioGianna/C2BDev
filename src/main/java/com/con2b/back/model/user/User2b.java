@@ -12,17 +12,20 @@ public class User2b {
     private String password;
     private String firstname;
     private String lastname;
+
+    private String phone;
     private boolean enabled;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
     public User2b() {}
 
-    public User2b(Long id, String email, String password, String firstname, String lastname, boolean enabled, List<Role> roles) {
+    public User2b(Long id, String email, String password, String firstname, String lastname, String phone, boolean enabled, List<Role> roles) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.phone = phone;
         this.enabled = enabled;
         this.roles = roles;
     }
@@ -64,6 +67,14 @@ public class User2b {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public boolean isEnabled() {
