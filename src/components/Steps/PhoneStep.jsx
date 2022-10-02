@@ -23,14 +23,16 @@ export function PhoneStep({ index }) {
                         <MenuItem value={"Existente"}>Existente</MenuItem>
                     </FormSelect>
                 </Grid>
-                <Grid item xs={12}>
-                    <Field
-                        fullWidth
-                        name={`phoneStep_${index}_phone`}
-                        label="Numero Fijo Actual"
-                        component={TextField}
-                    />
-                </Grid>
+                {operationType.value !== "Nuevo" && (
+                    <Grid item xs={12}>
+                        <Field
+                            fullWidth
+                            name={`phoneStep_${index}_phone`}
+                            label="Numero Fijo Actual"
+                            component={TextField}
+                        />
+                    </Grid>
+                )}
                 {operationType.value === "Portabilidad" && (
                     <Grid item xs={12}>
                         <Field
@@ -83,8 +85,15 @@ const validationSchema = (index) => {
             .required("El tipo de operacion es requerido"),
         [`phoneStep_${index}_phone`]: yup
             .string()
-            .phone("IN", "El formato del telefono no es valido")
-            .required("El telefono es requerido"),
+            .when(`phoneStep_${index}_phoneOperationType`, (opType) => {
+                if (opType !== "Nuevo") {
+                    return yup
+                        .string()
+                        .phone("IN", "El formato del telefono no es valido")
+                        .required("El telefono es requerido");
+                }
+            }),
+
         [`phoneStep_${index}_phoneOperator`]: yup
             .string()
             .when(`phoneStep_${index}_phoneOperationType`, (opType) => {
