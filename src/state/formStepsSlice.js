@@ -9,9 +9,12 @@ export const formStepsSlice = createSlice({
     name: "formSteps",
     initialState,
     reducers: {
-        addStep: (prev, action) => {
+        addPhoneStep: (prev, action) => {
             prev.steps.splice(prev.steps.length - 1, 0, "PHONE_STEP");
             prev.phoneSteps.push(action.payload);
+        },
+        addStep: (prev, action) => {
+            prev.steps.unshift(action.payload);
         },
         reset: (prev) => {
             prev = initialState;
@@ -20,6 +23,6 @@ export const formStepsSlice = createSlice({
     },
 });
 
-export const { addStep, reset } = formStepsSlice.actions;
+export const { addStep, addPhoneStep, reset } = formStepsSlice.actions;
 
 export default formStepsSlice.reducer;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Typography, Grid, CircularProgress } from "@mui/material";
 import { Form, Formik } from "formik";
 import Stepper from "./Stepper";
@@ -12,7 +12,7 @@ const user = store.getState().session.user;
 const multiStepInitialValues = {
     clientName: "",
     clientSurname: "",
-    isProfessionalProduct: true,
+    isProfessionalProduct: "",
     dni: "",
     phone: "",
     email: "",
@@ -39,6 +39,7 @@ const multiStepInitialValues = {
     collaboratorEmail: user?.email,
     collaboratorPhone: user?.phone || "",
     images: [""],
+    collaboratorId: "",
 };
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
@@ -68,6 +69,8 @@ export function MultiStepForm({ ...props }) {
     function isLastStep() {
         return activeStep === stepsArray.length - 1;
     }
+
+    console.log(stepsArray);
 
     return (
         <Formik

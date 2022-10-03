@@ -45,8 +45,6 @@ export function ProductStep() {
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
 
-    console.log(products, "productType: " + productType.value);
-
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
@@ -139,7 +137,7 @@ const onSubmit = async (values, setFieldValue) => {
     steps = steps.flat();
 
     steps.forEach((step, index) => {
-        store.dispatch(addStep(step));
+        store.dispatch(addPhoneStep(step));
         setFieldValue(`phoneStep_${index}_phoneOperationType`, "", false);
         setFieldValue(`phoneStep_${index}_phone`, "", false);
         setFieldValue(`phoneStep_${index}_phoneOperator`, "", false);
