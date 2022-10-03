@@ -36,8 +36,8 @@ const multiStepInitialValues = {
     provinceInstallation2: "",
     observations: "",
     offeredPrice: "",
-    collaboratorEmail: user?.email,
-    collaboratorPhone: user?.phone || "",
+    collaboratorEmail: "",
+    collaboratorPhone: "",
     images: [""],
     collaboratorId: "",
 };
@@ -94,10 +94,7 @@ export function MultiStepForm({ ...props }) {
                 <Form autoComplete="off">
                     <Grid container rowSpacing={4}>
                         <Grid item xs={12}>
-                            <Stepper
-                                activeStep={activeStep}
-                                childrenArray={stepsArray}
-                            />
+                            <Stepper activeStep={activeStep} childrenArray={stepsArray} />
                         </Grid>
                         <Grid item xs={12}>
                             <Typography
@@ -124,9 +121,7 @@ export function MultiStepForm({ ...props }) {
                             <Grid item xs={4}>
                                 {activeStep > 0 ? (
                                     <Button
-                                        onClick={() =>
-                                            setActiveStep(activeStep - 1)
-                                        }
+                                        onClick={() => setActiveStep(activeStep - 1)}
                                         variant="contained"
                                         fullWidth
                                         disabled={isSubmitting}
@@ -148,9 +143,7 @@ export function MultiStepForm({ ...props }) {
                             <Grid item xs={4}>
                                 <Button
                                     startIcon={
-                                        isSubmitting ? (
-                                            <CircularProgress size="1rem" />
-                                        ) : null
+                                        isSubmitting ? <CircularProgress size="1rem" /> : null
                                     }
                                     type="submit"
                                     variant="contained"
