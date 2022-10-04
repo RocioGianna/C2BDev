@@ -6,7 +6,7 @@ import FormSelect from "../form/FormSelect";
 import AdditionalsFieldArray from "../form/AdditionalsFieldArray";
 import { useSelector } from "react-redux";
 import { store } from "../../state/store";
-import { addStep, reset } from "../../state/formStepsSlice";
+import { reset } from "../../state/formStepsSlice";
 
 export function ProductStep() {
     const products = useSelector((state) => state.products.products);

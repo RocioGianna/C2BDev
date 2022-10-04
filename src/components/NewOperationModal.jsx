@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { reset, addStep } from "../state/formStepsSlice";
 import { store } from "../state/store";
+import { isAdmin } from "../utils/RolesUtils.js";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -33,16 +34,12 @@ export default function NewOperationModal() {
 
     const user = store.getState().session.user;
 
-    function userIsAdmin(user) {
-        return true;
-    }
-
     useEffect(() => {
         store.dispatch(reset());
-        if (userIsAdmin(user)) {
+        if (user && isAdmin(user.roles)) {
             store.dispatch(addStep("ADMIN_STEP"));
         }
-    }, []);
+    }, [user]);
 
     return (
         <Dialog
