@@ -1,5 +1,6 @@
 package com.con2b.back.resource.user;
 
+import com.con2b.back.dto.GenericResponseDTO;
 import com.con2b.back.service.user.UserService;
 import com.con2b.back.model.user.User2b;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class UserResource {
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<User2b>> getUsers() {
-        return ResponseEntity.ok().body(userService.getUsers());
+    public ResponseEntity<?> getUsers() {
+        return ResponseEntity.ok().body(new GenericResponseDTO(userService.getUsers()));
     }
 }

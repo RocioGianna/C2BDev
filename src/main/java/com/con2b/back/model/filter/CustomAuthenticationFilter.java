@@ -1,5 +1,8 @@
 package com.con2b.back.model.filter;
 
+import com.con2b.back.dto.GenericResponseDTO;
+import com.con2b.back.dto.user.SessionDataDTO;
+import com.con2b.back.dto.user.TokensDTO;
 import com.con2b.back.model.user.UserDetails2b;
 import com.con2b.back.model.user.RefreshToken;
 import com.con2b.back.service.user.RefreshTokenService;
@@ -46,16 +49,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         String accessToken = generateJwtToken(userDetails,request.getRequestURL().toString());
         RefreshToken refreshTokenObject = refreshTokenService.createRefreshToken(userDetails.getAppUser().getId());
         String refreshToken = refreshTokenObject.getToken();
-        Map<String,String> tokens = new HashMap<>();
-        tokens.put("accessToken", accessToken);
-        tokens.put("refreshToken", refreshToken);
         UserDTO user = new UserDTO(userDetails.getAppUser());
-        Map<String,Object> res = new HashMap<>();
-        Map<String, Object> data = new HashMap<>();
-        data.put("user", user);
-        data.put("tokens", tokens);
-        res.put("data", data);
-        res.put("ok", true);
+        GenericResponseDTO<SessionDataDTO> res = new GenericResponseDTO<>(new SessionDataDTO(user,new TokensDTO(accessToken,refreshToken)));
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), res);
     }

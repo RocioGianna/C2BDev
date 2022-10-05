@@ -9,6 +9,10 @@ public class TokensDTO {
         this.refreshToken = refreshToken;
     }
 
+    public TokensDTO(String accessToken){
+        this(accessToken, null);
+    }
+
     public String getAccessToken() {
         return accessToken;
     }

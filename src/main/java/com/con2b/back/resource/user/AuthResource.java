@@ -1,5 +1,8 @@
 package com.con2b.back.resource.user;
 
+import com.con2b.back.dto.GenericResponseDTO;
+import com.con2b.back.dto.user.SessionDataDTO;
+import com.con2b.back.dto.user.TokensDTO;
 import com.con2b.back.model.user.UserDetails2b;
 import com.con2b.back.util.JWTUtils;
 import com.con2b.back.service.user.RefreshTokenService;
@@ -31,12 +34,7 @@ public class AuthResource {
             UserDetails2b userDetails = new UserDetails2b(refreshToken.getUser());
             String accessToken = JWTUtils.generateJwtToken(userDetails, request.getRequestURL().toString());
             UserDTO user = new UserDTO(userDetails.getAppUser());
-            Map<String,Object> res = new HashMap<>();
-            Map<String, Object> data = new HashMap<>();
-            data.put("user", user);
-            data.put("accessToken", accessToken);
-            res.put("data", data);
-            res.put("ok", true);
+            GenericResponseDTO<SessionDataDTO> res = new GenericResponseDTO<>(new SessionDataDTO(user,new TokensDTO(accessToken)));
             return ResponseEntity.ok().body(res);
         } else {
             throw new Exception("Token not found, try logging in again");
