@@ -20,9 +20,13 @@ export const formStepsSlice = createSlice({
             prev = initialState;
             return prev;
         },
+        isAdditionalStepStore: (prev, action) => {
+            return prev.steps[action.payload] === "PHONE_STEP";
+        },
     },
 });
 
-export const { addStep, addPhoneStep, reset } = formStepsSlice.actions;
+export const { addStep, addPhoneStep, reset, isAdditionalStepStore } =
+    formStepsSlice.actions;
 
 export default formStepsSlice.reducer;
