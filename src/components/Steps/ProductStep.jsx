@@ -6,7 +6,7 @@ import FormSelect from "../form/FormSelect";
 import AdditionalsFieldArray from "../form/AdditionalsFieldArray";
 import { useSelector } from "react-redux";
 import { store } from "../../state/store";
-import { reset } from "../../state/formStepsSlice";
+import { reset, addPhoneStep } from "../../state/formStepsSlice";
 
 export function ProductStep() {
     const products = useSelector((state) => state.products.products);
@@ -138,6 +138,7 @@ const onSubmit = async (values, setFieldValue) => {
 
     steps.forEach((step, index) => {
         store.dispatch(addPhoneStep(step));
+        console.log(step);
         setFieldValue(`phoneStep_${index}_phoneOperationType`, "", false);
         setFieldValue(`phoneStep_${index}_phone`, "", false);
         setFieldValue(`phoneStep_${index}_phoneOperator`, "", false);
