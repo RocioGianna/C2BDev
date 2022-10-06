@@ -119,7 +119,6 @@ const validationSchema = (index) => {
 };
 
 const onSubmit = async (values, setFieldValue) => {
-    store.dispatch(reset());
     const selectedProductId = values.productId;
     const selectedProductOptionId = values.productOptionId;
     const productList = store.getState().products.products;
@@ -138,7 +137,6 @@ const onSubmit = async (values, setFieldValue) => {
 
     steps.forEach((step, index) => {
         store.dispatch(addPhoneStep(step));
-        console.log(step);
         setFieldValue(`phoneStep_${index}_phoneOperationType`, "", false);
         setFieldValue(`phoneStep_${index}_phone`, "", false);
         setFieldValue(`phoneStep_${index}_phoneOperator`, "", false);

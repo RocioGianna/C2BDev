@@ -35,7 +35,6 @@ export default function NewOperationModal() {
     const user = store.getState().session.user;
 
     useEffect(() => {
-        store.dispatch(reset());
         if (user && isAdmin(user.roles)) {
             store.dispatch(addStep("ADMIN_STEP"));
         }

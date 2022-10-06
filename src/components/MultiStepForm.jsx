@@ -70,8 +70,6 @@ export function MultiStepForm({ ...props }) {
         return activeStep === stepsArray.length - 1;
     }
 
-    console.log("Steps: ", stepsArray);
-
     return (
         <Formik
             {...props}
