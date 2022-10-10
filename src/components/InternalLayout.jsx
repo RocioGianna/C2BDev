@@ -14,8 +14,10 @@ function InternalLayout() {
     }, [user]);
 
     useEffect(() => {
-        fetchProducts();
-        fetchAdditionals();
+        if (user) {
+            fetchProducts();
+            fetchAdditionals();
+        }
     }, []);
 
     return (

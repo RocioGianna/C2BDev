@@ -13,6 +13,7 @@ function FormText(props) {
             disabled={!!props.disabled}
             type={props.type}
             helperText={props.helperText}
+            autoComplete={props.autoComplete}
             variant="outlined"
             fullWidth
             margin="normal"

@@ -16,10 +16,7 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 
 const validationSchema = yup.object({
-    email2b: yup
-        .string("Ingrese su correo electronico")
-        .email("Ingrese un correo electronico valido")
-        .required("El correo electronico es requerido"),
+    email2b: yup.string("Ingrese su correo electronico").email("Ingrese un correo electronico valido").required("El correo electronico es requerido"),
     password: yup.string("Ingrese su contraseña").required("La contraseña es requerida"),
 });
 
@@ -105,6 +102,7 @@ function Login() {
                                         setError(false);
                                         formik.handleChange(e);
                                     }}
+                                    autoComplete="off"
                                     error={(formik.touched.password && Boolean(formik.errors.password)) || error}
                                     helperText={formik.touched.password && formik.errors.password}
                                 />
@@ -114,12 +112,7 @@ function Login() {
                                         {error}
                                     </Typography>
                                 )}
-                                <Button
-                                    fullWidth
-                                    variant="contained"
-                                    type="submit"
-                                    sx={{ my: 2, py: 1, fontSize: "1.2em" }}
-                                >
+                                <Button fullWidth variant="contained" type="submit" sx={{ my: 2, py: 1, fontSize: "1.2em" }}>
                                     Ingresar
                                 </Button>
                             </form>
