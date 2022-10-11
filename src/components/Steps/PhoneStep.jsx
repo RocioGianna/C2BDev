@@ -43,36 +43,37 @@ export function PhoneStep({ index }) {
                         />
                     </Grid>
                 )}
-
-                <ConditionalForm
-                    label={"Cambio de titular de telefono fijo"}
-                    name={`phoneStep_${index}_changePhoneOwner`}
-                >
-                    <Grid item xs={12}>
-                        <Field
-                            fullWidth
-                            name={`phoneStep_${index}_surname`}
-                            label="Apellido titular actual"
-                            component={TextField}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Field
-                            fullWidth
-                            name={`phoneStep_${index}_name`}
-                            label="Nombre titular actual"
-                            component={TextField}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Field
-                            fullWidth
-                            name={`phoneStep_${index}_dni`}
-                            label="DNI titular actual"
-                            component={TextField}
-                        />
-                    </Grid>
-                </ConditionalForm>
+                {operationType.value !== "Nuevo" && (
+                    <ConditionalForm
+                        label={"Cambio de titular de telefono fijo"}
+                        name={`phoneStep_${index}_changePhoneOwner`}
+                    >
+                        <Grid item xs={12}>
+                            <Field
+                                fullWidth
+                                name={`phoneStep_${index}_surname`}
+                                label="Apellido titular actual"
+                                component={TextField}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                fullWidth
+                                name={`phoneStep_${index}_name`}
+                                label="Nombre titular actual"
+                                component={TextField}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                fullWidth
+                                name={`phoneStep_${index}_dni`}
+                                label="DNI titular actual"
+                                component={TextField}
+                            />
+                        </Grid>
+                    </ConditionalForm>
+                )}
             </Grid>
         </Box>
     );

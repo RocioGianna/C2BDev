@@ -5,6 +5,8 @@ import Stepper from "./Stepper";
 import { DialogActions, Box } from "@mui/material";
 import { steps } from "../model/Steps";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { isAdditionalStepStore } from "../state/formStepsSlice";
 import { store } from "../state/store";
 
 const user = store.getState().session.user;
@@ -48,6 +50,8 @@ export function MultiStepForm({ ...props }) {
     const additionals = useSelector((state) => state.formSteps);
     const [activeStep, setActiveStep] = useState(0);
     const stepsArray = props.steps.map((s) => steps[s]);
+    const dispatch = useDispatch();
+
     const currentChild = stepsArray[activeStep];
 
     const CurrentComponent = currentChild.reactComponent;
@@ -63,7 +67,7 @@ export function MultiStepForm({ ...props }) {
     const currentOnSubmit = currentChild.onSubmit;
 
     function isAdditionalStep(index, size) {
-        return index != 0 && index != 1 && index != size - 1;
+        return props.steps[activeStep] === "PHONE_STEP";
     }
 
     function isLastStep() {

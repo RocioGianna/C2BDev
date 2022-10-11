@@ -23,6 +23,7 @@ export const formStepsSlice = createSlice({
     },
 });
 
-export const { addStep, addPhoneStep, reset } = formStepsSlice.actions;
+export const { addStep, addPhoneStep, reset, isAdditionalStepStore } =
+    formStepsSlice.actions;
 
 export default formStepsSlice.reducer;
