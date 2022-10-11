@@ -23,7 +23,7 @@ export function PhoneStep({ index }) {
                         <MenuItem value={"Existente"}>Existente</MenuItem>
                     </FormSelect>
                 </Grid>
-                {operationType.value !== "Nuevo" && (
+                {operationType.value !== "Nuevo" && operationType.value !== "" && (
                     <Grid item xs={12}>
                         <Field
                             fullWidth
@@ -33,34 +33,35 @@ export function PhoneStep({ index }) {
                         />
                     </Grid>
                 )}
-                {operationType.value === "Portabilidad" && (
-                    <Grid item xs={12}>
-                        <Field
-                            fullWidth
-                            name={`phoneStep_${index}_phoneOperator`}
-                            label="Operador Actual Fijo"
-                            component={TextField}
-                        />
-                    </Grid>
-                )}
-                {operationType.value !== "Nuevo" && (
+                {operationType.value === "Portabilidad" &&
+                    operationType.value !== "" && (
+                        <Grid item xs={12}>
+                            <Field
+                                fullWidth
+                                name={`phoneStep_${index}_phoneOperator`}
+                                label="Operador Actual Fijo"
+                                component={TextField}
+                            />
+                        </Grid>
+                    )}
+                {operationType.value !== "Nuevo" && operationType.value !== "" && (
                     <ConditionalForm
-                        label={"Cambio de titular de telefono fijo"}
+                        label={"Cambio de titular"}
                         name={`phoneStep_${index}_changePhoneOwner`}
                     >
                         <Grid item xs={12}>
                             <Field
                                 fullWidth
-                                name={`phoneStep_${index}_surname`}
-                                label="Apellido titular actual"
+                                name={`phoneStep_${index}_name`}
+                                label="Nombre titular actual"
                                 component={TextField}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <Field
                                 fullWidth
-                                name={`phoneStep_${index}_name`}
-                                label="Nombre titular actual"
+                                name={`phoneStep_${index}_surname`}
+                                label="Apellido titular actual"
                                 component={TextField}
                             />
                         </Grid>
