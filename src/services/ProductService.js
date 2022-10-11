@@ -4,7 +4,7 @@ import { doSecureGet } from "../utils/RequestUtils";
 
 export async function fetchProducts() {
     try {
-        const res = await doSecureGet("http://localhost:8080/api/v1/products", {});
+        const res = await doSecureGet(`${ENV2B_BACKEND_URL}/api/v1/products`, {});
         if (res.data.ok) {
             store.dispatch(productsFetched(res.data.data));
             return res.data.data;
@@ -17,7 +17,7 @@ export async function fetchProducts() {
 
 export async function fetchAdditionals() {
     try {
-        const res = await doSecureGet("http://localhost:8080/api/v1/additionals", {});
+        const res = await doSecureGet(`${ENV2B_BACKEND_URL}/api/v1/additionals`, {});
         if (res.data.ok) {
             store.dispatch(additionalsFetched(res.data.data));
             return res.data.data;

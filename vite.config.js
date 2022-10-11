@@ -7,4 +7,7 @@ export default defineConfig({
     server: {
         open: true,
     },
+    define: {
+        ENV2B_BACKEND_URL: '"https://app.2bconexion.com"',
+    },
 });

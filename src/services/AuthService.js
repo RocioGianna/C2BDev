@@ -4,9 +4,7 @@ import { loggedIn, loggedOut } from "../state/sessionSlice";
 
 export async function login(email, password) {
     try {
-        const res = await axios.post(
-            `http://localhost:8080/login?username=${email}&password=${password}`
-        );
+        const res = await axios.post(`${ENV2B_BACKEND_URL}/login?username=${email}&password=${password}`);
         if (res.data.ok) {
             localStorage.setItem("refreshToken", res.data.data.tokens.refreshToken);
             console.log(res.data.data);
@@ -28,7 +26,7 @@ export async function refreshAccessToken() {
     const token = localStorage.getItem("refreshToken");
     try {
         if (token) {
-            const res = await axios.post(`http://localhost:8080/refreshToken?token=${token}`);
+            const res = await axios.post(`${ENV2B_BACKEND_URL}/refreshToken?token=${token}`);
             if (res.data.ok) {
                 store.dispatch(
                     loggedIn({
@@ -47,7 +45,7 @@ export async function refreshAccessToken() {
 
 export async function logout(email) {
     try {
-        const res = await axios.post(`http://localhost:8080/auth/logout?email=${email}`);
+        const res = await axios.post(`${ENV2B_BACKEND_URL}/auth/logout?email=${email}`);
         if (res.data.ok) {
             store.dispatch(loggedOut());
             localStorage.removeItem("refreshToken");
