@@ -11,7 +11,10 @@ import { useSelector } from "react-redux";
 
 const validationSchema = (index) => {
     return yup.object().shape({
-        collaboratorEmail: yup.string().email().required("El email es requerido"),
+        collaboratorEmail: yup
+            .string()
+            .email()
+            .required("El email es requerido"),
         collaboratorPhone: yup
             .string()
             .phone("IN", "El formato del telefono no es valido")
@@ -50,13 +53,19 @@ export function DocumentationStep() {
             <Field
                 fullWidth
                 name="offeredPrice"
-                label="Precio ofrecido por el cliente"
+                label="Precio ofrecido al cliente"
                 component={TextField}
                 type="text"
                 InputProps={{ sx: { height: 100 } }}
             />
-            <EditableField name={"collaboratorEmail"} label={"Email colaborador"} />
-            <EditableField name={"collaboratorPhone"} label={"Telefono colaborador"} />
+            <EditableField
+                name={"collaboratorEmail"}
+                label={"Email colaborador"}
+            />
+            <EditableField
+                name={"collaboratorPhone"}
+                label={"Telefono colaborador"}
+            />
         </Grid>
     );
 }
