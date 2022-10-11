@@ -1,3 +1,5 @@
-export function isAdmin(roles) {
-    return roles.some((r) => r === "ADMIN");
+import { store } from "../state/store";
+
+export function isAdmin() {
+    return store.getState().session.user.roles.some((r) => r === "ADMIN");
 }

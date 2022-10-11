@@ -20,10 +20,14 @@ export const formStepsSlice = createSlice({
             prev = initialState;
             return prev;
         },
+        resetPhoneSteps: (prev) => {
+            prev.steps = prev.steps.filter((i) => i !== "PHONE_STEP");
+            prev.phoneSteps = [];
+            return prev;
+        },
     },
 });
 
-export const { addStep, addPhoneStep, reset, isAdditionalStepStore } =
-    formStepsSlice.actions;
+export const { addStep, addPhoneStep, reset, resetPhoneSteps } = formStepsSlice.actions;
 
 export default formStepsSlice.reducer;

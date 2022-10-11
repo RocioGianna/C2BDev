@@ -5,7 +5,6 @@ import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { reset, addStep } from "../state/formStepsSlice";
-import { store } from "../state/store";
 import { isAdmin } from "../utils/RolesUtils.js";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -27,34 +26,27 @@ export default function NewOperationModal() {
     const dispatch = useDispatch();
 
     const handleClose = () => {
-        dispatch(reset());
         setOpen(false);
         navigate("..");
+        dispatch(reset());
     };
 
-    const user = store.getState().session.user;
+    const user = useSelector((state) => state.session.user);
 
     useEffect(() => {
-        if (user && isAdmin(user.roles)) {
-            store.dispatch(addStep("ADMIN_STEP"));
+        if (user && isAdmin()) {
+            dispatch(addStep("ADMIN_STEP"));
         }
     }, [user]);
 
     return (
-        <Dialog
-            open={open}
-            onClose={handleClose}
-            maxWidth={"md"}
-            width={"md"}
-            fullWidth={true}
-            scroll={"paper"}
-        >
+        <Dialog open={open} onClose={handleClose} maxWidth={"md"} width={"md"} fullWidth={true} scroll={"paper"}>
             <Title title={"Nueva Operacion"} />
-
             <DialogContent>
                 <MultiStepForm
                     onSubmit={async () => {
                         await sleep(3000);
+                        handleClose();
                     }}
                     steps={formSteps}
                 />

@@ -5,7 +5,6 @@ import { CheckboxWithLabel } from "formik-material-ui";
 
 export default function ConditionalForm({ children, name, ...props }) {
     const [phoneCheckbox] = useField(name);
-
     const value = phoneCheckbox.value;
 
     return (
