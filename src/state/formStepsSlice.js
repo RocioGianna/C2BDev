@@ -20,9 +20,6 @@ export const formStepsSlice = createSlice({
             prev = initialState;
             return prev;
         },
-        isAdditionalStepStore: (prev, action) => {
-            return prev.steps[action.payload] === "PHONE_STEP";
-        },
     },
 });
 

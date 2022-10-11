@@ -67,8 +67,7 @@ export function MultiStepForm({ ...props }) {
     const currentOnSubmit = currentChild.onSubmit;
 
     function isAdditionalStep(index, size) {
-        return store.dispatch(isAdditionalStepStore(index));
-        // return index != 0 && index != 1 && index != size - 1;
+        return props.steps[activeStep] === "PHONE_STEP";
     }
 
     function isLastStep() {
