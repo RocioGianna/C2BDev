@@ -15,7 +15,7 @@ export default function FormSelect({ name, children, label, disabled }) {
             variant="outlined"
             margin="normal"
         >
-            {children}
+            {children ? children : <div></div>}
         </Field>
     );
 }
