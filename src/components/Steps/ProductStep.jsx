@@ -13,7 +13,7 @@ export function ProductStep() {
     const additionals = useSelector((state) => state.products.additionals);
     const [firstTime, setFirstTime] = useState(true);
 
-    const { setFieldValue } = useFormikContext();
+    const { setFieldValue, values } = useFormikContext();
 
     const [productId] = useField("productId");
     const [productOptionId] = useField("productOptionId");
@@ -23,6 +23,7 @@ export function ProductStep() {
         if (!firstTime) {
             setFieldValue("productOptionId", "", false);
             setFieldValue("productId", "", false);
+            setFieldValue("additionals", [], false);
         } else {
             setFirstTime(false);
         }
@@ -44,6 +45,8 @@ export function ProductStep() {
         const additionalsIds = product.availableAdditionals;
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
+
+    console.log(values);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
