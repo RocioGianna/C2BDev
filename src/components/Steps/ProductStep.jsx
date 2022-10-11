@@ -29,12 +29,18 @@ export function ProductStep() {
         }
     }, [productType.value]);
 
+    useEffect(() => {
+        if (productOptionId.value !== "") {
+            setFieldValue("productOptionId", "", false);
+        }
+    }, [productId.value]);
+
     const optionsByProduct = (productId) => {
         const product = products.find((p) => p.id == productId);
         const productOptions = product.options;
 
         return productOptions.map((option) => (
-            <MenuItem key={option.id} value={option.id}>
+            <MenuItem key={option.id} value={option.id} divider>
                 {option.name}
             </MenuItem>
         ));
