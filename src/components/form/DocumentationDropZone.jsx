@@ -22,7 +22,6 @@ export default function DocumentationDropZone({ name, children }) {
     const getUploadParams = () => ({ url: "https://httpbin.org/post" });
 
     const handleSubmit = (files, allFiles) => {
-        console.log(files.map((f) => f.meta));
         allFiles.forEach((f) => f.remove());
     };
 

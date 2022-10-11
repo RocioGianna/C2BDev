@@ -55,8 +55,6 @@ export function ProductStep() {
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
 
-    console.log(values);
-
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
