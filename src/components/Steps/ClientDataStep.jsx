@@ -202,7 +202,7 @@ function ClientDataStep(props) {
                 </Grid>
                 <ConditionalForm
                     label={
-                        "Direccion de instalacion distinta a la direccion de facturacion"
+                        "Direccion de instalacion diferente a la direccion de facturacion"
                     }
                     name={"checkbox"}
                 >
@@ -241,7 +241,7 @@ function ClientDataStep(props) {
                 </ConditionalForm>
                 <ConditionalForm
                     label={
-                        "Direccion de entrega distinta a la direccion de instalacion"
+                        "Direccion de entrega diferente a la direccion de instalacion"
                     }
                     name={"checkbox2"}
                 >
