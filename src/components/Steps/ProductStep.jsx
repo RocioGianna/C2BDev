@@ -12,6 +12,7 @@ export function ProductStep() {
     const products = useSelector((state) => state.products.products);
     const additionals = useSelector((state) => state.products.additionals);
     const [firstTime, setFirstTime] = useState(true);
+    const [firstTime2, setFirstTime2] = useState(true);
 
     const { setFieldValue, values } = useFormikContext();
 
@@ -30,8 +31,10 @@ export function ProductStep() {
     }, [productType.value]);
 
     useEffect(() => {
-        if (productOptionId.value !== "") {
+        if (!firstTime2) {
             setFieldValue("productOptionId", "", false);
+        } else {
+            setFirstTime2(false);
         }
     }, [productId.value]);
 
