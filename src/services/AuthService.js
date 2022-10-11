@@ -4,11 +4,18 @@ import { loggedIn, loggedOut } from "../state/sessionSlice";
 
 export async function login(email, password) {
     try {
-        const res = await axios.post(`http://localhost:8080/login?username=${email}&password=${password}`);
+        const res = await axios.post(
+            `http://localhost:8080/login?username=${email}&password=${password}`
+        );
         if (res.data.ok) {
             localStorage.setItem("refreshToken", res.data.data.tokens.refreshToken);
             console.log(res.data.data);
-            store.dispatch(loggedIn({ user: res.data.data.user, accessToken: res.data.data.tokens.accessToken }));
+            store.dispatch(
+                loggedIn({
+                    user: res.data.data.user,
+                    accessToken: res.data.data.tokens.accessToken,
+                })
+            );
             return true;
         }
     } catch (error) {
@@ -23,7 +30,12 @@ export async function refreshAccessToken() {
         if (token) {
             const res = await axios.post(`http://localhost:8080/refreshToken?token=${token}`);
             if (res.data.ok) {
-                store.dispatch(loggedIn({ user: res.data.data.user, accessToken: res.data.data.accessToken }));
+                store.dispatch(
+                    loggedIn({
+                        user: res.data.data.user,
+                        accessToken: res.data.data.tokens.accessToken,
+                    })
+                );
             }
         } else throw new Error("No refresh token in localStorage");
     } catch (error) {
