@@ -6,15 +6,29 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { reset, addStep } from "../state/formStepsSlice";
 import { isAdmin } from "../utils/RolesUtils.js";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const Title = ({ title }) => {
+const Title = ({ title, handleClose }) => {
     return (
         <DialogTitle textAlign="center">
             <Typography variant="h4" component="p">
                 {title}
             </Typography>
+            <IconButton
+                aria-label="close"
+                sx={{
+                    position: "absolute",
+                    right: 8,
+                    top: 8,
+                    color: (theme) => theme.palette.grey[500],
+                }}
+                onClick={handleClose}
+            >
+                <CloseIcon />
+            </IconButton>
         </DialogTitle>
     );
 };
@@ -40,8 +54,14 @@ export default function NewOperationModal() {
     }, [user]);
 
     return (
-        <Dialog open={open} onClose={handleClose} maxWidth={"md"} width={"md"} fullWidth={true} scroll={"paper"}>
-            <Title title={"Nueva Operacion"} />
+        <Dialog
+            open={open}
+            maxWidth={"md"}
+            width={"md"}
+            fullWidth={true}
+            scroll={"paper"}
+        >
+            <Title title={"Nueva Operacion"} handleClose={handleClose} />
             <DialogContent>
                 <MultiStepForm
                     onSubmit={async () => {
