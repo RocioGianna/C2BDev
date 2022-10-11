@@ -240,9 +240,7 @@ function ClientDataStep(props) {
                     </Grid>
                 </ConditionalForm>
                 <ConditionalForm
-                    label={
-                        "Direccion de entrega diferente a la direccion de instalacion"
-                    }
+                    label={"Direccion de entrega de tarjeta sim"}
                     name={"checkbox2"}
                 >
                     <Grid item xs={9}>
