@@ -4,7 +4,7 @@ import { Field } from "formik";
 import { Button, Box } from "@mui/material";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 
-export default function EditableField({ name, label }) {
+export default function EditableField({ name, label, children }) {
     const [enabled, setEnabled] = useState(false);
 
     return (
@@ -14,14 +14,23 @@ export default function EditableField({ name, label }) {
                 width: "100%",
             }}
         >
-            <Field
-                name={name}
-                label={label}
-                component={TextField}
-                type="text"
-                sx={{ flexGrow: 1 }}
-                disabled={!enabled}
-            />
+            {children ? (
+                <>
+                    {React.Children.map(children, (child) =>
+                        React.cloneElement(child, { disabled: !enabled })
+                    )}
+                </>
+            ) : (
+                <Field
+                    name={name}
+                    label={label}
+                    component={TextField}
+                    type="text"
+                    sx={{ flexGrow: 1 }}
+                    disabled={!enabled}
+                />
+            )}
+
             {!enabled && (
                 <Button
                     variant="contained"

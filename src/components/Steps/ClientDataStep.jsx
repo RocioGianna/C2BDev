@@ -4,17 +4,33 @@ import { TextField } from "formik-material-ui";
 import { Field, useField } from "formik";
 import ConditionalForm from "../form/ConditionalForm";
 import * as yup from "yup";
-import "yup-phone-lite";
+import PhoneInput from "../form/PhoneInput";
+import { isValidPhoneNumber } from "libphonenumber-js";
+import { countryCodes } from "../../utils/ValidationUtils";
 
 const validationSchema = () => {
     return yup.object().shape({
         clientName: yup.string().required("El nombre es requerido"),
         clientSurname: yup.string().required("El apellido es requerido"),
         dni: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
-        phone: yup
+        phonePrefix: yup
             .string()
-            .phone("IN", "El formato del telefono no es valido")
-            .required("El telefono es requerido"),
+            .required("El prefijo es requerido")
+            .test("valid-prefix", "Prefijo no valido", (value) => {
+                return countryCodes.includes(value);
+            }),
+        phoneNumber: yup
+            .string()
+            .required("El numero es requerido")
+            .test(
+                "is-valid-phone",
+                "El formato del telefono no es valido",
+                function (value) {
+                    return isValidPhoneNumber(
+                        this.options.parent.phonePrefix + " " + value
+                    );
+                }
+            ),
         email: yup
             .string("Ingrese su correo electronico")
             .email("Ingrese un correo electronico valido")
@@ -142,12 +158,9 @@ function ClientDataStep(props) {
                     />
                 </Grid>
                 <Grid item xs={6}>
-                    <Field
-                        fullWidth
-                        name="phone"
-                        label="Telefono"
-                        component={TextField}
-                        type="tel"
+                    <PhoneInput
+                        phonePrefixName="phonePrefix"
+                        phoneNumberName="phoneNumber"
                     />
                 </Grid>
                 <Grid item xs={12}>

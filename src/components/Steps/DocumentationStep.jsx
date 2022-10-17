@@ -4,10 +4,13 @@ import { Grid } from "@mui/material";
 import { useField, useFormikContext, Field } from "formik";
 import { TextField } from "formik-material-ui";
 import EditableField from "../form/EditableField";
-import "yup-phone-lite";
 
 import DocumentationDropZone from "../Dropzone";
 import { useSelector } from "react-redux";
+
+import PhoneInput from "../form/PhoneInput";
+import { countryCodes } from "../../utils/ValidationUtils";
+import { isValidPhoneNumber } from "libphonenumber-js";
 
 const validationSchema = (index) => {
     return yup.object().shape({
@@ -15,10 +18,27 @@ const validationSchema = (index) => {
             .string()
             .email()
             .required("El email es requerido"),
-        collaboratorPhone: yup
+        collaboratorphonePrefix: yup
             .string()
-            .phone("IN", "El formato del telefono no es valido")
-            .required("El telefono es requerido"),
+            .required("El prefijo es requerido")
+            .test("valid-prefix", "Prefijo no valido", (value) => {
+                console.log("value" + value);
+                return countryCodes.includes(value);
+            }),
+        collaboratorphoneNumber: yup
+            .string()
+            .required("El numero es requerido")
+            .test(
+                "is-valid-phone",
+                "El formato del telefono no es valido",
+                function (value) {
+                    console.log("value" + value);
+
+                    return isValidPhoneNumber(
+                        this.options.parent.phonePrefix + " " + value
+                    );
+                }
+            ),
         offeredPrice: yup.string().required("El precio es requerido"),
     });
 };
@@ -33,9 +53,14 @@ export function DocumentationStep() {
             if (values.collaboratorEmail === "") {
                 setFieldValue("collaboratorEmail", user.email);
             }
-            if (values.collaboratorPhone === "") {
+
+            console.log(user);
+            /* if (values.collaboratorPhonePrefix === "") {
                 setFieldValue("collaboratorPhone", user.phone);
             }
+            if (values.collaboratorPhoneNumber === "") {
+                setFieldValue("collaboratorPhone", user.phone);
+            } */
         }
     }, [user]);
 
@@ -62,10 +87,12 @@ export function DocumentationStep() {
                 name={"collaboratorEmail"}
                 label={"Email colaborador"}
             />
-            <EditableField
-                name={"collaboratorPhone"}
-                label={"Telefono colaborador"}
-            />
+            <EditableField>
+                <PhoneInput
+                    phonePrefixName={"collaboratorPhonePrefix"}
+                    phoneNumberName={"collaboratorPhoneNumber"}
+                />
+            </EditableField>
         </Grid>
     );
 }

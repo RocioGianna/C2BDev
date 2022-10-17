@@ -7,6 +7,7 @@ import AdditionalsFieldArray from "../form/AdditionalsFieldArray";
 import { useSelector } from "react-redux";
 import { store } from "../../state/store";
 import { resetPhoneSteps, addPhoneStep } from "../../state/formStepsSlice";
+import PhoneInput from "../form/PhoneInput";
 
 export function ProductStep() {
     const products = useSelector((state) => state.products.products);
@@ -59,13 +60,20 @@ export function ProductStep() {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <FormSelect name={"isProfessionalProduct"} label={"Tipo de producto"}>
+                    <FormSelect
+                        name={"isProfessionalProduct"}
+                        label={"Tipo de producto"}
+                    >
                         {/* <MenuItem value={true}>Profesional</MenuItem> */}
                         <MenuItem value={false}>Particular</MenuItem>
                     </FormSelect>
                 </Grid>
                 <Grid item xs={12}>
-                    <FormSelect name={"productId"} label={"Nombre de Producto"} disabled={productType.value === ""}>
+                    <FormSelect
+                        name={"productId"}
+                        label={"Nombre de Producto"}
+                        disabled={productType.value === ""}
+                    >
                         {products
                             .filter((p) => p.professional == productType.value)
                             .map((p) => (
@@ -76,16 +84,33 @@ export function ProductStep() {
                     </FormSelect>
                 </Grid>
                 <Grid item xs={12}>
-                    <FormSelect name={"productOptionId"} label={"Opcion de Producto"} disabled={productId.value === ""}>
-                        {productId.value !== "" && optionsByProduct(productId.value)}
+                    <FormSelect
+                        name={"productOptionId"}
+                        label={"Opcion de Producto"}
+                        disabled={productId.value === ""}
+                    >
+                        {productId.value !== "" &&
+                            optionsByProduct(productId.value)}
                     </FormSelect>
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Typography variant="h6" align="center" component="h2" sx={{ m: 2 }}>
+                    <Typography
+                        variant="h6"
+                        align="center"
+                        component="h2"
+                        sx={{ m: 2 }}
+                    >
                         Adicionales
                     </Typography>
-                    <AdditionalsFieldArray disabled={productId.value === "" || productOptionId.value === "" || !additionalsByProduct(productId.value).length} name={"additionals"}>
+                    <AdditionalsFieldArray
+                        disabled={
+                            productId.value === "" ||
+                            productOptionId.value === "" ||
+                            !additionalsByProduct(productId.value).length
+                        }
+                        name={"additionals"}
+                    >
                         {productId.value !== "" &&
                             additionalsByProduct(productId.value).map((a) => {
                                 return a.options.map((o) => (
@@ -114,7 +139,9 @@ const onSubmit = async (values, setFieldValue) => {
     const selectedProductOptionId = values.productOptionId;
     const productList = store.getState().products.products;
     const product = productList.find((p) => p.id === selectedProductId);
-    const option = product.options.find((o) => o.id === selectedProductOptionId);
+    const option = product.options.find(
+        (o) => o.id === selectedProductOptionId
+    );
 
     let steps = [];
     values.additionals.forEach((additional) => {
@@ -127,7 +154,8 @@ const onSubmit = async (values, setFieldValue) => {
     steps.forEach((step, index) => {
         store.dispatch(addPhoneStep(step));
         setFieldValue(`phoneStep_${index}_phoneOperationType`, "", false);
-        setFieldValue(`phoneStep_${index}_phone`, "", false);
+        setFieldValue(`phoneStep_${index}_phonePrefix`, "+34", false);
+        setFieldValue(`phoneStep_${index}_phoneNumber`, "", false);
         setFieldValue(`phoneStep_${index}_phoneOperator`, "", false);
         setFieldValue(`phoneStep_${index}_surname`, "", false);
         setFieldValue(`phoneStep_${index}_name`, "", false);

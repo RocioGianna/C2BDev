@@ -5,7 +5,9 @@ import { TextField } from "formik-material-ui";
 import { Field, useField } from "formik";
 import ConditionalForm from "../form/ConditionalForm";
 import FormSelect from "../form/FormSelect";
-import "yup-phone-lite";
+import { countryCodes } from "../../utils/ValidationUtils";
+import { isValidPhoneNumber } from "libphonenumber-js";
+import PhoneInput from "../form/PhoneInput";
 
 export function PhoneStep({ index }) {
     const [operationType] = useField(`phoneStep_${index}_phoneOperationType`);
@@ -25,11 +27,9 @@ export function PhoneStep({ index }) {
                 </Grid>
                 {operationType.value !== "Nuevo" && operationType.value !== "" && (
                     <Grid item xs={12}>
-                        <Field
-                            fullWidth
-                            name={`phoneStep_${index}_phone`}
-                            label="Numero Fijo Actual"
-                            component={TextField}
+                        <PhoneInput
+                            phonePrefixName={`phoneStep_${index}_phonePrefix`}
+                            phoneNumberName={`phoneStep_${index}_phoneNumber`}
                         />
                     </Grid>
                 )}
@@ -85,17 +85,38 @@ const validationSchema = (index) => {
         [`phoneStep_${index}_phoneOperationType`]: yup
             .string()
             .required("El tipo de operacion es requerido"),
-        [`phoneStep_${index}_phone`]: yup
+        [`phoneStep_${index}_phonePrefix`]: yup
             .string()
             .when(`phoneStep_${index}_phoneOperationType`, (opType) => {
                 if (opType !== "Nuevo") {
                     return yup
                         .string()
-                        .phone("IN", "El formato del telefono no es valido")
-                        .required("El telefono es requerido");
+                        .required("El prefijo es requerido")
+                        .test("valid-prefix", "Prefijo no valido", (value) => {
+                            return countryCodes.includes(value);
+                        });
                 }
             }),
-
+        [`phoneStep_${index}_phoneNumber`]: yup
+            .string()
+            .when(`phoneStep_${index}_phoneOperationType`, (opType) => {
+                if (opType !== "Nuevo") {
+                    return yup
+                        .string()
+                        .required("El numero es requerido")
+                        .test(
+                            "is-valid-phone",
+                            "El formato del telefono no es valido",
+                            function (value) {
+                                return isValidPhoneNumber(
+                                    this.options.parent.phonePrefix +
+                                        " " +
+                                        value
+                                );
+                            }
+                        );
+                }
+            }),
         [`phoneStep_${index}_phoneOperator`]: yup
             .string()
             .when(`phoneStep_${index}_phoneOperationType`, (opType) => {
