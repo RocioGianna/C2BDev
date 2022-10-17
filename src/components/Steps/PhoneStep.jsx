@@ -16,10 +16,7 @@ export function PhoneStep({ index }) {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <FormSelect
-                        name={`phoneStep_${index}_phoneOperationType`}
-                        label="Tipo de Operacion"
-                    >
+                    <FormSelect name={`phoneStep_${index}_phoneOperationType`} label="Tipo de Operacion">
                         <MenuItem value={"Nuevo"}>Nuevo</MenuItem>
                         <MenuItem value={"Portabilidad"}>Portabilidad</MenuItem>
                         <MenuItem value={"Existente"}>Existente</MenuItem>
@@ -27,51 +24,24 @@ export function PhoneStep({ index }) {
                 </Grid>
                 {operationType.value !== "Nuevo" && operationType.value !== "" && (
                     <Grid item xs={12}>
-                        <PhoneInput
-                            phonePrefixName={`phoneStep_${index}_phonePrefix`}
-                            phoneNumberName={`phoneStep_${index}_phoneNumber`}
-                        />
+                        <PhoneInput phonePrefixName={`phoneStep_${index}_phonePrefix`} phoneNumberName={`phoneStep_${index}_phoneNumber`} />
                     </Grid>
                 )}
-                {operationType.value === "Portabilidad" &&
-                    operationType.value !== "" && (
-                        <Grid item xs={12}>
-                            <Field
-                                fullWidth
-                                name={`phoneStep_${index}_phoneOperator`}
-                                label="Operador Actual Fijo"
-                                component={TextField}
-                            />
-                        </Grid>
-                    )}
+                {operationType.value === "Portabilidad" && operationType.value !== "" && (
+                    <Grid item xs={12}>
+                        <Field fullWidth name={`phoneStep_${index}_phoneOperator`} label="Operador Actual Fijo" component={TextField} />
+                    </Grid>
+                )}
                 {operationType.value !== "Nuevo" && operationType.value !== "" && (
-                    <ConditionalForm
-                        label={"Cambio de titular"}
-                        name={`phoneStep_${index}_changePhoneOwner`}
-                    >
+                    <ConditionalForm label={"Cambio de titular"} name={`phoneStep_${index}_changePhoneOwner`}>
                         <Grid item xs={12}>
-                            <Field
-                                fullWidth
-                                name={`phoneStep_${index}_name`}
-                                label="Nombre titular actual"
-                                component={TextField}
-                            />
+                            <Field fullWidth name={`phoneStep_${index}_name`} label="Nombre titular actual" component={TextField} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Field
-                                fullWidth
-                                name={`phoneStep_${index}_surname`}
-                                label="Apellido titular actual"
-                                component={TextField}
-                            />
+                            <Field fullWidth name={`phoneStep_${index}_surname`} label="Apellido titular actual" component={TextField} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Field
-                                fullWidth
-                                name={`phoneStep_${index}_dni`}
-                                label="DNI titular actual"
-                                component={TextField}
-                            />
+                            <Field fullWidth name={`phoneStep_${index}_dni`} label="DNI titular actual" component={TextField} />
                         </Grid>
                     </ConditionalForm>
                 )}
@@ -82,66 +52,44 @@ export function PhoneStep({ index }) {
 
 const validationSchema = (index) => {
     return yup.object().shape({
-        [`phoneStep_${index}_phoneOperationType`]: yup
-            .string()
-            .required("El tipo de operacion es requerido"),
-        [`phoneStep_${index}_phonePrefix`]: yup
-            .string()
-            .when(`phoneStep_${index}_phoneOperationType`, (opType) => {
-                if (opType !== "Nuevo") {
-                    return yup
-                        .string()
-                        .required("El prefijo es requerido")
-                        .test("valid-prefix", "Prefijo no valido", (value) => {
-                            return countryCodes.includes(value);
-                        });
-                }
-            }),
-        [`phoneStep_${index}_phoneNumber`]: yup
-            .string()
-            .when(`phoneStep_${index}_phoneOperationType`, (opType) => {
-                if (opType !== "Nuevo") {
-                    return yup
-                        .string()
-                        .required("El numero es requerido")
-                        .test(
-                            "is-valid-phone",
-                            "El formato del telefono no es valido",
-                            function (value) {
-                                return isValidPhoneNumber(
-                                    this.options.parent.phonePrefix +
-                                        " " +
-                                        value
-                                );
-                            }
-                        );
-                }
-            }),
-        [`phoneStep_${index}_phoneOperator`]: yup
-            .string()
-            .when(`phoneStep_${index}_phoneOperationType`, (opType) => {
-                if (opType == "Portabilidad") {
-                    return yup.string().required("El operador es obligatorio");
-                }
-            }),
-        [`phoneStep_${index}_surname`]: yup
-            .string()
-            .when(`phoneStep_${index}_changePhoneOwner`, {
-                is: true,
-                then: yup.string().required("El apellido es requerido"),
-            }),
-        [`phoneStep_${index}_name`]: yup
-            .string()
-            .when(`phoneStep_${index}_changePhoneOwner`, {
-                is: true,
-                then: yup.string().required("El nombre es requerido"),
-            }),
-        [`phoneStep_${index}_dni`]: yup
-            .string()
-            .when(`phoneStep_${index}_changePhoneOwner`, {
-                is: true,
-                then: yup.string().required("El DNI es requerido"),
-            }),
+        [`phoneStep_${index}_phoneOperationType`]: yup.string().required("El tipo de operacion es requerido"),
+        [`phoneStep_${index}_phonePrefix`]: yup.string().when(`phoneStep_${index}_phoneOperationType`, (opType) => {
+            if (opType !== "Nuevo") {
+                return yup
+                    .string()
+                    .required("El prefijo es requerido")
+                    .test("valid-prefix", "Prefijo no valido", (value) => {
+                        return countryCodes.includes(value);
+                    });
+            }
+        }),
+        [`phoneStep_${index}_phoneNumber`]: yup.string().when(`phoneStep_${index}_phoneOperationType`, (opType) => {
+            if (opType !== "Nuevo") {
+                return yup
+                    .string()
+                    .required("El numero es requerido")
+                    .test("is-valid-phone", "El formato del telefono no es valido", function (value) {
+                        return isValidPhoneNumber(this.options.parent.phonePrefix + " " + value);
+                    });
+            }
+        }),
+        [`phoneStep_${index}_phoneOperator`]: yup.string().when(`phoneStep_${index}_phoneOperationType`, (opType) => {
+            if (opType == "Portabilidad") {
+                return yup.string().required("El operador es obligatorio");
+            }
+        }),
+        [`phoneStep_${index}_surname`]: yup.string().when(`phoneStep_${index}_changePhoneOwner`, {
+            is: true,
+            then: yup.string().required("El apellido es requerido"),
+        }),
+        [`phoneStep_${index}_name`]: yup.string().when(`phoneStep_${index}_changePhoneOwner`, {
+            is: true,
+            then: yup.string().required("El nombre es requerido"),
+        }),
+        [`phoneStep_${index}_dni`]: yup.string().when(`phoneStep_${index}_changePhoneOwner`, {
+            is: true,
+            then: yup.string().required("El DNI es requerido"),
+        }),
     });
 };
 

@@ -53,19 +53,9 @@ export function MultiStepForm({ ...props }) {
     const CurrentComponent = currentChild.reactComponent;
     const currentValidationSchema = currentChild.validationSchema;
 
-    console.log("______");
-    console.log(additionals.phoneSteps);
-    console.log("______");
-
     const currentPhoneStepIndex = activeStep - (isAdmin() ? 3 : 2);
 
-    const currentLabel =
-        props.steps[activeStep] === "PHONE_STEP"
-            ? additionals.phoneSteps[currentPhoneStepIndex].mobile
-                ? "Linea Movil - " +
-                  additionals.phoneSteps[currentPhoneStepIndex].name
-                : "Linea Fija"
-            : currentChild.label;
+    const currentLabel = props.steps[activeStep] === "PHONE_STEP" ? (additionals.phoneSteps[currentPhoneStepIndex].mobile ? "Linea Movil - " + additionals.phoneSteps[currentPhoneStepIndex].name : "Linea Fija") : currentChild.label;
 
     const currentOnSubmit = currentChild.onSubmit;
 
@@ -77,9 +67,7 @@ export function MultiStepForm({ ...props }) {
         <Formik
             {...props}
             initialValues={multiStepInitialValues}
-            validationSchema={() =>
-                currentValidationSchema(currentPhoneStepIndex)
-            }
+            validationSchema={() => currentValidationSchema(currentPhoneStepIndex)}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
                     await props.onSubmit(values, helpers);
@@ -96,18 +84,10 @@ export function MultiStepForm({ ...props }) {
                 <Form autoComplete="off">
                     <Grid container rowSpacing={4}>
                         <Grid item xs={12}>
-                            <Stepper
-                                activeStep={activeStep}
-                                childrenArray={stepsArray}
-                            />
+                            <Stepper activeStep={activeStep} childrenArray={stepsArray} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography
-                                id="modal-modal-title"
-                                variant="h6"
-                                align="center"
-                                component="h2"
-                            >
+                            <Typography id="modal-modal-title" variant="h6" align="center" component="h2">
                                 {currentLabel}
                             </Typography>
                         </Grid>
@@ -125,14 +105,7 @@ export function MultiStepForm({ ...props }) {
                         >
                             <Grid item xs={4}>
                                 {activeStep > 0 ? (
-                                    <Button
-                                        onClick={() =>
-                                            setActiveStep(activeStep - 1)
-                                        }
-                                        variant="contained"
-                                        fullWidth
-                                        disabled={isSubmitting}
-                                    >
+                                    <Button onClick={() => setActiveStep(activeStep - 1)} variant="contained" fullWidth disabled={isSubmitting}>
                                         <Box
                                             sx={{
                                                 display: "flex",
@@ -148,17 +121,7 @@ export function MultiStepForm({ ...props }) {
                                 ) : null}
                             </Grid>
                             <Grid item xs={4}>
-                                <Button
-                                    startIcon={
-                                        isSubmitting ? (
-                                            <CircularProgress size="1rem" />
-                                        ) : null
-                                    }
-                                    type="submit"
-                                    variant="contained"
-                                    fullWidth
-                                    disabled={isSubmitting}
-                                >
+                                <Button startIcon={isSubmitting ? <CircularProgress size="1rem" /> : null} type="submit" variant="contained" fullWidth disabled={isSubmitting}>
                                     <Box
                                         sx={{
                                             display: "flex",
@@ -167,11 +130,7 @@ export function MultiStepForm({ ...props }) {
                                         }}
                                     >
                                         <span />
-                                        {isSubmitting
-                                            ? "Confirmando"
-                                            : isLastStep()
-                                            ? "Confirmar"
-                                            : "Siguiente"}
+                                        {isSubmitting ? "Confirmando" : isLastStep() ? "Confirmar" : "Siguiente"}
                                         <ArrowForwardOutlinedIcon />
                                     </Box>
                                 </Button>
