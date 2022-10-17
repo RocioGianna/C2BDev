@@ -56,7 +56,7 @@ export function ProductStep() {
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
 
-    if (productId.value) console.log(additionalsByProduct(productId.value));
+    // if (productId.value) console.log(additionalsByProduct(productId.value));
 
     return (
         <Box sx={{ flexGrow: 1 }}>
