@@ -13,7 +13,6 @@ export default function FormSelect({ name, children, label, disabled }) {
             label={label}
             disabled={disabled}
             variant="outlined"
-            margin="normal"
         >
             {children ? children : <div></div>}
         </Field>
