@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>com.con2b</groupId>
 	<artifactId>back</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>2bConexion</name>
+	<version>0.0.1</version>
+	<name>2B Conexion - Backend Server</name>
 	<description></description>
 	<properties>
 		<java.version>11</java.version>

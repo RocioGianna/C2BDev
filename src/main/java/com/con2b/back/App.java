@@ -13,6 +13,8 @@ import com.con2b.back.service.product.ProductService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,10 +24,15 @@ import java.util.HashSet;
 import java.util.List;
 
 @SpringBootApplication
-public class DemoApplication {
+public class App extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(App.class, args);
+	}
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(App.class);
 	}
 
 	@Bean
@@ -70,10 +77,9 @@ public class DemoApplication {
 			Product prod2 = productService.saveProduct(new Product(null, "Conecta","Solo Internet y Fijo - ADSL o RADIO", new HashSet<>(), new HashSet<>(), false));
 			steps.clear();
 			steps.add(fixed);
-			productService.saveProductOption(new ProductOption(null, "Conecta","Solo Internet y Fijo - ADSL o RADIO", steps, prod2));
-
-			prod2 = productService.saveProduct(new Product(null, "Conecta 600","Solo Fibra 600 y Fijo", new HashSet<>(), new HashSet<>(), false));
-			productService.saveProductOption(new ProductOption(null, "Conecta 600","Solo Fibra 600 y Fijo", steps, prod2));
+			productService.saveProductOption(new ProductOption(null, "300MB","Solo Internet y Fijo - ADSL o RADIO", steps, prod2));
+			productService.saveProductOption(new ProductOption(null, "600MB","Solo Fibra 600MB y Fijo", steps, prod2));
+			productService.saveProductOption(new ProductOption(null, "1GB","Solo Fibra 1GB y Fijo", steps, prod2));
 
 			Product prod3 = productService.saveProduct(new Product(null, "Contrato Móvil","Solo móvil", new HashSet<>(), new HashSet<>(), false));
 			steps.clear();
@@ -118,9 +124,6 @@ public class DemoApplication {
 			productService.saveAdditionalProductOption(new AdditionalProductOption(null, "Mezzo", null,new ArrayList<>(),addProd1));
 
 			AdditionalProduct addProd2 = productService.saveAdditionalProduct(new AdditionalProduct(null, "Linea Movil", new HashSet<>(), new HashSet<>()));
-			steps.clear();
-			steps.add(fiveGb);
-			productService.saveAdditionalProductOption(new AdditionalProductOption(null, "5GB + 0cent/min", "Llamadas 0Cent/Min Y 5Gb",steps,addProd2));
 			steps.clear();
 			steps.add(l);
 			productService.saveAdditionalProductOption(new AdditionalProductOption(null, "Línea L", "Llamadas Y Sms Ilimitados Y 8GB",steps,addProd2));
