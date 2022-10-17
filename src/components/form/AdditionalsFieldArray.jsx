@@ -16,7 +16,7 @@ export default function AdditionalsFieldArray({
     avaibleAdditionals,
 }) {
     const [field] = useField(name);
-    const [additionalType, setAdditionalType] = useState();
+    const [additionalType, setAdditionalType] = useState("Linea Movil");
 
     const lastIsEmpty = () => {
         const lastValue = field.value[field.value.length - 1];
