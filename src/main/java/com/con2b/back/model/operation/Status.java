@@ -1,12 +1,12 @@
 package com.con2b.back.model.operation;
 
 public enum Status {
-    PendingProcessing,
-    CheckingData,
-    InProcessOfProcessing,
-    Transacted,
-    Active,
-    Incidence,
-    Scoring,
-    Canceled,
+    PENDING_PROCESSING,
+    CHECKING_DATA,
+    IN_PROCESS_OF_PROCESSING,
+    TRANSACTED,
+    ACTIVE,
+    INCIDENCE,
+    SCORING,
+    CANCELED,
 }
