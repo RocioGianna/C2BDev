@@ -36,7 +36,6 @@ public class Operation {
     private String colaboratorPhone;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productOptionId")
     private ProductOption productOption;
 
     @ManyToMany(fetch = FetchType.LAZY)
