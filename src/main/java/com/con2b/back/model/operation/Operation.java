@@ -141,7 +141,7 @@ public class Operation {
     public void addOperationDetails(OperationDetails operationDetails){
         this.operationData.add(operationDetails);
     }
-    public void setOperationData(List<OperationDetails> operationDetails){
+    public void setOperationDetails(List<OperationDetails> operationDetails){
         this.operationData = operationDetails;
     }
     public Customer getClient() { return client; }
@@ -152,7 +152,7 @@ public class Operation {
         return installationAddress;
     }
     public void setInstallationAddress(InstallationAddress installationAddress){
-        this.operationData = operationDetails;
+        this.operationData = operationData;
     }
     public SIMShippingAdress getShippingAdress(SIMShippingAdress shippingAdress){
         return shippingAdress;
@@ -160,7 +160,7 @@ public class Operation {
     public void setShippingAdress(SIMShippingAdress shippingAdress){
         this.shippingAdress = shippingAdress;
     }
-    public Documentation getDocumentationId(Documentation documentationId){
+    public void addDocumentation(Documentation documentationId){
         this.documentationId.add(documentationId);
     }
     public void setDocumentationId(List<Documentation> documentationId){
