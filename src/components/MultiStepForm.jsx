@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Typography, Grid, CircularProgress } from "@mui/material";
 import { Form, Formik } from "formik";
 import Stepper from "./Stepper";
 import { DialogActions, Box } from "@mui/material";
+
 import { steps } from "../model/Steps";
 import { useSelector } from "react-redux";
 import { isAdmin } from "../utils/RolesUtils.js";
@@ -64,48 +65,65 @@ export function MultiStepForm({ ...props }) {
     }
 
     return (
-        <Formik
-            {...props}
-            initialValues={multiStepInitialValues}
-            validationSchema={() => currentValidationSchema(currentPhoneStepIndex)}
-            onSubmit={async (values, helpers) => {
-                if (isLastStep()) {
-                    await props.onSubmit(values, helpers);
-                } else {
-                    if (currentOnSubmit) {
-                        currentOnSubmit(values, helpers.setFieldValue);
+        <>
+            <Formik
+                {...props}
+                initialValues={multiStepInitialValues}
+                validationSchema={() => currentValidationSchema(currentPhoneStepIndex)}
+                onSubmit={async (values, helpers) => {
+                    if (isLastStep()) {
+                        await props.onSubmit(values, helpers);
+                    } else {
+                        if (currentOnSubmit) {
+                            currentOnSubmit(values, helpers.setFieldValue);
+                        }
+                        setActiveStep((activeStep) => activeStep + 1);
                     }
-                    setActiveStep((activeStep) => activeStep + 1);
-                }
-                helpers.setTouched({});
-            }}
-        >
-            {({ isSubmitting }) => (
-                <Form autoComplete="off">
-                    <Grid container rowSpacing={4}>
-                        <Grid item xs={12}>
-                            <Stepper activeStep={activeStep} childrenArray={stepsArray} />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography id="modal-modal-title" variant="h6" align="center" component="h2">
-                                {currentLabel}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <CurrentComponent index={currentPhoneStepIndex} />
-                        </Grid>
-                        <DialogActions
-                            sx={{
-                                width: "100%",
-                                pt: 5,
-                                paddingLeft: 0,
-                                paddingRight: 0,
-                                justifyContent: "space-between",
-                            }}
-                        >
-                            <Grid item xs={4}>
-                                {activeStep > 0 ? (
-                                    <Button onClick={() => setActiveStep(activeStep - 1)} variant="contained" fullWidth disabled={isSubmitting}>
+                    helpers.setTouched({});
+                }}
+            >
+                {({ isSubmitting }) => (
+                    <Form autoComplete="off">
+                        <Grid container rowSpacing={4}>
+                            <Grid item xs={12}>
+                                <Stepper activeStep={activeStep} childrenArray={stepsArray} />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography id="modal-modal-title" variant="h6" align="center" component="h2">
+                                    {currentLabel}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <CurrentComponent index={currentPhoneStepIndex} />
+                            </Grid>
+                            <DialogActions
+                                sx={{
+                                    width: "100%",
+                                    pt: 5,
+                                    paddingLeft: 0,
+                                    paddingRight: 0,
+                                    justifyContent: "space-between",
+                                }}
+                            >
+                                <Grid item xs={4}>
+                                    {activeStep > 0 ? (
+                                        <Button onClick={() => setActiveStep(activeStep - 1)} variant="contained" fullWidth disabled={isSubmitting}>
+                                            <Box
+                                                sx={{
+                                                    display: "flex",
+                                                    justifyContent: "space-between",
+                                                    width: "100%",
+                                                }}
+                                            >
+                                                <ArrowBackOutlinedIcon />
+                                                Paso anterior
+                                                <span />
+                                            </Box>
+                                        </Button>
+                                    ) : null}
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <Button startIcon={isSubmitting ? <CircularProgress size="1rem" /> : null} type="submit" variant="contained" fullWidth disabled={isSubmitting}>
                                         <Box
                                             sx={{
                                                 display: "flex",
@@ -113,32 +131,17 @@ export function MultiStepForm({ ...props }) {
                                                 width: "100%",
                                             }}
                                         >
-                                            <ArrowBackOutlinedIcon />
-                                            Paso anterior
                                             <span />
+                                            {isSubmitting ? "Confirmando" : isLastStep() ? "Confirmar" : "Siguiente"}
+                                            <ArrowForwardOutlinedIcon />
                                         </Box>
                                     </Button>
-                                ) : null}
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Button startIcon={isSubmitting ? <CircularProgress size="1rem" /> : null} type="submit" variant="contained" fullWidth disabled={isSubmitting}>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            justifyContent: "space-between",
-                                            width: "100%",
-                                        }}
-                                    >
-                                        <span />
-                                        {isSubmitting ? "Confirmando" : isLastStep() ? "Confirmar" : "Siguiente"}
-                                        <ArrowForwardOutlinedIcon />
-                                    </Box>
-                                </Button>
-                            </Grid>
-                        </DialogActions>
-                    </Grid>
-                </Form>
-            )}
-        </Formik>
+                                </Grid>
+                            </DialogActions>
+                        </Grid>
+                    </Form>
+                )}
+            </Formik>
+        </>
     );
 }
