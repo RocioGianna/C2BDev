@@ -7,13 +7,20 @@ import { reset, addStep } from "../state/formStepsSlice";
 import { isAdmin } from "../utils/RolesUtils.js";
 import CloseIcon from "@mui/icons-material/Close";
 import { notificationDispatched } from "../state/notificactionSlice";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Title = ({ title, handleClose }) => {
+    const theme = useTheme();
+    const xsMatch = useMediaQuery(theme.breakpoints.down("sm"));
+
+    const titleVariant = xsMatch ? "h5" : "h4";
+
     return (
         <DialogTitle textAlign="center">
-            <Typography variant="h4" component="p">
+            <Typography variant={titleVariant} component="p">
                 {title}
             </Typography>
             <IconButton
@@ -52,9 +59,12 @@ export default function NewOperationModal() {
         }
     }, [user]);
 
+    const theme = useTheme();
+    const xsMatch = useMediaQuery(theme.breakpoints.down("sm"));
+
     return (
         <>
-            <Dialog open={open} maxWidth={"md"} width={"md"} fullWidth={true} scroll={"paper"}>
+            <Dialog open={open} maxWidth={"md"} width={"md"} fullWidth={true} scroll={"paper"} fullScreen={xsMatch}>
                 <Title title={"Nueva Operacion"} handleClose={handleClose} />
                 <DialogContent>
                     <MultiStepForm

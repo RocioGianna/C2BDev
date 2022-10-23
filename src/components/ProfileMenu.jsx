@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import { deepOrange } from "@mui/material/colors";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -27,7 +28,7 @@ function ProfileMenu() {
     }, [firstname]);
 
     return (
-        <>
+        <Box order={{ xs: -1, md: 2 }}>
             <Button
                 variant="text"
                 sx={{ color: (theme) => theme.palette.common.white, pr: 0 }}
@@ -44,8 +45,14 @@ function ProfileMenu() {
                     >
                         {initial}
                     </Avatar>
-                    <Stack alignItems="center" direction="row">
-                        <Typography variant="button">{firstname + " " + lastname}</Typography>
+                    <Stack
+                        alignItems="center"
+                        direction="row"
+                        sx={{ display: { xs: "none", md: "flex" } }}
+                    >
+                        <Typography variant="button">
+                            {firstname + " " + lastname}
+                        </Typography>
                         <ArrowDropDownIcon />
                     </Stack>
                 </Stack>
@@ -73,7 +80,7 @@ function ProfileMenu() {
                     Cerrar sesión
                 </MenuItem>
             </Menu>
-        </>
+        </Box>
     );
 }
 

@@ -85,16 +85,16 @@ function ClientDataStep(props) {
     return (
         <Box sx={{ flexGrow: 1 }} label={props.label}>
             <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field fullWidth name="clientName" label="Nombres del Cliente" component={TextField} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field fullWidth name="clientSurname" label="Apellidos del Cliente" component={TextField} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field fullWidth name="dni" label="DNI / NIE / CIF / NIF" component={TextField} type="tel" />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <PhoneInput phonePrefixName="phonePrefix" phoneNumberName="phoneNumber" />
                 </Grid>
                 <Grid item xs={12}>
@@ -103,44 +103,44 @@ function ClientDataStep(props) {
                 <Grid item xs={12}>
                     <Field fullWidth name="bankAccount" label="Cuenta Bancaria" component={TextField} />
                 </Grid>
-                <Grid item xs={8}>
+                <Grid item xs={12} xl={8}>
                     <Field fullWidth name="billingAddress" label="Direccion de facturacion" component={TextField} />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={12} xl={4}>
                     <Field fullWidth name="zipCode" label="Codigo Postal" component={TextField} type="tel" />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field fullWidth name="municipality" label="Municipio" component={TextField} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} xl={6}>
                     <Field fullWidth name="province" label="Provincia" component={TextField} />
                 </Grid>
-                <ConditionalForm label={"Direccion de instalacion diferente a la direccion de facturacion"} name={"checkbox"}>
-                    <Grid item xs={9}>
+                <ConditionalForm label={"Direccion de instalacion distinta a la direccion de facturacion"} name={"checkbox"}>
+                    <Grid item xs={12} xl={9}>
                         <Field fullWidth name="instalattionAddress" label="Direccion de instalacion" component={TextField} />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12} xl={3}>
                         <Field fullWidth name="zipCodeInstallation" label="Codigo postal" component={TextField} />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} xl={6}>
                         <Field fullWidth name="municipalityInstallation" label="Municipio" component={TextField} />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} xl={6}>
                         <Field fullWidth name="provinceInstallation" label="Provincia" component={TextField} />
                     </Grid>
                 </ConditionalForm>
                 {selectedProductHasAnyMobileStep() && (
                     <ConditionalForm label={"Direccion de entrega de tarjeta SIM"} name={"checkbox2"}>
-                        <Grid item xs={9}>
+                        <Grid item xs={12} xl={9}>
                             <Field fullWidth name="instalattionAddress2" label="Direccion de instalacion" component={TextField} />
                         </Grid>
-                        <Grid item xs={3}>
+                        <Grid item xs={12} xl={3}>
                             <Field fullWidth name="zipCodeInstallation2" label="Codigo postal" component={TextField} />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} xl={6}>
                             <Field fullWidth name="municipalityInstallation2" label="Municipio" component={TextField} />
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} xl={6}>
                             <Field fullWidth name="provinceInstallation2" label="Provincia" component={TextField} />
                         </Grid>
                     </ConditionalForm>

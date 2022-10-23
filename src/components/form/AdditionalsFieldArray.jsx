@@ -1,7 +1,9 @@
 import React from "react";
 import { FieldArray, useField } from "formik";
-import { Button, Box } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import FormSelect from "./FormSelect";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 
 export default function AdditionalsFieldArray({ disabled, name, children }) {
     const [field] = useField(name);
@@ -15,50 +17,49 @@ export default function AdditionalsFieldArray({ disabled, name, children }) {
         <>
             <FieldArray name="additionals">
                 {({ push, remove }) => (
-                    <>
+                    <Box sx={{ width: "100%" }}>
                         {field.value.map((_, index) => (
-                            <Box sx={{ mt: 2 }} key={index}>
+                            <Box sx={{ mt: 2, width: "100%" }} key={index}>
                                 <Box
                                     key={index}
                                     sx={{
                                         display: "flex",
-                                        alignItems: "center",
+                                        width: "100%",
                                     }}
                                 >
                                     <Box
                                         sx={{
                                             flexGrow: 1,
+                                            width: "90%",
                                         }}
                                     >
-                                        <FormSelect
-                                            name={`${name}[${index}]`}
-                                            label={"Adicional " + (index + 1)}
-                                            disabled={disabled}
+                                        <Box
+                                            sx={{
+                                                width: "100%",
+                                            }}
                                         >
-                                            {children}
-                                        </FormSelect>
+                                            <FormSelect name={`${name}[${index}]`} label={"Adicional " + (index + 1)} disabled={disabled}>
+                                                {children}
+                                            </FormSelect>
+                                        </Box>
                                     </Box>
-                                    <Button
+                                    <IconButton
                                         sx={{
                                             width: "10%",
-                                            m: 3,
+                                            pl: 2,
                                         }}
                                         onClick={() => remove(index)}
                                         variant="contained"
                                     >
-                                        Borrar
-                                    </Button>
+                                        <DeleteIcon color="primary" />
+                                    </IconButton>
                                 </Box>
                             </Box>
                         ))}
-                        <Button
-                            onClick={() => push("")}
-                            disabled={disabled || lastIsEmpty()}
-                            variant="contained"
-                        >
-                            Agregar
+                        <Button sx={{ mt: 1 }} size="large" variant="outlined" color="primary" onClick={() => push("")} disabled={disabled || lastIsEmpty()}>
+                            <AddIcon />
                         </Button>
-                    </>
+                    </Box>
                 )}
             </FieldArray>
         </>

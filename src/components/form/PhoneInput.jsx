@@ -7,7 +7,7 @@ export default function PhoneInput({ phonePrefixName, phoneNumberName, disabled,
     return (
         <>
             <Box sx={{ display: "flex", width: "100%" }}>
-                <Box sx={{ width: "25%" }}>
+                <Box sx={{ minWidth: "4pc", width: "25%", flexShrink: 0 }}>
                     <Field component={TextField} fullWidth name={phonePrefixName} label="Caracteristica" variant="outlined" disabled={disabled} autoComplete="tel-country-code" />
                 </Box>
                 <Box sx={{ flexGrow: 1, pl: 1 }}>

@@ -2,28 +2,32 @@ import React from "react";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import Logo from "../assets/logo/LogoHWhite.png";
-import Nav from "./Nav";
+import { Box } from "@mui/material";
+import Logo from "./navBar/Logo";
 import ProfileMenu from "./ProfileMenu";
+import { useNavigate } from "react-router-dom";
+import Tabs from "./navBar/Tabs";
 
 function AppBar() {
+    const navigate = useNavigate();
+
     return (
         <MuiAppBar>
-            <Toolbar disableGutters variant="dense">
-                <Container
-                    maxWidth="xl"
-                    sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
-                >
-                    <Stack alignItems="center" spacing={2} direction="row">
-                        <img style={{ height: 32 }} src={Logo} alt="2B Conexión" />
-                        <Nav />
-                    </Stack>
-                    <Stack alignItems="center" spacing={2} direction="row">
+            <Container maxWidth="xl">
+                <Toolbar disableGutters>
+                    <Logo />
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            flexGrow: { xs: 0, md: 1 },
+                        }}
+                    >
+                        <Tabs />
                         <ProfileMenu />
-                    </Stack>
-                </Container>
-            </Toolbar>
+                    </Box>
+                </Toolbar>
+            </Container>
         </MuiAppBar>
     );
 }
