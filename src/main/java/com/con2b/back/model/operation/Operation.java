@@ -9,6 +9,8 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 @Entity
 public class Operation {
 
@@ -27,7 +29,7 @@ public class Operation {
     @Column(nullable = true)
     private Long processorId;
 
-    private Long colaboratorCode;
+    private String colaboratorCode;
 
     @Column(nullable = true)
     private String colaboratorEmail;
@@ -39,9 +41,9 @@ public class Operation {
     private ProductOption productOption;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<AdditionalProduct> additionalIds;
+    private Set<AdditionalProduct> additionalProducts;
 
-    private List<OperationDetails>operationData;
+    private Set<OperationDetails>operationData;
 
     private Customer client;
 
@@ -52,12 +54,14 @@ public class Operation {
     private SIMShippingAdress shippingAdress;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Documentation> documentationId;
+    private Set<Documentation> documentation;
+
+    public Operation(){};
 
     public Operation(Long id, String operationCode, Date creationDate, Status status, Channel channel, Long processorId,
-                     Long colaboratorCode, String colaboratorEmail, String colaboratorPhone, ProductOption productOption,
-                     List<AdditionalProduct> additionalIds, List<OperationDetails> operationData, Customer client,
-                     InstallationAddress installationAddress, SIMShippingAdress shippingAdress, List<Documentation> documentationId) {
+                     String colaboratorCode, String colaboratorEmail, String colaboratorPhone, ProductOption productOption,
+                     Set<AdditionalProduct> additionalIds, Set<OperationDetails> operationData, Customer client,
+                     InstallationAddress installationAddress, SIMShippingAdress shippingAdress, Set<Documentation> documentationId) {
         this.id = id;
         this.operationCode = operationCode;
         this.creationDate = creationDate;
@@ -68,12 +72,12 @@ public class Operation {
         this.colaboratorEmail = colaboratorEmail;
         this.colaboratorPhone = colaboratorPhone;
         this.productOption = productOption;
-        this.additionalIds = additionalIds;
+        this.additionalProducts = additionalIds;
         this.operationData = operationData;
         this.client = client;
         this.installationAddress = installationAddress;
         this.shippingAdress = shippingAdress;
-        this.documentationId = documentationId;
+        this.documentation = documentationId;
     }
 
     public Long getId(){
@@ -109,10 +113,10 @@ public class Operation {
     public void setProcessorId(Long processorId){
         this.processorId = processorId;
     }
-    public Long getColaboratorCode(){
+    public String getColaboratorCode(){
         return colaboratorCode;
     }
-    public void setColaboratorCode(Long colaboratorCode){
+    public void setColaboratorCode(String colaboratorCode){
         this.colaboratorCode = colaboratorCode;
     }
     public String getColaboratorEmail(){
@@ -127,43 +131,52 @@ public class Operation {
     public void setColaboratorPhone(String colaboratorPhone){
         this.colaboratorPhone = colaboratorPhone;
     }
-    public ProductOption getProductOptionId(){ return productOption; }
-    public void setProductOptionId(ProductOption productOptionId){
+    public ProductOption getProductOption(){ return productOption; }
+    public void setProductOption(ProductOption productOptionId){
         this.productOption = productOptionId;
     }
-    public void addRole(AdditionalProduct additionalId) {
-        this.additionalIds.add(additionalId);
+    public void addAdditionals(AdditionalProduct additionalId) {
+        this.additionalProducts.add(additionalId);
     }
-    public void setRoles(List<AdditionalProduct> additionals) {
-        this.additionalIds = additionals;
+    public Set<AdditionalProduct> getAdditionals() {
+        return additionalProducts;
+    }
+    public void setAdditionals(Set<AdditionalProduct> additionals) {
+        this.additionalProducts = additionals;
     }
     public void addOperationDetails(OperationDetails operationDetails){
         this.operationData.add(operationDetails);
     }
-    public void setOperationDetails(List<OperationDetails> operationDetails){
+    public void setOperationDetails(Set<OperationDetails> operationDetails){
         this.operationData = operationDetails;
+    }
+    public Set<OperationDetails> getOperationData() {
+        return operationData;
     }
     public Customer getClient() { return client; }
     public void setClient(Customer customer){
         this.client = customer;
     }
-    public InstallationAddress getInstallationAddress(InstallationAddress installationAddress){
+    public InstallationAddress getInstallationAddress(){
         return installationAddress;
     }
     public void setInstallationAddress(InstallationAddress installationAddress){
         this.operationData = operationData;
     }
-    public SIMShippingAdress getShippingAdress(SIMShippingAdress shippingAdress){
+    public SIMShippingAdress getShippingAdress(){
         return shippingAdress;
     }
     public void setShippingAdress(SIMShippingAdress shippingAdress){
         this.shippingAdress = shippingAdress;
     }
     public void addDocumentation(Documentation documentationId){
-        this.documentationId.add(documentationId);
+        this.documentation.add(documentationId);
     }
-    public void setDocumentationId(List<Documentation> documentationId){
-        this.documentationId = documentationId;
+    public void setDocumentation(Set<Documentation> documentationId){
+        this.documentation = documentationId;
+    }
+    public Set<Documentation> getDocumentation() {
+        return documentation;
     }
 
 }
