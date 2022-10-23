@@ -46,10 +46,10 @@ public class Operation {
     private Customer client;
 
     @Column(nullable = true)
-    private InstallationAddress installationAddress;
+    private Address installationAddress;
 
     @Column(nullable = true)
-    private SIMShippingAdress shippingAdress;
+    private Address shippingAdress;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Documentation> documentationId;
@@ -57,7 +57,7 @@ public class Operation {
     public Operation(Long id, String operationCode, Date creationDate, Status status, Channel channel, Long processorId,
                      Long colaboratorCode, String colaboratorEmail, String colaboratorPhone, ProductOption productOption,
                      List<AdditionalProduct> additionalIds, List<OperationDetails> operationData, Customer client,
-                     InstallationAddress installationAddress, SIMShippingAdress shippingAdress, List<Documentation> documentationId) {
+                     Address installationAddress, Address shippingAdress, List<Documentation> documentationId) {
         this.id = id;
         this.operationCode = operationCode;
         this.creationDate = creationDate;
@@ -147,16 +147,16 @@ public class Operation {
     public void setClient(Customer customer){
         this.client = customer;
     }
-    public InstallationAddress getInstallationAddress(InstallationAddress installationAddress){
+    public Address getInstallationAddress(Address installationAddress){
         return installationAddress;
     }
-    public void setInstallationAddress(InstallationAddress installationAddress){
+    public void setInstallationAddress(Address installationAddress){
         this.operationData = operationData;
     }
-    public SIMShippingAdress getShippingAdress(SIMShippingAdress shippingAdress){
+    public Address getShippingAdress(Address shippingAdress){
         return shippingAdress;
     }
-    public void setShippingAdress(SIMShippingAdress shippingAdress){
+    public void setShippingAdress(Address shippingAdress){
         this.shippingAdress = shippingAdress;
     }
     public void addDocumentation(Documentation documentationId){

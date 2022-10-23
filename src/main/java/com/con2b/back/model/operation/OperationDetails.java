@@ -24,7 +24,7 @@ public class OperationDetails {
     @Column(nullable = true)
     private String currentOwnerNID;
 
-
+    public OperationDetails(){}
     public OperationDetails(Long id, OperationDetailsType type, String phone, String currentProvider, String currentOwnerFirstname, String currentOwnerLastname, String currentOwnerNID) {
         this.id = id;
         this.type = type;

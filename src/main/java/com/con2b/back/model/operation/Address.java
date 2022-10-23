@@ -5,20 +5,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class InstallationAddress {
+public class Address {
 
     @Id
     @GeneratedValue
     private Long id;
     private String address;
-    private String zipCode;
+    private String zipcode;
     private String municipality;
     private String province;
 
-    public InstallationAddress(Long id, String address, String zipCode, String municipality, String province) {
+    public Address(){}
+    public Address(Long id, String address, String zipcode, String municipality, String province) {
         this.id = id;
         this.address = address;
-        this.zipCode = zipCode;
+        this.zipcode = zipcode;
         this.municipality = municipality;
         this.province = province;
     }
@@ -39,12 +40,12 @@ public class InstallationAddress {
         this.address = address;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public String getZipcode() {
+        return zipcode;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getMunicipality() {
