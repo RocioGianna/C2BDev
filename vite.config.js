@@ -8,6 +8,6 @@ export default defineConfig({
         open: true,
     },
     define: {
-        ENV2B_BACKEND_URL: '"https://app.2bconexion.com"',
+        ENV2B_BACKEND_URL: '"http://localhost:8080"',
     },
 });

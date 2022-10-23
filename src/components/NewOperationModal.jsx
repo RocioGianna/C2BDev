@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { MultiStepForm } from "./MultiStepForm";
 import { useNavigate } from "react-router-dom";
-import { Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { IconButton, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
 import { reset, addStep } from "../state/formStepsSlice";
 import { isAdmin } from "../utils/RolesUtils.js";
-import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { notificationDispatched } from "../state/notificactionSlice";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -54,23 +53,24 @@ export default function NewOperationModal() {
     }, [user]);
 
     return (
-        <Dialog
-            open={open}
-            maxWidth={"md"}
-            width={"md"}
-            fullWidth={true}
-            scroll={"paper"}
-        >
-            <Title title={"Nueva Operacion"} handleClose={handleClose} />
-            <DialogContent>
-                <MultiStepForm
-                    onSubmit={async () => {
-                        await sleep(3000);
-                        handleClose();
-                    }}
-                    steps={formSteps}
-                />
-            </DialogContent>
-        </Dialog>
+        <>
+            <Dialog open={open} maxWidth={"md"} width={"md"} fullWidth={true} scroll={"paper"}>
+                <Title title={"Nueva Operacion"} handleClose={handleClose} />
+                <DialogContent>
+                    <MultiStepForm
+                        onSubmit={async () => {
+                            await sleep(2000); // SLEEP DE POST
+                            dispatch(
+                                notificationDispatched({
+                                    notification: { message: "Operacion completada", state: "success" },
+                                })
+                            );
+                            handleClose();
+                        }}
+                        steps={formSteps}
+                    />
+                </DialogContent>
+            </Dialog>
+        </>
     );
 }
