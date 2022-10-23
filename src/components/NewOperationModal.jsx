@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { MultiStepForm } from "./MultiStepForm";
 import { useNavigate } from "react-router-dom";
-import {
-    IconButton,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    Typography,
-    Button,
-    Snackbar,
-} from "@mui/material";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { IconButton, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
 import { reset, addStep } from "../state/formStepsSlice";
 import { isAdmin } from "../utils/RolesUtils.js";
 import CloseIcon from "@mui/icons-material/Close";
+import { notificationDispatched } from "../state/notificactionSlice";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -60,63 +52,20 @@ export default function NewOperationModal() {
         }
     }, [user]);
 
-    const [openSnackbar, setOpenSnackbar] = useState(false);
-
-    const handleClick = () => {
-        setOpenSnackbar(true);
-    };
-
-    const handleCloseSnackbar = (event, reason) => {
-        if (reason === "clickaway") {
-            return;
-        }
-
-        setOpen(false);
-    };
-
-    const action = (
-        <React.Fragment>
-            <Button
-                color="secondary"
-                size="small"
-                onClick={handleCloseSnackbar}
-            >
-                UNDO
-            </Button>
-            <IconButton
-                size="small"
-                aria-label="close"
-                color="inherit"
-                onClick={handleCloseSnackbar}
-            >
-                <CloseIcon fontSize="small" />
-            </IconButton>
-        </React.Fragment>
-    );
-
     return (
         <>
-            <Snackbar
-                open={openSnackbar}
-                autoHideDuration={6000}
-                onClose={handleCloseSnackbar}
-                message="Note archived"
-                action={action}
-            />
-            <Dialog
-                open={open}
-                maxWidth={"md"}
-                width={"md"}
-                fullWidth={true}
-                scroll={"paper"}
-            >
+            <Dialog open={open} maxWidth={"md"} width={"md"} fullWidth={true} scroll={"paper"}>
                 <Title title={"Nueva Operacion"} handleClose={handleClose} />
                 <DialogContent>
                     <MultiStepForm
                         onSubmit={async () => {
-                            await sleep(3000);
-                            handleClick();
-                            // handleClose();
+                            await sleep(2000); // SLEEP DE POST
+                            dispatch(
+                                notificationDispatched({
+                                    notification: { message: "Operacion completada", state: "success" },
+                                })
+                            );
+                            handleClose();
                         }}
                         steps={formSteps}
                     />
