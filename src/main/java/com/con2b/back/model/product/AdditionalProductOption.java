@@ -15,17 +15,19 @@ public class AdditionalProductOption {
     private String description;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<LineType> steps;
+    private boolean isPopular;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private AdditionalProduct additionalProduct;
 
     public AdditionalProductOption() {}
 
-    public AdditionalProductOption(Long id, String name, String description, List<LineType> steps, AdditionalProduct additionalProduct) {
+    public AdditionalProductOption(Long id, String name, String description, List<LineType> steps, boolean isPopular, AdditionalProduct additionalProduct) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.steps = steps;
+        this.isPopular = isPopular;
         this.additionalProduct = additionalProduct;
     }
 
@@ -59,6 +61,14 @@ public class AdditionalProductOption {
 
     public void setSteps(List<LineType> steps) {
         this.steps = steps;
+    }
+
+    public boolean isPopular() {
+        return isPopular;
+    }
+
+    public void setPopular(boolean popular) {
+        isPopular = popular;
     }
 
     public AdditionalProduct getAdditionalProduct() {
