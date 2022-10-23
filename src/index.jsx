@@ -7,6 +7,7 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
+import "../src/styles/globalStyles.css";
 
 const theme = createTheme({
     palette: {
