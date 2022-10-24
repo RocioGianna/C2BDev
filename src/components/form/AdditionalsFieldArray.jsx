@@ -1,22 +1,11 @@
 import React, { useState } from "react";
 import { FieldArray, useField } from "formik";
-import {
-    Button,
-    Box,
-    MenuItem,
-    Select,
-    InputLabel,
-    FormControl,
-} from "@mui/material";
+import { Button, Box, MenuItem, Select, InputLabel, FormControl } from "@mui/material";
 import FormSelect from "./FormSelect";
 
-export default function AdditionalsFieldArray({
-    disabled,
-    name,
-    avaibleAdditionals,
-}) {
+export default function AdditionalsFieldArray({ disabled, name, avaibleAdditionals }) {
     const [field] = useField(name);
-    const [additionalType, setAdditionalType] = useState("Linea Movil");
+    const [additionalType, setAdditionalType] = useState(true);
 
     const lastIsEmpty = () => {
         const lastValue = field.value[field.value.length - 1];
@@ -26,6 +15,8 @@ export default function AdditionalsFieldArray({
     const handleTypeChange = (event) => {
         setAdditionalType(event.target.value);
     };
+
+    console.log(additionalType);
 
     return (
         <>
@@ -47,27 +38,13 @@ export default function AdditionalsFieldArray({
                                     }}
                                 >
                                     <FormControl fullWidth>
-                                        <InputLabel id="select-label">
-                                            Tipo de adicional
-                                        </InputLabel>
-                                        <Select
-                                            labelId="select-label"
-                                            id="algo"
-                                            label="Tipo de adicional"
-                                            value={additionalType}
-                                            onChange={handleTypeChange}
-                                        >
-                                            <MenuItem
-                                                key={1}
-                                                value={"Linea Movil"}
-                                            >
-                                                Linea Movil
+                                        <InputLabel id="select-label">Tipo de adicional</InputLabel>
+                                        <Select labelId="select-label" id="algo" label="Tipo de adicional" value={additionalType} onChange={handleTypeChange}>
+                                            <MenuItem key={1} value={true}>
+                                                Popular
                                             </MenuItem>
-                                            <MenuItem
-                                                key={2}
-                                                value={"TV Particular"}
-                                            >
-                                                TV Particular
+                                            <MenuItem key={2} value={false}>
+                                                No popular
                                             </MenuItem>
                                         </Select>
                                     </FormControl>
@@ -78,27 +55,15 @@ export default function AdditionalsFieldArray({
                                         flexGrow: 1,
                                     }}
                                 >
-                                    <FormSelect
-                                        name={`${name}[${index}]`}
-                                        label={"Adicional " + (index + 1)}
-                                        disabled={disabled || !additionalType}
-                                    >
+                                    <FormSelect name={`${name}[${index}]`} label={"Adicional " + (index + 1)} disabled={disabled || additionalType == undefined}>
                                         {avaibleAdditionals.map((a) => {
-                                            return a.options.map(
-                                                (o) =>
-                                                    a.name ===
-                                                        additionalType && (
-                                                        <MenuItem
-                                                            key={o.id}
-                                                            value={o}
-                                                        >
-                                                            <strong>
-                                                                {a.name}
-                                                            </strong>
-                                                            : {o.name}
-                                                        </MenuItem>
-                                                    )
-                                            );
+                                            return a.options
+                                                .filter((o) => o.popular == additionalType)
+                                                .map((o) => (
+                                                    <MenuItem key={o.id} value={o}>
+                                                        <strong>{a.name}</strong>: {o.name}
+                                                    </MenuItem>
+                                                ));
                                         })}
                                     </FormSelect>
                                 </Box>
@@ -114,11 +79,7 @@ export default function AdditionalsFieldArray({
                                 </Button>
                             </Box>
                         ))}
-                        <Button
-                            onClick={() => push("")}
-                            disabled={disabled || lastIsEmpty()}
-                            variant="contained"
-                        >
+                        <Button onClick={() => push("")} disabled={disabled || lastIsEmpty()} variant="contained">
                             Agregar
                         </Button>
                     </>

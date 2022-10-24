@@ -56,26 +56,19 @@ export function ProductStep() {
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
 
-    // if (productId.value) console.log(additionalsByProduct(productId.value));
+    if (productId.value) console.log(additionalsByProduct(productId.value));
 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <FormSelect
-                        name={"isProfessionalProduct"}
-                        label={"Tipo de producto"}
-                    >
+                    <FormSelect name={"isProfessionalProduct"} label={"Tipo de producto"}>
                         {/* <MenuItem value={true}>Profesional</MenuItem> */}
                         <MenuItem value={false}>Particular</MenuItem>
                     </FormSelect>
                 </Grid>
                 <Grid item xs={12}>
-                    <FormSelect
-                        name={"productId"}
-                        label={"Nombre de Producto"}
-                        disabled={productType.value === ""}
-                    >
+                    <FormSelect name={"productId"} label={"Nombre de Producto"} disabled={productType.value === ""}>
                         {products
                             .filter((p) => p.professional == productType.value)
                             .map((p) => (
@@ -86,37 +79,16 @@ export function ProductStep() {
                     </FormSelect>
                 </Grid>
                 <Grid item xs={12}>
-                    <FormSelect
-                        name={"productOptionId"}
-                        label={"Opcion de Producto"}
-                        disabled={productId.value === ""}
-                    >
-                        {productId.value !== "" &&
-                            optionsByProduct(productId.value)}
+                    <FormSelect name={"productOptionId"} label={"Opcion de Producto"} disabled={productId.value === ""}>
+                        {productId.value !== "" && optionsByProduct(productId.value)}
                     </FormSelect>
                 </Grid>
 
                 <Grid item xs={12}>
-                    <Typography
-                        variant="h6"
-                        align="center"
-                        component="h2"
-                        sx={{ m: 2 }}
-                    >
+                    <Typography variant="h6" align="center" component="h2" sx={{ m: 2 }}>
                         Adicionales
                     </Typography>
-                    <AdditionalsFieldArray
-                        disabled={
-                            productId.value === "" ||
-                            productOptionId.value === "" ||
-                            !additionalsByProduct(productId.value).length
-                        }
-                        name={"additionals"}
-                        avaibleAdditionals={
-                            productId.value !== "" &&
-                            additionalsByProduct(productId.value)
-                        }
-                    />
+                    <AdditionalsFieldArray disabled={productId.value === "" || productOptionId.value === "" || !additionalsByProduct(productId.value).length} name={"additionals"} avaibleAdditionals={productId.value !== "" && additionalsByProduct(productId.value)} />
                 </Grid>
             </Grid>
         </Box>
@@ -136,9 +108,7 @@ const onSubmit = async (values, setFieldValue) => {
     const selectedProductOptionId = values.productOptionId;
     const productList = store.getState().products.products;
     const product = productList.find((p) => p.id === selectedProductId);
-    const option = product.options.find(
-        (o) => o.id === selectedProductOptionId
-    );
+    const option = product.options.find((o) => o.id === selectedProductOptionId);
 
     let steps = [];
     values.additionals.forEach((additional) => {
