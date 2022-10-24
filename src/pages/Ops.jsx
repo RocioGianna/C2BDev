@@ -9,7 +9,7 @@ function Ops() {
         <Grid container alignItems="center" justifyContent="center">
             <Grid item>
                 <Stack alignItems="center" spacing={2}>
-                    <Typography variant="h1">Operaciones</Typography>
+                    <Typography variant="h1">Ops</Typography>
                     <Outlet />
                 </Stack>
             </Grid>

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Typography, Grid, CircularProgress } from "@mui/material";
 import { Form, Formik } from "formik";
 import Stepper from "./Stepper";
 import { DialogActions, Box } from "@mui/material";
+
 import { steps } from "../model/Steps";
 import { useSelector } from "react-redux";
 import { isAdmin } from "../utils/RolesUtils.js";
@@ -67,9 +68,10 @@ export function MultiStepForm({ ...props }) {
         <Formik
             {...props}
             initialValues={multiStepInitialValues}
-            validationSchema={() => currentValidationSchema(currentPhoneStepIndex)}
+            validationSchema={() => currentValidationSchema(activeStep - 2)}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
+                    console.log(values);
                     await props.onSubmit(values, helpers);
                 } else {
                     if (currentOnSubmit) {
@@ -92,7 +94,7 @@ export function MultiStepForm({ ...props }) {
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <CurrentComponent index={currentPhoneStepIndex} />
+                            <CurrentComponent index={activeStep - 2} />
                         </Grid>
                         <DialogActions
                             sx={{
@@ -100,37 +102,37 @@ export function MultiStepForm({ ...props }) {
                                 pt: 5,
                                 paddingLeft: 0,
                                 paddingRight: 0,
-                                justifyContent: "space-between",
                             }}
                         >
-                            <Grid item xs={4}>
+                            <Grid item xs={6} xl={4}>
                                 {activeStep > 0 ? (
                                     <Button onClick={() => setActiveStep(activeStep - 1)} variant="contained" fullWidth disabled={isSubmitting}>
                                         <Box
                                             sx={{
                                                 display: "flex",
-                                                justifyContent: "space-between",
+                                                justifyContent: { xs: "center", sm: "space-between" },
                                                 width: "100%",
                                             }}
                                         >
                                             <ArrowBackOutlinedIcon />
-                                            Paso anterior
+                                            <Box sx={{ display: { xs: "none", sm: "block" } }}>Paso anterior</Box>
                                             <span />
                                         </Box>
                                     </Button>
                                 ) : null}
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={0} xl={4}></Grid>
+                            <Grid item xl={4} xs={6}>
                                 <Button startIcon={isSubmitting ? <CircularProgress size="1rem" /> : null} type="submit" variant="contained" fullWidth disabled={isSubmitting}>
                                     <Box
                                         sx={{
                                             display: "flex",
-                                            justifyContent: "space-between",
+                                            justifyContent: { xs: "center", sm: "space-between" },
                                             width: "100%",
                                         }}
                                     >
                                         <span />
-                                        {isSubmitting ? "Confirmando" : isLastStep() ? "Confirmar" : "Siguiente"}
+                                        <Box sx={{ display: { xs: "none", sm: "block" } }}>{isSubmitting ? "Confirmando" : isLastStep() ? "Confirmar" : "Siguiente"}</Box>
                                         <ArrowForwardOutlinedIcon />
                                     </Box>
                                 </Button>

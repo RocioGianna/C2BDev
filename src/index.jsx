@@ -7,6 +7,10 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import createTheme from "@mui/material/styles/createTheme";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
+import { SnackbarProvider } from "notistack";
+import NotificationDispatcher from "./components/NotificationDispatcher";
+import Fade from "@mui/material/Fade";
+import "../src/styles/globalStyles.css";
 
 const theme = createTheme({
     palette: {
@@ -21,10 +25,13 @@ const theme = createTheme({
 ReactDOM.render(
     <HashRouter>
         <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Provider store={store}>
-                <App />
-            </Provider>
+            <SnackbarProvider maxSnack={1} autoHideDuration={2000} TransitionComponent={Fade}>
+                <CssBaseline />
+                <Provider store={store}>
+                    <App />
+                    <NotificationDispatcher />
+                </Provider>
+            </SnackbarProvider>
         </ThemeProvider>
     </HashRouter>,
     document.getElementById("root")
