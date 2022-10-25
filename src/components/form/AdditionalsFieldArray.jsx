@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { FieldArray, useField } from "formik";
-import { Box, Button, IconButton } from "@mui/material";
+import { Button, Box, MenuItem, Select, InputLabel, FormControl, IconButton } from "@mui/material";
 import FormSelect from "./FormSelect";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import AdditionalSelect from "./AdditionalSelect";
 
-export default function AdditionalsFieldArray({ disabled, name, children }) {
+export default function AdditionalsFieldArray({ disabled, name, avaibleAdditionals }) {
     const [field] = useField(name);
 
     const lastIsEmpty = () => {
@@ -17,40 +18,14 @@ export default function AdditionalsFieldArray({ disabled, name, children }) {
         <>
             <FieldArray name="additionals">
                 {({ push, remove }) => (
-                    <Box sx={{ width: "100%" }}>
+                    <Box sx={{ width: "100%", mt: 2 }}>
                         {field.value.map((_, index) => (
-                            <Box sx={{ mt: 2, width: "100%" }} key={index}>
-                                <Box
-                                    key={index}
-                                    sx={{
-                                        display: "flex",
-                                        width: "100%",
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            flexGrow: 1,
-                                            width: "90%",
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                width: "100%",
-                                            }}
-                                        >
-                                            <FormSelect name={`${name}[${index}]`} label={"Adicional " + (index + 1)} disabled={disabled}>
-                                                {children}
-                                            </FormSelect>
-                                        </Box>
-                                    </Box>
-                                    <IconButton
-                                        sx={{
-                                            width: "10%",
-                                            pl: 2,
-                                        }}
-                                        onClick={() => remove(index)}
-                                        variant="contained"
-                                    >
+                            <Box key={index} sx={{ mt: 2, display: "flex", width: "100%" }}>
+                                <Box sx={{ width: "90%" }}>
+                                    <AdditionalSelect name={name} avaibleAdditionals={avaibleAdditionals} index={index} disabled={disabled} />
+                                </Box>
+                                <Box sx={{ flexGrow: 0, width: "10%", flexShrink: 0, display: "flex", justifyContent: "center" }}>
+                                    <IconButton sx={{}} onClick={() => remove(index)} variant="contained">
                                         <DeleteIcon color="primary" />
                                     </IconButton>
                                 </Box>

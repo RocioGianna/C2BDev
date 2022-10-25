@@ -56,6 +56,8 @@ export function ProductStep() {
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
 
+    if (productId.value) console.log(additionalsByProduct(productId.value));
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
@@ -86,16 +88,7 @@ export function ProductStep() {
                     <Typography variant="h6" align="center" component="h2" sx={{ m: 2 }}>
                         Adicionales
                     </Typography>
-                    <AdditionalsFieldArray disabled={productId.value === "" || productOptionId.value === "" || !additionalsByProduct(productId.value).length} name={"additionals"}>
-                        {productId.value !== "" &&
-                            additionalsByProduct(productId.value).map((a) => {
-                                return a.options.map((o) => (
-                                    <MenuItem key={o.id} value={o}>
-                                        <strong>{a.name}</strong>: {o.name}
-                                    </MenuItem>
-                                ));
-                            })}
-                    </AdditionalsFieldArray>
+                    <AdditionalsFieldArray disabled={productId.value === "" || productOptionId.value === "" || !additionalsByProduct(productId.value).length} name={"additionals"} avaibleAdditionals={productId.value !== "" && additionalsByProduct(productId.value)} />
                 </Grid>
             </Grid>
         </Box>
