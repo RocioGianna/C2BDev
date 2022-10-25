@@ -1,9 +1,17 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { Field } from "formik";
+import { Field, useField, useFormikContext } from "formik";
 import { TextField } from "formik-material-ui";
 
 export default function PhoneInput({ phonePrefixName, phoneNumberName, disabled, props }) {
+    const [field] = useField(phonePrefixName);
+    const { setFieldValue } = useFormikContext();
+
+    if (field.value != "" && field.value.length >= 1 && !field.value.startsWith("+")) {
+        console.log("A");
+        setFieldValue(`${phonePrefixName}`, "+" + field.value, false);
+    }
+
     return (
         <>
             <Box sx={{ display: "flex", width: "100%" }}>
