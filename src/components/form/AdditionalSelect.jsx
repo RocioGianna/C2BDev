@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Box, InputLabel, Select, MenuItem, FormControl } from "@mui/material";
+import { useFormikContext } from "formik";
 import FormSelect from "./FormSelect";
 
 export default function AdditionalSelect({ avaibleAdditionals, index, disabled, name }) {
     const [additionalType, setAdditionalType] = useState(true);
+    const { setFieldValue, values } = useFormikContext();
 
     const handleTypeChange = (event) => {
         setAdditionalType(event.target.value);
+        setFieldValue(`${name}[${index}]`, "");
     };
 
     return (
@@ -31,7 +34,7 @@ export default function AdditionalSelect({ avaibleAdditionals, index, disabled, 
             <Box
                 sx={{
                     pl: 1,
-                    width: "60%",
+                    width: "70%",
                 }}
             >
                 <FormSelect name={`${name}[${index}]`} label={"Adicional " + (index + 1)} disabled={disabled || additionalType == undefined}>

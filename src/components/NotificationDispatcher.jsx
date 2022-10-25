@@ -11,7 +11,7 @@ function NotificationDispatcher() {
         if (currNotification) {
             enqueueSnackbar(currNotification.message, {
                 variant: currNotification.state,
-                anchorOrigin: { horizontal: "right", vertical: "top" },
+                anchorOrigin: { horizontal: "center", vertical: "bottom" },
             });
         }
     }, [currNotification]);

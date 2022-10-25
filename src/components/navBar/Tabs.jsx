@@ -49,7 +49,6 @@ export default function Tabs() {
     return (
         <Box
             sx={{
-                alignItems: "center",
                 display: "flex",
                 alignItems: "center",
                 flexGrow: { xs: 0, md: 1 },

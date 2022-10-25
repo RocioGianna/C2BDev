@@ -73,7 +73,7 @@ export function ProductStep() {
                             .filter((p) => p.professional == productType.value)
                             .map((p) => (
                                 <MenuItem key={p.id} value={p.id}>
-                                    {p.name}
+                                    {`${p.name}${p.description ? " (" + p.description + ")" : ""}`}
                                 </MenuItem>
                             ))}
                     </FormSelect>
