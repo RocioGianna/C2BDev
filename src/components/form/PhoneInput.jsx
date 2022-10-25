@@ -8,7 +8,6 @@ export default function PhoneInput({ phonePrefixName, phoneNumberName, disabled,
     const { setFieldValue } = useFormikContext();
 
     if (field.value != "" && field.value.length >= 1 && !field.value.startsWith("+")) {
-        console.log("A");
         setFieldValue(`${phonePrefixName}`, "+" + field.value, false);
     }
 
