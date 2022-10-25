@@ -68,7 +68,7 @@ export function MultiStepForm({ ...props }) {
         <Formik
             {...props}
             initialValues={multiStepInitialValues}
-            validationSchema={() => currentValidationSchema(activeStep - 2)}
+            validationSchema={() => currentValidationSchema(currentPhoneStepIndex)}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
                     console.log(values);
@@ -94,7 +94,7 @@ export function MultiStepForm({ ...props }) {
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <CurrentComponent index={activeStep - 2} />
+                            <CurrentComponent index={currentPhoneStepIndex} />
                         </Grid>
                         <DialogActions
                             sx={{
