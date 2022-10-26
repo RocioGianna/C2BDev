@@ -9,6 +9,7 @@ function Ops() {
     return (
         <Grid container alignItems="center" justifyContent="center">
             <Operations />
+            <Outlet />
         </Grid>
     );
 }
