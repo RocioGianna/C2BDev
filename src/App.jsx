@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Login from "./pages/Login";
 import InternalLayout from "./components/InternalLayout";
 import Home from "./pages/Home";
 import Ops from "./pages/Ops";
 import { refreshAccessToken } from "./services/AuthService";
+import Operation from "./components/Operation";
 import NewOperationModal from "./components/NewOperationModal";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                 <Route path="ops" element={<Ops />}>
                     <Route path="new" element={<NewOperationModal />} />
                 </Route>
+                <Route path="ops/:opId" element={<Operation />} />
             </Route>
             <Route path="*" element={<Navigate to="public/login" />} />
         </Routes>

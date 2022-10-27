@@ -9,7 +9,10 @@ function Nav() {
     const [value, setValue] = useState(location.pathname);
 
     useEffect(() => {
-        setValue(location.pathname);
+        const whiteList = ["/2b/home", "/2b/home", "/2b/ops", "/2b/ops/new"];
+        if (whiteList.includes(location.pathname)) {
+            setValue(location.pathname);
+        }
     }, [location]);
 
     return (
