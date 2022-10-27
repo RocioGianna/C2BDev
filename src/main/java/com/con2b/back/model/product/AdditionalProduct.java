@@ -1,11 +1,16 @@
 package com.con2b.back.model.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
+@Entity @Getter
+@Setter @AllArgsConstructor @NoArgsConstructor
 public class AdditionalProduct {
 
     @Id @GeneratedValue
@@ -17,48 +22,8 @@ public class AdditionalProduct {
     @JsonIgnore
     private Set<Product> parentProducts;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public AdditionalProduct() {}
-
-    public AdditionalProduct(Long id, String name, Set<AdditionalProductOption> options, Set<Product> parentProducts) {
-        this.id = id;
-        this.name = name;
-        this.options = options;
-        this.parentProducts = parentProducts;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<AdditionalProductOption> getOptions() {
-        return options;
-    }
-
-    public void setOptions(Set<AdditionalProductOption> options) {
-        this.options = options;
-    }
-
     public void addOption(AdditionalProductOption option){
         this.options.add(option);
     }
 
-    public Set<Product> getParentProducts() {
-        return parentProducts;
-    }
-
-    public void setParentProducts(Set<Product> parentProducts) {
-        this.parentProducts = parentProducts;
-    }
 }
