@@ -42,7 +42,7 @@ export default function Tabs() {
                 handleCloseNavMenu();
             }}
         >
-            <Typography textAlign="center">Nueva Operacion</Typography>
+            <Typography textAlign="center">Nueva Operación</Typography>
         </MenuItem>,
     ];
 
