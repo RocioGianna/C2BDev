@@ -7,7 +7,7 @@ const colaboratorColumns = [
     { headerAlign: "center", align: "center", flex: 1, field: "status", headerName: "Estado" },
     { headerAlign: "center", align: "center", flex: 1, field: "processorId", headerName: "Tramitadora" },
     { headerAlign: "center", align: "center", flex: 1, field: "customer[lastname]", headerName: "Apellidos", valueGetter: (params) => params?.row?.customer?.lastname },
-    { headerAlign: "center", align: "center", field: "details", headerName: "Detalles", width: 110 },
+    { headerAlign: "center", align: "center", field: "details", headerName: "Acciones", width: 110 },
 ];
 
 const adminColumns = [
@@ -17,7 +17,7 @@ const adminColumns = [
     { headerAlign: "center", align: "center", flex: 1, field: "channel", headerName: "Canal Tramitacion" },
     { headerAlign: "center", align: "center", flex: 1, field: "colaboratorCode", headerName: "Codigo colaborador" },
     { headerAlign: "center", align: "center", flex: 1, field: "customer[lastname]", headerName: "Apellidos", valueGetter: (params) => params?.row?.customer?.lastname },
-    { headerAlign: "center", align: "center", field: "details", headerName: "Detalles", width: 110 },
+    { headerAlign: "center", align: "center", field: "details", headerName: "Acciones", width: 110 },
 ];
 
 export function isAdmin() {
