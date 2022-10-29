@@ -3,12 +3,9 @@ package com.con2b.back.model.operation;
 import com.con2b.back.model.product.AdditionalProduct;
 import com.con2b.back.model.product.ProductOption;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.Id;
-
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -43,14 +40,16 @@ public class Operation {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<AdditionalProduct> additionalProducts;
 
+    @OneToMany
     private Set<OperationDetails>operationData;
 
+    @OneToOne
     private Customer client;
 
-    @Column(nullable = true)
+    @OneToOne
     private InstallationAddress installationAddress;
 
-    @Column(nullable = true)
+    @OneToOne
     private SIMShippingAdress shippingAdress;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -123,7 +122,7 @@ public class Operation {
         return colaboratorEmail;
     }
     public void setColaboratorEmail(String colaboratorEmail){
-        this.colaboratorCode = colaboratorCode;
+        this.colaboratorEmail = colaboratorEmail;
     }
     public String getColaboratorPhone(){
         return colaboratorPhone;

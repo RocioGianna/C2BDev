@@ -3,6 +3,7 @@ package com.con2b.back.model.operation;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Customer {
@@ -14,6 +15,8 @@ public class Customer {
     private String NID;
     private String phone;
     private String email;
+
+    @OneToOne
     private BillingAddress billingAddress;
 
     public Customer(Long id, String firstName, String lastName, String NID, String phone, String email, BillingAddress billingAddress) {

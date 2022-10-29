@@ -12,7 +12,7 @@ public class NewOperationDTO {
     private String colaboratorCode;
     private String colaboratorEmail;
     private String colaboratorPhone;
-    private Long productOption;
+    private Long productOptionId;
     private Set<Long> availableAdditionals;
     private Set<OperationDetails>operationData;
     private Customer client;
@@ -20,11 +20,11 @@ public class NewOperationDTO {
     private SIMShippingAdress shippingAdress;
     private Set<Long> documentationId;
 
-    public NewOperationDTO(String colaboratorCode, String colaboratorEmail, String colaboratorPhone, Long productOption, Set<Long> availableAdditionals, Set<OperationDetails> operationData, Customer client, InstallationAddress installationAddress, SIMShippingAdress shippingAdress, Set<Long> documentationId) {
+    public NewOperationDTO(String colaboratorCode, String colaboratorEmail, String colaboratorPhone, Long productOptionId, Set<Long> availableAdditionals, Set<OperationDetails> operationData, Customer client, InstallationAddress installationAddress, SIMShippingAdress shippingAdress, Set<Long> documentationId) {
         this.colaboratorCode = colaboratorCode;
         this.colaboratorEmail = colaboratorEmail;
         this.colaboratorPhone = colaboratorPhone;
-        this.productOption = productOption;
+        this.productOptionId = productOptionId;
         this.availableAdditionals = availableAdditionals;
         this.operationData = operationData;
         this.client = client;
@@ -57,12 +57,12 @@ public class NewOperationDTO {
         this.colaboratorPhone = colaboratorPhone;
     }
 
-    public Long getProductOption() {
-        return productOption;
+    public Long getProductOptionId() {
+        return productOptionId;
     }
 
-    public void setProductOption(Long productOption) {
-        this.productOption = productOption;
+    public void setProductOptionId(Long productOptionId) {
+        this.productOptionId = productOptionId;
     }
 
     public Set<Long> getAvailableAdditionals() {

@@ -20,12 +20,13 @@ public class User2b {
     private List<Role> roles;
     public User2b() {}
 
-    public User2b(Long id, String email, String password, String firstname, String lastname, String phone, boolean enabled, List<Role> roles) {
+    public User2b(Long id, String email, String password, String firstname, String lastname, String userCode, String phone, boolean enabled, List<Role> roles) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.userCode = userCode;
         this.phone = phone;
         this.enabled = enabled;
         this.roles = roles;
