@@ -11,6 +11,7 @@ public class ProductDTO {
 
     private Long id;
     private String name;
+    private String description;
     private Set<ProductOption> options;
     private Set<Long> availableAdditionals;
     private boolean isProfessional;
@@ -18,6 +19,7 @@ public class ProductDTO {
     public ProductDTO(Product product) {
         this.id = product.getId();
         this.name = product.getName();
+        this.description = product.getDescription();
         this.options = product.getOptions();
         this.availableAdditionals = product.getAvailableAdditionals().stream().map(AdditionalProduct::getId).collect(Collectors.toSet());
         this.isProfessional = product.isProfessional();
@@ -37,6 +39,14 @@ public class ProductDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<ProductOption> getOptions() {

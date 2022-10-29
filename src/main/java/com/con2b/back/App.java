@@ -43,10 +43,6 @@ public class App extends SpringBootServletInitializer {
 
 			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "+54 249 400-0001", true, new ArrayList<>()));
 			userService.addRoleToUser("admin@2bconexion.com", Role.ADMIN);
-
-			userService.saveUser(new User2b(null, "both@2bconexion.com", "pass", "Admin", "User", "+54 249 400-0002", true, new ArrayList<>()));
-			userService.addRoleToUser("both@2bconexion.com", Role.ADMIN);
-			userService.addRoleToUser("both@2bconexion.com", Role.COLABORATOR);
 		};
 	}
 
@@ -60,7 +56,7 @@ public class App extends SpringBootServletInitializer {
 			LineType infinite = operationService.saveLineType(new LineType(null, "Línea Infinita", true));
 			LineType bares = operationService.saveLineType(new LineType(null, "Línea Adicional Bares", true));
 
-			Product prod1 = productService.saveProduct(new Product(null, "MiMovistar","Paquete Fibra, Movil, Fijo y TV", new HashSet<>(), new HashSet<>(), false));
+			Product prod1 = productService.saveProduct(new Product(null, "MiMovistar","Fibra+Movil+Fijo+TV", new HashSet<>(), new HashSet<>(), false));
 			List<LineType> steps = new ArrayList<>();
 			steps.add(fixed);
 			steps.add(xl);
@@ -74,14 +70,14 @@ public class App extends SpringBootServletInitializer {
 			steps.add(2,infinite);
 			productService.saveProductOption(new ProductOption(null, "Movistar Ilimitado x2","ADSL / Fibra 1GB / Radio, Fijo ilim. a fijos + FM550, TV Movistar+ Inicia, Línea Infinita, Línea Infinita, 5GB + 0cent/min incluida gratuita", steps, prod1));
 
-			Product prod2 = productService.saveProduct(new Product(null, "Conecta","Solo Internet y Fijo - ADSL o RADIO", new HashSet<>(), new HashSet<>(), false));
+			Product prod2 = productService.saveProduct(new Product(null, "Conecta","Solo Internet+Fijo", new HashSet<>(), new HashSet<>(), false));
 			steps.clear();
 			steps.add(fixed);
 			productService.saveProductOption(new ProductOption(null, "300MB","Solo Internet y Fijo - ADSL o RADIO", steps, prod2));
 			productService.saveProductOption(new ProductOption(null, "600MB","Solo Fibra 600MB y Fijo", steps, prod2));
 			productService.saveProductOption(new ProductOption(null, "1GB","Solo Fibra 1GB y Fijo", steps, prod2));
 
-			Product prod3 = productService.saveProduct(new Product(null, "Contrato Móvil","Solo móvil", new HashSet<>(), new HashSet<>(), false));
+			Product prod3 = productService.saveProduct(new Product(null, "Contrato Móvil","Sólo móvil", new HashSet<>(), new HashSet<>(), false));
 			steps.clear();
 			steps.add(l);
 			productService.saveProductOption(new ProductOption(null, "Línea L","Llamadas Y Sms Ilimitados Y 8GB", steps, prod3));
