@@ -12,18 +12,18 @@ public class Customer {
     private Long id;
     private String firstName;
     private String lastName;
-    private String NID;
+    private String nid;
     private String phone;
     private String email;
-
     @OneToOne
-    private BillingAddress billingAddress;
+    private Address billingAddress;
 
-    public Customer(Long id, String firstName, String lastName, String NID, String phone, String email, BillingAddress billingAddress) {
+    public Customer(){}
+    public Customer(Long id, String firstName, String lastName, String nid, String phone, String email, Address billingAddress) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.NID = NID;
+        this.nid = nid;
         this.phone = phone;
         this.email = email;
         this.billingAddress = billingAddress;
@@ -54,11 +54,11 @@ public class Customer {
     }
 
     public String getNID() {
-        return NID;
+        return nid;
     }
 
     public void setNID(String NID) {
-        this.NID = NID;
+        this.nid = NID;
     }
 
     public String getPhone() {
@@ -77,11 +77,11 @@ public class Customer {
         this.email = email;
     }
 
-    public BillingAddress getBillingAddress() {
+    public Address getAddress() {
         return billingAddress;
     }
 
-    public void setBillingAddress(BillingAddress billingAddress) {
+    public void setAddress(Address billingAddress) {
         this.billingAddress = billingAddress;
     }
 }

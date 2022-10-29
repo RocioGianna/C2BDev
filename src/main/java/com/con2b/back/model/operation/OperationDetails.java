@@ -23,7 +23,6 @@ public class OperationDetails {
     @Column(nullable = true)
     private String currentOwnerNID;
 
-
     public OperationDetails() {
     }
 

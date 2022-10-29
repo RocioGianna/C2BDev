@@ -47,10 +47,10 @@ public class Operation {
     private Customer client;
 
     @OneToOne
-    private InstallationAddress installationAddress;
+    private Address installationAddress;
 
     @OneToOne
-    private SIMShippingAdress shippingAdress;
+    private Address shippingAdress;
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Documentation> documentation;
@@ -60,7 +60,8 @@ public class Operation {
     public Operation(Long id, String operationCode, Date creationDate, Status status, Channel channel, Long processorId,
                      String colaboratorCode, String colaboratorEmail, String colaboratorPhone, ProductOption productOption,
                      Set<AdditionalProduct> additionalIds, Set<OperationDetails> operationData, Customer client,
-                     InstallationAddress installationAddress, SIMShippingAdress shippingAdress, Set<Documentation> documentationId) {
+                     Address installationAddress, Address shippingAdress, Set<Documentation> documentationId) {
+
         this.id = id;
         this.operationCode = operationCode;
         this.creationDate = creationDate;
@@ -156,16 +157,18 @@ public class Operation {
     public void setClient(Customer customer){
         this.client = customer;
     }
-    public InstallationAddress getInstallationAddress(){
+
+    public Address getInstallationAddress(Address installationAddress){
         return installationAddress;
     }
-    public void setInstallationAddress(InstallationAddress installationAddress){
+    public void setInstallationAddress(Address installationAddress){
         this.operationData = operationData;
     }
-    public SIMShippingAdress getShippingAdress(){
+
+    public Address getShippingAdress(Address shippingAdress){
         return shippingAdress;
     }
-    public void setShippingAdress(SIMShippingAdress shippingAdress){
+    public void setShippingAdress(Address shippingAdress){
         this.shippingAdress = shippingAdress;
     }
     public void addDocumentation(Documentation documentationId){

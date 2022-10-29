@@ -3,7 +3,6 @@ package com.con2b.back.model.operation;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 @Entity
 public class Documentation {
     @Id
@@ -11,6 +10,7 @@ public class Documentation {
     private Long id;
     private String path;
 
+    public Documentation(){}
     public Documentation(Long id, String path) {
         this.id = id;
         this.path = path;

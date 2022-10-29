@@ -16,11 +16,11 @@ public class NewOperationDTO {
     private Set<Long> availableAdditionals;
     private Set<OperationDetails>operationData;
     private Customer client;
-    private InstallationAddress installationAddress;
-    private SIMShippingAdress shippingAdress;
+    private Address installationAddress;
+    private Address shippingAdress;
     private Set<Long> documentationId;
 
-    public NewOperationDTO(String colaboratorCode, String colaboratorEmail, String colaboratorPhone, Long productOptionId, Set<Long> availableAdditionals, Set<OperationDetails> operationData, Customer client, InstallationAddress installationAddress, SIMShippingAdress shippingAdress, Set<Long> documentationId) {
+    public NewOperationDTO(String colaboratorCode, String colaboratorEmail, String colaboratorPhone, Long productOptionId, Set<Long> availableAdditionals, Set<OperationDetails> operationData, Customer client, Address installationAddress, Address shippingAdress, Set<Long> documentationId) {
         this.colaboratorCode = colaboratorCode;
         this.colaboratorEmail = colaboratorEmail;
         this.colaboratorPhone = colaboratorPhone;
@@ -89,19 +89,19 @@ public class NewOperationDTO {
         this.client = client;
     }
 
-    public InstallationAddress getInstallationAddress() {
+    public Address getInstallationAddress() {
         return installationAddress;
     }
 
-    public void setInstallationAddress(InstallationAddress installationAddress) {
+    public void setInstallationAddress(Address installationAddress) {
         this.installationAddress = installationAddress;
     }
 
-    public SIMShippingAdress getShippingAdress() {
+    public Address getShippingAdress() {
         return shippingAdress;
     }
 
-    public void setShippingAdress(SIMShippingAdress shippingAdress) {
+    public void setShippingAdress(Address shippingAdress) {
         this.shippingAdress = shippingAdress;
     }
 
