@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service @Transactional
@@ -26,6 +27,7 @@ public class OperationService {
     private OperationRepository operationRepository;
     @Autowired
     private DocumentationRepository documentationRepository;
+    @Autowired
     private ProductService productService;
 
     public LineType saveLineType(LineType lineType){
@@ -33,24 +35,22 @@ public class OperationService {
     }
 
     public Operation createOperation(NewOperationDTO newOperationDTO){
-        String operationCode = "queda pendiente";
+        String operationCode = "XXX";
 
         Operation operation = new Operation();
 
         operation.setOperationCode(operationCode);
         operation.setStatus(Status.PENDING_PROCESSING);
         operation.setColaboratorCode(newOperationDTO.getColaboratorCode());
-        if(newOperationDTO.getColaboratorPhone() != null || !newOperationDTO.getColaboratorPhone().isEmpty())
-            operation.setColaboratorPhone(newOperationDTO.getColaboratorPhone());
-        if(newOperationDTO.getColaboratorEmail() != null || !newOperationDTO.getColaboratorEmail().isEmpty())
+        if(newOperationDTO.getColaboratorEmail() != null && !newOperationDTO.getColaboratorEmail().isEmpty())
             operation.setColaboratorEmail(newOperationDTO.getColaboratorEmail());
-        operation.setProductOption(productService.getProductOptionById(newOperationDTO.getProductOption()));
-        operation.setAdditionals(productService.getAdditionalProductById(newOperationDTO.getAvailableAdditionals()));
+        if(newOperationDTO.getColaboratorPhone() != null && !newOperationDTO.getColaboratorPhone().isEmpty())
+            operation.setColaboratorPhone(newOperationDTO.getColaboratorPhone());
+        operation.setProductOption(productService.getProductOptionById(newOperationDTO.getProductOptionId()));
+        operation.setAdditionals(new HashSet<>());
         operation.setOperationDetails(newOperationDTO.getOperationData());
         operation.setClient(newOperationDTO.getClient());
-        operation.setInstallationAddress(newOperationDTO.getInstallationAddress());
-        operation.setShippingAdress(newOperationDTO.getShippingAdress());
-        operation.setDocumentation((Set<Documentation>)documentationRepository.findAllById(newOperationDTO.getDocumentationId()));
+        operation.setDocumentation(new HashSet<>());
 
         return operationRepository.save(operation);
     }

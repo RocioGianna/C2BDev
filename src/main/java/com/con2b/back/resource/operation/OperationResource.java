@@ -18,6 +18,7 @@ public class OperationResource {
 
     @Autowired
     private OperationService operationService;
+    @Autowired
     private UserService userService;
 
     @PostMapping("create/operation")
@@ -32,7 +33,7 @@ public class OperationResource {
         }
     }
 
-    @PostMapping("create/operation")
+    @PostMapping("")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createOperationUser(@RequestBody NewOperationDTO newOperationDTO)throws Exception{
         User2b user = userService.getUserByUserCode(newOperationDTO.getColaboratorCode());

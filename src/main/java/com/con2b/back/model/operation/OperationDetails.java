@@ -1,10 +1,9 @@
 package com.con2b.back.model.operation;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class OperationDetails {
@@ -24,6 +23,9 @@ public class OperationDetails {
     @Column(nullable = true)
     private String currentOwnerNID;
 
+
+    public OperationDetails() {
+    }
 
     public OperationDetails(Long id, OperationDetailsType type, String phone, String currentProvider, String currentOwnerFirstname, String currentOwnerLastname, String currentOwnerNID) {
         this.id = id;
