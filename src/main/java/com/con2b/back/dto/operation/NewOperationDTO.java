@@ -13,23 +13,23 @@ public class NewOperationDTO {
     private String colaboratorEmail;
     private String colaboratorPhone;
     private Long productOptionId;
-    private Set<Long> availableAdditionals;
-    private Set<OperationDetails>operationData;
-    private Customer client;
+    private Set<Long> additionalIds;
+    private Set<OperationDetails>operationDetails;
+    private Customer customer;
     private Address installationAddress;
-    private Address shippingAdress;
+    private Address shippingAddress;
     private Set<Long> documentationId;
 
-    public NewOperationDTO(String colaboratorCode, String colaboratorEmail, String colaboratorPhone, Long productOptionId, Set<Long> availableAdditionals, Set<OperationDetails> operationData, Customer client, Address installationAddress, Address shippingAdress, Set<Long> documentationId) {
+    public NewOperationDTO(String colaboratorCode, String colaboratorEmail, String colaboratorPhone, Long productOptionId, Set<Long> additionalIds, Set<OperationDetails> operationDetails, Customer customer, Address installationAddress, Address shippingAddress, Set<Long> documentationId) {
         this.colaboratorCode = colaboratorCode;
         this.colaboratorEmail = colaboratorEmail;
         this.colaboratorPhone = colaboratorPhone;
         this.productOptionId = productOptionId;
-        this.availableAdditionals = availableAdditionals;
-        this.operationData = operationData;
-        this.client = client;
+        this.additionalIds = additionalIds;
+        this.operationDetails = operationDetails;
+        this.customer = customer;
         this.installationAddress = installationAddress;
-        this.shippingAdress = shippingAdress;
+        this.shippingAddress = shippingAddress;
         this.documentationId = documentationId;
     }
 
@@ -65,28 +65,28 @@ public class NewOperationDTO {
         this.productOptionId = productOptionId;
     }
 
-    public Set<Long> getAvailableAdditionals() {
-        return availableAdditionals;
+    public Set<Long> getAdditionalIds() {
+        return additionalIds;
     }
 
-    public void setAvailableAdditionals(Set<Long> availableAdditionals) {
-        this.availableAdditionals = availableAdditionals;
+    public void setAdditionalIds(Set<Long> availableAdditionals) {
+        this.additionalIds = availableAdditionals;
     }
 
-    public Set<OperationDetails> getOperationData() {
-        return operationData;
+    public Set<OperationDetails> getOperationDetails() {
+        return operationDetails;
     }
 
-    public void setOperationData(Set<OperationDetails> operationData) {
-        this.operationData = operationData;
+    public void setOperationDetails(Set<OperationDetails> operationData) {
+        this.operationDetails = operationData;
     }
 
-    public Customer getClient() {
-        return client;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setClient(Customer client) {
-        this.client = client;
+    public void setCustomer(Customer client) {
+        this.customer = client;
     }
 
     public Address getInstallationAddress() {
@@ -98,11 +98,11 @@ public class NewOperationDTO {
     }
 
     public Address getShippingAdress() {
-        return shippingAdress;
+        return shippingAddress;
     }
 
     public void setShippingAdress(Address shippingAdress) {
-        this.shippingAdress = shippingAdress;
+        this.shippingAddress = shippingAdress;
     }
 
     public Set<Long> getDocumentationId() {

@@ -11,6 +11,7 @@ public class OperationDetails {
     @Id
     @GeneratedValue
     private Long id;
+    private Long optionId;
     private OperationDetailsType type;
     @Column(nullable = true)
     private String phone;
@@ -26,8 +27,9 @@ public class OperationDetails {
     public OperationDetails() {
     }
 
-    public OperationDetails(Long id, OperationDetailsType type, String phone, String currentProvider, String currentOwnerFirstname, String currentOwnerLastname, String currentOwnerNID) {
+    public OperationDetails(Long id, Long optionId, OperationDetailsType type, String phone, String currentProvider, String currentOwnerFirstname, String currentOwnerLastname, String currentOwnerNID) {
         this.id = id;
+        this.optionId = optionId;
         this.type = type;
         this.phone = phone;
         this.currentProvider = currentProvider;
@@ -43,6 +45,15 @@ public class OperationDetails {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Long getOptionId() {
+        return optionId;
+    }
+
+    public void setOptionId(Long optionId) {
+        this.optionId = optionId;
+    }
+
     public OperationDetailsType getType() {
         return type;
     }

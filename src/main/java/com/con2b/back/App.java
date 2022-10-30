@@ -1,12 +1,15 @@
 package com.con2b.back;
 
+import com.con2b.back.model.operation.*;
 import com.con2b.back.model.product.AdditionalProductOption;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.model.user.Role;
 import com.con2b.back.model.product.AdditionalProduct;
-import com.con2b.back.model.operation.LineType;
 import com.con2b.back.model.product.Product;
 import com.con2b.back.model.product.ProductOption;
+import com.con2b.back.service.operation.AddressService;
+import com.con2b.back.service.operation.CustomerService;
+import com.con2b.back.service.operation.OperationDetailsService;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.UserService;
 import com.con2b.back.service.product.ProductService;

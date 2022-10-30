@@ -1,6 +1,7 @@
 package com.con2b.back.model.operation;
 
 import com.con2b.back.model.product.AdditionalProduct;
+import com.con2b.back.model.product.AdditionalProductOption;
 import com.con2b.back.model.product.ProductOption;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -15,7 +16,7 @@ public class Operation {
     private Long id;
 
     private String operationCode;
-
+    private Boolean reprocess;
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
@@ -38,13 +39,13 @@ public class Operation {
     private ProductOption productOption;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<AdditionalProduct> additionalProducts;
+    private Set<AdditionalProductOption> additionalProducts;
 
     @OneToMany
-    private Set<OperationDetails>operationData;
+    private Set<OperationDetails>operationDetails;
 
     @OneToOne
-    private Customer client;
+    private Customer customer;
 
     @OneToOne
     private Address installationAddress;
@@ -57,13 +58,14 @@ public class Operation {
 
     public Operation(){};
 
-    public Operation(Long id, String operationCode, Date creationDate, Status status, Channel channel, Long processorId,
+    public Operation(Long id, String operationCode,Boolean reprocess, Date creationDate, Status status, Channel channel, Long processorId,
                      String colaboratorCode, String colaboratorEmail, String colaboratorPhone, ProductOption productOption,
-                     Set<AdditionalProduct> additionalIds, Set<OperationDetails> operationData, Customer client,
+                     Set<AdditionalProductOption> additionalIds, Set<OperationDetails> operationDetails, Customer customer,
                      Address installationAddress, Address shippingAdress, Set<Documentation> documentationId) {
 
         this.id = id;
         this.operationCode = operationCode;
+        this.reprocess = reprocess;
         this.creationDate = creationDate;
         this.status = status;
         this.channel = channel;
@@ -73,8 +75,8 @@ public class Operation {
         this.colaboratorPhone = colaboratorPhone;
         this.productOption = productOption;
         this.additionalProducts = additionalIds;
-        this.operationData = operationData;
-        this.client = client;
+        this.operationDetails = operationDetails;
+        this.customer = customer;
         this.installationAddress = installationAddress;
         this.shippingAdress = shippingAdress;
         this.documentation = documentationId;
@@ -89,6 +91,15 @@ public class Operation {
     public void setOperationCode(String operationCode){
         this.operationCode = operationCode;
     }
+
+    public Boolean getReprocess() {
+        return reprocess;
+    }
+
+    public void setReprocess(Boolean reprocess) {
+        this.reprocess = reprocess;
+    }
+
     public Date getCreationDate(){
         return creationDate;
     }
@@ -135,37 +146,37 @@ public class Operation {
     public void setProductOption(ProductOption productOptionId){
         this.productOption = productOptionId;
     }
-    public void addAdditionals(AdditionalProduct additionalId) {
+    public void addAdditionals(AdditionalProductOption additionalId) {
         this.additionalProducts.add(additionalId);
     }
-    public Set<AdditionalProduct> getAdditionals() {
+    public Set<AdditionalProductOption> getAdditionals() {
         return additionalProducts;
     }
-    public void setAdditionals(Set<AdditionalProduct> additionals) {
+    public void setAdditionals(Set<AdditionalProductOption> additionals) {
         this.additionalProducts = additionals;
     }
     public void addOperationDetails(OperationDetails operationDetails){
-        this.operationData.add(operationDetails);
+        this.operationDetails.add(operationDetails);
     }
     public void setOperationDetails(Set<OperationDetails> operationDetails){
-        this.operationData = operationDetails;
+        this.operationDetails = operationDetails;
     }
     public Set<OperationDetails> getOperationData() {
-        return operationData;
+        return operationDetails;
     }
-    public Customer getClient() { return client; }
-    public void setClient(Customer customer){
-        this.client = customer;
+    public Customer getCustomer() { return customer; }
+    public void setCustomer(Customer customer){
+        this.customer = customer;
     }
 
-    public Address getInstallationAddress(Address installationAddress){
+    public Address getInstallationAddress(){
         return installationAddress;
     }
     public void setInstallationAddress(Address installationAddress){
-        this.operationData = operationData;
+        this.installationAddress = installationAddress;
     }
 
-    public Address getShippingAdress(Address shippingAdress){
+    public Address getShippingAdress(){
         return shippingAdress;
     }
     public void setShippingAdress(Address shippingAdress){

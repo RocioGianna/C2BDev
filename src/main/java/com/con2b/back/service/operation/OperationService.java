@@ -2,7 +2,6 @@ package com.con2b.back.service.operation;
 
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.model.operation.*;
-import com.con2b.back.model.product.AdditionalProduct;
 import com.con2b.back.repository.operation.DocumentationRepository;
 import com.con2b.back.repository.operation.LineTypeRepository;
 import com.con2b.back.repository.operation.OperationRepository;
@@ -11,12 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
+
 
 @Service @Transactional
 public class OperationService {
@@ -29,12 +24,30 @@ public class OperationService {
     private DocumentationRepository documentationRepository;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CustomerService customerService;
+    @Autowired
+    private AddressService addressService;
+    @Autowired
+    private OperationDetailsService operationDetailsService;
+
 
     public LineType saveLineType(LineType lineType){
         return lineTypeRepository.save(lineType);
     }
 
     public Operation createOperation(NewOperationDTO newOperationDTO){
+        //queda pendiente implementar refererCode y messages
+        HashSet<OperationDetails> operationDetailsId = new HashSet<>();
+        Customer customer = customerService.saveCustomer(newOperationDTO.getCustomer());
+        Address installationAddress = addressService.saveAddress(newOperationDTO.getInstallationAddress());
+        Address shippingAddress = addressService.saveAddress(newOperationDTO.getShippingAdress());
+        if(newOperationDTO.getOperationDetails() != null) {
+            for (OperationDetails od : newOperationDTO.getOperationDetails()) {
+                operationDetailsId.add(operationDetailsService.saveOperationDetails(od));
+            }
+        }
+
         String operationCode = "XXX";
 
         Operation operation = new Operation();
@@ -47,10 +60,22 @@ public class OperationService {
         if(newOperationDTO.getColaboratorPhone() != null && !newOperationDTO.getColaboratorPhone().isEmpty())
             operation.setColaboratorPhone(newOperationDTO.getColaboratorPhone());
         operation.setProductOption(productService.getProductOptionById(newOperationDTO.getProductOptionId()));
-        operation.setAdditionals(new HashSet<>());
-        operation.setOperationDetails(newOperationDTO.getOperationData());
-        operation.setClient(newOperationDTO.getClient());
-        operation.setDocumentation(new HashSet<>());
+        if(newOperationDTO.getAdditionalIds() != null && !newOperationDTO.getAdditionalIds().isEmpty()) {
+            operation.setAdditionals(productService.getAdditionalProductOption(newOperationDTO.getAdditionalIds()));
+        }
+        operation.setOperationDetails(operationDetailsId);
+        if(customer != null) {
+            operation.setCustomer(customer);
+        }
+        if(installationAddress != null ){
+            operation.setInstallationAddress(installationAddress);
+        }
+        if(shippingAddress != null){
+            operation.setShippingAdress(shippingAddress);
+        }
+        if(newOperationDTO.getDocumentationId() != null && !newOperationDTO.getDocumentationId().isEmpty()){
+            operation.setDocumentation(new HashSet<>());
+        }
 
         return operationRepository.save(operation);
     }

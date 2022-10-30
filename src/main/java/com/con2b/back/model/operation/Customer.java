@@ -15,17 +15,20 @@ public class Customer {
     private String nid;
     private String phone;
     private String email;
+
+    private String bankAccount;
     @OneToOne
     private Address billingAddress;
 
     public Customer(){}
-    public Customer(Long id, String firstName, String lastName, String nid, String phone, String email, Address billingAddress) {
+    public Customer(Long id, String firstName, String lastName, String nid, String phone, String email, String bankAccount, Address billingAddress) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nid = nid;
         this.phone = phone;
         this.email = email;
+        this.bankAccount =bankAccount;
         this.billingAddress = billingAddress;
     }
 
@@ -75,6 +78,14 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
     public Address getAddress() {

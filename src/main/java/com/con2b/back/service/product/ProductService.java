@@ -85,8 +85,8 @@ public class ProductService {
        return po;
     }
 
-    public Set<AdditionalProduct> getAdditionalProductById(Set<Long> listId){
-        return (Set<AdditionalProduct>) additionalProductRepository.findAllById(listId) ;
+    public Set<AdditionalProductOption> getAdditionalProductOption(Set<Long> listId){
+        return new HashSet<>( additionalProductOptionRepository.findAllById(listId)) ;
     }
 
 }
