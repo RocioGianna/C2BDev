@@ -13,7 +13,7 @@ import CustomDataGrid from "./CustomDataGrid";
 export default function Operations() {
     const columns = getOperationTableColumnsByRole();
     const navigate = useNavigate();
-    const rows = [data];
+    const rows = data;
 
     if (!columns) return <></>;
 
