@@ -114,9 +114,13 @@ function SearchBar({ setResult, rows }) {
     const [search, setSearch] = useState("");
 
     function handleSearch() {
-        const flatten = (obj, roots = [], sep = ".") => Object.keys(obj).reduce((memo, prop) => Object.assign({}, memo, Object.prototype.toString.call(obj[prop]) === "[object Object]" ? flatten(obj[prop], roots.concat([prop]), sep) : { [roots.concat([prop]).join(sep)]: obj[prop] }), {});
-        const filteredRows = rows.filter((obj) => Object.values(flatten(obj)).some((val) => val.toString().indexOf(search) >= 0));
-        setResult(filteredRows);
+        if (search.trim() === "") {
+            setResult(rows);
+        } else {
+            const flatten = (obj, roots = [], sep = ".") => Object.keys(obj).reduce((memo, prop) => Object.assign({}, memo, Object.prototype.toString.call(obj[prop]) === "[object Object]" ? flatten(obj[prop], roots.concat([prop]), sep) : { [roots.concat([prop]).join(sep)]: obj[prop] }), {});
+            const filteredRows = rows.filter((obj) => Object.values(flatten(obj)).some((val) => val.toString().indexOf(search) >= 0));
+            setResult(filteredRows);
+        }
     }
 
     return (
