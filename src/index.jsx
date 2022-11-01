@@ -15,7 +15,7 @@ import "../src/styles/globalStyles.css";
 const theme = createTheme({
     palette: {
         background: { default: "#e7ddec" },
-        primary: { dark: "#551482", main: "#6b378d", light: "#9d79b4" },
+        primary: { dark: "#551482", main: "#6b378d", light: "#9d79b4", extraLight: "#e7ddec" },
     },
     typography: {
         fontFamily: ["Poppins", "sans-serif"].join(","),

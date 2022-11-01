@@ -4,6 +4,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import { styled } from "@mui/material/styles";
+import { CustomNoRowsOverlay } from "./CustomNoRowsOverlay";
 
 //Lupita para todos attributes
 //Filtrar por atributos que aparecen en las columnas
@@ -52,6 +54,30 @@ const operators = [
         },
     },
 ];
+
+export const StyledGridOverlay = styled("div")(({ theme }) => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    "& .ant-empty-img-1": {
+        fill: theme.palette.mode === "light" ? "#aeb8c2" : "#262626",
+    },
+    "& .ant-empty-img-2": {
+        fill: theme.palette.mode === "light" ? "#f5f5f7" : "#595959",
+    },
+    "& .ant-empty-img-3": {
+        fill: theme.palette.mode === "light" ? "#dce0e6" : "#434343",
+    },
+    "& .ant-empty-img-4": {
+        fill: theme.palette.mode === "light" ? "#fff" : "#1c1c1c",
+    },
+    "& .ant-empty-img-5": {
+        fillOpacity: theme.palette.mode === "light" ? "0.8" : "0.08",
+        fill: theme.palette.mode === "light" ? "#f5f5f5" : "#fff",
+    },
+}));
 
 function Filter({ columns, setResult, rows }) {
     const properties = columns.map((a) => {
@@ -123,6 +149,10 @@ function SearchBar({ setResult, rows }) {
         }
     }
 
+    useEffect(() => {
+        handleSearch();
+    }, [search]);
+
     return (
         <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -136,7 +166,6 @@ function SearchBar({ setResult, rows }) {
                     label="Valor"
                     value={search}
                     onChange={(e) => {
-                        handleSearch();
                         setSearch(e.target.value);
                     }}
                 />
@@ -174,7 +203,17 @@ export default function CustomDataGrid({ columns, rows }) {
     return (
         <Box sx={{ height: 400, p: 3, pb: 10, background: "white" }}>
             <Tools setResult={setResult} rows={rows} />
-            <DataGrid rows={result} columns={columns} pageSize={5} rowsPerPageOptions={[5]} disableSelectionOnClick experimentalFeatures={{ newEditingApi: true }} />
+            <DataGrid
+                components={{
+                    NoRowsOverlay: CustomNoRowsOverlay,
+                }}
+                rows={result}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                disableSelectionOnClick
+                experimentalFeatures={{ newEditingApi: true }}
+            />
         </Box>
     );
 }

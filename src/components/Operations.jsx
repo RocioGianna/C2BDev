@@ -45,8 +45,8 @@ export default function Operations() {
     };
 
     return (
-        <Box sx={{ height: 400, width: "100%" }}>
-            <Paper sx={{ p: 3 }}>
+        <Box sx={{ width: "100%" }}>
+            <Paper sx={{ p: 2 }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <Typography variant="h5">Operaciones pendientes : requieren atención</Typography>
                     <Button variant="contained" onClick={() => navigate("/2b/ops/new")}>
@@ -58,7 +58,7 @@ export default function Operations() {
             <Paper sx={{ mt: 2 }}>
                 <CustomDataGrid rows={rows.filter((op) => isRequiringAttention(op))} columns={columns} />
             </Paper>
-            <Paper sx={{ p: 3, mt: 6 }}>
+            <Paper sx={{ p: 2, mt: 4 }}>
                 <Typography variant="h5">Total de operaciones</Typography>
             </Paper>
             <Paper sx={{ mt: 2 }}>

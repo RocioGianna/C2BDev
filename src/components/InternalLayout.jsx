@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import AppBar from "./AppBar";
 import { useSelector } from "react-redux";
 import { fetchAdditionals, fetchProducts } from "../services/ProductService";
+import { Toolbar, Box } from "@mui/material";
 
 function InternalLayout() {
     const user = useSelector((state) => state.session.user);
@@ -21,9 +22,12 @@ function InternalLayout() {
     }, []);
 
     return (
-        <Container maxWidth="xl" sx={{ minHeight: "100vh", display: "flex" }}>
+        <Container maxWidth="xl" sx={{ minHeight: "100vh" }}>
             <AppBar />
-            <Outlet />
+            <Toolbar />
+            <Box sx={{ py: 4 }}>
+                <Outlet />
+            </Box>
         </Container>
     );
 }
