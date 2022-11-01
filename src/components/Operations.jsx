@@ -59,7 +59,7 @@ export default function Operations() {
                 <CustomDataGrid rows={rows.filter((op) => isRequiringAttention(op))} columns={columns} />
             </Paper>
             <Paper sx={{ p: 2, mt: 4 }}>
-                <Typography variant="h5">Total de operaciones</Typography>
+                <Typography variant="h5">Todas las operaciones</Typography>
             </Paper>
             <Paper sx={{ mt: 2 }}>
                 <CustomDataGrid rows={rows} columns={columns} />
