@@ -48,7 +48,7 @@ export default function Operations() {
         <Box sx={{ width: "100%" }}>
             <Paper sx={{ p: 2 }}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Typography variant="h5">Operaciones pendientes : requieren atención</Typography>
+                    <Typography variant="h5">Operaciones pendientes: requieren atención</Typography>
                     <Button variant="contained" onClick={() => navigate("/2b/ops/new")}>
                         <AddIcon />
                         AÑadir Operación

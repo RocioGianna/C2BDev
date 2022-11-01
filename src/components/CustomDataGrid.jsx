@@ -136,7 +136,7 @@ function Filter({ columns, setResult, rows }) {
     );
 }
 
-function SearchBar({ setResult, rows }) {
+function SearchBar({ setResult, rows, setMode }) {
     const [search, setSearch] = useState("");
 
     function handleSearch() {
@@ -152,6 +152,14 @@ function SearchBar({ setResult, rows }) {
     useEffect(() => {
         handleSearch();
     }, [search]);
+
+    const handleCleanSearchBar = () => {
+        if (search.trim() === "") {
+            setMode("");
+        } else {
+            setSearch("");
+        }
+    };
 
     return (
         <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
@@ -171,7 +179,7 @@ function SearchBar({ setResult, rows }) {
                 />
             </Box>
 
-            <IconButton onClick={() => setSearch("")}>
+            <IconButton onClick={() => handleCleanSearchBar()}>
                 <CloseIcon color="primary" />
             </IconButton>
         </Stack>
@@ -181,17 +189,25 @@ function SearchBar({ setResult, rows }) {
 function Tools({ setResult, rows }) {
     const [mode, setMode] = useState("");
 
+    const handleClickSearch = () => {
+        if (mode === "search") {
+            setMode("");
+        } else {
+            setMode("search");
+        }
+    };
+
     return (
         <Box sx={{ display: "flex", flexDirection: "row-reverse", justifyContent: "space-between", pb: 2 }}>
             <Stack direction="row" spacing={1}>
-                <IconButton onClick={() => setMode("search")}>
+                <IconButton onClick={() => handleClickSearch()}>
                     <SearchIcon color="primary" />
                 </IconButton>
                 <IconButton onClick={() => setMode("filter")} disabled>
                     <FilterAltIcon color="primary" />
                 </IconButton>
             </Stack>
-            <Box sx={{ flexGrow: 1, width: "100%" }}>{mode === "search" ? <SearchBar setResult={setResult} rows={rows} /> : null}</Box>
+            <Box sx={{ flexGrow: 1, width: "100%" }}>{mode === "search" ? <SearchBar setResult={setResult} rows={rows} setMode={setMode} /> : null}</Box>
             <Box sx={{ flexGrow: 1 }}>{mode === "filter" ? <div>Filter</div> : null}</Box>
         </Box>
     );
