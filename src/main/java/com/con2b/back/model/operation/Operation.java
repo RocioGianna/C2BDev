@@ -3,6 +3,7 @@ package com.con2b.back.model.operation;
 import com.con2b.back.model.product.AdditionalProduct;
 import com.con2b.back.model.product.AdditionalProductOption;
 import com.con2b.back.model.product.ProductOption;
+import com.con2b.back.model.user.User2b;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -24,10 +25,10 @@ public class Operation {
     private Status status;
     @Column(nullable = true)
     private Channel channel;
-    @Column(nullable = true)
-    private Long processorId;
-
-    private String colaboratorCode;
+    @ManyToOne
+    private User2b processor;
+    @ManyToOne
+    private User2b colaborator;
 
     @Column(nullable = true)
     private String colaboratorEmail;
@@ -58,8 +59,8 @@ public class Operation {
 
     public Operation(){};
 
-    public Operation(Long id, String operationCode,Boolean reprocess, Date creationDate, Status status, Channel channel, Long processorId,
-                     String colaboratorCode, String colaboratorEmail, String colaboratorPhone, ProductOption productOption,
+    public Operation(Long id, String operationCode,Boolean reprocess, Date creationDate, Status status, Channel channel, User2b processorId,
+                     User2b colaboratorCode, String colaboratorEmail, String colaboratorPhone, ProductOption productOption,
                      Set<AdditionalProductOption> additionalIds, Set<OperationDetails> operationDetails, Customer customer,
                      Address installationAddress, Address shippingAdress, Set<Documentation> documentationId) {
 
@@ -69,8 +70,8 @@ public class Operation {
         this.creationDate = creationDate;
         this.status = status;
         this.channel = channel;
-        this.processorId = processorId;
-        this.colaboratorCode = colaboratorCode;
+        this.processor = processorId;
+        this.colaborator = colaboratorCode;
         this.colaboratorEmail = colaboratorEmail;
         this.colaboratorPhone = colaboratorPhone;
         this.productOption = productOption;
@@ -118,17 +119,17 @@ public class Operation {
     public void setChannel(Channel channel){
         this.channel = channel;
     }
-    public Long getProcessorId(){
-        return processorId;
+    public User2b getProcessor(){
+        return processor;
     }
-    public void setProcessorId(Long processorId){
-        this.processorId = processorId;
+    public void setProcessor(User2b processorId){
+        this.processor = processorId;
     }
-    public String getColaboratorCode(){
-        return colaboratorCode;
+    public User2b getColaboratorCode(){
+        return colaborator;
     }
-    public void setColaboratorCode(String colaboratorCode){
-        this.colaboratorCode = colaboratorCode;
+    public void setColaboratorCode(User2b colaboratorCode){
+        this.colaborator = colaboratorCode;
     }
     public String getColaboratorEmail(){
         return colaboratorEmail;

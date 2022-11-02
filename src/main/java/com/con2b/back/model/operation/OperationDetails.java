@@ -1,9 +1,9 @@
 package com.con2b.back.model.operation;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.con2b.back.model.product.AdditionalProductOption;
+import com.con2b.back.model.product.ProductOption;
+
+import javax.persistence.*;
 
 @Entity
 public class OperationDetails {
@@ -11,7 +11,10 @@ public class OperationDetails {
     @Id
     @GeneratedValue
     private Long id;
-    private Long optionId;
+    @ManyToOne
+    private ProductOption productOption;
+    @ManyToOne
+    private AdditionalProductOption additionalProductOption;
     private OperationDetailsType type;
     @Column(nullable = true)
     private String phone;
@@ -27,9 +30,10 @@ public class OperationDetails {
     public OperationDetails() {
     }
 
-    public OperationDetails(Long id, Long optionId, OperationDetailsType type, String phone, String currentProvider, String currentOwnerFirstname, String currentOwnerLastname, String currentOwnerNID) {
+    public OperationDetails(Long id, ProductOption option, AdditionalProductOption additionalProductOption, OperationDetailsType type, String phone, String currentProvider, String currentOwnerFirstname, String currentOwnerLastname, String currentOwnerNID) {
         this.id = id;
-        this.optionId = optionId;
+        this.productOption = option;
+        this.additionalProductOption =additionalProductOption;
         this.type = type;
         this.phone = phone;
         this.currentProvider = currentProvider;
@@ -46,12 +50,20 @@ public class OperationDetails {
         this.id = id;
     }
 
-    public Long getOptionId() {
-        return optionId;
+    public ProductOption getOption() {
+        return productOption;
     }
 
-    public void setOptionId(Long optionId) {
-        this.optionId = optionId;
+    public void setOption(ProductOption optionId) {
+        this.productOption = optionId;
+    }
+
+    public AdditionalProductOption getAdditionalProductOption() {
+        return additionalProductOption;
+    }
+
+    public void setAdditionalProductOption(AdditionalProductOption additionalProductOption) {
+        this.additionalProductOption = additionalProductOption;
     }
 
     public OperationDetailsType getType() {

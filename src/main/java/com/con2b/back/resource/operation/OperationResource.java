@@ -1,5 +1,6 @@
 package com.con2b.back.resource.operation;
 
+import com.con2b.back.dto.GenericResponseDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.service.operation.OperationService;
@@ -21,19 +22,19 @@ public class OperationResource {
     @Autowired
     private UserService userService;
 
-    @PostMapping("create/operation")
+    @PostMapping("")
     @PreAuthorize("hasRole('COLABORATOR')")
-    public ResponseEntity<?> createOperationAdm(@RequestBody NewOperationDTO newOperationDTO, @RequestHeader("userId") String userId )throws Exception{
-        Optional<User2b> opUser = userService.getUserById(Long.parseLong(userId));
+    public ResponseEntity<?> createOperationAdm(@RequestBody NewOperationDTO newOperationDTO, @RequestHeader("userId") Long userId )throws Exception{
+        Optional<User2b> opUser = userService.getUserById(userId);
 
         if(opUser.isPresent() && newOperationDTO.getColaboratorCode().equals(opUser.get().getUserCode()) ){
             return ResponseEntity.ok().body(operationService.createOperation(newOperationDTO));
         }else{
-            throw new Exception("Colaborator code doesn't match with user code");
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Colaborator code doesn't match with user code"));
         }
     }
 
-    @PostMapping("")
+    @PostMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createOperationUser(@RequestBody NewOperationDTO newOperationDTO)throws Exception{
         User2b user = userService.getUserByUserCode(newOperationDTO.getColaboratorCode());
@@ -41,7 +42,7 @@ public class OperationResource {
         if(user != null ){
             return ResponseEntity.ok().body(operationService.createOperation(newOperationDTO));
         }else{
-            throw new Exception("Colaborator code doesn't match with any user code");
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Colaborator code doesn't match with user code"));
         }
     }
 

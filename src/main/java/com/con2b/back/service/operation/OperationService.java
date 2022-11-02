@@ -6,6 +6,7 @@ import com.con2b.back.repository.operation.DocumentationRepository;
 import com.con2b.back.repository.operation.LineTypeRepository;
 import com.con2b.back.repository.operation.OperationRepository;
 import com.con2b.back.service.product.ProductService;
+import com.con2b.back.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +31,17 @@ public class OperationService {
     private AddressService addressService;
     @Autowired
     private OperationDetailsService operationDetailsService;
+    @Autowired
+    private UserService userService;
 
 
     public LineType saveLineType(LineType lineType){
         return lineTypeRepository.save(lineType);
     }
 
-    public Operation createOperation(NewOperationDTO newOperationDTO){
-        //queda pendiente implementar refererCode y messages
+    public Operation createOperation(NewOperationDTO newOperationDTO) throws Exception {
+        //TODO implement refererCode and messages
+
         HashSet<OperationDetails> operationDetailsId = new HashSet<>();
         Customer customer = customerService.saveCustomer(newOperationDTO.getCustomer());
         Address installationAddress = addressService.saveAddress(newOperationDTO.getInstallationAddress());
@@ -53,8 +57,8 @@ public class OperationService {
         Operation operation = new Operation();
 
         operation.setOperationCode(operationCode);
-        operation.setStatus(Status.PENDING_PROCESSING);
-        operation.setColaboratorCode(newOperationDTO.getColaboratorCode());
+        operation.setStatus(Status.PENDING);
+        operation.setColaboratorCode(userService.getUserByUserCode(newOperationDTO.getColaboratorCode()));
         if(newOperationDTO.getColaboratorEmail() != null && !newOperationDTO.getColaboratorEmail().isEmpty())
             operation.setColaboratorEmail(newOperationDTO.getColaboratorEmail());
         if(newOperationDTO.getColaboratorPhone() != null && !newOperationDTO.getColaboratorPhone().isEmpty())
