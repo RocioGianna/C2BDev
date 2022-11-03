@@ -17,22 +17,22 @@ export function PhoneStep({ index }) {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <FormSelect name={`phoneStep_${index}_phoneOperationType`} label="Tipo de Operacion">
-                        <MenuItem value={"Nuevo"}>Nuevo</MenuItem>
-                        <MenuItem value={"Portabilidad"}>Portabilidad</MenuItem>
-                        <MenuItem value={"Existente"}>Existente</MenuItem>
+                        <MenuItem value={"NEW"}>Nuevo</MenuItem>
+                        <MenuItem value={"PORTABILITY"}>Portabilidad</MenuItem>
+                        <MenuItem value={"EXISTING"}>Existente</MenuItem>
                     </FormSelect>
                 </Grid>
-                {operationType.value !== "Nuevo" && operationType.value !== "" && (
+                {operationType.value !== "NEW" && operationType.value !== "" && (
                     <Grid item xs={12}>
                         <PhoneInput phonePrefixName={`phoneStep_${index}_phonePrefix`} phoneNumberName={`phoneStep_${index}_phoneNumber`} />
                     </Grid>
                 )}
-                {operationType.value === "Portabilidad" && operationType.value !== "" && (
+                {operationType.value === "PORTABILITY" && operationType.value !== "" && (
                     <Grid item xs={12}>
                         <Field fullWidth name={`phoneStep_${index}_phoneOperator`} label="Operador Actual Fijo" component={TextField} />
                     </Grid>
                 )}
-                {operationType.value !== "Nuevo" && operationType.value !== "" && (
+                {operationType.value !== "NEW" && operationType.value !== "" && (
                     <ConditionalForm label={"Cambio de titular"} name={`phoneStep_${index}_changePhoneOwner`}>
                         <Grid item xs={12}>
                             <Field fullWidth name={`phoneStep_${index}_name`} label="Nombre titular actual" component={TextField} />
@@ -54,7 +54,7 @@ const validationSchema = (index) => {
     return yup.object().shape({
         [`phoneStep_${index}_phoneOperationType`]: yup.string().required("El tipo de operacion es requerido"),
         [`phoneStep_${index}_phonePrefix`]: yup.string().when(`phoneStep_${index}_phoneOperationType`, (opType) => {
-            if (opType !== "Nuevo") {
+            if (opType !== "NEW") {
                 return yup
                     .string()
                     .required("El prefijo es requerido")
@@ -64,7 +64,7 @@ const validationSchema = (index) => {
             }
         }),
         [`phoneStep_${index}_phoneNumber`]: yup.string().when(`phoneStep_${index}_phoneOperationType`, (opType) => {
-            if (opType !== "Nuevo") {
+            if (opType !== "NEW") {
                 return yup
                     .string()
                     .required("El numero es requerido")
@@ -74,7 +74,7 @@ const validationSchema = (index) => {
             }
         }),
         [`phoneStep_${index}_phoneOperator`]: yup.string().when(`phoneStep_${index}_phoneOperationType`, (opType) => {
-            if (opType == "Portabilidad") {
+            if (opType == "PORTABILITY") {
                 return yup.string().required("El operador es obligatorio");
             }
         }),

@@ -9,6 +9,8 @@ import { store } from "../../state/store";
 import { resetPhoneSteps, addPhoneStep } from "../../state/formStepsSlice";
 import PhoneInput from "../form/PhoneInput";
 
+import FormData from "../../mock/FormData.json";
+
 export function ProductStep() {
     const products = useSelector((state) => state.products.products);
     const additionals = useSelector((state) => state.products.additionals);
@@ -56,7 +58,7 @@ export function ProductStep() {
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
 
-    if (productId.value) console.log(additionalsByProduct(productId.value));
+    // if (productId.value) console.log(additionalsByProduct(productId.value));
 
     return (
         <Box sx={{ flexGrow: 1 }}>
