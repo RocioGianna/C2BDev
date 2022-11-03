@@ -9,7 +9,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.Instant;
 
-@Entity @Getter
+@Entity
+@Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor

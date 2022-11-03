@@ -8,7 +8,11 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
-@Entity @NoArgsConstructor @AllArgsConstructor  @Getter @Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class LineType {
     @Id @GeneratedValue
     Long id;

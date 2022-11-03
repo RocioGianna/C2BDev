@@ -9,8 +9,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity @Getter
-@Setter @AllArgsConstructor @NoArgsConstructor
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AdditionalProduct {
 
     @Id @GeneratedValue
