@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { notificationDispatched } from "../state/notificactionSlice";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { postProducts } from "../services/OperationService";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -63,25 +64,33 @@ export default function NewOperationModal() {
     const xsMatch = useMediaQuery(theme.breakpoints.down("sm"));
 
     const handleNewOperationPost = (values) => {
-        const filteredProps = Object.keys(values).filter((prop) => prop.match("phoneStep"));
-        console.log(filteredProps.length);
-        const operationDetails = Array.apply(null, new Array(filteredProps.length / 8));
+        const filteredProps = Object.entries(values).filter((prop) => prop[0].match("phoneStep"));
+        const operationDetails = [];
 
-        console.log(operationDetails);
-        operationDetails.forEach((opD, index) => {
-            const opDProps = filteredProps.filter((prop) => prop.match(index));
-            console.log("opDProps: ", index, opDProps);
+        for (let index = 0; index < filteredProps.length / 8; index++) {
+            let opDProps = filteredProps.filter((prop) => prop[0].match(index));
+            opDProps.forEach((o) => (o[0] = o[0].split("_").pop())); // Le saco el phoneStep_1_
+            let opDetailObject = Object.fromEntries(opDProps);
             operationDetails[index] = {
-                
-            }
-        });
+                optionId: opDetailObject.id,
+                type: opDetailObject.phoneOperationType,
+                phone: opDetailObject.phonePrefix + " " + opDetailObject.phoneNumber,
+                currentProvider: opDetailObject.phoneOperator,
+                currentOwnerFirstname: opDetailObject.name,
+                currentOwnerLastname: opDetailObject.surname,
+                currentOwnerNID: opDetailObject.dni,
+            };
+        }
+
+        console.log(values);
 
         const body = {
             colaboratorCode: values.collaboratorId,
             colaboratorEmail: values.collaboratorEmail,
             colaboratorPhone: values.collaboratorPhoneNumber,
+            refererCode: "XXX",
             productOptionId: values.productOptionId,
-            additionalIds: values.additionals,
+            additionalIds: values.additionals.map((a) => a.id),
             operationDetails: operationDetails,
             customer: {
                 firstName: values.clientName,
@@ -105,12 +114,13 @@ export default function NewOperationModal() {
             },
             shippingAddress: {
                 address: values.instalattionAddress2,
-                zipcode: zipCodeInstallation2,
+                zipcode: values.zipCodeInstallation2,
                 municipality: values.municipalityInstallation2,
-                province: provinceInstallation2,
+                province: values.provinceInstallation2,
             },
-            documentation,
+            documentation: [values.documentation], //?
         };
+        postProducts(body);
     };
 
     return (
@@ -120,14 +130,22 @@ export default function NewOperationModal() {
                 <DialogContent>
                     <MultiStepForm
                         onSubmit={async (values) => {
-                            await sleep(2000); // SLEEP DE POST
-                            handleNewOperationPost(values);
-                            dispatch(
-                                notificationDispatched({
-                                    notification: { message: "Operacion completada", state: "success" },
-                                })
-                            );
-                            handleClose();
+                            // await sleep(2000); // SLEEP DE POST
+                            try {
+                                handleNewOperationPost(values);
+                                dispatch(
+                                    notificationDispatched({
+                                        notification: { message: "Operacion completada", state: "success" },
+                                    })
+                                );
+                                handleClose();
+                            } catch {
+                                dispatch(
+                                    notificationDispatched({
+                                        notification: { message: "Hubo un error en la subida de la operacion", state: "success" },
+                                    })
+                                );
+                            }
                         }}
                         steps={formSteps}
                     />

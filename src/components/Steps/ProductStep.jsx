@@ -122,6 +122,7 @@ const onSubmit = async (values, setFieldValue) => {
 
     steps.forEach((step, index) => {
         store.dispatch(addPhoneStep(step));
+        setFieldValue(`phoneStep_${index}_id`, step.id, false);
         setFieldValue(`phoneStep_${index}_phoneOperationType`, "", false);
         setFieldValue(`phoneStep_${index}_phonePrefix`, "+34", false);
         setFieldValue(`phoneStep_${index}_phoneNumber`, "", false);
