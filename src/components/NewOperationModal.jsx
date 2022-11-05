@@ -9,7 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { notificationDispatched } from "../state/notificactionSlice";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { postOperation } from "../services/OperationService";
+import {postOperation, postOperationAdmin} from "../services/OperationService";
 
 const Title = ({ title, handleClose }) => {
     const theme = useTheme();
@@ -116,7 +116,12 @@ export default function NewOperationModal() {
             },
             documentation: [values.documentation], //?
         };
-        postOperation(body);
+
+        if ( isAdmin() ){
+            postOperationAdmin(body)
+        }else{
+            postOperation(body);
+        }
     };
 
     return (

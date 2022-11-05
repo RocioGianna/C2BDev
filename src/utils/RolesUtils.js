@@ -3,21 +3,22 @@ import moment from "moment";
 
 const colaboratorColumns = [
     { headerAlign: "center", align: "center", flex: 1, field: "creationDate", headerName: "Fecha", valueGetter: (params) => moment(params?.row?.creationDate).format("DD/MM/YYYY") },
-    { headerAlign: "center", align: "center", flex: 1, field: "operationCode", headerName: "Codigo Operacion" },
-    { headerAlign: "center", align: "center", flex: 1, field: "status", headerName: "Estado" },
-    { headerAlign: "center", align: "center", flex: 1, field: "processorId", headerName: "Tramitadora" },
-    { headerAlign: "center", align: "center", flex: 1, field: "customer[lastname]", headerName: "Apellidos", valueGetter: (params) => params?.row?.customer?.lastname },
-    { headerAlign: "center", align: "center", field: "details", headerName: "Acciones", width: 110 },
+    { headerAlign: "center", align: "center", flex: 1, field: "operationCode", headerName: "Codigo Operacion", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", flex: 1, field: "status", headerName: "Estado", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", flex: 1, field: "processorId", headerName: "Tramitadora", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", flex: 1, field: "customerLastName", headerName: "Apellidos", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", field: "details", headerName: "Acciones", width: 110, valueGetter: ({ value }) => value || "---" },
 ];
 
 const adminColumns = [
     { headerAlign: "center", align: "center", flex: 1, field: "creationDate", headerName: "Fecha", valueGetter: (params) => moment(params?.row?.creationDate).format("DD/MM/YYYY") },
-    { headerAlign: "center", align: "center", flex: 1, field: "operationCode", headerName: "Codigo Operacion" },
-    { headerAlign: "center", align: "center", flex: 1, field: "status", headerName: "Estado" },
-    { headerAlign: "center", align: "center", flex: 1, field: "channel", headerName: "Canal Tramitacion" },
-    { headerAlign: "center", align: "center", flex: 1, field: "colaboratorCode", headerName: "Codigo colaborador" },
-    { headerAlign: "center", align: "center", flex: 1, field: "customer[lastname]", headerName: "Apellidos", valueGetter: (params) => params?.row?.customer?.lastname },
-    { headerAlign: "center", align: "center", field: "details", headerName: "Acciones", width: 110 },
+    { headerAlign: "center", align: "center", flex: 1, field: "operationCode", headerName: "Codigo Operacion", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", flex: 1, field: "channel", headerName: "Canal Tramitacion", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", flex: 1, field: "status", headerName: "Estado", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", flex: 1, field: "processorId", headerName: "Tramitadora", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", flex: 1, field: "collaboratorCode", headerName: "Codigo colaborador", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", flex: 1, field: "customerLastName", headerName: "Apellidos", valueGetter: ({ value }) => value || "---" },
+    { headerAlign: "center", align: "center", field: "details", headerName: "Acciones", width: 110, valueGetter: ({ value }) => value || "---" },
 ];
 
 export function isAdmin() {

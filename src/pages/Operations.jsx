@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getOperationTableColumnsByRole } from "../utils/RolesUtils.js";
 import { IconButton, Typography, Paper, Button, Tooltip } from "@mui/material";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
@@ -10,20 +10,20 @@ import CustomDataGrid from "../components/CustomDataGrid.jsx";
 import Grid from "@mui/material/Grid";
 import { fetchOperations } from "../services/OperationService.js";
 import { useEffect, useState } from "react";
+import Box from "@mui/material/Box";
 
 export default function Operations() {
     const columns = getOperationTableColumnsByRole();
     const navigate = useNavigate();
-    const [data,setData] = useState(null)
+    const [data, setData] = useState(null);
 
     useEffect(() => {
-        const res = fetchOperations()
-        setData(res)
-    },[])
+        fetchOperations().then((res) => setData(res.data));
+    }, []);
 
     if (!columns) return <></>;
 
-    if(!data) return <>No data</>
+    if (!data) return <>No data</>;
 
     function handleClick(event, cellValues) {
         navigate("/2b/ops/" + cellValues.id);
@@ -52,6 +52,7 @@ export default function Operations() {
         );
     };
 
+    console.log(data);
 
     return (
         <Grid container alignItems="center" justifyContent="center">
