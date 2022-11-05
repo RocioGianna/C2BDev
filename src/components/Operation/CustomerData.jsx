@@ -106,19 +106,19 @@ export function CustomerData({ row }) {
                                     <div>{row.installationAddress.address}</div>
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={4}>
+                            <TableRow key={5}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Municipio instalacion</div>
                                     <div>{row.installationAddress.municipality}</div>
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={4}>
+                            <TableRow key={6}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Provincia instalacion</div>
                                     <div>{row.installationAddress.province}</div>
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={4}>
+                            <TableRow key={7}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Codigo postal instalacion</div>
                                     <div>{row.installationAddress.zipCode}</div>
