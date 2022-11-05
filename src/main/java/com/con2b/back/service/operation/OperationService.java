@@ -61,7 +61,7 @@ public class OperationService {
         HashSet<OperationDetails> operationDetailsId = new HashSet<>();
         Customer customer = customerService.saveCustomer(newOperationDTO.getCustomer());
         Address installationAddress = addressService.saveAddress(newOperationDTO.getInstallationAddress());
-        Address shippingAddress = addressService.saveAddress(newOperationDTO.getShippingAdress());
+        Address shippingAddress = addressService.saveAddress(newOperationDTO.getShippingAddress());
         if(newOperationDTO.getOperationDetails() != null) {
             for (OperationDetails od : newOperationDTO.getOperationDetails()) {
                 operationDetailsId.add(operationDetailsService.saveOperationDetails(od));
