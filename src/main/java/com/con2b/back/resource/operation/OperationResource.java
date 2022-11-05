@@ -28,7 +28,7 @@ public class OperationResource {
         Optional<User2b> opUser = userService.getUserById(userId);
 
         if(opUser.isPresent() && newOperationDTO.getColaboratorCode().equals(opUser.get().getUserCode()) ){
-            return ResponseEntity.ok().body(operationService.createOperation(newOperationDTO));
+            return ResponseEntity.ok().body(new GenericResponseDTO<>(operationService.createOperation(newOperationDTO)));
         }else{
             return ResponseEntity.ok().body(new GenericResponseDTO(false,"Colaborator code doesn't match with user code"));
         }
@@ -40,7 +40,7 @@ public class OperationResource {
         User2b user = userService.getUserByUserCode(newOperationDTO.getColaboratorCode());
 
         if(user != null ){
-            return ResponseEntity.ok().body(operationService.createOperation(newOperationDTO));
+            return ResponseEntity.ok().body(new GenericResponseDTO<>(operationService.createOperation(newOperationDTO)));
         }else{
             return ResponseEntity.ok().body(new GenericResponseDTO(false,"Colaborator code doesn't match with user code"));
         }
