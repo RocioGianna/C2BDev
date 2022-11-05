@@ -1,7 +1,9 @@
 package com.con2b.back.resource.operation;
 
 import com.con2b.back.dto.GenericResponseDTO;
+import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
+import com.con2b.back.dto.product.ProductDTO;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.UserService;
@@ -11,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/operations")
@@ -44,6 +47,11 @@ public class OperationResource {
         }else{
             return ResponseEntity.ok().body(new GenericResponseDTO(false,"Colaborator code doesn't match with user code"));
         }
+    }
+
+    @GetMapping("/operationDetail/{operationId}")
+    public ResponseEntity<?> getOperationDetail(@PathVariable Long operationId) throws Exception {
+        return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getFullOperationDTO(operationId)));
     }
 
 }

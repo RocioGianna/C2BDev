@@ -1,5 +1,7 @@
 package com.con2b.back.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,9 +12,11 @@ public class Product {
     private Long id;
     private String name;
     private String description;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<ProductOption> options;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<AdditionalProduct> availableAdditionals;
     private boolean isProfessional;
 

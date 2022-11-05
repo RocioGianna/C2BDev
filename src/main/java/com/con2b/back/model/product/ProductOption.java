@@ -2,6 +2,7 @@ package com.con2b.back.model.product;
 
 import com.con2b.back.model.operation.LineType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ProductOption {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<LineType> steps;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Product product;
 
     public ProductOption() {}
