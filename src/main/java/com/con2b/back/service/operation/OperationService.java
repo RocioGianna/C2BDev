@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 
 
 @Service @Transactional
@@ -84,9 +85,8 @@ public class OperationService {
         return operationRepository.save(operation);
     }
 
-
-
-
-
+    public List<Operation> getOperations(){
+        return operationRepository.findAll();
+    }
 
 }
