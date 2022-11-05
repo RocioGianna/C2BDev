@@ -9,9 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { notificationDispatched } from "../state/notificactionSlice";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { postProducts } from "../services/OperationService";
-
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import { postOperation } from "../services/OperationService";
 
 const Title = ({ title, handleClose }) => {
     const theme = useTheme();
@@ -69,7 +67,7 @@ export default function NewOperationModal() {
 
         for (let index = 0; index < filteredProps.length / 8; index++) {
             let opDProps = filteredProps.filter((prop) => prop[0].match(index));
-            opDProps.forEach((o) => (o[0] = o[0].split("_").pop())); // Le saco el phoneStep_1_
+            opDProps.forEach((o) => (o[0] = o[0].split("_").pop())); 
             let opDetailObject = Object.fromEntries(opDProps);
             operationDetails[index] = {
                 optionId: opDetailObject.id,
@@ -81,8 +79,6 @@ export default function NewOperationModal() {
                 currentOwnerNID: opDetailObject.dni,
             };
         }
-
-        console.log(values);
 
         const body = {
             colaboratorCode: values.collaboratorId,
@@ -120,7 +116,7 @@ export default function NewOperationModal() {
             },
             documentation: [values.documentation], //?
         };
-        postProducts(body);
+        postOperation(body);
     };
 
     return (
@@ -130,7 +126,6 @@ export default function NewOperationModal() {
                 <DialogContent>
                     <MultiStepForm
                         onSubmit={async (values) => {
-                            // await sleep(2000); // SLEEP DE POST
                             try {
                                 handleNewOperationPost(values);
                                 dispatch(

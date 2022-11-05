@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Box, Select, TextField, FormControl, MenuItem, InputLabel, Stack, IconButton, Popover } from "@mui/material";
+import { Box, Select, TextField, FormControl, MenuItem, InputLabel, Stack, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
-import { styled } from "@mui/material/styles";
 import { CustomNoRowsOverlay } from "./CustomNoRowsOverlay";
 
 //Lupita para todos attributes
@@ -55,30 +54,6 @@ const operators = [
     },
 ];
 
-export const StyledGridOverlay = styled("div")(({ theme }) => ({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100%",
-    "& .ant-empty-img-1": {
-        fill: theme.palette.mode === "light" ? "#aeb8c2" : "#262626",
-    },
-    "& .ant-empty-img-2": {
-        fill: theme.palette.mode === "light" ? "#f5f5f7" : "#595959",
-    },
-    "& .ant-empty-img-3": {
-        fill: theme.palette.mode === "light" ? "#dce0e6" : "#434343",
-    },
-    "& .ant-empty-img-4": {
-        fill: theme.palette.mode === "light" ? "#fff" : "#1c1c1c",
-    },
-    "& .ant-empty-img-5": {
-        fillOpacity: theme.palette.mode === "light" ? "0.8" : "0.08",
-        fill: theme.palette.mode === "light" ? "#f5f5f5" : "#fff",
-    },
-}));
-
 function Filter({ columns, setResult, rows }) {
     const properties = columns.map((a) => {
         const { headerName } = a;
@@ -94,9 +69,9 @@ function Filter({ columns, setResult, rows }) {
         let currrentValue = value;
         const result = rows;
 
-        console.log("currentPropery:" + currentProperty);
+        /* console.log("currentPropery:" + currentProperty);
         console.log("currentOperator:" + currentOperator.name);
-        console.log("currrentValue:" + currrentValue);
+        console.log("currrentValue:" + currrentValue); */
 
         /* result.filter((op) => currentOperator.fn(op[currentProperty], currentValue)); */
 

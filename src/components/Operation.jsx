@@ -1,6 +1,5 @@
-import React from "react";
-import { Grid, Button } from "@mui/material";
-import { data } from "../mock/OperationsMock";
+import React, {useEffect, useState} from "react";
+import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { OperationTitle } from "./Operation/OperationTitle";
 import { OperationData } from "./Operation/OperationData";
@@ -10,11 +9,16 @@ import { Documentation } from "./Operation/Documentation";
 import { CustomerData } from "./Operation/CustomerData";
 import { ProductData } from "./Operation/ProductData";
 import { PhoneData } from "./Operation/PhoneData";
+import {fetchOperation} from "../services/OperationService.js";
 
 export default function Operation() {
+    const [data,setData] = useState(null)
     let params = useParams();
 
-    const row = data[params.opId];
+    useEffect(() => {
+        const res = fetchOperation(params.opId)
+        setData(res)
+    })
 
     return (
         <Grid container justifyContent="center" spacing={2} sx={{ height: "100%" }}>
@@ -24,19 +28,19 @@ export default function Operation() {
                         <OperationTitle />
                     </Grid>
                     <Grid item xs={12}>
-                        <OperationData row={row} />
+                        <OperationData row={data} />
                     </Grid>
                     <Grid item xs={12}>
-                        <CustomerData row={row} />
+                        <CustomerData row={data} />
                     </Grid>
                     <Grid item xs={6}>
-                        <Collaborator row={row} />
+                        <Collaborator row={data} />
                     </Grid>
                     <Grid item xs={6}>
                         <Documentation />
                     </Grid>
                     <Grid item xs={12}>
-                        <ProductData row={row} />
+                        <ProductData row={data} />
                     </Grid>
                     <Grid item xs={12}>
                         <PhoneData />

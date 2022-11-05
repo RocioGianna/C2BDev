@@ -7,9 +7,6 @@ import AdditionalsFieldArray from "../form/AdditionalsFieldArray";
 import { useSelector } from "react-redux";
 import { store } from "../../state/store";
 import { resetPhoneSteps, addPhoneStep } from "../../state/formStepsSlice";
-import PhoneInput from "../form/PhoneInput";
-
-import FormData from "../../mock/FormData.json";
 
 export function ProductStep() {
     const products = useSelector((state) => state.products.products);
@@ -17,7 +14,7 @@ export function ProductStep() {
     const [firstTime, setFirstTime] = useState(true);
     const [firstTime2, setFirstTime2] = useState(true);
 
-    const { setFieldValue, values } = useFormikContext();
+    const { setFieldValue } = useFormikContext();
 
     const [productId] = useField("productId");
     const [productOptionId] = useField("productOptionId");
@@ -42,7 +39,7 @@ export function ProductStep() {
     }, [productId.value]);
 
     const optionsByProduct = (productId) => {
-        const product = products.find((p) => p.id == productId);
+        const product = products.find((p) => p.id === productId);
         const productOptions = product.options;
 
         return productOptions.map((option) => (
@@ -53,7 +50,7 @@ export function ProductStep() {
     };
 
     const additionalsByProduct = (productId) => {
-        const product = products.find((p) => p.id == productId);
+        const product = products.find((p) => p.id === productId);
         const additionalsIds = product.availableAdditionals;
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
@@ -72,7 +69,7 @@ export function ProductStep() {
                 <Grid item xs={12}>
                     <FormSelect name={"productId"} label={"Nombre de Producto"} disabled={productType.value === ""}>
                         {products
-                            .filter((p) => p.professional == productType.value)
+                            .filter((p) => p.professional === productType.value)
                             .map((p) => (
                                 <MenuItem key={p.id} value={p.id}>
                                     {`${p.name}${p.description ? " (" + p.description + ")" : ""}`}

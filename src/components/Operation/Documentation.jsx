@@ -8,8 +8,6 @@ export function Documentation() {
     const items = [{ name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }];
     const theme = useTheme();
 
-    console.log(theme);
-
     function Item({ item }) {
         return (
             <Stack sx={{ border: 1, ml: 1, borderColor: "grey.400", borderRadius: "4px" }}>

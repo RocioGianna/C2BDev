@@ -71,7 +71,6 @@ export function MultiStepForm({ ...props }) {
             validationSchema={() => currentValidationSchema(currentPhoneStepIndex)}
             onSubmit={async (values, helpers) => {
                 if (isLastStep()) {
-                    console.log(values);
                     await props.onSubmit(values, helpers);
                 } else {
                     if (currentOnSubmit) {

@@ -3,8 +3,6 @@ import { Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper
 import moment from "moment";
 
 export function OperationData({ row }) {
-    console.log(row);
-
     return (
         <Paper
             sx={{
@@ -21,7 +19,7 @@ export function OperationData({ row }) {
                             <TableCell align="right">Estado</TableCell>
                             <TableCell align="right">Tamitadora</TableCell>
                             <TableCell align="right">Canal</TableCell>
-                            <TableCell align="right">Altabaja</TableCell>
+                            <TableCell align="right">Alta | Baja</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -42,7 +40,7 @@ export function OperationData({ row }) {
                                 <div>{row.channel}</div>
                             </TableCell>
                             <TableCell align="right">
-                                <div> ------</div>
+                                <div> ------ </div>
                             </TableCell>
                         </TableRow>
                     </TableBody>
