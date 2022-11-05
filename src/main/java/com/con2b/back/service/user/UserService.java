@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service @Transactional
 public class UserService implements UserDetailsService {
@@ -23,7 +24,14 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
+    public Optional<User2b> getUserById(Long id){
+        return userRepository.findById(id);
+    }
+    public User2b getUserByUserCode(String code) throws Exception {
+        User2b user = userRepository.findByUserCode(code);
+        if(user == null) throw new Exception("User not found");
+        return user;
+    }
     public void saveUser(User2b user) throws Exception {
         if(userRepository.findByEmail(user.getEmail()) != null){
             throw new Exception("Email already in use");

@@ -8,21 +8,21 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class LineType {
-    @Id @GeneratedValue
-    Long id;
+@AllArgsConstructor
+@NoArgsConstructor
+public class Address {
 
-    String name;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String address;
+    private String zipcode;
+    private String municipality;
+    private String province;
 
-    boolean isMobile;
+
 }

@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service @Transactional
 public class ProductService {
@@ -73,6 +75,14 @@ public class ProductService {
         AdditionalProductOption savedOption = additionalProductOptionRepository.save(option);
         additionalProduct.get().addOption(savedOption);
         return savedOption;
+    }
+
+    public ProductOption getProductOptionById(Long id){
+        return productOptionRepository.findById(id).get();
+    }
+
+    public Set<AdditionalProductOption> getAdditionalProductOptionsById(Set<Long> listId){
+        return new HashSet<>( additionalProductOptionRepository.findAllById(listId)) ;
     }
 
 }

@@ -2,6 +2,8 @@ package com.con2b.back.model.product;
 
 import com.con2b.back.model.operation.LineType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +23,8 @@ public class AdditionalProductOption {
     private Long id;
     private String name;
     private String description;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<LineType> steps;
     private boolean isPopular;
     @ManyToOne(fetch = FetchType.LAZY)

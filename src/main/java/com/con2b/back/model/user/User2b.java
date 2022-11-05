@@ -22,12 +22,21 @@ public class User2b {
     private String firstname;
     private String lastname;
 
+    private String userCode;
     private String phone;
     private boolean enabled;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
+
     public void addRole(Role role) {
         this.roles.add(role);
     }
 
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
 }
