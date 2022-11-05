@@ -16,11 +16,11 @@ public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
-    private AddressRepository addressRepository;
+    private AddressService addressService;
 
     public Customer saveCustomer(Customer customer){
         if(customer != null){
-            addressRepository.save(customer.getAddress());
+            addressService.saveAddress(customer.getBillingAddress());
             return customerRepository.save(customer);
         }else{
             return null;

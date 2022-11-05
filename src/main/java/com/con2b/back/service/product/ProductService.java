@@ -81,7 +81,7 @@ public class ProductService {
         return productOptionRepository.findById(id).get();
     }
 
-    public Set<AdditionalProductOption> getAdditionalProductOption(Set<Long> listId){
+    public Set<AdditionalProductOption> getAdditionalProductOptionsById(Set<Long> listId){
         return new HashSet<>( additionalProductOptionRepository.findAllById(listId)) ;
     }
 

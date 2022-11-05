@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.List;
 
 
 @Service @Transactional
@@ -24,7 +25,7 @@ public class OperationService {
     @Autowired
     private OperationRepository operationRepository;
     @Autowired
-    private DocumentationRepository documentationRepository;
+    private DocumentationService documentationService;
     @Autowired
     private ProductService productService;
     @Autowired
@@ -74,14 +75,14 @@ public class OperationService {
 
         operation.setOperationCode(operationCode);
         operation.setStatus(Status.PENDING);
-        operation.setColaboratorCode(userService.getUserByUserCode(newOperationDTO.getColaboratorCode()));
+        operation.setColaborator(userService.getUserByUserCode(newOperationDTO.getColaboratorCode()));
         if(newOperationDTO.getColaboratorEmail() != null && !newOperationDTO.getColaboratorEmail().isEmpty())
             operation.setColaboratorEmail(newOperationDTO.getColaboratorEmail());
         if(newOperationDTO.getColaboratorPhone() != null && !newOperationDTO.getColaboratorPhone().isEmpty())
             operation.setColaboratorPhone(newOperationDTO.getColaboratorPhone());
         operation.setProductOption(productService.getProductOptionById(newOperationDTO.getProductOptionId()));
         if(newOperationDTO.getAdditionalIds() != null && !newOperationDTO.getAdditionalIds().isEmpty()) {
-            operation.setAdditionals(productService.getAdditionalProductOption(newOperationDTO.getAdditionalIds()));
+            operation.setAdditionalProducts(productService.getAdditionalProductOptionsById(newOperationDTO.getAdditionalIds()));
         }
         operation.setOperationDetails(operationDetailsId);
         if(customer != null) {
@@ -100,9 +101,8 @@ public class OperationService {
         return operationRepository.save(operation);
     }
 
-
-
-
-
+    public List<Operation> getOperations(){
+        return operationRepository.findAll();
+    }
 
 }

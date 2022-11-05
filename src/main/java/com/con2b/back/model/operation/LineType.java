@@ -1,10 +1,23 @@
 package com.con2b.back.model.operation;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class LineType {
     @Id @GeneratedValue
     Long id;
@@ -12,37 +25,4 @@ public class LineType {
     String name;
 
     boolean isMobile;
-
-    public LineType() {
-    }
-
-    public LineType(Long id, String name, boolean isMobile) {
-        this.id = id;
-        this.name = name;
-        this.isMobile = isMobile;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isMobile() {
-        return isMobile;
-    }
-
-    public void setMobile(boolean mobile) {
-        isMobile = mobile;
-    }
 }

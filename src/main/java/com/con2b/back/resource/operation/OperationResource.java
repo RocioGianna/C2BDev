@@ -3,6 +3,7 @@ package com.con2b.back.resource.operation;
 import com.con2b.back.dto.GenericResponseDTO;
 import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
+import com.con2b.back.dto.operation.SmallOperationDTO;
 import com.con2b.back.dto.product.ProductDTO;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.service.operation.OperationService;
@@ -33,7 +34,7 @@ public class OperationResource {
         Optional<User2b> opUser = userService.getUserById(userId);
 
         if(opUser.isPresent() && newOperationDTO.getColaboratorCode().equals(opUser.get().getUserCode()) ){
-            return ResponseEntity.ok().body(operationService.createOperation(newOperationDTO));
+            return ResponseEntity.ok().body(new GenericResponseDTO<>(operationService.createOperation(newOperationDTO)));
         }else{
             return ResponseEntity.ok().body(new GenericResponseDTO(false,"Colaborator code doesn't match with user code"));
         }
@@ -45,7 +46,7 @@ public class OperationResource {
         User2b user = userService.getUserByUserCode(newOperationDTO.getColaboratorCode());
 
         if(user != null ){
-            return ResponseEntity.ok().body(operationService.createOperation(newOperationDTO));
+            return ResponseEntity.ok().body(new GenericResponseDTO<>(operationService.createOperation(newOperationDTO)));
         }else{
             return ResponseEntity.ok().body(new GenericResponseDTO(false,"Colaborator code doesn't match with user code"));
         }
@@ -59,5 +60,12 @@ public class OperationResource {
             return new ResponseEntity<>(new GenericResponseDTO(false,"Operation id not found."), HttpStatus.NOT_FOUND);
         }
     }
+    
+    @GetMapping("")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getOperationsSmall(){
+        return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getOperations().stream().map(SmallOperationDTO::new).collect(Collectors.toList())));
+    }
+
 
 }
