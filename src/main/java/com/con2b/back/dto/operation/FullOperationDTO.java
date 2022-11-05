@@ -40,12 +40,12 @@ public class FullOperationDTO {
         this.status = operation.getStatus();
         this.channel = operation.getChannel();
         this.processor = operation.getProcessor();
-        this.colaborator = operation.getColaboratorCode();
+        this.colaborator = operation.getColaborator();
         this.colaboratorEmail = operation.getColaboratorEmail();
         this.colaboratorPhone = operation.getColaboratorPhone();
         this.productOption = operation.getProductOption();
-        this.additionalProducts = operation.getAdditionals();
-        this.operationDetails = operation.getOperationData();
+        this.additionalProducts = operation.getAdditionalProducts();
+        this.operationDetails = operation.getOperationDetails();
         this.customer = operation.getCustomer();
         this.installationAddress = operation.getInstallationAddress();
         this.shippingAdress = operation.getShippingAdress();
