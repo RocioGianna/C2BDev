@@ -49,12 +49,6 @@ public class OperationResource {
         }
     }
 
-//    @GetMapping("")
-//    @PreAuthorize("hasRole('COLABORATOR')")
-//    public ResponseEntity<?> getOperations(){
-//        return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getOperations().stream().map(SmallOperationDTO::new).collect(Collectors.toList())));
-//    }
-
     @GetMapping("")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getOperationsSmall(){
