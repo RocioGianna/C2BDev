@@ -4,6 +4,8 @@ import com.con2b.back.model.product.AdditionalProduct;
 import com.con2b.back.model.product.AdditionalProductOption;
 import com.con2b.back.model.product.ProductOption;
 import com.con2b.back.model.user.User2b;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,6 +52,7 @@ public class Operation {
     private String colaboratorPhone;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private ProductOption productOption;
 
     @ManyToMany(fetch = FetchType.LAZY)

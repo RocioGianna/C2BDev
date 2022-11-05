@@ -2,15 +2,19 @@ package com.con2b.back.model.product;
 
 import com.con2b.back.model.operation.LineType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer", "FieldHandler"})
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,6 +28,6 @@ public class ProductOption {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<LineType> steps;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Product product;
 }
