@@ -195,7 +195,7 @@ export default function CustomDataGrid({ columns, rows }) {
         <Box sx={{ height: 400, p: 3, pb: 10, background: "white" }}>
             <Tools setResult={setResult} rows={rows} />
             <DataGrid
-                getRowId={(row) => row.operationCode}
+                getRowId={(row) => row.id}
                 components={{
                     NoRowsOverlay: CustomNoRowsOverlay,
                 }}
