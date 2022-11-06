@@ -48,7 +48,7 @@ public class FullOperationDTO {
         this.operationDetails = operation.getOperationDetails();
         this.customer = operation.getCustomer();
         this.installationAddress = operation.getInstallationAddress();
-        this.shippingAdress = operation.getShippingAdress();
+        this.shippingAdress = operation.getShippingAddress();
         this.documentation = operation.getDocumentation();
     }
 }

@@ -92,7 +92,7 @@ public class OperationService {
             operation.setInstallationAddress(installationAddress);
         }
         if(shippingAddress != null){
-            operation.setShippingAdress(shippingAddress);
+            operation.setShippingAddress(shippingAddress);
         }
         if(newOperationDTO.getDocumentationId() != null && !newOperationDTO.getDocumentationId().isEmpty()){
             operation.setDocumentation(new HashSet<>());
