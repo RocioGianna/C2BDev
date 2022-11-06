@@ -22,6 +22,8 @@ public class SmallOperationDTO {
     private String collaboratorCode;
     private String customerLastName;
 
+    private Long id;
+
     public SmallOperationDTO(Operation operation){
         creationDate = operation.getCreationDate();
         operationCode = operation.getOperationCode();
@@ -30,6 +32,7 @@ public class SmallOperationDTO {
         customerLastName = operation.getCustomer() != null ? operation.getCustomer().getLastName() : null;
         processorId = operation.getProcessor() != null ? operation.getProcessor().getUserCode() : null;
         status = operation.getStatus().name();
+        id = operation.getId();
     }
 
 }
