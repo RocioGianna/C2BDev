@@ -1,5 +1,6 @@
 package com.con2b.back.service.operation;
 
+import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.model.operation.*;
 import com.con2b.back.repository.operation.DocumentationRepository;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.Optional;
+import java.util.List;
 
 
 @Service @Transactional
@@ -39,13 +42,27 @@ public class OperationService {
         return lineTypeRepository.save(lineType);
     }
 
+    public Operation getOperation(Long operationId) throws Exception {
+        Optional<Operation> operation = operationRepository.findById(operationId);
+        if(operation.isEmpty()){
+            throw new Exception("The operation id is invalid");
+        }
+        return operation.get();
+    }
+
+    public FullOperationDTO getFullOperationDTO(Long operationId) throws Exception {
+        return new FullOperationDTO(getOperation(operationId));
+    }
+
+
+
     public Operation createOperation(NewOperationDTO newOperationDTO) throws Exception {
         //TODO implement refererCode and messages
 
         HashSet<OperationDetails> operationDetailsId = new HashSet<>();
         Customer customer = customerService.saveCustomer(newOperationDTO.getCustomer());
         Address installationAddress = addressService.saveAddress(newOperationDTO.getInstallationAddress());
-        Address shippingAddress = addressService.saveAddress(newOperationDTO.getShippingAdress());
+        Address shippingAddress = addressService.saveAddress(newOperationDTO.getShippingAddress());
         if(newOperationDTO.getOperationDetails() != null) {
             for (OperationDetails od : newOperationDTO.getOperationDetails()) {
                 operationDetailsId.add(operationDetailsService.saveOperationDetails(od));
@@ -84,9 +101,8 @@ public class OperationService {
         return operationRepository.save(operation);
     }
 
-
-
-
-
+    public List<Operation> getOperations(){
+        return operationRepository.findAll();
+    }
 
 }
