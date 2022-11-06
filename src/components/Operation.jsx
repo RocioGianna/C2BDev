@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { OperationTitle } from "./Operation/OperationTitle";
@@ -9,16 +9,17 @@ import { Documentation } from "./Operation/Documentation";
 import { CustomerData } from "./Operation/CustomerData";
 import { ProductData } from "./Operation/ProductData";
 import { PhoneData } from "./Operation/PhoneData";
-import {fetchOperation} from "../services/OperationService.js";
+import { fetchOperation } from "../services/OperationService.js";
 
 export default function Operation() {
-    const [data,setData] = useState(null)
+    const [data, setData] = useState(null);
     let params = useParams();
 
     useEffect(() => {
-        const res = fetchOperation(params.opId)
-        setData(res)
-    })
+        fetchOperation(params.opId).then((res) => setData(res.data));
+    }, []);
+
+    if (!data) return <></>;
 
     return (
         <Grid container justifyContent="center" spacing={2} sx={{ height: "100%" }}>
@@ -43,7 +44,7 @@ export default function Operation() {
                         <ProductData row={data} />
                     </Grid>
                     <Grid item xs={12}>
-                        <PhoneData />
+                        <PhoneData row={data} />
                     </Grid>
                 </Grid>
             </Grid>

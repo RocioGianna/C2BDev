@@ -9,7 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { notificationDispatched } from "../state/notificactionSlice";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import {postOperation, postOperationAdmin} from "../services/OperationService";
+import { postOperation, postOperationAdmin } from "../services/OperationService";
 
 const Title = ({ title, handleClose }) => {
     const theme = useTheme();
@@ -65,18 +65,18 @@ export default function NewOperationModal() {
         const filteredProps = Object.entries(values).filter((prop) => prop[0].match("phoneStep"));
         const operationDetails = [];
 
-        for (let index = 0; index < filteredProps.length / 8; index++) {
+        for (let index = 0; index < filteredProps.length / 9; index++) {
             let opDProps = filteredProps.filter((prop) => prop[0].match(index));
-            opDProps.forEach((o) => (o[0] = o[0].split("_").pop())); 
+            opDProps.forEach((o) => (o[0] = o[0].split("_").pop()));
             let opDetailObject = Object.fromEntries(opDProps);
             operationDetails[index] = {
-                optionId: opDetailObject.id,
+                stepId: opDetailObject.id,
                 type: opDetailObject.phoneOperationType,
-                phone: opDetailObject.phonePrefix + " " + opDetailObject.phoneNumber,
-                currentProvider: opDetailObject.phoneOperator,
-                currentOwnerFirstname: opDetailObject.name,
-                currentOwnerLastname: opDetailObject.surname,
-                currentOwnerNID: opDetailObject.dni,
+                phone: opDetailObject.phoneNumber != "" ? opDetailObject.phonePrefix + " " + opDetailObject.phoneNumber : null,
+                currentProvider: opDetailObject.phoneOperator != "" ? opDetailObject.phoneOperator : null,
+                currentOwnerFirstname: opDetailObject.name != "" ? opDetailObject.name : null,
+                currentOwnerLastname: opDetailObject.surname != "" ? opDetailObject.surname : null,
+                currentOwnerNID: opDetailObject.dni != "" ? opDetailObject.dni : null,
             };
         }
 
@@ -95,9 +95,9 @@ export default function NewOperationModal() {
                 phone: values.phonePrefix + " " + values.phoneNumber,
                 email: values.email,
                 bankAccount: values.bankAccount,
-                address: {
+                billingAddress: {
                     address: values.billingAddress,
-                    zipcode: values.zipcode,
+                    zipcode: values.zipCode,
                     municipality: values.municipality,
                     province: values.province,
                 },
@@ -117,9 +117,9 @@ export default function NewOperationModal() {
             documentation: [values.documentation], //?
         };
 
-        if ( isAdmin() ){
-            postOperationAdmin(body)
-        }else{
+        if (isAdmin()) {
+            postOperationAdmin(body);
+        } else {
             postOperation(body);
         }
     };

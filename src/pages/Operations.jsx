@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import { getOperationTableColumnsByRole } from "../utils/RolesUtils.js";
 import { IconButton, Typography, Paper, Button, Tooltip } from "@mui/material";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
@@ -16,18 +16,18 @@ export default function Operations() {
     const columns = getOperationTableColumnsByRole();
     const navigate = useNavigate();
     const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetchOperations().then((res) => setData(res.data));
+        fetchOperations()
+            .then((res) => setData(res.data))
+            .catch((err) => setError(err));
     }, []);
-
-    if (!columns) return <></>;
-
-    if (!data) return <>No data</>;
 
     function handleClick(event, cellValues) {
         navigate("/2b/ops/" + cellValues.id);
     }
+
 
     columns.find((col) => col.headerName === "Acciones").renderCell = (cellValues) => {
         return (
@@ -52,7 +52,8 @@ export default function Operations() {
         );
     };
 
-    console.log(data);
+    if (error) return <>Error</>;
+    if (!data) return <>Loading</>;
 
     return (
         <Grid container alignItems="center" justifyContent="center">
@@ -62,7 +63,7 @@ export default function Operations() {
                         <Typography variant="h5">Operaciones pendientes: requieren atención</Typography>
                         <Button variant="contained" onClick={() => navigate("/2b/ops/new")}>
                             <AddIcon />
-                            AÑadir Operación
+                            Añadir Operación
                         </Button>
                     </Box>
                 </Paper>
@@ -76,6 +77,7 @@ export default function Operations() {
                     <CustomDataGrid rows={data} columns={columns} />
                 </Paper>
             </Box>
+            <Outlet />
         </Grid>
     );
 }

@@ -5,7 +5,8 @@ import DownloadIcon from "@mui/icons-material/Download";
 import { useTheme } from "@mui/material/styles";
 
 export function Documentation() {
-    const items = [{ name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }];
+    // const items = [{ name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }];
+    const items = [];
     const theme = useTheme();
 
     function Item({ item }) {

@@ -37,9 +37,9 @@ export async function fetchOperations() {
     }
 }
 
-export async function fetchOperation() {
+export async function fetchOperation(opId) {
     try {
-        const res = await doSecureGet(`${ENV2B_BACKEND_URL}/api/v1/operations`);
+        const res = await doSecureGet(`${ENV2B_BACKEND_URL}/api/v1/operations/${opId}`);
         if (res.data.ok) {
             return res.data;
         } else throw { message: "Unexpected server error", res };

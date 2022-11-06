@@ -15,11 +15,11 @@ export function OperationData({ row }) {
                     <TableHead>
                         <TableRow>
                             <TableCell>Fecha</TableCell>
-                            <TableCell align="right">Codigo Operacion</TableCell>
-                            <TableCell align="right">Estado</TableCell>
-                            <TableCell align="right">Tamitadora</TableCell>
-                            <TableCell align="right">Canal</TableCell>
-                            <TableCell align="right">Alta | Baja</TableCell>
+                            <TableCell align="center">Codigo Operacion</TableCell>
+                            <TableCell align="center">Estado</TableCell>
+                            <TableCell align="center">Tamitadora</TableCell>
+                            <TableCell align="center">Canal</TableCell>
+                            <TableCell align="center">Alta | Baja</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -27,20 +27,20 @@ export function OperationData({ row }) {
                             <TableCell>
                                 <div>{moment(row.creationDate).format("DD/MM/YYYY")}</div>
                             </TableCell>
-                            <TableCell align="right">
-                                <div>{row.operationCode}</div>
+                            <TableCell align="center">
+                                <div>{row.operationCode || "-"}</div>
                             </TableCell>
-                            <TableCell align="right">
-                                <div>{row.status}</div>
+                            <TableCell align="center">
+                                <div>{row.status || "-"}</div>
                             </TableCell>
-                            <TableCell align="right">
-                                <div>{row.processorId}</div>
+                            <TableCell align="center">
+                                <div>{row.processorId || "-"}</div>
                             </TableCell>
-                            <TableCell align="right">
-                                <div>{row.channel}</div>
+                            <TableCell align="center">
+                                <div>{row.channel || "-"}</div>
                             </TableCell>
-                            <TableCell align="right">
-                                <div> ------ </div>
+                            <TableCell align="center">
+                                <div>{row.reprocess || "-"}</div>
                             </TableCell>
                         </TableRow>
                     </TableBody>

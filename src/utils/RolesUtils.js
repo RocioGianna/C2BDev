@@ -45,7 +45,7 @@ export function getOperationTableColumnsByRole() {
         return adminColumns;
     }
 
-    if (hasRole("USER")) {
+    if (hasRole("COLABORATOR")) {
         return colaboratorColumns;
     }
 

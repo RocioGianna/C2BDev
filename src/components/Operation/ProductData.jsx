@@ -31,19 +31,19 @@ export function ProductData({ row }) {
                         <TableRow key={1}>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Producto</div>
-                                <div>?</div>
+                                <div>{row.productOption.product.name}</div>
                             </TableCell>
                         </TableRow>
                         <TableRow key={2}>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Opcion</div>
-                                <div>{row.productOptionId}</div>
+                                <div>{row.productOption.name}</div>
                             </TableCell>
                         </TableRow>
                         <TableRow key={3}>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Adicionales</div>
-                                <Typography noWrap>{row.additionalIds.length > 0 ? row.additionalIds.map((a) => <div>{a}</div>) : <div>No hay</div>}</Typography>
+                                <Typography noWrap>{row.additionalIds && row.additionalIds.length > 0 ? row.additionalIds.map((a) => <div>{a}</div>) : <div>-</div>}</Typography>
                             </TableCell>
                         </TableRow>
                     </TableBody>

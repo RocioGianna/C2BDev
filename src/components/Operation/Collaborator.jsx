@@ -32,25 +32,25 @@ export function Collaborator({ row }) {
                         <TableRow key={1}>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Codigo colaborador</div>
-                                <div>{row.colaboratorCode}</div>
+                                <div>{row.colaborator.userCode}</div>
                             </TableCell>
                         </TableRow>
                         <TableRow key={2}>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Codigo referente</div>
-                                <div>?</div>
+                                <div>-</div>
                             </TableCell>
                         </TableRow>
                         <TableRow key={3}>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Telefono colaborador</div>
-                                <div>{row.colaboratorPhone}</div>
+                                <div>{row.colaboratorPhone || row.colaborator.phone}</div>
                             </TableCell>
                         </TableRow>
                         <TableRow key={4}>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Email colaborador</div>
-                                <div>{row.colaboratorEmail}</div>
+                                <div>{row.colaboratorEmail || row.colaborator.email}</div>
                             </TableCell>
                         </TableRow>
                     </TableBody>

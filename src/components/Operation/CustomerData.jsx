@@ -32,19 +32,19 @@ export function CustomerData({ row }) {
                             <TableRow key={1}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Apellido</div>
-                                    <div>{row.customer.lastname}</div>
+                                    <div>{row.customer.lastName}</div>
                                 </TableCell>
                             </TableRow>
                             <TableRow key={2}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Nombe</div>
-                                    <div>{row.customer.firstname}</div>
+                                    <div>{row.customer.firstName}</div>
                                 </TableCell>
                             </TableRow>
                             <TableRow key={3}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>DNI</div>
-                                    <div>{row.customer.NID}</div>
+                                    <div>{row.customer.nid}</div>
                                 </TableCell>
                             </TableRow>
                             <TableRow key={4}>
@@ -91,7 +91,7 @@ export function CustomerData({ row }) {
                             <TableRow key={2}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Codigo postal facturacion</div>
-                                    <div>{row.customer.billingAddress.zipCode}</div>
+                                    <div>{row.customer.billingAddress.zipcode}</div>
                                 </TableCell>
                             </TableRow>
                             <TableRow key={3}>
@@ -103,25 +103,25 @@ export function CustomerData({ row }) {
                             <TableRow key={4}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Direccion instalacion</div>
-                                    <div>{row.installationAddress.address}</div>
+                                    <div>{row.installationAddress?.address || "-"}</div>
                                 </TableCell>
                             </TableRow>
                             <TableRow key={5}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Municipio instalacion</div>
-                                    <div>{row.installationAddress.municipality}</div>
+                                    <div>{row.installationAddress?.municipality || "-"}</div>
                                 </TableCell>
                             </TableRow>
                             <TableRow key={6}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Provincia instalacion</div>
-                                    <div>{row.installationAddress.province}</div>
+                                    <div>{row.installationAddress?.province || "-"}</div>
                                 </TableCell>
                             </TableRow>
                             <TableRow key={7}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Codigo postal instalacion</div>
-                                    <div>{row.installationAddress.zipCode}</div>
+                                    <div>{row.installationAddress?.zipcode || "-"}</div>
                                 </TableCell>
                             </TableRow>
                         </TableBody>
