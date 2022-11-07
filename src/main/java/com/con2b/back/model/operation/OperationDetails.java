@@ -20,11 +20,7 @@ public class OperationDetails {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne
-    private ProductOption productOption;
-
-    @ManyToOne
-    private AdditionalProductOption additionalProductOption;
+    private Long stepId;
 
     private OperationDetailsType type;
 

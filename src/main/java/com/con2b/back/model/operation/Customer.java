@@ -24,6 +24,4 @@ public class Customer {
     private String bankAccount;
     @OneToOne(fetch = FetchType.EAGER)
     private Address billingAddress;
-
-
 }
