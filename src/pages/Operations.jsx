@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { getOperationTableColumnsByRole } from "../utils/RolesUtils.js";
-import { IconButton, Typography, Paper, Button, Tooltip } from "@mui/material";
+import { IconButton, Typography, Paper, Button, Tooltip, CircularProgress, Alert } from "@mui/material";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import AddIcon from "@mui/icons-material/Add";
 import PrintIcon from "@mui/icons-material/Print";
@@ -11,9 +11,9 @@ import Grid from "@mui/material/Grid";
 import { fetchOperations } from "../services/OperationService.js";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import {operationsFetched} from "../state/operationsSlice.js";
-import {store} from "../state/store.js";
-import {useSelector} from "react-redux";
+import { operationsFetched } from "../state/operationsSlice.js";
+import { store } from "../state/store.js";
+import { useSelector } from "react-redux";
 
 export default function Operations() {
     const columns = getOperationTableColumnsByRole();
@@ -25,7 +25,7 @@ export default function Operations() {
     useEffect(() => {
         fetchOperations()
             .then((res) => {
-                store.dispatch(operationsFetched(res.data))
+                store.dispatch(operationsFetched(res.data));
             })
             .catch((err) => setError(err));
     }, []);
@@ -57,10 +57,19 @@ export default function Operations() {
         );
     };
 
-    if (error) return <>Error</>;
-    if (!data) return <>Loading</>;
+    if (error)
+        return (
+            <Box sx={{ width: "100%", height: "80vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <Alert severity="error">{error}</Alert>
+            </Box>
+        );
 
-    console.log(data)
+    if (!data)
+        return (
+            <Box sx={{ width: "100%", height: "80vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <CircularProgress />
+            </Box>
+        );
 
     return (
         <Grid container alignItems="center" justifyContent="center">
