@@ -11,23 +11,28 @@ import Grid from "@mui/material/Grid";
 import { fetchOperations } from "../services/OperationService.js";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
+import {operationsFetched} from "../state/operationsSlice.js";
+import {store} from "../state/store.js";
+import {useSelector} from "react-redux";
 
 export default function Operations() {
     const columns = getOperationTableColumnsByRole();
     const navigate = useNavigate();
-    const [data, setData] = useState(null);
     const [error, setError] = useState(null);
+
+    const data = useSelector((state) => state.operations.operations);
 
     useEffect(() => {
         fetchOperations()
-            .then((res) => setData(res.data))
+            .then((res) => {
+                store.dispatch(operationsFetched(res.data))
+            })
             .catch((err) => setError(err));
     }, []);
 
     function handleClick(event, cellValues) {
         navigate("/2b/ops/" + cellValues.id);
     }
-
 
     columns.find((col) => col.headerName === "Acciones").renderCell = (cellValues) => {
         return (
@@ -54,6 +59,8 @@ export default function Operations() {
 
     if (error) return <>Error</>;
     if (!data) return <>Loading</>;
+
+    console.log(data)
 
     return (
         <Grid container alignItems="center" justifyContent="center">

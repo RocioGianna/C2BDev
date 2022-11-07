@@ -5,6 +5,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import { CustomNoRowsOverlay } from "./CustomNoRowsOverlay";
+import { useLocation } from "react-router-dom";
 
 //Lupita para todos attributes
 //Filtrar por atributos que aparecen en las columnas
@@ -119,14 +120,14 @@ function SearchBar({ setResult, rows, setMode }) {
             setResult(rows);
         } else {
             const flatten = (obj, roots = [], sep = ".") => Object.keys(obj).reduce((memo, prop) => Object.assign({}, memo, Object.prototype.toString.call(obj[prop]) === "[object Object]" ? flatten(obj[prop], roots.concat([prop]), sep) : { [roots.concat([prop]).join(sep)]: obj[prop] }), {});
-            const filteredRows = rows.filter((obj) => Object.values(flatten(obj)).some((val) => val.toString().indexOf(search) >= 0));
+            const filteredRows = rows.filter((obj) => Object.values(flatten(obj)).some((val) => val?.toString().indexOf(search) >= 0));
             setResult(filteredRows);
         }
     }
 
     useEffect(() => {
         handleSearch();
-    }, [search]);
+    }, [search,rows]);
 
     const handleCleanSearchBar = () => {
         if (search.trim() === "") {
@@ -163,6 +164,7 @@ function SearchBar({ setResult, rows, setMode }) {
 
 function Tools({ setResult, rows }) {
     const [mode, setMode] = useState("");
+    const location = useLocation()
 
     const handleClickSearch = () => {
         if (mode === "search") {
@@ -171,6 +173,10 @@ function Tools({ setResult, rows }) {
             setMode("search");
         }
     };
+
+    useEffect(() => {
+        setMode("")
+    },[location])
 
     return (
         <Box sx={{ display: "flex", flexDirection: "row-reverse", justifyContent: "space-between", pb: 2 }}>
@@ -190,6 +196,10 @@ function Tools({ setResult, rows }) {
 
 export default function CustomDataGrid({ columns, rows }) {
     const [result, setResult] = useState(rows);
+
+    useEffect(()=>{
+        setResult(rows)
+    },[rows])
 
     return (
         <Box sx={{ height: 400, p: 3, pb: 10, background: "white" }}>
