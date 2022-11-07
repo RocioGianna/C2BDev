@@ -9,9 +9,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import { notificationDispatched } from "../state/notificactionSlice";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import {fetchOperations, postOperation, postOperationAdmin} from "../services/OperationService";
-import {operationsFetched} from "../state/operationsSlice.js";
-import {store} from "../state/store.js";
+import { fetchOperations, postOperation, postOperationAdmin } from "../services/OperationService";
+import { operationsFetched } from "../state/operationsSlice.js";
+import { store } from "../state/store.js";
 
 const Title = ({ title, handleClose }) => {
     const theme = useTheme();
@@ -121,23 +121,19 @@ export default function NewOperationModal() {
 
         if (isAdmin()) {
             postOperationAdmin(body).then(() => {
-                fetchOperations()
-                    .then((res) => {
-                        console.log(res)
-                        store.dispatch(operationsFetched(res.data))
-                    })
+                fetchOperations().then((res) => {
+                    console.log(res);
+                    store.dispatch(operationsFetched(res.data));
+                });
             });
         } else {
-            postOperation(body).then(()=>{
-                fetchOperations()
-                    .then((res) => {
-                        console.log(res)
-                        store.dispatch(operationsFetched(res.data))
-                    })
+            postOperation(body).then(() => {
+                fetchOperations().then((res) => {
+                    console.log(res);
+                    store.dispatch(operationsFetched(res.data));
+                });
             });
         }
-
-
     };
 
     return (
