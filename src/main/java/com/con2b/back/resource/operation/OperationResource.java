@@ -62,7 +62,7 @@ public class OperationResource {
     }
     
     @GetMapping("")
-    @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')") // Temporarily removed until collaborator method is implemented
     public ResponseEntity<?> getOperationsSmall(){
         return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getOperations().stream().map(SmallOperationDTO::new).collect(Collectors.toList())));
     }

@@ -3,6 +3,7 @@ package com.con2b.back.model.filter;
 import com.con2b.back.http.HeaderMapRequestWrapper;
 import com.con2b.back.util.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,8 +20,11 @@ import java.util.*;
 
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
-    @Autowired
     private JWTUtils jwtUtils;
+
+    public CustomAuthorizationFilter (JWTUtils jwtUtils){
+        this.jwtUtils = jwtUtils;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
