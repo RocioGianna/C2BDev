@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper } from "@mui/material";
+import { Typography, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Box } from "@mui/material";
 
 export function ProductData({ row }) {
     return (
@@ -43,7 +43,19 @@ export function ProductData({ row }) {
                         <TableRow key={3}>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Adicionales</div>
-                                <Typography noWrap>{row.additionalIds && row.additionalIds.length > 0 ? row.additionalIds.map((a) => <div>{a}</div>) : <div>-</div>}</Typography>
+                                <Box sx={{ width: "50%" }}>
+                                    <Typography variant="subtitle2" noWrap>
+                                        <Box sx={{ display: "flex" }}>
+                                            {row.additionalProducts && row.additionalProducts.length > 0 ? (
+                                                row.additionalProducts.map((a, index) => {
+                                                    return index > 0 ? <div>, {a.name}</div> : <div>{a.name}</div>;
+                                                })
+                                            ) : (
+                                                <div>-</div>
+                                            )}
+                                        </Box>
+                                    </Typography>
+                                </Box>
                             </TableCell>
                         </TableRow>
                     </TableBody>
