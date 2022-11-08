@@ -31,7 +31,7 @@ export default function Operations() {
     }, []);
 
     function handleClick(event, cellValues) {
-        navigate("/2b/ops/" + cellValues.id);
+        navigate("/ops/" + cellValues.id);
     }
 
     columns.find((col) => col.headerName === "Acciones").renderCell = (cellValues) => {
@@ -77,7 +77,7 @@ export default function Operations() {
                 <Paper sx={{ p: 2 }}>
                     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                         <Typography variant="h5">Operaciones pendientes: requieren atención</Typography>
-                        <Button variant="contained" onClick={() => navigate("/2b/ops/new")}>
+                        <Button variant="contained" onClick={() => navigate("/ops/new")}>
                             <AddIcon />
                             Añadir Operación
                         </Button>

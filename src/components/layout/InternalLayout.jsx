@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
-import AppBar from "./AppBar";
+import AppBar from "./appBar/AppBar";
 import { useSelector } from "react-redux";
-import { fetchAdditionals, fetchProducts } from "../services/ProductService";
+import { fetchAdditionals, fetchProducts } from "../../services/ProductService";
 import { Toolbar, Box } from "@mui/material";
 
 function InternalLayout() {
-    const user = useSelector((state) => state.session.user);
+    const loaded = useSelector((state) => state.session.loaded);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user) navigate("/public/login");
-    }, [user]);
+        if (!loaded) navigate("/public/login");
+    }, [loaded]);
 
     useEffect(() => {
-        if (user) {
+        if (loaded) {
             fetchProducts();
             fetchAdditionals();
         }
@@ -23,11 +23,15 @@ function InternalLayout() {
 
     return (
         <Container maxWidth="xl" sx={{ minHeight: "100vh" }}>
-            <AppBar />
-            <Toolbar />
-            <Box sx={{ py: 4 }}>
-                <Outlet />
-            </Box>
+            {loaded && (
+                <>
+                    <AppBar />
+                    <Toolbar />
+                    <Box sx={{ py: 4 }}>
+                        <Outlet />
+                    </Box>
+                </>
+            )}
         </Container>
     );
 }

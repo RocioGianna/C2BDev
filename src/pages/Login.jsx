@@ -41,7 +41,7 @@ function Login() {
 
     useEffect(() => {
         if (user) {
-            navigate("/2b/home");
+            navigate("/home");
         }
     }, [user]);
 

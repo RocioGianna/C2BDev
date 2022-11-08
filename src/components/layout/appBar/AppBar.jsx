@@ -2,15 +2,12 @@ import React from "react";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Container from "@mui/material/Container";
-import { Box } from "@mui/material";
-import Logo from "./navBar/Logo";
+import Box from "@mui/material/Box";
 import ProfileMenu from "./ProfileMenu";
-import { useNavigate } from "react-router-dom";
-import Tabs from "./navBar/Tabs";
+import Logo from "./Logo";
+import Tabs from "./Tabs";
 
 function AppBar() {
-    const navigate = useNavigate();
-
     return (
         <MuiAppBar>
             <Container maxWidth="xl">

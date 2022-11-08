@@ -15,7 +15,7 @@ export function OperationTitle() {
                 p: 2,
             }}
         >
-            <IconButton sx={{ py: 0 }} onClick={() => navigate("/2b/ops/")}>
+            <IconButton sx={{ py: 0 }} onClick={() => navigate("/ops/")}>
                 <ArrowBackIcon color="primary" />
             </IconButton>
             <Typography

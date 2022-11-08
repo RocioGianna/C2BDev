@@ -9,12 +9,7 @@ function AdminStep() {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Field
-                        fullWidth
-                        name="collaboratorId"
-                        label="ID de Colaborador"
-                        component={TextField}
-                    />
+                    <Field fullWidth name="collaboratorCode" label="Código de Colaborador" component={TextField} />
                 </Grid>
             </Grid>
         </Box>
@@ -25,9 +20,7 @@ const onSubmit = async (values, setFieldValue) => {};
 
 const validationSchema = (index) => {
     return yup.object().shape({
-        collaboratorId: yup
-            .string()
-            .required("El ID de colaborador es requerido"),
+        collaboratorCode: yup.string().required("El código de colaborador es requerido"),
     });
 };
 

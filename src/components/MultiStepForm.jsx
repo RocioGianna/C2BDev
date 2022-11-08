@@ -42,7 +42,7 @@ const multiStepInitialValues = {
     collaboratorPhonePrefix: "",
     collaboratorPhoneNumber: "",
     images: [""],
-    collaboratorId: "",
+    collaboratorCode: "",
 };
 
 export function MultiStepForm({ ...props }) {

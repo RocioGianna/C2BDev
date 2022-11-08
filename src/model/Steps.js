@@ -1,8 +1,8 @@
-import ProductStepBundle from "../components/Steps/ProductStep";
-import ClientDataStepBundle from "../components/Steps/ClientDataStep";
-import DocumentationStep from "../components/Steps/DocumentationStep";
-import PhoneStep from "../components/Steps/PhoneStep";
-import AdminStep from "../components/Steps/AdminStep";
+import ProductStepBundle from "../components/steps/ProductStep";
+import ClientDataStepBundle from "../components/steps/ClientDataStep";
+import DocumentationStep from "../components/steps/DocumentationStep";
+import PhoneStep from "../components/steps/PhoneStep";
+import AdminStep from "../components/steps/AdminStep";
 
 export const steps = {
     ADMIN_STEP: AdminStep,

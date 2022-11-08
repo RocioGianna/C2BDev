@@ -9,7 +9,7 @@ function Nav() {
     const [value, setValue] = useState(location.pathname);
 
     useEffect(() => {
-        const whiteList = ["/2b/home", "/2b/home", "/2b/ops", "/2b/ops/new"];
+        const whiteList = ["/home", "/home", "/ops", "/ops/new"];
         if (whiteList.includes(location.pathname)) {
             setValue(location.pathname);
         }
@@ -30,8 +30,8 @@ function Nav() {
         >
             <Tab
                 label="Home"
-                value="/2b/home"
-                onClick={() => navigate("/2b/home")}
+                value="/home"
+                onClick={() => navigate("/home")}
                 sx={{
                     color: (theme) => theme.palette.grey[300],
                     transition: "color 0.4s ease",
@@ -46,8 +46,8 @@ function Nav() {
             />
             <Tab
                 label="Operaciones"
-                value="/2b/ops"
-                onClick={() => navigate("/2b/ops")}
+                value="/ops"
+                onClick={() => navigate("/ops")}
                 sx={{
                     color: (theme) => theme.palette.grey[300],
                     transition: "color 0.4s ease",
@@ -62,8 +62,8 @@ function Nav() {
             />
             <Tab
                 label="Nueva Operacion"
-                value="/2b/ops/new"
-                onClick={() => navigate("/2b/ops/new")}
+                value="/ops/new"
+                onClick={() => navigate("/ops/new")}
                 sx={{
                     color: (theme) => theme.palette.grey[300],
                     transition: "color 0.4s ease",

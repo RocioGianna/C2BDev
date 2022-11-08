@@ -1,6 +1,6 @@
 import React from "react";
-import LogoH from "../../assets/logo/LogoHWhite.png";
-import SmallLogo from "../../assets/logo/Logo.png";
+import LogoH from "../../../assets/logo/LogoHWhite.png";
+import SmallLogo from "../../../assets/logo/Logo.png";
 import { Box } from "@mui/material";
 
 export default function Logo() {

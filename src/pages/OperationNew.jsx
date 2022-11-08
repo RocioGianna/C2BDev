@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MultiStepForm } from "./MultiStepForm";
+import { MultiStepForm } from "../components/MultiStepForm";
 import { useNavigate } from "react-router-dom";
 import { IconButton, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
@@ -40,7 +40,7 @@ const Title = ({ title, handleClose }) => {
     );
 };
 
-export default function NewOperationModal() {
+export default function OperationNew() {
     const [open, setOpen] = useState(true);
     const navigate = useNavigate();
     const formSteps = useSelector((state) => state.formSteps.steps);
@@ -64,6 +64,8 @@ export default function NewOperationModal() {
     const xsMatch = useMediaQuery(theme.breakpoints.down("sm"));
 
     const handleNewOperationPost = (values) => {
+        console.log(values);
+
         const filteredProps = Object.entries(values).filter((prop) => prop[0].match("phoneStep"));
         const operationDetails = [];
 
@@ -83,7 +85,7 @@ export default function NewOperationModal() {
         }
 
         const body = {
-            colaboratorCode: values.collaboratorId,
+            colaboratorCode: isAdmin() ? values.collaboratorCode : user.userCode,
             colaboratorEmail: values.collaboratorEmail,
             colaboratorPhone: values.collaboratorPhoneNumber,
             refererCode: "XXX",

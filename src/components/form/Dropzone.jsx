@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { v4 as uuidv4 } from "uuid";
-import FilePreview from "./form/FilePreview";
-
-import { Box, Grid, Button, Typography } from "@mui/material";
+import FilePreview from "./FilePreview";
+import { Box, Button, Typography } from "@mui/material";
 
 export default function Dropzone() {
     const [files, setFiles] = useState([]);
@@ -65,10 +64,7 @@ export default function Dropzone() {
                         mt: 5,
                     }}
                 >
-                    <Button
-                        variant="contained"
-                        onClick={getRootProps().onClick}
-                    >
+                    <Button variant="contained" onClick={getRootProps().onClick}>
                         Subir archivos
                     </Button>
                 </Box>

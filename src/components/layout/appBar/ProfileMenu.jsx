@@ -11,7 +11,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import useLogout from "../hooks/useLogout";
+import useLogout from "../../../hooks/useLogout";
 
 function ProfileMenu() {
     const firstname = useSelector((state) => state.session.user?.firstname);
@@ -29,11 +29,7 @@ function ProfileMenu() {
 
     return (
         <Box order={{ xs: -1, md: 2 }}>
-            <Button
-                variant="text"
-                sx={{ color: (theme) => theme.palette.common.white, pr: 0 }}
-                onClick={(e) => setAnchorEl(e.currentTarget)}
-            >
+            <Button variant="text" sx={{ color: (theme) => theme.palette.common.white, pr: 0 }} onClick={(e) => setAnchorEl(e.currentTarget)}>
                 <Stack alignItems="center" spacing={1} direction="row">
                     <Avatar
                         sx={{
@@ -45,14 +41,8 @@ function ProfileMenu() {
                     >
                         {initial}
                     </Avatar>
-                    <Stack
-                        alignItems="center"
-                        direction="row"
-                        sx={{ display: { xs: "none", md: "flex" } }}
-                    >
-                        <Typography variant="button">
-                            {firstname + " " + lastname}
-                        </Typography>
+                    <Stack alignItems="center" direction="row" sx={{ display: { xs: "none", md: "flex" } }}>
+                        <Typography variant="button">{firstname + " " + lastname}</Typography>
                         <ArrowDropDownIcon />
                     </Stack>
                 </Stack>
