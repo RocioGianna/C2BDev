@@ -39,7 +39,7 @@ public class DocumentationResource {
         if(documentationService.getDocumentationById(documentationId) != null){
             return ResponseEntity.ok().body(documentationService.deleteFile(documentationId));
         }else {
-            return ResponseEntity.ok().body(new GenericResponseDTO<>(false, "Error al cargar documentacion"));
+            return ResponseEntity.ok().body(new GenericResponseDTO<>(false, "Error document not found"));
         }
     }
 
