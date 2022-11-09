@@ -56,4 +56,8 @@ public class UserService implements UserDetailsService {
         if(user == null) throw new UsernameNotFoundException(username);
         return new UserDetails2b(user);
     }
+
+    public List<User2b> getUsersByUserCode(String userCode) {
+        return userRepository.getUsersbyUserCode(userCode, Role.COLABORATOR.ordinal());
+    }
 }
