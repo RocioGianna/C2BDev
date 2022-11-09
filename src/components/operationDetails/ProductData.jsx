@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Box } from "@mui/material";
 
 export function ProductData({ row }) {
+    console.log("Additionals:", row.additionalProducts);
     return (
         <Paper
             sx={{
@@ -41,14 +42,15 @@ export function ProductData({ row }) {
                             </TableCell>
                         </TableRow>
                         <TableRow key={3}>
+                            {/* Add ... and tooltip to big typography*/}
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Adicionales</div>
                                 <Box sx={{ width: "50%" }}>
                                     <Typography variant="subtitle2" noWrap>
-                                        <Box sx={{ display: "flex" }}>
+                                        <Box sx={{ display: "flex", justifyContent: "end" }}>
                                             {row.additionalProducts && row.additionalProducts.length > 0 ? (
                                                 row.additionalProducts.map((a, index) => {
-                                                    return index > 0 ? <div>, {a.name}</div> : <div>{a.name}</div>;
+                                                    return index > 0 ? <div key={index}>, {a.name}</div> : <div key={index}>{a.name}</div>;
                                                 })
                                             ) : (
                                                 <div>-</div>
