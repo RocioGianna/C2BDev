@@ -9,11 +9,13 @@ public class Documentation {
     @GeneratedValue
     private Long id;
     private String path;
+    private Boolean deleted;
 
     public Documentation(){}
     public Documentation(Long id, String path) {
         this.id = id;
         this.path = path;
+        this.deleted = false;
     }
 
     public Long getId() {
@@ -31,4 +33,6 @@ public class Documentation {
     public void setPath(String path) {
         this.path = path;
     }
+
+
 }
