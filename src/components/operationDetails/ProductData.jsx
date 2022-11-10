@@ -50,7 +50,15 @@ export function ProductData({ row }) {
                                         <Box sx={{ display: "flex", justifyContent: "end" }}>
                                             {row.additionalProducts && row.additionalProducts.length > 0 ? (
                                                 row.additionalProducts.map((a, index) => {
-                                                    return index > 0 ? <div key={index}>, {a.name}</div> : <div key={index}>{a.name}</div>;
+                                                    return index > 0 ? (
+                                                        <Typography variant="subtitle2" key={index}>
+                                                            , {a.name}
+                                                        </Typography>
+                                                    ) : (
+                                                        <Typography variant="subtitle2" key={index}>
+                                                            {a.name}
+                                                        </Typography>
+                                                    );
                                                 })
                                             ) : (
                                                 <div>-</div>

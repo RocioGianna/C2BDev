@@ -55,7 +55,6 @@ export function DocumentationStep() {
             <DocumentationDropZone />
             <Field fullWidth name="observations" label="Observaciones" component={TextField} type="text" InputProps={{ sx: { height: 100 } }} />
             <Field fullWidth name="offeredPrice" label="Precio ofrecido al cliente" component={TextField} type="text" InputProps={{ sx: { height: 100 } }} />
-            {/* <EditableField name={"collaboratorEmail"} label={"Email colaborador"} /> */}
             <EditableField>
                 <Field name={"collaboratorEmail"} label={"Email colaborador"} component={TextField} type="text" sx={{ flexGrow: 1 }} onChange={(e) => setFieldValue("collaboratorEmail", e.target.value, false)} />
             </EditableField>

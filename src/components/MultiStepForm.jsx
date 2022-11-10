@@ -39,8 +39,8 @@ const multiStepInitialValues = {
     observations: "",
     offeredPrice: "",
     collaboratorEmail: "",
-    // collaboratorPhonePrefix: "",
-    // collaboratorPhoneNumber: "",
+    collaboratorPhonePrefix: "",
+    collaboratorPhoneNumber: "",
     images: [""],
     collaboratorCode: "",
 };
