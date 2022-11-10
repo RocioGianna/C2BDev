@@ -12,7 +12,7 @@ export default function EditableField({ name, label, children }) {
                 width: "100%",
             }}
         >
-            <>{React.Children.map(children, (child) => React.cloneElement(child, { disabled: !enabled, handleEdit: handleEdit }))}</>
+            <>{React.Children.map(children, (child) => React.cloneElement(child, { disabled: !enabled }))}</>
 
             {!enabled && (
                 <IconButton variant="contained" size="small" sx={{ mx: 1 }} color="primary" onClick={() => setEnabled(!enabled)}>
