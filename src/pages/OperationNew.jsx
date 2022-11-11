@@ -87,7 +87,7 @@ export default function OperationNew() {
         const body = {
             colaboratorCode: isAdmin() ? values.collaboratorCode : user.userCode,
             colaboratorEmail: values.collaboratorEmail,
-            colaboratorPhone: values.collaboratorPhoneNumber,
+            colaboratorPhone: values.collaboratorPhonePrefix + " " + values.collaboratorPhoneNumber,
             refererCode: "XXX",
             productOptionId: values.productOptionId,
             additionalIds: values.additionals.map((a) => a.id),
@@ -121,6 +121,9 @@ export default function OperationNew() {
             documentation: [values.documentation], //?
         };
 
+        if (user.phone === body.colaboratorPhone) body.colaboratorPhone = null;
+        if (user.email === body.colaboratorEmail) body.colaboratorEmail = null;
+
         if (isAdmin()) {
             postOperationAdmin(body).then(() => {
                 fetchOperations().then((res) => {
@@ -153,7 +156,8 @@ export default function OperationNew() {
                                     })
                                 );
                                 handleClose();
-                            } catch {
+                            } catch (error) {
+                                console.log(error);
                                 dispatch(
                                     notificationDispatched({
                                         notification: { message: "Hubo un error en la subida de la operacion", state: "success" },
