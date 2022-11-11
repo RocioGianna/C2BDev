@@ -22,7 +22,7 @@ export function ProductData({ row }) {
                 Producto
             </Typography>
             <TableContainer component={Paper}>
-                <Table size="small">
+                <Table size="small" sx={{ width: "100%" }}>
                     <TableHead>
                         <TableRow>
                             <TableCell></TableCell>
@@ -42,29 +42,18 @@ export function ProductData({ row }) {
                             </TableCell>
                         </TableRow>
                         <TableRow key={3}>
-                            {/* Add ... and tooltip to big typography*/}
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                <div>Adicionales</div>
-                                <Box sx={{ width: "50%" }}>
-                                    <Typography variant="subtitle2" noWrap>
-                                        <Box sx={{ display: "flex", justifyContent: "end" }}>
-                                            {row.additionalProducts && row.additionalProducts.length > 0 ? (
-                                                row.additionalProducts.map((a, index) => {
-                                                    return index > 0 ? (
-                                                        <Typography variant="subtitle2" key={index}>
-                                                            , {a.name}
-                                                        </Typography>
-                                                    ) : (
-                                                        <Typography variant="subtitle2" key={index}>
-                                                            {a.name}
-                                                        </Typography>
-                                                    );
-                                                })
-                                            ) : (
-                                                <div>-</div>
-                                            )}
-                                        </Box>
-                                    </Typography>
+                                <Box sx={{ width: "50%", flexShrink: 0 }}>Adicionales</Box>
+                                <Box sx={{ display: "flex", justifyContent: "end", flexGrow: 0 }}>
+                                    <Box sx={{ width: "100%", textAlign: "right" }}>
+                                        {row.additionalProducts && row.additionalProducts.length > 0 ? (
+                                            row.additionalProducts.map((a, index) => {
+                                                return index > 0 ? <span key={index}>, {a.name}</span> : <span key={index}>{a.name}</span>;
+                                            })
+                                        ) : (
+                                            <div>-</div>
+                                        )}
+                                    </Box>
                                 </Box>
                             </TableCell>
                         </TableRow>
