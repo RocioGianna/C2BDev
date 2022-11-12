@@ -3,7 +3,7 @@ import { FieldArray, useField } from "formik";
 import { Button, Box, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import AdditionalSelect from "./AdditionalSelect";
+import {EditableSelect} from "./EditableSelect";
 
 export default function AdditionalsFieldArray({ disabled, name, avaibleAdditionals }) {
     const [field] = useField(name);
@@ -21,7 +21,7 @@ export default function AdditionalsFieldArray({ disabled, name, avaibleAdditiona
                         {field.value.map((_, index) => (
                             <Box key={index} sx={{ mt: 2, display: "flex", width: "100%" }}>
                                 <Box sx={{ width: "90%" }}>
-                                    <AdditionalSelect name={name} avaibleAdditionals={avaibleAdditionals} index={index} disabled={disabled} />
+                                    <EditableSelect avaibleAdditionals={avaibleAdditionals} index={index} name={name} disabled={disabled}/>
                                 </Box>
                                 <Box sx={{ flexGrow: 0, width: "10%", flexShrink: 0, display: "flex", justifyContent: "center" }}>
                                     <IconButton sx={{}} onClick={() => remove(index)} variant="contained">
