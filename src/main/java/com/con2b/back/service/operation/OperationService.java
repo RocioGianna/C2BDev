@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.List;
@@ -58,7 +59,7 @@ public class OperationService {
 
     public Operation createOperation(NewOperationDTO newOperationDTO) throws Exception {
         //TODO implement refererCode and messages
-
+        
         HashSet<OperationDetails> operationDetailsId = new HashSet<>();
         Customer customer = customerService.saveCustomer(newOperationDTO.getCustomer());
         Address installationAddress = addressService.saveAddress(newOperationDTO.getInstallationAddress());
@@ -94,11 +95,17 @@ public class OperationService {
         if(shippingAddress != null){
             operation.setShippingAddress(shippingAddress);
         }
-        if(newOperationDTO.getDocumentationId() != null && !newOperationDTO.getDocumentationId().isEmpty()){
-            operation.setDocumentation(new HashSet<>());
+        if(!newOperationDTO.getDocumentationId().isEmpty()){
+            operation.setDocumentation(documentationService.getAllDocumentsById(newOperationDTO.getDocumentationId()));
         }
 
-        return operationRepository.save(operation);
+        Operation operationSave = operationRepository.save(operation);
+
+        for(Documentation d: operationSave.getDocumentation()){
+            documentationService.updatePathFile(d, operationSave.getId());
+        }
+
+        return operationSave;
     }
 
     public List<Operation> getOperations(){
