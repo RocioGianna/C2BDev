@@ -78,14 +78,10 @@ public class ProductService {
     }
 
     public ProductOption getProductOptionById(Long id){
-        ProductOption po = new ProductOption();
-        if(productOptionRepository.findById(id).isPresent()){
-            po = productOptionRepository.findById(id).get();
-        }
-       return po;
+        return productOptionRepository.findById(id).get();
     }
 
-    public Set<AdditionalProductOption> getAdditionalProductOption(Set<Long> listId){
+    public Set<AdditionalProductOption> getAdditionalProductOptionsById(Set<Long> listId){
         return new HashSet<>( additionalProductOptionRepository.findAllById(listId)) ;
     }
 
