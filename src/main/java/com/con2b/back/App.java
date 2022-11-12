@@ -7,24 +7,23 @@ import com.con2b.back.model.user.Role;
 import com.con2b.back.model.product.AdditionalProduct;
 import com.con2b.back.model.product.Product;
 import com.con2b.back.model.product.ProductOption;
-import com.con2b.back.service.operation.AddressService;
-import com.con2b.back.service.operation.CustomerService;
-import com.con2b.back.service.operation.OperationDetailsService;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.UserService;
 import com.con2b.back.service.product.ProductService;
+import com.con2b.back.util.OperationColumnsUtil;
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+
+import org.springframework.data.util.Pair;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @SpringBootApplication
 public class App extends SpringBootServletInitializer {
@@ -147,4 +146,15 @@ public class App extends SpringBootServletInitializer {
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
+	@Bean
+	public Map<Role,Map<Status,Set<OperationColumn>>> modifyOperationPermission (){
+		Map<Role,Map<Status,Set<OperationColumn>>> functionsByRole = new HashMap<>();
+		//JSONParser jsonParser = new JSONParser();
+
+
+
+		return functionsByRole;
+	}
+
 }
