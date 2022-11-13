@@ -21,7 +21,6 @@ public class User2b {
     private String password;
     private String firstname;
     private String lastname;
-
     private String userCode;
     private String phone;
     private boolean enabled;
@@ -32,11 +31,4 @@ public class User2b {
         this.roles.add(role);
     }
 
-    public String getUserCode() {
-        return userCode;
-    }
-
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
-    }
 }
