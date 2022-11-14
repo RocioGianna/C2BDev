@@ -1,23 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
-import {Autocomplete, Box, CircularProgress, Grid,TextField} from "@mui/material";
-// import { TextField } from "formik-material-ui";
+import { Autocomplete, Box, CircularProgress, Grid, TextField } from "@mui/material";
+import { fetchCollaborators } from "../../services/CollaboratorService.js";
+import { useFormikContext } from "formik";
 
-function sleep(delay = 0) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, delay);
-    });
-}
-
-
-function CollaboratorCodeSelect(){
-    const collaboratorIds = ["001","002"]
-
-    const [open, setOpen] = React.useState(false);
-    const [options, setOptions] = React.useState([]);
+function CollaboratorCodeSelect() {
+    const { setFieldValue } = useFormikContext();
+    const [open, setOpen] = useState(false);
+    const [options, setOptions] = useState([]);
     const loading = open && options.length === 0;
 
-    React.useEffect(() => {
+    useEffect(() => {
         let active = true;
 
         if (!loading) {
@@ -25,10 +18,14 @@ function CollaboratorCodeSelect(){
         }
 
         (async () => {
-            await sleep(1e3); // For demo purposes.
-
+            const res = await fetchCollaborators();
+            console.log("res: ", res);
+            res.data.map((user) => ({
+                label: `${user.userCode} - ${user.firstName} ${user.lastName}`,
+                value: user.userCode,
+            }));
             if (active) {
-                setOptions([...collaboratorIds]);
+                setOptions([...res.data]);
             }
         })();
 
@@ -37,7 +34,7 @@ function CollaboratorCodeSelect(){
         };
     }, [loading]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (!open) {
             setOptions([]);
         }
@@ -54,14 +51,17 @@ function CollaboratorCodeSelect(){
             onClose={() => {
                 setOpen(false);
             }}
-            isOptionEqualToValue={(option, value) => option.title === value.title}
-            getOptionLabel={(option) => option.title}
+            isOptionEqualToValue={(option, value) => option.label === value.label}
+            getOptionLabel={(option) => `${option.userCode} - ${option.firstname} ${option.lastname}`}
             options={options}
             loading={loading}
+            onChange={(event, value) => {
+                setFieldValue("collaboratorCode", value.userCode, false); // TODO CHECK IF HAS VALUE
+            }}
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Asynchronous"
+                    label="Codigo de colaborador"
                     InputProps={{
                         ...params.InputProps,
                         endAdornment: (
@@ -78,7 +78,6 @@ function CollaboratorCodeSelect(){
 }
 
 function AdminStep() {
-
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>

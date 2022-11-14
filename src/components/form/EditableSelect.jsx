@@ -27,7 +27,6 @@ export function EditableSelect({selectOptions,fieldName,disabled}) {
             onChange={(e,value) => {
                 const additional = additionals.find(a => a.id == value?.id)
                 setFieldValue(fieldName,additional || "")
-
             }}
             ListboxProps={{ style: { maxHeight: 200 } }}
             includeInputInList
