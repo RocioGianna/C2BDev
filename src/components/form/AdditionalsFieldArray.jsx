@@ -21,7 +21,7 @@ export default function AdditionalsFieldArray({ disabled, name, avaibleAdditiona
                         {field.value.map((_, index) => (
                             <Box key={index} sx={{ mt: 2, display: "flex", width: "100%" }}>
                                 <Box sx={{ width: "90%" }}>
-                                    <EditableSelect avaibleAdditionals={avaibleAdditionals} index={index} name={name} disabled={disabled}/>
+                                    <EditableSelect selectOptions={avaibleAdditionals} fieldName={`${name}[${index}]`} disabled={disabled}/>
                                 </Box>
                                 <Box sx={{ flexGrow: 0, width: "10%", flexShrink: 0, display: "flex", justifyContent: "center" }}>
                                     <IconButton sx={{}} onClick={() => remove(index)} variant="contained">

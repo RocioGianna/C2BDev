@@ -2,11 +2,11 @@ import React from "react";
 import {Autocomplete,TextField} from "@mui/material"
 import {useFormikContext} from "formik";
 
-export function EditableSelect({avaibleAdditionals,index,name,disabled}) {
+export function EditableSelect({selectOptions,fieldName,disabled}) {
 
     const {setFieldValue} = useFormikContext()
-    const additionals = avaibleAdditionals.map(additional => additional.options).flat()
-    const options = avaibleAdditionals
+    const additionals = selectOptions.map(additional => additional.options).flat()
+    const options = selectOptions
         .map(additional => additional.options.map(option => ({id:option.id , label:`(${additional.name}) ${option.name}`, popular: option.popular, mobile : additional.name})))
         .flat()
         .sort((a, b) => {
@@ -16,14 +16,13 @@ export function EditableSelect({avaibleAdditionals,index,name,disabled}) {
             if(isMobile) return 1
             return -1
         })
-    const fieldName = `${name}[${index}]`
 
     return (
         <Autocomplete
             id="combo-box-demo"
             options={options}
             disablePortal
-            name={`${name}[${index}]`}
+            name={fieldName}
             sx={{ width: "100%" }}
             onChange={(e,value) => {
                 const additional = additionals.find(a => a.id == value?.id)
