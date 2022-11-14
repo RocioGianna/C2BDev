@@ -3,7 +3,7 @@ package com.con2b.back.service.operation;
 import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.model.operation.*;
-import com.con2b.back.repository.operation.DocumentationRepository;
+import com.con2b.back.model.product.AdditionalProductOption;
 import com.con2b.back.repository.operation.LineTypeRepository;
 import com.con2b.back.repository.operation.OperationRepository;
 import com.con2b.back.service.product.ProductService;
@@ -12,11 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.List;
-
 
 @Service @Transactional
 public class OperationService {
