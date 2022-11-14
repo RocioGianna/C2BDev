@@ -3,10 +3,18 @@ package com.con2b.back.dto.product;
 import com.con2b.back.model.product.AdditionalProduct;
 import com.con2b.back.model.product.Product;
 import com.con2b.back.model.product.ProductOption;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductDTO {
 
     private Long id;
@@ -25,51 +33,4 @@ public class ProductDTO {
         this.isProfessional = product.isProfessional();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<ProductOption> getOptions() {
-        return options;
-    }
-
-    public void setOptions(Set<ProductOption> options) {
-        this.options = options;
-    }
-
-    public Set<Long> getAvailableAdditionals() {
-        return availableAdditionals;
-    }
-
-    public void setAvailableAdditionals(Set<Long> availableAdditionals) {
-        this.availableAdditionals = availableAdditionals;
-    }
-
-    public boolean isProfessional() {
-        return isProfessional;
-    }
-
-    public void setProfessional(boolean professional) {
-        isProfessional = professional;
-    }
 }

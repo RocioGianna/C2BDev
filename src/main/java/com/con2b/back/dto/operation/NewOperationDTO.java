@@ -3,6 +3,7 @@ package com.con2b.back.dto.operation;
 import com.con2b.back.model.operation.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class NewOperationDTO {
     private String colaboratorCode;
     private String colaboratorEmail;
