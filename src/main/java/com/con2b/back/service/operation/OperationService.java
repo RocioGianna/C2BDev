@@ -4,13 +4,11 @@ import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.model.operation.*;
 import com.con2b.back.model.product.AdditionalProductOption;
-import com.con2b.back.repository.operation.DocumentationRepository;
 import com.con2b.back.repository.operation.LineTypeRepository;
 import com.con2b.back.repository.operation.OperationRepository;
 import com.con2b.back.service.product.ProductService;
 import com.con2b.back.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -83,12 +81,7 @@ public class OperationService {
             operation.setColaboratorPhone(newOperationDTO.getColaboratorPhone());
         operation.setProductOption(productService.getProductOptionById(newOperationDTO.getProductOptionId()));
         if(newOperationDTO.getAdditionalIds() != null && !newOperationDTO.getAdditionalIds().isEmpty()) {
-            List<Long> additionalIds = newOperationDTO.getAdditionalIds();
-            var res = productService.getAdditionalProductOptionsById(additionalIds);
-            List<AdditionalProductOption> allPresentStrings = res.stream()
-                    .flatMap(Optional::stream)
-                    .collect(Collectors.toList());
-            operation.setAdditionalProducts(allPresentStrings);
+            operation.setAdditionalProducts(productService.getAdditionalProductOptionsById(newOperationDTO.getAdditionalIds()));
         }
         operation.setOperationDetails(operationDetailsId);
         if(customer != null) {

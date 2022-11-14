@@ -4,7 +4,6 @@ import com.con2b.back.model.operation.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.util.Pair;
 
 import java.util.List;
 import java.util.Set;

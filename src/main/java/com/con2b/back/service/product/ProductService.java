@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service @Transactional
 public class ProductService {
@@ -78,13 +79,12 @@ public class ProductService {
         return productOptionRepository.findById(id).get();
     }
 
-    public List<Optional<AdditionalProductOption>> getAdditionalProductOptionsById(List<Long> listId){
-        List<Optional<AdditionalProductOption>> res = new ArrayList<>();
+    public List<AdditionalProductOption> getAdditionalProductOptionsById(List<Long> listId){
+        List<AdditionalProductOption> res = new ArrayList<>();
         for (Long id: listId) {
-            res.add(additionalProductOptionRepository.findById(id));
+            additionalProductOptionRepository.findById(id).ifPresent(res::add);
         }
-        if (!res.isEmpty()) return res;
-        return new ArrayList<>();
+        return res;
     }
 
 }
