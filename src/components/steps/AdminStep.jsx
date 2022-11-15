@@ -1,78 +1,47 @@
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
-import { Autocomplete, Box, CircularProgress, Grid, TextField } from "@mui/material";
-import { fetchCollaborators } from "../../services/CollaboratorService.js";
-import { useFormikContext } from "formik";
+import { Box, Grid } from "@mui/material";
+import FAutocomplete from "../form/FAutocomplete";
+import { fetchCollaborators, fetchCollaboratorsById } from "../../services/CollaboratorService.js";
+import { Field, useFormikContext } from "formik";
 
 function CollaboratorCodeSelect() {
-    const { setFieldValue } = useFormikContext();
-    const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([]);
-    const loading = open && options.length === 0;
+    const [value, setValue] = useState();
+    const { values } = useFormikContext();
+
+    console.log(values);
 
     useEffect(() => {
-        let active = true;
-
-        if (!loading) {
-            return undefined;
+        if (value) {
+            fetchCollaboratorsById(value).then((res) => setOptions(res.data));
+        } else {
+            fetchCollaborators().then((res) => setOptions(res.data));
         }
+    }, [value]);
 
-        (async () => {
-            const res = await fetchCollaborators();
-            console.log("res: ", res);
-            res.data.map((user) => ({
-                label: `${user.userCode} - ${user.firstName} ${user.lastName}`,
-                value: user.userCode,
-            }));
-            if (active) {
-                setOptions([...res.data]);
-            }
-        })();
+    const mappedOptions = options.map((option) => `${option.userCode} - ${option.firstname} ${option.lastname}`);
 
-        return () => {
-            active = false;
-        };
-    }, [loading]);
-
-    useEffect(() => {
-        if (!open) {
-            setOptions([]);
-        }
-    }, [open]);
+    console.log(options);
 
     return (
-        <Autocomplete
-            id="asynchronous-demo"
-            sx={{ width: "100%" }}
-            open={open}
-            onOpen={() => {
-                setOpen(true);
+        <Field
+            name="collaboratorCode"
+            disableClearable
+            options={mappedOptions || []}
+            component={FAutocomplete}
+            getOptionLabel={(option) => {
+                if (option) return option;
+                return "";
             }}
-            onClose={() => {
-                setOpen(false);
+            textFieldProps={{
+                label: "Codigo de colaborador",
+                required: true,
+                variant: "outlined",
             }}
-            isOptionEqualToValue={(option, value) => option.label === value.label}
-            getOptionLabel={(option) => `${option.userCode} - ${option.firstname} ${option.lastname}`}
-            options={options}
-            loading={loading}
-            onChange={(event, value) => {
-                setFieldValue("collaboratorCode", value.userCode, false); // TODO CHECK IF HAS VALUE
+            onInputChange={(event, value) => {
+                setValue(value);
             }}
-            renderInput={(params) => (
-                <TextField
-                    {...params}
-                    label="Codigo de colaborador"
-                    InputProps={{
-                        ...params.InputProps,
-                        endAdornment: (
-                            <React.Fragment>
-                                {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                                {params.InputProps.endAdornment}
-                            </React.Fragment>
-                        ),
-                    }}
-                />
-            )}
         />
     );
 }
