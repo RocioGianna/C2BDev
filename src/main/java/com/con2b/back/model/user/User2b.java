@@ -24,11 +24,11 @@ public class User2b {
     private String userCode;
     private String phone;
     private boolean enabled;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    //@ElementCollection(fetch = FetchType.EAGER)
+    private Role role;
 
-    public void addRole(Role role) {
+   /* public void addRole(Role role) {
         this.roles.add(role);
-    }
+    }*/
 
 }

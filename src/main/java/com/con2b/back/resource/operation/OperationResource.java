@@ -3,6 +3,7 @@ package com.con2b.back.resource.operation;
 import com.con2b.back.dto.GenericResponseDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.dto.operation.SmallOperationDTO;
+import com.con2b.back.model.operation.OperationEditPermissions;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.UserService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,8 @@ public class OperationResource {
     private OperationService operationService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OperationEditPermissions operationEditPermissions;
 
     @PostMapping("")
     @PreAuthorize("hasRole('COLABORATOR')")
@@ -62,6 +66,16 @@ public class OperationResource {
     // @PreAuthorize("hasRole('ADMIN')") // Temporarily removed until collaborator method is implemented
     public ResponseEntity<?> getOperationsSmall(){
         return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getOperations().stream().map(SmallOperationDTO::new).collect(Collectors.toList())));
+    }
+
+    @GetMapping("/editableComlumns")
+    public ResponseEntity<?> getEditableColumns(@RequestHeader("userId") Long userId) throws IOException {
+        Optional<User2b> opUser = userService.getUserById(userId);
+        if(opUser.isPresent()) {
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, operationEditPermissions.getColumnsEditablesByRoleAndStatus(opUser.get().getRole())));
+        }else{
+            return ResponseEntity.ok().body(new GenericResponseDTO(false, "UserId not found"));
+        }
     }
 
 }

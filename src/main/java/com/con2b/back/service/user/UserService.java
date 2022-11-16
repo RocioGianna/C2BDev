@@ -41,10 +41,10 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public void addRoleToUser(String userEmail, Role role){
+    /*public void addRoleToUser(String userEmail, Role role){
         User2b user = userRepository.findByEmail(userEmail);
         user.addRole(role);
-    }
+    }*/
 
     public List<User2b> getUsers(){
         return userRepository.findAll();

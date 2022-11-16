@@ -41,10 +41,7 @@ public class OperationEditPermissions {
     }
 
 
-    public  Set<OperationColumn> getColumnsEditablesByRoleAndStatus(Role rol, Status status)  {
-        Map<Status, Set<OperationColumn>> states = this.map.get(rol);
-
-        return states.get(status);
-
+    public  Map<Status, Set<OperationColumn>> getColumnsEditablesByRoleAndStatus(Role rol)  {
+        return this.map.get(rol);
     }
 }

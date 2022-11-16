@@ -38,11 +38,11 @@ public class App extends SpringBootServletInitializer {
 	@Bean
 	CommandLineRunner createUsers (UserService userService){
 		return args -> {
-			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 249 400-0000",  true, new ArrayList<>()));
-			userService.addRoleToUser("user@2bconexion.com", Role.COLLABORATOR_ALL);
+			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 249 400-0000",  true, Role.COLLABORATOR_ALL));
+			//userService.addRoleToUser("user@2bconexion.com", Role.COLLABORATOR_ALL);
 
-			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 249 400-0001", true, new ArrayList<>()));
-			userService.addRoleToUser("admin@2bconexion.com", Role.ADMIN);
+			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 249 400-0001", true, Role.ADMIN));
+			//userService.addRoleToUser("admin@2bconexion.com", Role.ADMIN);
 		};
 	}
 
@@ -146,7 +146,7 @@ public class App extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	public OperationEditPermissions modifyOperationPermission () throws IOException {
+	public OperationEditPermissions operationEditPermissions () throws IOException {
 		return new OperationEditPermissions();
 	}
 
