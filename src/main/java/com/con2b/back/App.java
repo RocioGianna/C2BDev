@@ -10,8 +10,6 @@ import com.con2b.back.model.product.ProductOption;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.UserService;
 import com.con2b.back.service.product.ProductService;
-import com.con2b.back.util.OperationColumnsUtil;
-import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,10 +17,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
-import org.springframework.data.util.Pair;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.io.*;
 import java.util.*;
 
 @SpringBootApplication
@@ -41,7 +39,7 @@ public class App extends SpringBootServletInitializer {
 	CommandLineRunner createUsers (UserService userService){
 		return args -> {
 			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 249 400-0000",  true, new ArrayList<>()));
-			userService.addRoleToUser("user@2bconexion.com", Role.COLABORATOR);
+			userService.addRoleToUser("user@2bconexion.com", Role.COLLABORATOR_ALL);
 
 			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 249 400-0001", true, new ArrayList<>()));
 			userService.addRoleToUser("admin@2bconexion.com", Role.ADMIN);
@@ -148,13 +146,8 @@ public class App extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	public Map<Role,Map<Status,Set<OperationColumn>>> modifyOperationPermission (){
-		Map<Role,Map<Status,Set<OperationColumn>>> functionsByRole = new HashMap<>();
-		//JSONParser jsonParser = new JSONParser();
-
-
-
-		return functionsByRole;
+	public OperationEditPermissions modifyOperationPermission () throws IOException {
+		return new OperationEditPermissions();
 	}
 
 }

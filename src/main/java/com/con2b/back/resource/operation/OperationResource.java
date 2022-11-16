@@ -1,10 +1,8 @@
 package com.con2b.back.resource.operation;
 
 import com.con2b.back.dto.GenericResponseDTO;
-import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.dto.operation.SmallOperationDTO;
-import com.con2b.back.dto.product.ProductDTO;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.UserService;
@@ -13,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.handler.ResponseStatusExceptionHandler;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -66,6 +63,5 @@ public class OperationResource {
     public ResponseEntity<?> getOperationsSmall(){
         return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getOperations().stream().map(SmallOperationDTO::new).collect(Collectors.toList())));
     }
-
 
 }
