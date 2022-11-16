@@ -102,8 +102,10 @@ public class OperationService {
 
         Operation operationSave = operationRepository.save(operation);
 
-        for(Documentation d: operationSave.getDocumentation()){
-            documentationService.updatePathFile(d, operationSave.getId());
+        if(operationSave.getDocumentation() != null && !operationSave.getDocumentation().isEmpty()){
+            for(Documentation d: operationSave.getDocumentation()){
+                documentationService.updatePathFile(d, operationSave.getId());
+            }
         }
 
         return operationSave;
