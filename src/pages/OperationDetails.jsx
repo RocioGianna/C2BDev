@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { OperationTitle } from "../components/operationDetails/OperationTitle";
 import { OperationData } from "../components/operationDetails/OperationData";
@@ -23,7 +23,7 @@ export default function OperationDetails() {
 
     return (
         <Grid container justifyContent="center" spacing={2} sx={{ height: "100%" }}>
-            <Grid item xs={8} sx={{ display: "flex" }}>
+            <Grid item xs={8} sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <OperationTitle />
@@ -31,24 +31,25 @@ export default function OperationDetails() {
                     <Grid item xs={12}>
                         <OperationData row={data} />
                     </Grid>
+                </Grid>
+            </Grid>
+            <Grid item xs={4}>
+                <Collaborator row={data} />
+            </Grid>
+            <Grid item xs={4}>
+                <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <CustomerData row={data} />
                     </Grid>
-                    <Grid item xs={6}>
-                        <Collaborator row={data} />
-                    </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <Documentation />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <ProductData row={data} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <PhoneData row={data} />
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={4} sx={{ minHeight: "100%" }}>
+            <Grid item xs={4}>
+                <ProductData row={data} />
+            </Grid>
+            <Grid item xs={4}>
                 <Chat />
             </Grid>
         </Grid>
