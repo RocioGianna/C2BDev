@@ -149,5 +149,9 @@ public class App extends SpringBootServletInitializer {
 	public OperationEditPermissions operationEditPermissions () throws IOException {
 		return new OperationEditPermissions();
 	}
+	@Bean
+	public OperationPossibleStatus operationPossibleStatus () throws IOException {
+		return new OperationPossibleStatus();
+	}
 
-}
+	}
