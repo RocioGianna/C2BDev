@@ -16,7 +16,7 @@ public class UserDTO {
     private String firstname;
     private String lastname;
     private String phone;
-    private List<Role> roles;
+    private Role role;
 
     public UserDTO(User2b user){
         this.userCode = user.getUserCode();
@@ -24,6 +24,6 @@ public class UserDTO {
         this.firstname = user.getFirstname();
         this.lastname = user.getLastname();
         this.phone = user.getPhone();
-        this.roles = user.getRoles();
+        this.role = user.getRole();
     }
 }

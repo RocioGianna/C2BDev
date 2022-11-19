@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Getter
@@ -14,29 +13,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User2b {
-
     @Id @GeneratedValue
     private Long id;
     private String email;
     private String password;
     private String firstname;
     private String lastname;
-
     private String userCode;
     private String phone;
     private boolean enabled;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<Role> roles;
-
-    public void addRole(Role role) {
-        this.roles.add(role);
-    }
-
-    public String getUserCode() {
-        return userCode;
-    }
-
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
-    }
+    private Role role;
 }

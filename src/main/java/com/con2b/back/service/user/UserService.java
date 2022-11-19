@@ -2,7 +2,6 @@ package com.con2b.back.service.user;
 
 import com.con2b.back.model.user.UserDetails2b;
 import com.con2b.back.model.user.User2b;
-import com.con2b.back.model.user.Role;
 import com.con2b.back.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,12 +39,6 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-
-    public void addRoleToUser(String userEmail, Role role){
-        User2b user = userRepository.findByEmail(userEmail);
-        user.addRole(role);
-    }
-
     public List<User2b> getUsers(){
         return userRepository.findAll();
     }
@@ -55,5 +48,9 @@ public class UserService implements UserDetailsService {
         User2b user = this.userRepository.findByEmail(username);
         if(user == null) throw new UsernameNotFoundException(username);
         return new UserDetails2b(user);
+    }
+
+    public List<User2b> getUsersByUserCode(String userCode) {
+        return userRepository.getUsersbyUserCode(userCode, Role.COLABORATOR.ordinal());
     }
 }
