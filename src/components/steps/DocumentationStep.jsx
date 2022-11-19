@@ -48,8 +48,6 @@ export function DocumentationStep() {
         }
     }, [user]);
 
-    console.log(values);
-
     return (
         <Grid container gap={2}>
             <DocumentationDropZone />

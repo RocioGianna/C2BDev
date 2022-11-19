@@ -34,6 +34,8 @@ export default function Operations() {
         navigate("/ops/" + cellValues.id);
     }
 
+    console.log({ columns });
+
     columns.find((col) => col.headerName === "Acciones").renderCell = (cellValues) => {
         return (
             <>
