@@ -118,7 +118,7 @@ export default function OperationNew() {
                 municipality: values.municipalityInstallation2,
                 province: values.provinceInstallation2,
             },
-            documentationId: [values.documentation], //?
+            documentationIds: [values.documentation],
         };
 
         if (user.phone === body.colaboratorPhone) body.colaboratorPhone = null;

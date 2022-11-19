@@ -59,45 +59,41 @@ export function CustomerData({ row }) {
                                     <div>{row.customer.email}</div>
                                 </TableCell>
                             </TableRow>
-                            {row.customer.billingAddress && (
-                                <>
-                                    <TableRow>
-                                        <TableCell sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
-                                            <strong>Direccion facturacion</strong>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                            <div>Direccion</div>
-                                            <div>{row.customer.billingAddress.address}</div>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                            <div>Municipio facturacion</div>
-                                            <div>{row.customer.billingAddress.municipality}</div>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                            <div>Provincia facturacion</div>
-                                            <div>{row.customer.billingAddress.province}</div>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                            <div>Codigo postal facturacion</div>
-                                            <div>{row.customer.billingAddress.zipcode}</div>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                            <div>Cuenta bancaria</div>
-                                            <div>{row.customer.bankAccount}</div>
-                                        </TableCell>
-                                    </TableRow>
-                                </>
-                            )}
+                            <TableRow>
+                                <TableCell sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+                                    <strong>Direccion facturacion</strong>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                    <div>Direccion</div>
+                                    <div>{row.customer.billingAddress.address}</div>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                    <div>Municipio facturacion</div>
+                                    <div>{row.customer.billingAddress.municipality}</div>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                    <div>Provincia facturacion</div>
+                                    <div>{row.customer.billingAddress.province}</div>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                    <div>Codigo postal facturacion</div>
+                                    <div>{row.customer.billingAddress.zipcode}</div>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                    <div>Cuenta bancaria</div>
+                                    <div>{row.customer.bankAccount}</div>
+                                </TableCell>
+                            </TableRow>
                             {row.installationAddress && (
                                 <>
                                     <TableRow>
@@ -121,6 +117,39 @@ export function CustomerData({ row }) {
                                         <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                             <div>Provincia instalacion</div>
                                             <div>{row.installationAddress?.province || "-"}</div>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Codigo postal instalacion</div>
+                                            <div>{row.installationAddress?.zipcode || "-"}</div>
+                                        </TableCell>
+                                    </TableRow>
+                                </>
+                            )}
+                            {row.shippingAdress && (
+                                <>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+                                            <strong>Direccion de envio</strong>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Direccion</div>
+                                            <div>{row.shippingAdress.address || "-"}</div>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Municipio instalacion</div>
+                                            <div>{row.shippingAdress.municipality || "-"}</div>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Provincia instalacion</div>
+                                            <div>{row.shippingAdress.province || "-"}</div>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>

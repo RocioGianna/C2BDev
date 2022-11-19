@@ -34,7 +34,7 @@ function hasRole(role) {
 }
 
 function hasAnyRole(roles) {
-    return roles.some((r) => hasRole(r));
+    return roles.includes(getRole());
 }
 
 export function getOperationTableColumnsByRole() {
