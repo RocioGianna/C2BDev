@@ -68,7 +68,7 @@ public class OperationResource {
         return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getOperations().stream().map(SmallOperationDTO::new).collect(Collectors.toList())));
     }
 
-    @GetMapping("/editableComlumns")
+    @GetMapping("/editable-columns")
     public ResponseEntity<?> getEditableColumns(@RequestHeader("userId") Long userId) throws IOException {
         Optional<User2b> opUser = userService.getUserById(userId);
         if(opUser.isPresent()) {
