@@ -22,6 +22,6 @@ public class NewOperationDTO {
     private Customer customer;
     private Address installationAddress;
     private Address shippingAddress;
-    private Set<Long> documentationId;
+    private Set<Long> documentationIds;
 
 }
