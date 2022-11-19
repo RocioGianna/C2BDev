@@ -3,11 +3,11 @@ package com.con2b.back.model.operation;
 public enum Status {
     PENDING,
     CHECKING,
+    SCORING,
+    INCIDENCE,
     PROCESSING,
     PROCESSED,
-    ACTIVE,
-    INCIDENCE,
-    SCORING,
     CANCELED,
+    ACTIVE,
     FINISHED,
 }

@@ -1,7 +1,5 @@
 package com.con2b.back.model.operation;
 
-import com.con2b.back.model.product.AdditionalProductOption;
-import com.con2b.back.model.product.ProductOption;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
