@@ -68,11 +68,11 @@ public class OperationResource {
         return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getOperations().stream().map(SmallOperationDTO::new).collect(Collectors.toList())));
     }
 
-    @GetMapping("/editable-columns")
-    public ResponseEntity<?> getEditableColumns(@RequestHeader("userId") Long userId) throws IOException {
+    @GetMapping("/edit-permissions")
+    public ResponseEntity<?> getEditableColumns(@RequestHeader("userId") Long userId) {
         Optional<User2b> opUser = userService.getUserById(userId);
         if(opUser.isPresent()) {
-            return ResponseEntity.ok().body(new GenericResponseDTO(true, operationEditPermissions.getColumnsEditablesByRoleAndStatus(opUser.get().getRole())));
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, operationEditPermissions.getEditableColumnsByRoleAndStatus(opUser.get().getRole())));
         }else{
             return ResponseEntity.ok().body(new GenericResponseDTO(false, "UserId not found"));
         }
