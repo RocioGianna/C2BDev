@@ -22,21 +22,19 @@ const adminColumns = [
 ];
 
 export function isAdmin() {
-    return store.getState().session.user.roles.some((r) => r === "ADMIN");
+    return hasRole("ADMIN");
 }
 
-export function getRoles() {
-    return store.getState().session.user.roles;
-}
-
-function hasAnyRole(roles) {
-    const currentUserRoles = getRoles();
-    return currentUserRoles.some((r) => roles.includes(r));
+export function getRole() {
+    return store.getState().session.user.role;
 }
 
 function hasRole(role) {
-    const currentUserRoles = getRoles();
-    return currentUserRoles.some((r) => r === role);
+    return getRole() === role;
+}
+
+function hasAnyRole(roles) {
+    return roles.some((r) => hasRole(r));
 }
 
 export function getOperationTableColumnsByRole() {
