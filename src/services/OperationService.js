@@ -53,7 +53,7 @@ export async function fetchOperation(opId) {
 
 export async function fetchOperationEditPermissions() {
     try {
-        const res = await doSecureGet(`${ENV2B_BACKEND_URL}/api/v1/operations/editable-columns`);
+        const res = await doSecureGet(`${ENV2B_BACKEND_URL}/api/v1/operations/edit-permissions`);
         if (res.data.ok) {
             store.dispatch(permissionsFetched(res.data.data));
             return res.data;
