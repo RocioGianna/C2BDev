@@ -1,5 +1,7 @@
 import React from "react";
 import { Typography, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper } from "@mui/material";
+import { EditableDetailField } from "../EditableDetailField";
+import PhoneInput from "../form/PhoneInput";
 
 export function Collaborator({ row }) {
     return (
@@ -29,28 +31,29 @@ export function Collaborator({ row }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow key={1}>
+                        <TableRow>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Codigo colaborador</div>
                                 <div>{row.colaborator.userCode}</div>
                             </TableCell>
                         </TableRow>
-                        <TableRow key={2}>
+                        <TableRow>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Codigo referente</div>
                                 <div>-</div>
                             </TableCell>
                         </TableRow>
-                        <TableRow key={3}>
+                        <TableRow>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Telefono colaborador</div>
-                                <div>{row.colaboratorPhone || row.colaborator.phone}</div>
+                                {/* <EditableDetailField type="tel" value={row.colaboratorPhone || row.colaborator.phone} name={"collaboratorEmail"} operationStatus={row.status} permissionNeeded={"COLLABORATOR_EMAIL"} /> */}
                             </TableCell>
                         </TableRow>
-                        <TableRow key={4}>
+
+                        <TableRow>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Email colaborador</div>
-                                <div>{row.colaboratorEmail || row.colaborator.email}</div>
+                                <EditableDetailField value={row.colaboratorEmail || row.colaborator.email} name={"collaboratorEmail"} operationStatus={row.status} permissionNeeded={"COLLABORATOR_EMAIL"} />
                             </TableCell>
                         </TableRow>
                     </TableBody>

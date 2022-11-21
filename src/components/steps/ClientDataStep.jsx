@@ -92,7 +92,7 @@ function ClientDataStep(props) {
                     <Field fullWidth name="clientSurname" label="Apellidos del Cliente" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
-                    <Field fullWidth name="dni" label="DNI / NIE / CIF / NIF" component={TextField} type="tel" />
+                    <Field fullWidth name="dni" label="DNI / NIE / CIF / NIF" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
                     <PhoneInput phonePrefixName="phonePrefix" phoneNumberName="phoneNumber" />
@@ -107,7 +107,7 @@ function ClientDataStep(props) {
                     <Field fullWidth name="billingAddress" label="Direccion de facturacion" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={4}>
-                    <Field fullWidth name="zipCode" label="Codigo Postal" component={TextField} type="tel" />
+                    <Field fullWidth name="zipCode" label="Codigo Postal" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
                     <Field fullWidth name="municipality" label="Municipio" component={TextField} />

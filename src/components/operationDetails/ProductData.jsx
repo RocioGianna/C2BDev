@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Table, TableContainer, AccordionSummary, AccordionDetails, TableHead, Accordion, TableBody, TableRow, TableCell, Paper, Grid } from "@mui/material";
+import { Typography, Table, TableContainer, AccordionSummary, AccordionDetails, TableHead, Accordion, TableBody, TableRow, TableCell, Box, Paper, Grid } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import OperationProductDetails from "./OperationProductDetails";
 
@@ -52,14 +52,30 @@ export function ProductData({ row }) {
                     <TableBody>
                         <TableRow>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                <div>Producto</div>
-                                <div>{row.productOption.product.name}</div>
+                                <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Producto</Box>
+                                <Box sx={{ flexGrow: 1, textAlign: "right" }}>{row.productOption.product.name}</Box>
                             </TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                <div>Opcion</div>
-                                <div>{row.productOption.name}</div>
+                                <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Opcion</Box>
+                                <Box sx={{ flexGrow: 1, textAlign: "right" }}>{row.productOption.name}</Box>
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell sx={{ display: "flex", justifyContent: "space-between", gap: 1 }}>
+                                <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Adicionales</Box>
+                                <Box sx={{ flexGrow: 1, textAlign: "right" }}>
+                                    <Box sx={{ width: "100%", textAlign: "right" }}>
+                                        {row.additionalProducts && row.additionalProducts.length > 0 ? (
+                                            row.additionalProducts.map((a, index) => {
+                                                return index > 0 ? <span key={index}>, {a.name}</span> : <span key={index}>{a.name}</span>;
+                                            })
+                                        ) : (
+                                            <div>-</div>
+                                        )}
+                                    </Box>
+                                </Box>
                             </TableCell>
                         </TableRow>
                     </TableBody>

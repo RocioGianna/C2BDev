@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     operations: null,
+    permissions: null,
 };
 
 export const operationsSlice = createSlice({
@@ -10,11 +11,15 @@ export const operationsSlice = createSlice({
     reducers: {
         operationsFetched: (prev, action) => {
             prev.operations = action.payload;
-            return prev
+            return prev;
+        },
+        permissionsFetched: (prev, action) => {
+            prev.permissions = action.payload;
+            return prev;
         },
     },
 });
 
-export const { operationsFetched } = operationsSlice.actions;
+export const { operationsFetched, permissionsFetched } = operationsSlice.actions;
 
 export default operationsSlice.reducer;
