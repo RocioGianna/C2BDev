@@ -1,5 +1,7 @@
 package com.con2b.back;
 
+import com.con2b.back.beans.operation.OperationEditPermissions;
+import com.con2b.back.beans.operation.OperationPossibleNextStatus;
 import com.con2b.back.model.operation.*;
 import com.con2b.back.model.product.AdditionalProductOption;
 import com.con2b.back.model.user.User2b;
@@ -152,4 +154,4 @@ public class App extends SpringBootServletInitializer {
 		return new OperationPossibleNextStatus();
 	}
 
-	}
+}

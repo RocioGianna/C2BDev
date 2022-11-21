@@ -1,5 +1,6 @@
-package com.con2b.back.model.operation;
+package com.con2b.back.beans.operation;
 
+import com.con2b.back.model.operation.Status;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
