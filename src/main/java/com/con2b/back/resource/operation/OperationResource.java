@@ -4,7 +4,7 @@ import com.con2b.back.dto.GenericResponseDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.dto.operation.SmallOperationDTO;
 import com.con2b.back.model.operation.OperationEditPermissions;
-import com.con2b.back.model.operation.OperationPossibleStatus;
+import com.con2b.back.model.operation.OperationPossibleNextStatus;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.UserService;
@@ -31,7 +31,7 @@ public class OperationResource {
     private OperationEditPermissions operationEditPermissions;
 
     @Autowired
-    private OperationPossibleStatus operationPossibleStatus;
+    private OperationPossibleNextStatus operationPossibleNextStatus;
 
     @PostMapping("")
     @PreAuthorize("hasAnyRole('COLLABORATOR_MOVISTAR', 'COLLABORATOR_ALL')")
@@ -84,7 +84,7 @@ public class OperationResource {
 
     @GetMapping("/nextStatus")
     public ResponseEntity<?> getPossibleNextStatus() throws IOException {
-        return ResponseEntity.ok().body(new GenericResponseDTO(true, operationPossibleStatus.getPossibleNextStatus()));
+        return ResponseEntity.ok().body(new GenericResponseDTO(true, operationPossibleNextStatus.getMap()));
     }
 
 }

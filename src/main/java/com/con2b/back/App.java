@@ -148,8 +148,8 @@ public class App extends SpringBootServletInitializer {
 		return new OperationEditPermissions();
 	}
 	@Bean
-	public OperationPossibleStatus operationPossibleStatus () throws IOException {
-		return new OperationPossibleStatus();
+	public OperationPossibleNextStatus operationPossibleStatus () throws IOException {
+		return new OperationPossibleNextStatus();
 	}
 
 	}

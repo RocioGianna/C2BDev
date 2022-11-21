@@ -1,10 +1,10 @@
 package com.con2b.back.model.operation;
 
-import com.con2b.back.model.user.Role;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.ResourceUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,23 +14,19 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class OperationPossibleStatus {
+public class OperationPossibleNextStatus {
 
     private  Map<Status, Set<Status>> map;
 
-    public OperationPossibleStatus () throws IOException {
+    public OperationPossibleNextStatus () throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JavaType setType = mapper.getTypeFactory().constructCollectionType(Set.class, Status.class);
         JavaType statusType = mapper.getTypeFactory().constructType(Status.class);
         JavaType mapStatusType = mapper.getTypeFactory().constructMapType(Map.class, statusType, setType);
 
-        BufferedReader json = new BufferedReader(new FileReader("src/main/resources/operations/statesStructure.json"));
+        BufferedReader json = new BufferedReader(new FileReader(ResourceUtils.getFile("classpath:operation/statusMap.json")));
 
         this.map = mapper.readValue(json, mapStatusType);
-    }
-
-    public  Map<Status, Set<Status>> getPossibleNextStatus()  {
-        return this.map;
     }
 
 }
