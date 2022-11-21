@@ -12,7 +12,7 @@ import { isValidPhoneNumber } from "libphonenumber-js";
 
 const validationSchema = (index) => {
     return yup.object().shape({
-        collaboratorEmail: yup.string().email().required("El email es requerido"),
+        collaboratorEmail: yup.string().email("Ingrese un correo electronico valido").required("El email es requerido"),
         collaboratorPhonePrefix: yup
             .string()
             .required("El prefijo es requerido")

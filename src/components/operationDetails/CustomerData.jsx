@@ -1,5 +1,6 @@
 import React from "react";
 import { Typography, Box, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper } from "@mui/material";
+import { EditableDetailField } from "../EditableDetailField.jsx";
 
 export function CustomerData({ row }) {
     return (
@@ -29,101 +30,140 @@ export function CustomerData({ row }) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow key={1}>
+                            <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Apellido</div>
-                                    <div>{row.customer.lastName}</div>
+                                    <EditableDetailField value={row.customer.lastName} name={"lastname"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={2}>
+                            <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Nombe</div>
-                                    <div>{row.customer.firstName}</div>
+                                    <div>Nombre</div>
+                                    <EditableDetailField value={row.customer.firstName} name={"name"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={3}>
+                            <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>DNI</div>
-                                    <div>{row.customer.nid}</div>
+                                    <EditableDetailField value={row.customer.nid} name={"nid"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={4}>
+                            <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Telefono</div>
-                                    <div>{row.customer.phone}</div>
+                                    <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Telefono</Box>
+                                    <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "end" }}>
+                                        <EditableDetailField type="tel" value={row.customer.phone} name={"phone"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
+                                    </Box>
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={5}>
+                            <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Mail</div>
-                                    <div>{row.customer.email}</div>
+                                    <EditableDetailField value={row.customer.email} name={"email"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={6}>
-                                <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Direccion facturacion</div>
-                                    <div>{row.customer.billingAddress.address}</div>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow key={7}>
-                                <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Municipio facturacion</div>
-                                    <div>{row.customer.billingAddress.municipality}</div>
-                                </TableCell>
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TableContainer component={Paper}>
-                    <Table size="small">
-                        <TableHead>
                             <TableRow>
-                                <TableCell></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <TableRow key={1}>
-                                <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Provincia facturacion</div>
-                                    <div>{row.customer.billingAddress.province}</div>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow key={2}>
-                                <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Codigo postal facturacion</div>
-                                    <div>{row.customer.billingAddress.zipcode}</div>
-                                </TableCell>
-                            </TableRow>
-                            <TableRow key={3}>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                     <div>Cuenta bancaria</div>
-                                    <div>{row.customer.bankAccount}</div>
+                                    <EditableDetailField value={row.customer.bankAccount} name={"bankAccount"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={4}>
+                            <TableRow>
+                                <TableCell sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+                                    <strong>Direccion facturacion</strong>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Direccion instalacion</div>
-                                    <div>{row.installationAddress?.address || "-"}</div>
+                                    <div>Direccion</div>
+                                    <EditableDetailField value={row.customer.billingAddress.address} name={"address"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={5}>
+                            <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Municipio instalacion</div>
-                                    <div>{row.installationAddress?.municipality || "-"}</div>
+                                    <div>Municipio facturacion</div>
+                                    <EditableDetailField value={row.customer.billingAddress.municipality} name={"municipality"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={6}>
+                            <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Provincia instalacion</div>
-                                    <div>{row.installationAddress?.province || "-"}</div>
+                                    <div>Provincia facturacion</div>
+                                    <EditableDetailField value={row.customer.billingAddress.province} name={"province"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
-                            <TableRow key={7}>
+                            <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Codigo postal instalacion</div>
-                                    <div>{row.installationAddress?.zipcode || "-"}</div>
+                                    <div>Codigo postal facturacion</div>
+                                    <EditableDetailField value={row.customer.billingAddress.zipcode} name={"zipCode"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
+
+                            {row.installationAddress && (
+                                <>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+                                            <strong>Direccion instalacion</strong>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Direccion</div>
+                                            <EditableDetailField value={row.installationAddress.address} name={"address"} operationStatus={row.status} permissionNeeded={"INSTALLATION_ADDRESS"} />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Municipio instalacion</div>
+                                            <EditableDetailField value={row.installationAddress.municipality} name={"municipality"} operationStatus={row.status} permissionNeeded={"INSTALLATION_ADDRESS"} />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Provincia instalacion</div>
+                                            <EditableDetailField value={row.installationAddress.province} name={"province"} operationStatus={row.status} permissionNeeded={"INSTALLATION_ADDRESS"} />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Codigo postal instalacion</div>
+                                            <EditableDetailField value={row.installationAddress.zipcode} name={"zipCode"} operationStatus={row.status} permissionNeeded={"INSTALLATION_ADDRESS"} />
+                                        </TableCell>
+                                    </TableRow>
+                                </>
+                            )}
+                            {row.shippingAdress && (
+                                <>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+                                            <strong>Direccion de envio</strong>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Direccion</div>
+                                            <EditableDetailField value={row.shippingAdress.address} name={"address"} operationStatus={row.status} permissionNeeded={"SHIPPING_ADDRESS"} />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Municipio instalacion</div>
+                                            <EditableDetailField value={row.shippingAdress.municipality} name={"municipality"} operationStatus={row.status} permissionNeeded={"SHIPPING_ADDRESS"} />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Provincia instalacion</div>
+                                            <EditableDetailField value={row.shippingAdress.province} name={"province"} operationStatus={row.status} permissionNeeded={"SHIPPING_ADDRESS"} />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
+                                            <div>Codigo postal instalacion</div>
+                                            <EditableDetailField value={row.shippingAdress.zipcode} name={"zipCode"} operationStatus={row.status} permissionNeeded={"SHIPPING_ADDRESS"} />
+                                        </TableCell>
+                                    </TableRow>
+                                </>
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>
