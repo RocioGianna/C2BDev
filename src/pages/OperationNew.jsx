@@ -85,9 +85,9 @@ export default function OperationNew() {
         }
 
         const body = {
-            colaboratorCode: isAdmin() ? values.collaboratorCode : user.userCode,
-            colaboratorEmail: values.collaboratorEmail,
-            colaboratorPhone: values.collaboratorPhonePrefix + " " + values.collaboratorPhoneNumber,
+            collaboratorCode: isAdmin() ? values.collaboratorCode : user.userCode,
+            collaboratorEmail: values.collaboratorEmail,
+            collaboratorPhone: values.collaboratorPhonePrefix + " " + values.collaboratorPhoneNumber,
             refererCode: "XXX",
             productOptionId: values.productOptionId,
             additionalIds: values.additionals.map((a) => a.id),
@@ -121,8 +121,8 @@ export default function OperationNew() {
             documentationIds: [values.documentation],
         };
 
-        if (user.phone === body.colaboratorPhone) body.colaboratorPhone = null;
-        if (user.email === body.colaboratorEmail) body.colaboratorEmail = null;
+        if (user.phone === body.collaboratorPhone) body.collaboratorPhone = null;
+        if (user.email === body.collaboratorEmail) body.collaboratorEmail = null;
 
         if (isAdmin()) {
             postOperationAdmin(body).then(() => {

@@ -34,7 +34,7 @@ export function Collaborator({ row }) {
                         <TableRow>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Codigo colaborador</div>
-                                <div>{row.colaborator.userCode}</div>
+                                <div>{row.collaborator.userCode}</div>
                             </TableCell>
                         </TableRow>
                         <TableRow>
@@ -46,14 +46,14 @@ export function Collaborator({ row }) {
                         <TableRow>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Telefono colaborador</div>
-                                {/* <EditableDetailField type="tel" value={row.colaboratorPhone || row.colaborator.phone} name={"collaboratorEmail"} operationStatus={row.status} permissionNeeded={"COLLABORATOR_EMAIL"} /> */}
+                                {/* <EditableDetailField type="tel" value={row.collaboratorPhone || row.collaborator.phone} name={"collaboratorEmail"} operationStatus={row.status} permissionNeeded={"COLLABORATOR_EMAIL"} /> */}
                             </TableCell>
                         </TableRow>
 
                         <TableRow>
                             <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <div>Email colaborador</div>
-                                <EditableDetailField value={row.colaboratorEmail || row.colaborator.email} name={"collaboratorEmail"} operationStatus={row.status} permissionNeeded={"COLLABORATOR_EMAIL"} />
+                                <EditableDetailField value={row.collaboratorEmail || row.collaborator.email} name={"collaboratorEmail"} operationStatus={row.status} permissionNeeded={"COLLABORATOR_EMAIL"} />
                             </TableCell>
                         </TableRow>
                     </TableBody>
