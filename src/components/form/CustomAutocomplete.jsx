@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { TextField, Autocomplete } from "@mui/material";
 import { getIn } from "formik";
 
-const FAutocomplete = (props) => {
+const CustomAutocomplete = (props) => {
     const {
         field,
         form: { dirty, touched, errors, setFieldValue },
@@ -16,12 +16,12 @@ const FAutocomplete = (props) => {
 
     // Merge default textFieldProps with textFieldProps passed in the component
     const mergedTextFieldProps = {
-        ...FAutocomplete.defaultProps.textFieldProps,
+        ...CustomAutocomplete.defaultProps.textFieldProps,
         ...textFieldProps,
     };
     const errorText = getIn(errors, field.name);
     const touchedVal = getIn(touched, field.name);
-    const hasError = dirty && touchedVal && errorText !== undefined;
+    const hasError = touchedVal && errorText !== undefined;
     const isMultiple = autoCompleteProps.multiple;
     const isMultipleWithValue = isMultiple && field.value;
     const canBeRendered = !isMultiple || isMultipleWithValue;
@@ -34,7 +34,7 @@ const FAutocomplete = (props) => {
     return <>{canBeRendered && <Autocomplete options={options} getOptionLabel={getOptionLabel} onChange={(_, value) => setFieldValue(field.name, value)} value={field.value} isOptionEqualToValue={(option, val) => option.value === val.value} renderInput={(params) => <TextField {...params} error={hasError} helperText={hasError ? errorText : ""} {...mergedTextFieldProps} />} {...autoCompleteProps} />}</>;
 };
 
-FAutocomplete.propTypes = {
+CustomAutocomplete.propTypes = {
     form: PropTypes.shape({
         dirty: PropTypes.bool,
         errors: PropTypes.object,
@@ -55,7 +55,7 @@ FAutocomplete.propTypes = {
     }),
 };
 
-FAutocomplete.defaultProps = {
+CustomAutocomplete.defaultProps = {
     getOptionLabel: (option) => option.label,
     textFieldProps: {
         required: false,
@@ -64,4 +64,4 @@ FAutocomplete.defaultProps = {
     },
 };
 
-export default FAutocomplete;
+export default CustomAutocomplete;
