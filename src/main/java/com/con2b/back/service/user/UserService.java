@@ -1,5 +1,6 @@
 package com.con2b.back.service.user;
 
+import com.con2b.back.model.user.Role;
 import com.con2b.back.model.user.UserDetails2b;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.repository.user.UserRepository;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +53,9 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User2b> getUsersByUserCode(String userCode) {
-        return userRepository.getUsersbyUserCode(userCode, Role.COLABORATOR.ordinal());
+        List<User2b> collaborators = new ArrayList<>();
+        collaborators.addAll(userRepository.getUsersbyUserCode(userCode, Role.COLLABORATOR_MOVISTAR.ordinal()));
+        collaborators.addAll(userRepository.getUsersbyUserCode(userCode, Role.COLLABORATOR_ALL.ordinal()));
+        return collaborators;
     }
 }

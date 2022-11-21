@@ -1,10 +1,13 @@
-package com.con2b.back.model.operation;
+package com.con2b.back.beans.operation;
 
+import com.con2b.back.model.operation.OperationColumn;
+import com.con2b.back.model.operation.Status;
 import com.con2b.back.model.user.Role;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.ResourceUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,7 +31,8 @@ public class OperationEditPermissions {
         JavaType operationColumnsByStateMapType = mapper.getTypeFactory().constructMapType(Map.class, statusType, operationColumnsSetType);
         JavaType operationEditPermissionsType = mapper.getTypeFactory().constructMapType(Map.class, roleType, operationColumnsByStateMapType);
 
-        BufferedReader json = new BufferedReader(new FileReader("src/main/resources/operation/editPermissions.json"));
+
+        BufferedReader json = new BufferedReader(new FileReader(ResourceUtils.getFile("classpath:operation/editPermissions.json")));
 
         this.map = mapper.readValue(json, operationEditPermissionsType);
     }

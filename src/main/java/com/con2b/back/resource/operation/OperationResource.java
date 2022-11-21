@@ -3,7 +3,8 @@ package com.con2b.back.resource.operation;
 import com.con2b.back.dto.GenericResponseDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.dto.operation.SmallOperationDTO;
-import com.con2b.back.model.operation.OperationEditPermissions;
+import com.con2b.back.beans.operation.OperationEditPermissions;
+import com.con2b.back.beans.operation.OperationPossibleNextStatus;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.UserService;
@@ -29,9 +30,12 @@ public class OperationResource {
     @Autowired
     private OperationEditPermissions operationEditPermissions;
 
+    @Autowired
+    private OperationPossibleNextStatus operationPossibleNextStatus;
+
     @PostMapping("")
-    @PreAuthorize("hasRole('COLABORATOR')")
-    public ResponseEntity<?> createOperationAdm(@RequestBody NewOperationDTO newOperationDTO, @RequestHeader("userId") Long userId )throws Exception{
+    @PreAuthorize("hasAnyRole('COLLABORATOR_MOVISTAR', 'COLLABORATOR_ALL')")
+    public ResponseEntity<?> createOperation(@RequestBody NewOperationDTO newOperationDTO, @RequestHeader("userId") Long userId )throws Exception{
         Optional<User2b> opUser = userService.getUserById(userId);
 
         if(opUser.isPresent() && newOperationDTO.getColaboratorCode().equals(opUser.get().getUserCode()) ){
@@ -42,8 +46,8 @@ public class OperationResource {
     }
 
     @PostMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createOperationUser(@RequestBody NewOperationDTO newOperationDTO)throws Exception{
+    @PreAuthorize("hasAnyRole('PROCESSOR_ADVANCED', 'MANAGER', 'ADMIN', 'SUPER_ADMIN')")
+    public ResponseEntity<?> createOperationAdmin(@RequestBody NewOperationDTO newOperationDTO)throws Exception{
         User2b user = userService.getUserByUserCode(newOperationDTO.getColaboratorCode());
 
         if(user != null ){
@@ -54,7 +58,7 @@ public class OperationResource {
     }
 
     @GetMapping("/{operationId}")
-    public ResponseEntity<?> getOperationDetail(@PathVariable Long operationId) throws Exception {
+    public ResponseEntity<?> getOperationDetail(@PathVariable Long operationId) {
         try{
             return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getFullOperationDTO(operationId)));
         }catch (Exception e){
@@ -76,6 +80,11 @@ public class OperationResource {
         }else{
             return ResponseEntity.ok().body(new GenericResponseDTO(false, "UserId not found"));
         }
+    }
+
+    @GetMapping("/nextStatus")
+    public ResponseEntity<?> getPossibleNextStatus() throws IOException {
+        return ResponseEntity.ok().body(new GenericResponseDTO(true, operationPossibleNextStatus.getMap()));
     }
 
 }
