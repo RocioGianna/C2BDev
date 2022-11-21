@@ -25,14 +25,10 @@ public class UserDetails2b implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> set = new HashSet<>();
-        /*user.getRoles().forEach(role -> {
-            set.add(new SimpleGrantedAuthority("ROLE_" + role));
-        });*/
+        set.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
         return set;
     }
-    public Role getRole(){
-        return user.getRole();
-    }
+
     @Override
     public String getPassword() {
         return user.getPassword();

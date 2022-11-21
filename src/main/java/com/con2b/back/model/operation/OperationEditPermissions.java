@@ -21,27 +21,25 @@ public class OperationEditPermissions {
 
     public OperationEditPermissions () throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        JavaType setType = mapper.getTypeFactory().constructCollectionType(Set.class, OperationColumn.class);
+
         JavaType statusType = mapper.getTypeFactory().constructType(Status.class);
-        JavaType mapStatusType = mapper.getTypeFactory().constructMapType(Map.class, statusType, setType);
         JavaType roleType = mapper.getTypeFactory().constructType(Role.class);
-        JavaType mapTypes = mapper.getTypeFactory().constructMapType(Map.class, roleType, mapStatusType);
+        JavaType operationColumnsSetType = mapper.getTypeFactory().constructCollectionType(Set.class, OperationColumn.class);
+        JavaType operationColumnsByStateMapType = mapper.getTypeFactory().constructMapType(Map.class, statusType, operationColumnsSetType);
+        JavaType operationEditPermissionsType = mapper.getTypeFactory().constructMapType(Map.class, roleType, operationColumnsByStateMapType);
 
-        BufferedReader json = new BufferedReader(new FileReader("src/main/resources/operations/dataStructure.json"));
+        BufferedReader json = new BufferedReader(new FileReader("src/main/resources/operation/editPermissions.json"));
 
-
-        this.map = mapper.readValue(json, mapTypes);
+        this.map = mapper.readValue(json, operationEditPermissionsType);
     }
 
 
-    public Boolean isColumnEditable(Role rol, Status status, OperationColumn column) {
-        Map<Status, Set<OperationColumn>> columns = this.map.get(rol);
-
-        return columns.get(status).contains(column);
+    public Boolean isColumnEditable(Role role, Status status, OperationColumn column) {
+        return this.map.get(role).get(status).contains(column);
     }
 
 
-    public  Map<Status, Set<OperationColumn>> getColumnsEditablesByRoleAndStatus(Role rol)  {
+    public  Map<Status, Set<OperationColumn>> getEditableColumnsByRoleAndStatus(Role rol)  {
         return this.map.get(rol);
     }
 }

@@ -3,7 +3,6 @@ package com.con2b.back.service.operation;
 import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.model.operation.*;
-import com.con2b.back.repository.operation.DocumentationRepository;
 import com.con2b.back.repository.operation.LineTypeRepository;
 import com.con2b.back.repository.operation.OperationRepository;
 import com.con2b.back.service.product.ProductService;
@@ -15,7 +14,6 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.List;
-
 
 @Service @Transactional
 public class OperationService {
@@ -58,7 +56,7 @@ public class OperationService {
 
     public Operation createOperation(NewOperationDTO newOperationDTO) throws Exception {
         //TODO implement refererCode and messages
-
+        
         HashSet<OperationDetails> operationDetailsId = new HashSet<>();
         Customer customer = customerService.saveCustomer(newOperationDTO.getCustomer());
         Address installationAddress = addressService.saveAddress(newOperationDTO.getInstallationAddress());
@@ -94,11 +92,19 @@ public class OperationService {
         if(shippingAddress != null){
             operation.setShippingAddress(shippingAddress);
         }
-        if(newOperationDTO.getDocumentationId() != null && !newOperationDTO.getDocumentationId().isEmpty()){
-            operation.setDocumentation(new HashSet<>());
+        if(!newOperationDTO.getDocumentationIds().isEmpty()){
+            operation.setDocumentation(documentationService.getAllDocumentsById(newOperationDTO.getDocumentationIds()));
         }
 
-        return operationRepository.save(operation);
+        Operation operationSave = operationRepository.save(operation);
+
+        if(operationSave.getDocumentation() != null && !operationSave.getDocumentation().isEmpty()){
+            for(Documentation d: operationSave.getDocumentation()){
+                documentationService.updatePathFile(d, operationSave.getId());
+            }
+        }
+
+        return operationSave;
     }
 
     public List<Operation> getOperations(){

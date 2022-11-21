@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -29,7 +30,7 @@ public class FullOperationDTO {
     private String colaboratorEmail;
     private String colaboratorPhone;
     private ProductOption productOption;
-    private Set<AdditionalProductOption> additionalProducts;
+    private List<AdditionalProductOption> additionalProducts;
     private Set<OperationDetails>operationDetails;
     private Customer customer;
     private Address installationAddress;

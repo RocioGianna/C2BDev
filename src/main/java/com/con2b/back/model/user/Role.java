@@ -1,11 +1,11 @@
 package com.con2b.back.model.user;
 
 public enum Role {
-    SUPER_ADMIN,
-    ADMIN,
-    MANAGER,
+    COLLABORATOR_MOVISTAR,
+    COLLABORATOR_ALL,
     PROCESSOR,
     PROCESSOR_ADVANCED,
-    COLLABORATOR_MOVISTAR,
-    COLLABORATOR_ALL
+    MANAGER,
+    ADMIN,
+    SUPER_ADMIN,
 }

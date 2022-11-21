@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -58,7 +59,7 @@ public class Operation {
     private ProductOption productOption;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<AdditionalProductOption> additionalProducts;
+    private List<AdditionalProductOption> additionalProducts;
 
     @OneToMany
     private Set<OperationDetails>operationDetails;

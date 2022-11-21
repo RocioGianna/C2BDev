@@ -34,8 +34,8 @@ public class OperationResource {
     private OperationPossibleStatus operationPossibleStatus;
 
     @PostMapping("")
-    @PreAuthorize("hasRole('COLABORATOR')")
-    public ResponseEntity<?> createOperationAdm(@RequestBody NewOperationDTO newOperationDTO, @RequestHeader("userId") Long userId )throws Exception{
+    @PreAuthorize("hasAnyRole('COLLABORATOR_MOVISTAR', 'COLLABORATOR_ALL')")
+    public ResponseEntity<?> createOperation(@RequestBody NewOperationDTO newOperationDTO, @RequestHeader("userId") Long userId )throws Exception{
         Optional<User2b> opUser = userService.getUserById(userId);
 
         if(opUser.isPresent() && newOperationDTO.getColaboratorCode().equals(opUser.get().getUserCode()) ){
@@ -46,8 +46,8 @@ public class OperationResource {
     }
 
     @PostMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createOperationUser(@RequestBody NewOperationDTO newOperationDTO)throws Exception{
+    @PreAuthorize("hasAnyRole('PROCESSOR_ADVANCED', 'MANAGER', 'ADMIN', 'SUPER_ADMIN')")
+    public ResponseEntity<?> createOperationAdmin(@RequestBody NewOperationDTO newOperationDTO)throws Exception{
         User2b user = userService.getUserByUserCode(newOperationDTO.getColaboratorCode());
 
         if(user != null ){
@@ -58,7 +58,7 @@ public class OperationResource {
     }
 
     @GetMapping("/{operationId}")
-    public ResponseEntity<?> getOperationDetail(@PathVariable Long operationId) throws Exception {
+    public ResponseEntity<?> getOperationDetail(@PathVariable Long operationId) {
         try{
             return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getFullOperationDTO(operationId)));
         }catch (Exception e){
@@ -72,11 +72,11 @@ public class OperationResource {
         return ResponseEntity.ok().body(new GenericResponseDTO(operationService.getOperations().stream().map(SmallOperationDTO::new).collect(Collectors.toList())));
     }
 
-    @GetMapping("/editableComlumns")
-    public ResponseEntity<?> getEditableColumns(@RequestHeader("userId") Long userId) throws IOException {
+    @GetMapping("/edit-permissions")
+    public ResponseEntity<?> getEditableColumns(@RequestHeader("userId") Long userId) {
         Optional<User2b> opUser = userService.getUserById(userId);
         if(opUser.isPresent()) {
-            return ResponseEntity.ok().body(new GenericResponseDTO(true, operationEditPermissions.getColumnsEditablesByRoleAndStatus(opUser.get().getRole())));
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, operationEditPermissions.getEditableColumnsByRoleAndStatus(opUser.get().getRole())));
         }else{
             return ResponseEntity.ok().body(new GenericResponseDTO(false, "UserId not found"));
         }

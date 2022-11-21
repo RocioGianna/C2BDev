@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service @Transactional
 public class ProductService {
@@ -81,8 +78,12 @@ public class ProductService {
         return productOptionRepository.findById(id).get();
     }
 
-    public Set<AdditionalProductOption> getAdditionalProductOptionsById(Set<Long> listId){
-        return new HashSet<>( additionalProductOptionRepository.findAllById(listId)) ;
+    public List<AdditionalProductOption> getAdditionalProductOptionsById(List<Long> listId){
+        List<AdditionalProductOption> res = new ArrayList<>();
+        for (Long id: listId) {
+            additionalProductOptionRepository.findById(id).ifPresent(res::add);
+        }
+        return res;
     }
 
 }
