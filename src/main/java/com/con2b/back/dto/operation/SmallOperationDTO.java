@@ -28,7 +28,7 @@ public class SmallOperationDTO {
         creationDate = operation.getCreationDate();
         operationCode = operation.getOperationCode();
         channelName = operation.getChannel() != null ? operation.getChannel().name() : null;
-        collaboratorCode = operation.getColaborator().getUserCode();
+        collaboratorCode = operation.getCollaborator().getUserCode();
         customerLastName = operation.getCustomer() != null ? operation.getCustomer().getLastName() : null;
         processorId = operation.getProcessor() != null ? operation.getProcessor().getUserCode() : null;
         status = operation.getStatus().name();

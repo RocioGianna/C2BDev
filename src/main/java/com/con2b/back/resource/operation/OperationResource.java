@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,22 +37,22 @@ public class OperationResource {
     public ResponseEntity<?> createOperation(@RequestBody NewOperationDTO newOperationDTO, @RequestHeader("userId") Long userId )throws Exception{
         Optional<User2b> opUser = userService.getUserById(userId);
 
-        if(opUser.isPresent() && newOperationDTO.getColaboratorCode().equals(opUser.get().getUserCode()) ){
+        if(opUser.isPresent() && newOperationDTO.getCollaboratorCode().equals(opUser.get().getUserCode()) ){
             return ResponseEntity.ok().body(new GenericResponseDTO<>(operationService.createOperation(newOperationDTO)));
         }else{
-            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Colaborator code doesn't match with user code"));
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Collaborator code doesn't match with user code"));
         }
     }
 
     @PostMapping("/admin")
     @PreAuthorize("hasAnyRole('PROCESSOR_ADVANCED', 'MANAGER', 'ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> createOperationAdmin(@RequestBody NewOperationDTO newOperationDTO)throws Exception{
-        User2b user = userService.getUserByUserCode(newOperationDTO.getColaboratorCode());
+        User2b user = userService.getUserByUserCode(newOperationDTO.getCollaboratorCode());
 
         if(user != null ){
             return ResponseEntity.ok().body(new GenericResponseDTO<>(operationService.createOperation(newOperationDTO)));
         }else{
-            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Colaborator code doesn't match with user code"));
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Collaborator code doesn't match with user code"));
         }
     }
 
@@ -82,8 +81,8 @@ public class OperationResource {
         }
     }
 
-    @GetMapping("/nextStatus")
-    public ResponseEntity<?> getPossibleNextStatus() throws IOException {
+    @GetMapping("/status-map")
+    public ResponseEntity<?> getPossibleNextStatus() {
         return ResponseEntity.ok().body(new GenericResponseDTO(true, operationPossibleNextStatus.getMap()));
     }
 
