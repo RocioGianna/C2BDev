@@ -1,5 +1,6 @@
 package com.con2b.back.service.user;
 
+import com.con2b.back.model.user.Role;
 import com.con2b.back.model.user.UserDetails2b;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.repository.user.UserRepository;
@@ -51,6 +52,6 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User2b> getUsersByUserCode(String userCode) {
-        return userRepository.getUsersbyUserCode(userCode, Role.COLABORATOR.ordinal());
+        return userRepository.getUsersbyUserCode(userCode, Role.COLLABORATOR_ALL.ordinal());
     }
 }

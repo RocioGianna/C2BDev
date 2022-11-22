@@ -19,7 +19,7 @@ public class UserResource {
 
     @GetMapping("")
     @PreAuthorize("hasRole('ADMIN') || hasRole('PROCESSOR')")
-    public ResponseEntity<?> getUsersByUserCode(@RequestParam(defaultValue = "") @DefaultValue() String userCode ){
+    public ResponseEntity<?> getUsersByUserCode(@RequestParam(defaultValue = "")  String userCode ){
         return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.getUsersByUserCode(userCode)));
     }
 
