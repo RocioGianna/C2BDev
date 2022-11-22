@@ -80,7 +80,7 @@ export default function OperationNew() {
                 currentProvider: opDetailObject.phoneOperator != "" ? opDetailObject.phoneOperator : null,
                 currentOwnerFirstname: opDetailObject.name != "" ? opDetailObject.name : null,
                 currentOwnerLastname: opDetailObject.surname != "" ? opDetailObject.surname : null,
-                currentOwnerNID: opDetailObject.dni != "" ? opDetailObject.dni : null,
+                currentOwnerNID: opDetailObject.nid != "" ? opDetailObject.nid : null,
             };
         }
 
@@ -93,7 +93,7 @@ export default function OperationNew() {
             customer: {
                 firstName: values.clientName,
                 lastName: values.clientSurname,
-                nid: values.dni,
+                nid: values.nid,
                 phone: values.phonePrefix + " " + values.phoneNumber,
                 email: values.email,
                 bankAccount: values.bankAccount,
@@ -107,22 +107,22 @@ export default function OperationNew() {
             documentationIds: [values.documentation],
         };
 
-        if(values.differentInstallAddress){
-            body.installationAddress= {
+        if (values.differentInstallAddress) {
+            body.installationAddress = {
                 address: values.instalattionAddress,
                 zipcode: values.zipCodeInstallation,
                 municipality: values.municipalityInstallation,
                 province: values.provinceInstallation,
-            }
+            };
         }
 
-        if(values.differentShippingAddress){
+        if (values.differentShippingAddress) {
             body.shippingAddress = {
                 address: values.instalattionAddress2,
                 zipcode: values.zipCodeInstallation2,
                 municipality: values.municipalityInstallation2,
                 province: values.provinceInstallation2,
-            }
+            };
         }
 
         if (user.phone !== body.collaboratorPhone) body.collaboratorPhone = values.collaboratorEmail;

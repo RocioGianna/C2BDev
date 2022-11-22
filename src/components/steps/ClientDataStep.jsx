@@ -13,7 +13,7 @@ const validationSchema = () => {
     return yup.object().shape({
         clientName: yup.string().required("El nombre es requerido"),
         clientSurname: yup.string().required("El apellido es requerido"),
-        dni: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
+        nid: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
         phonePrefix: yup
             .string()
             .required("El prefijo es requerido")
@@ -92,7 +92,7 @@ function ClientDataStep(props) {
                     <Field fullWidth name="clientSurname" label="Apellidos del Cliente" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
-                    <Field fullWidth name="dni" label="DNI / NIE / CIF / NIF" component={TextField} />
+                    <Field fullWidth name="nid" label="DNI / NIE / CIF / NIF" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
                     <PhoneInput phonePrefixName="phonePrefix" phoneNumberName="phoneNumber" />

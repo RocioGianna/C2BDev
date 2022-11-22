@@ -41,7 +41,7 @@ export function PhoneStep({ index }) {
                             <Field fullWidth name={`phoneStep_${index}_surname`} label="Apellido titular actual" component={TextField} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Field fullWidth name={`phoneStep_${index}_dni`} label="DNI titular actual" component={TextField} />
+                            <Field fullWidth name={`phoneStep_${index}_nid`} label="DNI titular actual" component={TextField} />
                         </Grid>
                     </ConditionalForm>
                 )}
@@ -86,7 +86,7 @@ const validationSchema = (index) => {
             is: true,
             then: yup.string().required("El nombre es requerido"),
         }),
-        [`phoneStep_${index}_dni`]: yup.string().when(`phoneStep_${index}_changePhoneOwner`, {
+        [`phoneStep_${index}_nid`]: yup.string().when(`phoneStep_${index}_changePhoneOwner`, {
             is: true,
             then: yup.string().required("El DNI es requerido"),
         }),

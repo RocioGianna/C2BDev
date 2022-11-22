@@ -14,7 +14,7 @@ const multiStepInitialValues = {
     clientName: "",
     clientSurname: "",
     isProfessionalProduct: "",
-    dni: "",
+    nid: "",
     phonePrefix: "+34",
     phoneNumber: "",
     email: "",
