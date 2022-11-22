@@ -40,9 +40,8 @@ public class App extends SpringBootServletInitializer {
 	@Bean
 	CommandLineRunner createUsers (UserService userService){
 		return args -> {
-			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 249 400-0000",  true, Role.COLLABORATOR_MOVISTAR));
-
-			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 249 400-0001", true, Role.ADMIN));
+			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 2494000000", true, Role.COLLABORATOR_MOVISTAR));
+			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 2494000001", true, Role.ADMIN));
 		};
 	}
 
