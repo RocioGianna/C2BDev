@@ -46,13 +46,13 @@ public class Operation {
     private User2b processor;
 
     @ManyToOne
-    private User2b colaborator;
+    private User2b collaborator;
 
     @Column(nullable = true)
-    private String colaboratorEmail;
+    private String collaboratorEmail;
 
     @Column(nullable = true)
-    private String colaboratorPhone;
+    private String collaboratorPhone;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

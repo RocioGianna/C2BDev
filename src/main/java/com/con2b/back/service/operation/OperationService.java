@@ -73,11 +73,11 @@ public class OperationService {
 
         operation.setOperationCode(operationCode);
         operation.setStatus(Status.PENDING);
-        operation.setColaborator(userService.getUserByUserCode(newOperationDTO.getColaboratorCode()));
-        if(newOperationDTO.getColaboratorEmail() != null && !newOperationDTO.getColaboratorEmail().isEmpty())
-            operation.setColaboratorEmail(newOperationDTO.getColaboratorEmail());
-        if(newOperationDTO.getColaboratorPhone() != null && !newOperationDTO.getColaboratorPhone().isEmpty())
-            operation.setColaboratorPhone(newOperationDTO.getColaboratorPhone());
+        operation.setCollaborator(userService.getUserByUserCode(newOperationDTO.getCollaboratorCode()));
+        if(newOperationDTO.getCollaboratorEmail() != null && !newOperationDTO.getCollaboratorEmail().isEmpty())
+            operation.setCollaboratorEmail(newOperationDTO.getCollaboratorEmail());
+        if(newOperationDTO.getCollaboratorPhone() != null && !newOperationDTO.getCollaboratorPhone().isEmpty())
+            operation.setCollaboratorPhone(newOperationDTO.getCollaboratorPhone());
         operation.setProductOption(productService.getProductOptionById(newOperationDTO.getProductOptionId()));
         if(newOperationDTO.getAdditionalIds() != null && !newOperationDTO.getAdditionalIds().isEmpty()) {
             operation.setAdditionalProducts(productService.getAdditionalProductOptionsById(newOperationDTO.getAdditionalIds()));

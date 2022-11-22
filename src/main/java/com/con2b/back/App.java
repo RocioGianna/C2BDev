@@ -1,5 +1,7 @@
 package com.con2b.back;
 
+import com.con2b.back.beans.operation.OperationEditPermissions;
+import com.con2b.back.beans.operation.OperationPossibleNextStatus;
 import com.con2b.back.model.operation.*;
 import com.con2b.back.model.product.AdditionalProductOption;
 import com.con2b.back.model.user.User2b;
@@ -38,9 +40,8 @@ public class App extends SpringBootServletInitializer {
 	@Bean
 	CommandLineRunner createUsers (UserService userService){
 		return args -> {
-			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 249 400-0000",  true, Role.COLLABORATOR_MOVISTAR));
-
-			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 249 400-0001", true, Role.ADMIN));
+			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 2494000000", true, Role.COLLABORATOR_MOVISTAR));
+			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 2494000001", true, Role.ADMIN));
 		};
 	}
 
@@ -146,6 +147,10 @@ public class App extends SpringBootServletInitializer {
 	@Bean
 	public OperationEditPermissions operationEditPermissions () throws IOException {
 		return new OperationEditPermissions();
+	}
+	@Bean
+	public OperationPossibleNextStatus operationPossibleNextStatus () throws IOException {
+		return new OperationPossibleNextStatus();
 	}
 
 }

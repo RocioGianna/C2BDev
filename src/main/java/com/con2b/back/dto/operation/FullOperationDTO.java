@@ -26,9 +26,9 @@ public class FullOperationDTO {
     private Status status;
     private Channel channel;
     private User2b processor;
-    private User2b colaborator;
-    private String colaboratorEmail;
-    private String colaboratorPhone;
+    private User2b collaborator;
+    private String collaboratorEmail;
+    private String collaboratorPhone;
     private ProductOption productOption;
     private List<AdditionalProductOption> additionalProducts;
     private Set<OperationDetails>operationDetails;
@@ -45,9 +45,9 @@ public class FullOperationDTO {
         this.status = operation.getStatus();
         this.channel = operation.getChannel();
         this.processor = operation.getProcessor();
-        this.colaborator = operation.getColaborator();
-        this.colaboratorEmail = operation.getColaboratorEmail();
-        this.colaboratorPhone = operation.getColaboratorPhone();
+        this.collaborator = operation.getCollaborator();
+        this.collaboratorEmail = operation.getCollaboratorEmail();
+        this.collaboratorPhone = operation.getCollaboratorPhone();
         this.productOption = operation.getProductOption();
         this.additionalProducts = operation.getAdditionalProducts();
         this.operationDetails = operation.getOperationDetails();

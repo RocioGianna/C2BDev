@@ -13,9 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewOperationDTO {
-    private String colaboratorCode;
-    private String colaboratorEmail;
-    private String colaboratorPhone;
+    private String collaboratorCode;
+    private String collaboratorEmail;
+    private String collaboratorPhone;
     private Long productOptionId;
     private List<Long> additionalIds;
     private Set<OperationDetails>operationDetails;
