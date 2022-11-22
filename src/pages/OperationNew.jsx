@@ -118,10 +118,10 @@ export default function OperationNew() {
 
         if (values.differentShippingAddress) {
             body.shippingAddress = {
-                address: values.installationAddress2,
-                zipcode: values.installationZipCode2,
-                municipality: values.installationMunicipality2,
-                province: values.installationProvince2,
+                address: values.shippingAddress,
+                zipcode: values.shippingZipCode,
+                municipality: values.shippingMunicipality,
+                province: values.shippingProvince,
             };
         }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Grid } from "@mui/material";
 import { TextField } from "formik-material-ui";
-import { Field, useField } from "formik";
+import { Field, useField, useFormikContext } from "formik";
 import ConditionalForm from "../form/ConditionalForm";
 import * as yup from "yup";
 import PhoneInput from "../form/PhoneInput";
@@ -51,22 +51,22 @@ const validationSchema = () => {
             is: true,
             then: yup.string().required("La provincia de instalacion es requerida"),
         }),
-        installationAddress2: yup.string("Ingrese su direccion de instalacion").when("differentShippingAddress", {
+        shippingAddress: yup.string("Ingrese su direccion de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup
                 .string()
                 .required("La direccion de instalacion es requerida")
                 .notOneOf([yup.ref("billingAddress")], "Las direcciones no deben coincidir"),
         }),
-        installationZipCode2: yup.string("Ingrese su codigo postal de instalacion").when("differentShippingAddress", {
+        shippingZipCode: yup.string("Ingrese su codigo postal de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup.string().required("El codigo postal de instalacion es requerido"),
         }),
-        installationMunicipality2: yup.string("Ingrese su municipio de instalacion").when("differentShippingAddress", {
+        shippingMunicipality: yup.string("Ingrese su municipio de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup.string().required("El municipio de instalacion es requerido"),
         }),
-        installationProvince2: yup.string("Ingrese su provincia de instalacion").when("differentShippingAddress", {
+        shippingProvince: yup.string("Ingrese su provincia de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup.string().required("La provincia de instalacion es requerida"),
         }),
@@ -81,6 +81,9 @@ function CustomerStep(props) {
         const phoneSteps = useSelector((state) => state.formSteps.phoneSteps);
         return phoneSteps.some((step) => step.mobile === true);
     }
+
+    const { errors } = useFormikContext();
+    console.log({ errors });
 
     return (
         <Box sx={{ flexGrow: 1 }} label={props.label}>
@@ -132,16 +135,16 @@ function CustomerStep(props) {
                 {selectedProductHasAnyMobileStep() && (
                     <ConditionalForm label={"Direccion de entrega de tarjeta SIM"} name={"differentShippingAddress"}>
                         <Grid item xs={12} xl={9}>
-                            <Field fullWidth name="installationAddress2" label="Direccion de instalacion" component={TextField} />
+                            <Field fullWidth name="shippingAddress" label="Direccion de instalacion" component={TextField} />
                         </Grid>
                         <Grid item xs={12} xl={3}>
-                            <Field fullWidth name="installationZipCode2" label="Codigo postal" component={TextField} />
+                            <Field fullWidth name="shippingZipCode" label="Codigo postal" component={TextField} />
                         </Grid>
                         <Grid item xs={12} xl={6}>
-                            <Field fullWidth name="installationMunicipality2" label="Municipio" component={TextField} />
+                            <Field fullWidth name="shippingMunicipality" label="Municipio" component={TextField} />
                         </Grid>
                         <Grid item xs={12} xl={6}>
-                            <Field fullWidth name="installationProvince2" label="Provincia" component={TextField} />
+                            <Field fullWidth name="shippingProvince" label="Provincia" component={TextField} />
                         </Grid>
                     </ConditionalForm>
                 )}
