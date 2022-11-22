@@ -29,9 +29,9 @@ const validationSchema = () => {
         email: yup.string("Ingrese su correo electronico").email("Ingrese un correo electronico valido").required("El correo electronico es requerido"),
         bankAccount: yup.string("Ingrese su cuenta bancaria").required("La cuenta bancaria es requerida"),
         billingAddress: yup.string("Ingrese su direccion de facturacion").required("La direccion de facturacion es requerida"),
-        zipCode: yup.string("Ingrese su codigo postal").required("El codigo postal es requerido"),
-        municipality: yup.string("Ingrese su municipio").required("El municipio es requerido"),
-        province: yup.string("Ingrese su provincia").required("La provincia es requerida"),
+        billingZipCode: yup.string("Ingrese su codigo postal").required("El codigo postal es requerido"),
+        billingMunicipality: yup.string("Ingrese su municipio").required("El municipio es requerido"),
+        billingProvince: yup.string("Ingrese su provincia").required("La provincia es requerida"),
         instalattionAddress: yup.string("Ingrese su direccion de instalacion").when("differentInstallAddress", {
             is: true,
             then: yup
@@ -107,13 +107,13 @@ function CustomerStep(props) {
                     <Field fullWidth name="billingAddress" label="Direccion de facturacion" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={4}>
-                    <Field fullWidth name="zipCode" label="Codigo Postal" component={TextField} />
+                    <Field fullWidth name="billingZipCode" label="Codigo Postal" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
-                    <Field fullWidth name="municipality" label="Municipio" component={TextField} />
+                    <Field fullWidth name="billingMunicipality" label="Municipio" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
-                    <Field fullWidth name="province" label="Provincia" component={TextField} />
+                    <Field fullWidth name="billingProvince" label="Provincia" component={TextField} />
                 </Grid>
                 <ConditionalForm label={"Direccion de instalacion distinta a la direccion de facturacion"} name={"differentInstallAddress"}>
                     <Grid item xs={12} xl={9}>

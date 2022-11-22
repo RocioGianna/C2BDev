@@ -99,9 +99,9 @@ export default function OperationNew() {
                 bankAccount: values.bankAccount,
                 billingAddress: {
                     address: values.billingAddress,
-                    zipcode: values.zipCode,
-                    municipality: values.municipality,
-                    province: values.province,
+                    zipcode: values.billingZipCode,
+                    municipality: values.billingMunicipality,
+                    province: values.billingProvince,
                 },
             },
             documentationIds: [values.documentation],
