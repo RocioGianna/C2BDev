@@ -32,41 +32,41 @@ const validationSchema = () => {
         billingZipCode: yup.string("Ingrese su codigo postal").required("El codigo postal es requerido"),
         billingMunicipality: yup.string("Ingrese su municipio").required("El municipio es requerido"),
         billingProvince: yup.string("Ingrese su provincia").required("La provincia es requerida"),
-        instalattionAddress: yup.string("Ingrese su direccion de instalacion").when("differentInstallAddress", {
+        installationAddress: yup.string("Ingrese su direccion de instalacion").when("differentInstallAddress", {
             is: true,
             then: yup
                 .string()
                 .required("La direccion de instalacion es requerida")
                 .notOneOf([yup.ref("billingAddress")], "Las direcciones no deben coincidir"),
         }),
-        zipCodeInstallation: yup.string("Ingrese su codigo postal de instalacion").when("differentInstallAddress", {
+        installationZipCode: yup.string("Ingrese su codigo postal de instalacion").when("differentInstallAddress", {
             is: true,
             then: yup.string().required("El codigo postal de instalacion es requerido"),
         }),
-        municipalityInstallation: yup.string("Ingrese su municipio de instalacion").when("differentInstallAddress", {
+        installationMunicipality: yup.string("Ingrese su municipio de instalacion").when("differentInstallAddress", {
             is: true,
             then: yup.string().required("El municipio de instalacion es requerido"),
         }),
-        provinceInstallation: yup.string("Ingrese su provincia de instalacion").when("differentInstallAddress", {
+        installationProvince: yup.string("Ingrese su provincia de instalacion").when("differentInstallAddress", {
             is: true,
             then: yup.string().required("La provincia de instalacion es requerida"),
         }),
-        instalattionAddress2: yup.string("Ingrese su direccion de instalacion").when("differentShippingAddress", {
+        installationAddress2: yup.string("Ingrese su direccion de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup
                 .string()
                 .required("La direccion de instalacion es requerida")
                 .notOneOf([yup.ref("billingAddress")], "Las direcciones no deben coincidir"),
         }),
-        zipCodeInstallation2: yup.string("Ingrese su codigo postal de instalacion").when("differentShippingAddress", {
+        installationZipCode2: yup.string("Ingrese su codigo postal de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup.string().required("El codigo postal de instalacion es requerido"),
         }),
-        municipalityInstallation2: yup.string("Ingrese su municipio de instalacion").when("differentShippingAddress", {
+        installationMunicipality2: yup.string("Ingrese su municipio de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup.string().required("El municipio de instalacion es requerido"),
         }),
-        provinceInstallation2: yup.string("Ingrese su provincia de instalacion").when("differentShippingAddress", {
+        installationProvince2: yup.string("Ingrese su provincia de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup.string().required("La provincia de instalacion es requerida"),
         }),
@@ -117,31 +117,31 @@ function CustomerStep(props) {
                 </Grid>
                 <ConditionalForm label={"Direccion de instalacion distinta a la direccion de facturacion"} name={"differentInstallAddress"}>
                     <Grid item xs={12} xl={9}>
-                        <Field fullWidth name="instalattionAddress" label="Direccion de instalacion" component={TextField} />
+                        <Field fullWidth name="installationAddress" label="Direccion de instalacion" component={TextField} />
                     </Grid>
                     <Grid item xs={12} xl={3}>
-                        <Field fullWidth name="zipCodeInstallation" label="Codigo postal" component={TextField} />
+                        <Field fullWidth name="installationZipCode" label="Codigo postal" component={TextField} />
                     </Grid>
                     <Grid item xs={12} xl={6}>
-                        <Field fullWidth name="municipalityInstallation" label="Municipio" component={TextField} />
+                        <Field fullWidth name="installationMunicipality" label="Municipio" component={TextField} />
                     </Grid>
                     <Grid item xs={12} xl={6}>
-                        <Field fullWidth name="provinceInstallation" label="Provincia" component={TextField} />
+                        <Field fullWidth name="installationProvince" label="Provincia" component={TextField} />
                     </Grid>
                 </ConditionalForm>
                 {selectedProductHasAnyMobileStep() && (
                     <ConditionalForm label={"Direccion de entrega de tarjeta SIM"} name={"differentShippingAddress"}>
                         <Grid item xs={12} xl={9}>
-                            <Field fullWidth name="instalattionAddress2" label="Direccion de instalacion" component={TextField} />
+                            <Field fullWidth name="installationAddress2" label="Direccion de instalacion" component={TextField} />
                         </Grid>
                         <Grid item xs={12} xl={3}>
-                            <Field fullWidth name="zipCodeInstallation2" label="Codigo postal" component={TextField} />
+                            <Field fullWidth name="installationZipCode2" label="Codigo postal" component={TextField} />
                         </Grid>
                         <Grid item xs={12} xl={6}>
-                            <Field fullWidth name="municipalityInstallation2" label="Municipio" component={TextField} />
+                            <Field fullWidth name="installationMunicipality2" label="Municipio" component={TextField} />
                         </Grid>
                         <Grid item xs={12} xl={6}>
-                            <Field fullWidth name="provinceInstallation2" label="Provincia" component={TextField} />
+                            <Field fullWidth name="installationProvince2" label="Provincia" component={TextField} />
                         </Grid>
                     </ConditionalForm>
                 )}

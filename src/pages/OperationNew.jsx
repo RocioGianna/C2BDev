@@ -109,19 +109,19 @@ export default function OperationNew() {
 
         if (values.differentInstallAddress) {
             body.installationAddress = {
-                address: values.instalattionAddress,
-                zipcode: values.zipCodeInstallation,
-                municipality: values.municipalityInstallation,
-                province: values.provinceInstallation,
+                address: values.installationAddress,
+                zipcode: values.installationZipCode,
+                municipality: values.installationMunicipality,
+                province: values.installationProvince,
             };
         }
 
         if (values.differentShippingAddress) {
             body.shippingAddress = {
-                address: values.instalattionAddress2,
-                zipcode: values.zipCodeInstallation2,
-                municipality: values.municipalityInstallation2,
-                province: values.provinceInstallation2,
+                address: values.installationAddress2,
+                zipcode: values.installationZipCode2,
+                municipality: values.installationMunicipality2,
+                province: values.installationProvince2,
             };
         }
 
