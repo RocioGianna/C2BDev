@@ -124,7 +124,7 @@ const onSubmit = async (values, setFieldValue) => {
         setFieldValue(`phoneStep_${index}_phonePrefix`, "+34", false);
         setFieldValue(`phoneStep_${index}_phoneNumber`, "", false);
         setFieldValue(`phoneStep_${index}_phoneOperator`, "", false);
-        setFieldValue(`phoneStep_${index}_surname`, "", false);
+        setFieldValue(`phoneStep_${index}_lastname`, "", false);
         setFieldValue(`phoneStep_${index}_name`, "", false);
         setFieldValue(`phoneStep_${index}_nid`, "", false);
         setFieldValue(`phoneStep_${index}_changePhoneOwner`, false, false);

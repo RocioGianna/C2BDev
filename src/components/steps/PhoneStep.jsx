@@ -38,7 +38,7 @@ export function PhoneStep({ index }) {
                             <Field fullWidth name={`phoneStep_${index}_name`} label="Nombre titular actual" component={TextField} />
                         </Grid>
                         <Grid item xs={12}>
-                            <Field fullWidth name={`phoneStep_${index}_surname`} label="Apellido titular actual" component={TextField} />
+                            <Field fullWidth name={`phoneStep_${index}_lastname`} label="Apellido titular actual" component={TextField} />
                         </Grid>
                         <Grid item xs={12}>
                             <Field fullWidth name={`phoneStep_${index}_nid`} label="DNI titular actual" component={TextField} />
@@ -78,7 +78,7 @@ const validationSchema = (index) => {
                 return yup.string().required("El operador es obligatorio");
             }
         }),
-        [`phoneStep_${index}_surname`]: yup.string().when(`phoneStep_${index}_changePhoneOwner`, {
+        [`phoneStep_${index}_lastname`]: yup.string().when(`phoneStep_${index}_changePhoneOwner`, {
             is: true,
             then: yup.string().required("El apellido es requerido"),
         }),

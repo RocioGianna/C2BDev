@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 const validationSchema = () => {
     return yup.object().shape({
         customerName: yup.string().required("El nombre es requerido"),
-        customerSurname: yup.string().required("El apellido es requerido"),
+        customerLastname: yup.string().required("El apellido es requerido"),
         nid: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
         phonePrefix: yup
             .string()
@@ -89,7 +89,7 @@ function CustomerStep(props) {
                     <Field fullWidth name="customerName" label="Nombres del Cliente" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
-                    <Field fullWidth name="customerSurname" label="Apellidos del Cliente" component={TextField} />
+                    <Field fullWidth name="customerLastname" label="Apellidos del Cliente" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
                     <Field fullWidth name="nid" label="DNI / NIE / CIF / NIF" component={TextField} />

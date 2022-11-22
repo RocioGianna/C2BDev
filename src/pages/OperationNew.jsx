@@ -79,7 +79,7 @@ export default function OperationNew() {
                 phone: opDetailObject.phoneNumber != "" ? opDetailObject.phonePrefix + " " + opDetailObject.phoneNumber : null,
                 currentProvider: opDetailObject.phoneOperator != "" ? opDetailObject.phoneOperator : null,
                 currentOwnerFirstname: opDetailObject.name != "" ? opDetailObject.name : null,
-                currentOwnerLastname: opDetailObject.surname != "" ? opDetailObject.surname : null,
+                currentOwnerLastname: opDetailObject.lastname != "" ? opDetailObject.lastname : null,
                 currentOwnerNID: opDetailObject.nid != "" ? opDetailObject.nid : null,
             };
         }
@@ -92,7 +92,7 @@ export default function OperationNew() {
             operationDetails: operationDetails,
             customer: {
                 firstName: values.customerName,
-                lastName: values.customerSurname,
+                lastName: values.customerLastname,
                 nid: values.nid,
                 phone: values.phonePrefix + " " + values.phoneNumber,
                 email: values.email,
