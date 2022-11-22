@@ -1,5 +1,6 @@
 package com.con2b.back.service.user;
 
+import com.con2b.back.model.user.Role;
 import com.con2b.back.model.user.UserDetails2b;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.repository.user.UserRepository;
