@@ -87,7 +87,7 @@ export function ProductStep() {
                     <Typography variant="h6" align="center" component="h2" sx={{ m: 2 }}>
                         Adicionales
                     </Typography>
-                    <AdditionalsFieldArray disabled={productId.value === "" || productOptionId.value === "" || !additionalsByProduct(productId.value).length} name={"additionals"} avaibleAdditionals={productId.value !== "" && additionalsByProduct(productId.value)} />
+                    <AdditionalsFieldArray disabled={productId.value === "" || productOptionId.value === "" || !additionalsByProduct(productId.value).length} name={"additionals"} availableAdditionals={productId.value !== "" && additionalsByProduct(productId.value)} />
                 </Grid>
             </Grid>
         </Box>

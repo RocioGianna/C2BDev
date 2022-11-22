@@ -26,8 +26,8 @@ const multiStepInitialValues = {
     productId: "",
     productOptionId: "",
     additionals: [],
-    checkbox: false,
-    checkbox2: false,
+    differentInstallAddress: false,
+    differentShippingAddress: false,
     instalattionAddress: "",
     zipCodeInstallation: "",
     municipalityInstallation: "",
@@ -42,7 +42,7 @@ const multiStepInitialValues = {
     collaboratorPhonePrefix: "",
     collaboratorPhoneNumber: "",
     images: [""],
-    collaboratorCode: "",
+    collaborator: "",
 };
 
 export function MultiStepForm({ ...props }) {

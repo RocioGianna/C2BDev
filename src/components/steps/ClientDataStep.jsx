@@ -32,41 +32,41 @@ const validationSchema = () => {
         zipCode: yup.string("Ingrese su codigo postal").required("El codigo postal es requerido"),
         municipality: yup.string("Ingrese su municipio").required("El municipio es requerido"),
         province: yup.string("Ingrese su provincia").required("La provincia es requerida"),
-        instalattionAddress: yup.string("Ingrese su direccion de instalacion").when("checkbox", {
+        instalattionAddress: yup.string("Ingrese su direccion de instalacion").when("differentInstallAddress", {
             is: true,
             then: yup
                 .string()
                 .required("La direccion de instalacion es requerida")
                 .notOneOf([yup.ref("billingAddress")], "Las direcciones no deben coincidir"),
         }),
-        zipCodeInstallation: yup.string("Ingrese su codigo postal de instalacion").when("checkbox", {
+        zipCodeInstallation: yup.string("Ingrese su codigo postal de instalacion").when("differentInstallAddress", {
             is: true,
             then: yup.string().required("El codigo postal de instalacion es requerido"),
         }),
-        municipalityInstallation: yup.string("Ingrese su municipio de instalacion").when("checkbox", {
+        municipalityInstallation: yup.string("Ingrese su municipio de instalacion").when("differentInstallAddress", {
             is: true,
             then: yup.string().required("El municipio de instalacion es requerido"),
         }),
-        provinceInstallation: yup.string("Ingrese su provincia de instalacion").when("checkbox", {
+        provinceInstallation: yup.string("Ingrese su provincia de instalacion").when("differentInstallAddress", {
             is: true,
             then: yup.string().required("La provincia de instalacion es requerida"),
         }),
-        instalattionAddress2: yup.string("Ingrese su direccion de instalacion").when("checkbox2", {
+        instalattionAddress2: yup.string("Ingrese su direccion de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup
                 .string()
                 .required("La direccion de instalacion es requerida")
                 .notOneOf([yup.ref("billingAddress")], "Las direcciones no deben coincidir"),
         }),
-        zipCodeInstallation2: yup.string("Ingrese su codigo postal de instalacion").when("checkbox2", {
+        zipCodeInstallation2: yup.string("Ingrese su codigo postal de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup.string().required("El codigo postal de instalacion es requerido"),
         }),
-        municipalityInstallation2: yup.string("Ingrese su municipio de instalacion").when("checkbox2", {
+        municipalityInstallation2: yup.string("Ingrese su municipio de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup.string().required("El municipio de instalacion es requerido"),
         }),
-        provinceInstallation2: yup.string("Ingrese su provincia de instalacion").when("checkbox2", {
+        provinceInstallation2: yup.string("Ingrese su provincia de instalacion").when("differentShippingAddress", {
             is: true,
             then: yup.string().required("La provincia de instalacion es requerida"),
         }),
@@ -74,8 +74,8 @@ const validationSchema = () => {
 };
 
 function ClientDataStep(props) {
-    const [checkbox] = useField("checkbox");
-    const [checkbox2] = useField("checkbox2");
+    const [differentInstallAddress] = useField("differentInstallAddress");
+    const [differentShippingAddress] = useField("differentShippingAddress");
 
     function selectedProductHasAnyMobileStep() {
         const phoneSteps = useSelector((state) => state.formSteps.phoneSteps);
@@ -115,7 +115,7 @@ function ClientDataStep(props) {
                 <Grid item xs={12} xl={6}>
                     <Field fullWidth name="province" label="Provincia" component={TextField} />
                 </Grid>
-                <ConditionalForm label={"Direccion de instalacion distinta a la direccion de facturacion"} name={"checkbox"}>
+                <ConditionalForm label={"Direccion de instalacion distinta a la direccion de facturacion"} name={"differentInstallAddress"}>
                     <Grid item xs={12} xl={9}>
                         <Field fullWidth name="instalattionAddress" label="Direccion de instalacion" component={TextField} />
                     </Grid>
@@ -130,7 +130,7 @@ function ClientDataStep(props) {
                     </Grid>
                 </ConditionalForm>
                 {selectedProductHasAnyMobileStep() && (
-                    <ConditionalForm label={"Direccion de entrega de tarjeta SIM"} name={"checkbox2"}>
+                    <ConditionalForm label={"Direccion de entrega de tarjeta SIM"} name={"differentShippingAddress"}>
                         <Grid item xs={12} xl={9}>
                             <Field fullWidth name="instalattionAddress2" label="Direccion de instalacion" component={TextField} />
                         </Grid>

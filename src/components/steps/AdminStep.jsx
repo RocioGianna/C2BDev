@@ -1,26 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { Box, Grid } from "@mui/material";
-import { Field } from "formik";
-import { TextField } from "formik-material-ui";
+import { fetchCollaborators } from "../../services/CollaboratorService.js";
+import { EditableSelect } from "../form/EditableSelect.jsx";
 
 function AdminStep() {
+    const [options, setOptions] = useState([]);
+
+    useEffect(() => {
+        fetchOptions();
+    }, []);
+    
+    const fetchOptions = async (value) => {
+        const res = await fetchCollaborators(value);
+        const mappedOptions = res.data.map((option) => {return {...option, label:`${option.userCode} - ${option.firstname} ${option.lastname}`}});
+        setOptions(mappedOptions);
+    };
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Field fullWidth name="collaboratorCode" label="Código de Colaborador" component={TextField} />
+                    <EditableSelect 
+                        options={options} 
+                        name="collaborator" 
+                        onInputChange={(event, value) => fetchOptions(value)} 
+                        getOptionLabel={(option) => !option || option === "" ? "" : option.label}
+                        label="Codigo de colaborador" />
                 </Grid>
             </Grid>
         </Box>
     );
 }
 
-const onSubmit = async (values, setFieldValue) => {};
-
 const validationSchema = (index) => {
     return yup.object().shape({
-        collaboratorCode: yup.string().required("El código de colaborador es requerido"),
+        collaborator: yup.object().required("El código de colaborador es requerido"),
     });
 };
 
@@ -28,5 +43,4 @@ export default {
     validationSchema: validationSchema,
     reactComponent: AdminStep,
     label: "Administrador",
-    onSubmit: onSubmit,
 };
