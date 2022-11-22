@@ -91,8 +91,8 @@ export default function OperationNew() {
             additionalIds: values.additionals.map((a) => a.id),
             operationDetails: operationDetails,
             customer: {
-                firstName: values.clientName,
-                lastName: values.clientSurname,
+                firstName: values.customerName,
+                lastName: values.customerSurname,
                 nid: values.nid,
                 phone: values.phonePrefix + " " + values.phoneNumber,
                 email: values.email,

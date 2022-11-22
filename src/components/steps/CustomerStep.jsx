@@ -11,8 +11,8 @@ import { useSelector } from "react-redux";
 
 const validationSchema = () => {
     return yup.object().shape({
-        clientName: yup.string().required("El nombre es requerido"),
-        clientSurname: yup.string().required("El apellido es requerido"),
+        customerName: yup.string().required("El nombre es requerido"),
+        customerSurname: yup.string().required("El apellido es requerido"),
         nid: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
         phonePrefix: yup
             .string()
@@ -73,7 +73,7 @@ const validationSchema = () => {
     });
 };
 
-function ClientDataStep(props) {
+function CustomerStep(props) {
     const [differentInstallAddress] = useField("differentInstallAddress");
     const [differentShippingAddress] = useField("differentShippingAddress");
 
@@ -86,10 +86,10 @@ function ClientDataStep(props) {
         <Box sx={{ flexGrow: 1 }} label={props.label}>
             <Grid container spacing={2}>
                 <Grid item xs={12} xl={6}>
-                    <Field fullWidth name="clientName" label="Nombres del Cliente" component={TextField} />
+                    <Field fullWidth name="customerName" label="Nombres del Cliente" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
-                    <Field fullWidth name="clientSurname" label="Apellidos del Cliente" component={TextField} />
+                    <Field fullWidth name="customerSurname" label="Apellidos del Cliente" component={TextField} />
                 </Grid>
                 <Grid item xs={12} xl={6}>
                     <Field fullWidth name="nid" label="DNI / NIE / CIF / NIF" component={TextField} />
@@ -152,6 +152,6 @@ function ClientDataStep(props) {
 
 export default {
     validationSchema: validationSchema,
-    reactComponent: ClientDataStep,
+    reactComponent: CustomerStep,
     label: "Datos del cliente",
 };

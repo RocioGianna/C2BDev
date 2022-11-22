@@ -11,8 +11,8 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 
 const multiStepInitialValues = {
-    clientName: "",
-    clientSurname: "",
+    customerName: "",
+    customerSurname: "",
     isProfessionalProduct: "",
     nid: "",
     phonePrefix: "+34",
