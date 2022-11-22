@@ -5,15 +5,21 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { EditableSelect } from "./EditableSelect";
 
-export default function AdditionalsFieldArray({ disabled, name, avaibleAdditionals }) {
+export default function AdditionalsFieldArray({ disabled, name, availableAdditionals }) {
     const [field] = useField(name);
 
     const lastIsEmpty = () => field.value[field.value.length - 1] === "";
 
-    if (!avaibleAdditionals) return null;
+    if (!availableAdditionals) return null;
 
-    const options = avaibleAdditionals
-        .map((additional) => additional.options.map((option) => ({ id: option.id, label: `(${additional.name}) ${option.name}`, popular: option.popular, mobile: additional.name })))
+    const options = availableAdditionals
+        .map((additional) => additional.options.map((option) => ({
+                id: option.id, 
+                label: `(${additional.name}) ${option.name}`, 
+                popular: option.popular, 
+                mobile: additional.name,
+                steps: option.steps
+            })))
         .flat()
         .sort((a, b) => {
             let sortValue = b.popular - a.popular;
@@ -35,14 +41,14 @@ export default function AdditionalsFieldArray({ disabled, name, avaibleAdditiona
                                         options={options}
                                         name={`${name}[${index}]`}
                                         disabled={disabled}
-                                        onInputChange={(event, value) => fetchOptions(value)}
-                                        label="Codigo de colaborador"
+                                        label={`Adicional ${index + 1}`}
+                                        getOptionLabel={(option) => option === "" ? option : option.label}
                                         onChange={(event, value) => {
-                                            const additional = avaibleAdditionals
+                                            const additional = availableAdditionals
                                                 .map((additional) => additional.options)
                                                 .flat()
                                                 .find((a) => a.id == value?.id);
-                                            setFieldValue(`${name}[${index}]`, additional || "");
+                                            setFieldValue(`${name}[${index}]`, additional);
                                         }}
                                     />
                                 </Box>

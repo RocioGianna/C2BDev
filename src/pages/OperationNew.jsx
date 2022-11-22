@@ -85,9 +85,7 @@ export default function OperationNew() {
         }
 
         const body = {
-            collaboratorCode: isAdmin() ? values.collaboratorCode : user.userCode,
-            collaboratorEmail: values.collaboratorEmail,
-            collaboratorPhone: values.collaboratorPhonePrefix + " " + values.collaboratorPhoneNumber,
+            collaboratorCode: isAdmin() ? values.collaborator.userCode : user.userCode,
             refererCode: "XXX",
             productOptionId: values.productOptionId,
             additionalIds: values.additionals.map((a) => a.id),
@@ -106,23 +104,29 @@ export default function OperationNew() {
                     province: values.province,
                 },
             },
-            installationAddress: {
+            documentationIds: [values.documentation],
+        };
+
+        if(values.differentInstallAddress){
+            body.installationAddress= {
                 address: values.instalattionAddress,
                 zipcode: values.zipCodeInstallation,
                 municipality: values.municipalityInstallation,
                 province: values.provinceInstallation,
-            },
-            shippingAddress: {
+            }
+        }
+
+        if(values.differentShippingAddress){
+            body.shippingAddress = {
                 address: values.instalattionAddress2,
                 zipcode: values.zipCodeInstallation2,
                 municipality: values.municipalityInstallation2,
                 province: values.provinceInstallation2,
-            },
-            documentationIds: [values.documentation],
-        };
+            }
+        }
 
-        if (user.phone === body.collaboratorPhone) body.collaboratorPhone = null;
-        if (user.email === body.collaboratorEmail) body.collaboratorEmail = null;
+        if (user.phone !== body.collaboratorPhone) body.collaboratorPhone = values.collaboratorEmail;
+        if (user.email !== body.collaboratorEmail) body.collaboratorEmail = values.collaboratorPhonePrefix + " " + values.collaboratorPhoneNumber;
 
         if (isAdmin()) {
             postOperationAdmin(body).then(() => {

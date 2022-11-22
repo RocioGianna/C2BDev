@@ -1,23 +1,23 @@
 import React from "react";
-import { Autocomplete } from "@mui/material";
 import { Field } from "formik";
+import Autocomplete from "../form/Autocomplete";
 
-export function EditableSelect({ options, name, onInputChange, label, disabled, onChange }) {
+export function EditableSelect({ getOptionLabel, options, name, onInputChange, label, disabled, onChange }) {
     return (
         <Field
             name={name}
             disableClearable
             disabled={disabled}
-            options={options || []}
+            options={options || [""]}
             component={Autocomplete}
-            getOptionLabel={(option) => (option ? option : "")}
+            getOptionLabel={getOptionLabel ? getOptionLabel : (option) => (option)}
             ListboxProps={{ style: { maxHeight: 200 } }}
             textFieldProps={{
                 label: label,
                 variant: "outlined",
             }}
             onInputChange={(event, value) => {
-                onInputChange(event, value);
+                if (onInputChange) onInputChange(event, value);
             }}
         />
     );
