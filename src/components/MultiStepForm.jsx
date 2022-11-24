@@ -25,6 +25,7 @@ const multiStepInitialValues = {
     billingProvince: "",
     productId: "",
     productOptionId: "",
+    documentation: [],
     additionals: [],
     differentInstallAddress: false,
     differentShippingAddress: false,

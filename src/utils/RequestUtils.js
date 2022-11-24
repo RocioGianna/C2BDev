@@ -11,6 +11,10 @@ export const doSecurePost = async (url, data, config) => {
     return doSecureRequest({ method: "post", url, data, ...config });
 };
 
+export const doSecureDelete = async (url, data, config) => {
+    return doSecureRequest({ method: "delete", url, ...config });
+};
+
 const doSecureRequest = async (config) => {
     try {
         return await axios({

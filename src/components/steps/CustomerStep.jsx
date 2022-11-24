@@ -83,7 +83,6 @@ function CustomerStep(props) {
     }
 
     const { errors } = useFormikContext();
-    console.log({ errors });
 
     return (
         <Box sx={{ flexGrow: 1 }} label={props.label}>

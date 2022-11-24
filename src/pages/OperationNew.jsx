@@ -104,7 +104,7 @@ export default function OperationNew() {
                     province: values.billingProvince,
                 },
             },
-            documentationIds: [values.documentation],
+            documentationIds: values.documentation,
         };
 
         if (values.differentInstallAddress) {
