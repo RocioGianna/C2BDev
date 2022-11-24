@@ -24,19 +24,9 @@ export default function OperationDetails() {
     console.log(data);
 
     return (
-        <Grid container justifyContent="center" spacing={2} sx={{ height: "100%" }}>
-            <Grid item xs={8} sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <OperationTitle />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <OperationData row={data} />
-                    </Grid>
-                </Grid>
-            </Grid>
-            <Grid item xs={4}>
-                <Collaborator row={data} />
+        <Grid container justifyContent="center" spacing={3} sx={{ height: "100%" }}>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between" }}>
+                <OperationTitle operation={data} />
             </Grid>
             <Grid item xs={4}>
                 <Grid container spacing={2}>
@@ -52,7 +42,14 @@ export default function OperationDetails() {
                 <ProductData row={data} />
             </Grid>
             <Grid item xs={4}>
-                <Chat />
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Collaborator row={data} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Chat />
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     );

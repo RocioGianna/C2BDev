@@ -15,7 +15,7 @@ export function Chat({ chatData }) {
     }
 
     return (
-        <Paper sx={{ width: "100%", display: "flex", flexDirection: "column", height: "100%" }}>
+        <Paper sx={{ width: "100%", display: "flex", flexDirection: "column", height: "50vh" }}>
             <Box>
                 <Typography variant="h5" sx={{ flexGrow: 1, p: 2 }}>
                     Chat
