@@ -28,7 +28,7 @@ public class DocumentationResource {
     public ResponseEntity<?> saveFile(@RequestParam MultipartFile file, @RequestHeader("userId") Long userId)throws Exception{
         Optional<User2b> user = userService.getUserById(userId);
        if(file != null && !file.isEmpty() && user.isPresent()){
-           return ResponseEntity.ok().body(documentationService.saveFile(file, userId));
+           return ResponseEntity.ok().body(new GenericResponseDTO<>(true,documentationService.saveFile(file, userId)));
        }else{
            return ResponseEntity.ok().body(new GenericResponseDTO<>(false,"Error loading documentation"));
        }
@@ -37,7 +37,7 @@ public class DocumentationResource {
     @DeleteMapping("/{documentationId}")
     public ResponseEntity<?> deleteFile(@PathVariable Long documentationId)throws Exception{
         if(documentationService.getDocumentationById(documentationId) != null){
-            return ResponseEntity.ok().body(documentationService.deleteFile(documentationId));
+            return ResponseEntity.ok().body(new GenericResponseDTO<>(true,documentationService.deleteFile(documentationId)));
         }else {
             return ResponseEntity.ok().body(new GenericResponseDTO<>(false, "Error document not found"));
         }
