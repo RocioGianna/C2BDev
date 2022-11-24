@@ -31,9 +31,6 @@ export default function FilePreview({ file, handleDelete, handlePush }) {
         };
         postDocumentation(file, session.user.userCode)
             .then((res) => {
-                console.log(res);
-
-                // extract file name from path
                 const fileName = res.data.path.substring(res.data.path.lastIndexOf("/") + 1);
                 setDocId(res.data.id);
                 setDocPath(fileName);

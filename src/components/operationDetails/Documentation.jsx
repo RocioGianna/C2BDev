@@ -4,19 +4,23 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import DownloadIcon from "@mui/icons-material/Download";
 import { useTheme } from "@mui/material/styles";
 
-export function Documentation() {
-    // const items = [{ name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }, { name: "Name.png" }];
-    const items = [];
+export function Documentation({ documentation }) {
+    const items = documentation;
     const theme = useTheme();
 
     function Item({ item }) {
+        console.log(item);
+        const itemName = item.path.substring(item.path.lastIndexOf("/") + 1);
+
         return (
-            <Stack sx={{ border: 1, ml: 1, borderColor: "grey.400", borderRadius: "4px" }}>
+            <Stack sx={{ border: 1, ml: 1, borderColor: "grey.400", borderRadius: "4px", width: "150px" }}>
                 <Box sx={{ display: "flex", justifyContent: "center", py: 2, alignItems: "center" }}>
                     <FileCopyIcon color="primary" sx={{ fontSize: 50 }} />
                 </Box>
                 <Box sx={{ background: `${theme.palette.primary.extraLight}`, display: "flex", alignItems: "center", justifyContent: "center", p: 1 }}>
-                    <Typography>{item.name}</Typography>
+                    <Typography variant="subtitle2" noWrap>
+                        {itemName}
+                    </Typography>
                     <DownloadIcon />
                 </Box>
             </Stack>

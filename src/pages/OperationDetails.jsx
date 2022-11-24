@@ -44,7 +44,7 @@ export default function OperationDetails() {
                         <CustomerData row={data} />
                     </Grid>
                     <Grid item xs={12}>
-                        <Documentation />
+                        <Documentation documentation={data.documentation} />
                     </Grid>
                 </Grid>
             </Grid>
