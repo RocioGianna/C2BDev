@@ -30,4 +30,9 @@ public class OperationPossibleNextStatus {
         this.map = mapper.readValue(json, mapStatusType);
     }
 
+    public Set<Status> getPossibleNextStatusFromStatus(Status status){
+        return this.map.get(status);
+    }
+
+
 }
