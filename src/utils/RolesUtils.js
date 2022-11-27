@@ -2,23 +2,21 @@ import { store } from "../state/store";
 import moment from "moment";
 
 const collaboratorColumns = [
-    { headerAlign: "center", align: "center", flex: 1, field: "creationDate", headerName: "Fecha", valueGetter: (params) => moment(params?.row?.creationDate).format("DD/MM/YYYY") },
-    { headerAlign: "center", align: "center", flex: 1, field: "operationCode", headerName: "Codigo Operacion", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", flex: 1, field: "status", headerName: "Estado", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", flex: 1, field: "processorId", headerName: "Tramitadora", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", flex: 1, field: "customerLastName", headerName: "Apellidos", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", field: "details", headerName: "Acciones", width: 110, valueGetter: ({ value }) => value || "---" },
+    { header: "Fecha", accessorFn: (row) => moment(row.creationDate).format("DD/MM/YYYY") },
+    { header: "Codigo Operacion", accessorFn: (row) => row.operationCode || "---" },
+    { header: "Estado", accessorFn: (row) => row.status || "---" },
+    { header: "Tramitadora", accessorFn: (row) => row.processor || "---" },
+    { header: "Apellidos", accessorFn: (row) => row.customerLastName || "---" },
 ];
 
 const adminColumns = [
-    { headerAlign: "center", align: "center", flex: 1, field: "creationDate", headerName: "Fecha", valueGetter: (params) => moment(params?.row?.creationDate).format("DD/MM/YYYY") },
-    { headerAlign: "center", align: "center", flex: 1, field: "operationCode", headerName: "Codigo Operacion", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", flex: 1, field: "channel", headerName: "Canal Tramitacion", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", flex: 1, field: "status", headerName: "Estado", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", flex: 1, field: "processorId", headerName: "Tramitadora", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", flex: 1, field: "collaboratorCode", headerName: "Codigo colaborador", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", flex: 1, field: "customerLastName", headerName: "Apellidos", valueGetter: ({ value }) => value || "---" },
-    { headerAlign: "center", align: "center", field: "details", headerName: "Acciones", width: 110, valueGetter: ({ value }) => value || "---" },
+    { header: "Fecha", accessorFn: (row) => moment(row.creationDate).format("DD/MM/YYYY") },
+    { header: "Codigo Operacion", accessorFn: (row) => row.operationCode || "---" },
+    { header: "Canal Tramitacion", accessorFn: (row) => row.channelName || "---" },
+    { header: "Estado", accessorFn: (row) => row.status || "---" },
+    { header: "Tramitadora", accessorFn: (row) => row.processor || "---" },
+    { header: "Codigo colaborador", accessorFn: (row) => row.collaboratorCode || "---" },
+    { header: "Apellidos", accessorFn: (row) => row.customerLastName || "---" },
 ];
 
 function hasRole(role) {
