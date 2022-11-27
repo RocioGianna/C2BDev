@@ -61,7 +61,7 @@ public class Operation {
     @ManyToMany(fetch = FetchType.LAZY)
     private List<AdditionalProductOption> additionalProducts;
 
-    @OneToMany(mappedBy = "operation")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "operation")
     private Set<OperationDetails>operationDetails;
 
     @OneToOne
@@ -76,7 +76,7 @@ public class Operation {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation")
     private Set<Documentation> documentation;
 
-    public void addAdditionals(AdditionalProductOption additionalId) {
+    public void addAdditional(AdditionalProductOption additionalId) {
         this.additionalProducts.add(additionalId);
     }
 
