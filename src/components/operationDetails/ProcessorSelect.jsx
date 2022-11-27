@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, MenuItem } from "@mui/material";
 import { Formik, Form } from "formik";
 import { fetchProcessors } from "../../services/CollaboratorService";
 import { EditableSelect } from "../form/EditableSelect.jsx";
+import { EditableDetailField } from "../EditableDetailField";
 
-export function ProcessorSelect({ operation }) {
+export function ProcessorSelect({ processor, operationStatus }) {
     const [processors, setProcessors] = useState([]);
-    
 
-    const validationSchema = {
-        processor: yup.string().required("El código de colaborador es requerido"),
-    };
-
-    const initialValues = {
-        processor: operation.processor || "",
-    };
+    const permissionNeeded = "PROCESSOR";
 
     useEffect(() => {
         fetchOptions();
@@ -23,6 +17,7 @@ export function ProcessorSelect({ operation }) {
 
     const fetchOptions = async (value) => {
         const res = await fetchProcessors(value);
+        console.log({ res });
         const mappedOptions = res.data.map((option) => {
             return { ...option, label: `${option.userCode} - ${option.firstname} ${option.lastname}` };
         });
@@ -30,24 +25,13 @@ export function ProcessorSelect({ operation }) {
     };
 
     return (
-        <Formik
-            validationSchema={() => yup.object().shape(validationSchema)}
-            onSubmit={async (values, helpers) => {
-                console.log(values.processor);
-            }}
-            initialValues={initialValues}
-        >
-            {({ setFieldValue, values }) => (
-                <Form>
-                    {console.log(values.processor)}
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Typography variant="subtitle2" sx={{ mr: 1, alignItems: "center" }}>
-                            Tramitadora
-                        </Typography>
-                        <EditableSelect name={"processor"} options={processors} small getOptionLabel={(option) => option.firstname || " "} onInputChange={(event, value) => fetchOptions(value.userCode)} />
-                    </Box>
-                </Form>
-            )}
-        </Formik>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="subtitle2" sx={{ mr: 1, alignItems: "center" }}>
+                Tramitadora
+            </Typography>
+            <EditableDetailField name={"processor"} value={processor} operationStatus={operationStatus} permissionNeeded={permissionNeeded} type={"select"} small>
+                {processors.length > 0 && processors.map((processor) => <MenuItem value={processor}>{processor.label}</MenuItem>)}
+            </EditableDetailField>
+        </Box>
     );
 }

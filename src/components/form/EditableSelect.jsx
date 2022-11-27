@@ -1,8 +1,8 @@
 import React from "react";
 import { Field } from "formik";
 import Autocomplete from "../form/Autocomplete";
-sad;
-export function EditableSelect({ getOptionLabel, options, name, onInputChange, label, disabled, onChange, small, width }) {
+
+export function EditableSelect({ getOptionLabel, options, name, onInputChange, label, disabled, onChange, small }) {
     return (
         <Field
             name={name}

@@ -12,6 +12,7 @@ export function OperationTitle({ operation }) {
 
     const creationDate = moment(operation.creationDate).format("DD/MM/YYYY");
 
+
     return (
         <Paper
             sx={{
@@ -33,9 +34,9 @@ export function OperationTitle({ operation }) {
                 Operacion #{operation.operationCode}, {creationDate}
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "space-evenly", alignItems: "center", flexGrow: 1 }}>
-                <ChannelSelect channel={operation.channel} />
+                <ChannelSelect channel={operation.channel} operationStatus={operation.status} />
                 <Divider orientation="vertical" flexItem />
-                <ProcessorSelect operation={operation} />
+                <ProcessorSelect processor={operation.processor} operationStatus={operation.status} />
                 <Divider orientation="vertical" flexItem />
                 <Typography variant="subtitle2" sx={{ mr: 1 }}>
                     Estado

@@ -26,4 +26,6 @@ export default {
     municipality: yup.string().required("El municipio es requerido"),
     province: yup.string().required("La provincia es requerida"),
     offeredPrice: yup.string().required("El precio es requerido"),
+    selectOptional: yup.string(),
+    select: yup.string().required("El campo es requerido"),
 };

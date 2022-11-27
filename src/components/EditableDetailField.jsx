@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Field, Formik, Form } from "formik";
 import { TextField } from "formik-material-ui";
 import * as yup from "yup";
-import { IconButton, Stack, Box } from "@mui/material";
+import { IconButton, Stack, Box, Typography } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
@@ -10,8 +10,9 @@ import operationValidation from "../model/OperationValidation.js";
 import { useSelector } from "react-redux";
 import parsePhoneNumber from "libphonenumber-js";
 import PhoneInput from "./form/PhoneInput.jsx";
+import FormSelect from "./form/FormSelect.jsx";
 
-export function EditableDetailField({ value, name, operationStatus, permissionNeeded, type = "text" }) {
+export function EditableDetailField({ value, name, operationStatus, permissionNeeded, type = "text", children }) {
     const [editMode, setEditMode] = useState(false);
     const [hoverMode, setHoverMode] = useState(false);
 
@@ -23,7 +24,7 @@ export function EditableDetailField({ value, name, operationStatus, permissionNe
     let validationSchema = {};
 
     if (type !== "tel") {
-        initialValues = { [name]: value };
+        initialValues = { [name]: value || "" };
         validationSchema = { [name]: operationValidation[name] };
     } else {
         const phoneNumber = parsePhoneNumber(value);
@@ -52,6 +53,10 @@ export function EditableDetailField({ value, name, operationStatus, permissionNe
                             <Box sx={{ display: "flex", justifyContent: "end" }}>
                                 <PhoneInput phonePrefixName={`phonePrefix`} phoneNumberName={`phoneNumber`} small />
                             </Box>
+                        ) : type === "select" ? (
+                            <FormSelect name={name} small>
+                                {children}
+                            </FormSelect>
                         ) : (
                             <Field
                                 sx={{ heigth: "100%", display: "flex", justifyContent: "end", flexDirection: "column" }}
@@ -83,7 +88,7 @@ export function EditableDetailField({ value, name, operationStatus, permissionNe
     else {
         return (
             <Stack direction="row" spacing={1} onMouseEnter={() => setHoverMode(true)} onMouseLeave={() => setHoverMode(false)}>
-                <span>{value}</span>
+                <span>{value ? value : "-"}</span>
                 {canEdit && hoverMode && (
                     <IconButton onClick={() => setEditMode(true)} size="small" sx={{ p: 0, m: 0 }}>
                         <EditIcon fontSize="inherit" />
