@@ -131,14 +131,12 @@ export default function OperationNew() {
         if (isAdmin()) {
             postOperationAdmin(body).then(() => {
                 fetchOperations().then((res) => {
-                    console.log(res);
                     store.dispatch(operationsFetched(res.data));
                 });
             });
         } else {
             postOperation(body).then(() => {
                 fetchOperations().then((res) => {
-                    console.log(res);
                     store.dispatch(operationsFetched(res.data));
                 });
             });

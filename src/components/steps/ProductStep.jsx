@@ -54,9 +54,7 @@ export function ProductStep() {
         const additionalsIds = product.availableAdditionals;
         return additionals.filter((a) => additionalsIds.includes(a.id));
     };
-
-    // if (productId.value) console.log(additionalsByProduct(productId.value));
-
+    
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
