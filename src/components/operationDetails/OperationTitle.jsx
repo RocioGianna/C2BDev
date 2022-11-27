@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import { ProcessorSelect } from "./ProcessorSelect";
 import { ChannelSelect } from "./ChannelSelect";
+import { StatusSelect } from "./StatusSelect";
 
 export function OperationTitle({ operation }) {
     const navigate = useNavigate();
 
     const creationDate = moment(operation.creationDate).format("DD/MM/YYYY");
-
 
     return (
         <Paper
@@ -38,9 +38,7 @@ export function OperationTitle({ operation }) {
                 <Divider orientation="vertical" flexItem />
                 <ProcessorSelect processor={operation.processor} operationStatus={operation.status} />
                 <Divider orientation="vertical" flexItem />
-                <Typography variant="subtitle2" sx={{ mr: 1 }}>
-                    Estado
-                </Typography>
+                <StatusSelect operationStatus={operation.status} />
             </Box>
             <Box
                 sx={{

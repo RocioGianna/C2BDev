@@ -21,8 +21,6 @@ export default function OperationDetails() {
 
     if (!data) return <></>;
 
-    console.log(data);
-
     return (
         <Grid container justifyContent="center" spacing={3} sx={{ height: "100%" }}>
             <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between" }}>

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     operations: null,
     permissions: null,
+    statusMap: null,
 };
 
 export const operationsSlice = createSlice({
@@ -17,9 +18,13 @@ export const operationsSlice = createSlice({
             prev.permissions = action.payload;
             return prev;
         },
+        statusMapFetched: (prev, action) => {
+            prev.statusMap = action.payload;
+            return prev;
+        },
     },
 });
 
-export const { operationsFetched, permissionsFetched } = operationsSlice.actions;
+export const { operationsFetched, permissionsFetched, statusMapFetched } = operationsSlice.actions;
 
 export default operationsSlice.reducer;

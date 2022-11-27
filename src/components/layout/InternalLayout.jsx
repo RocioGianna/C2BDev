@@ -5,7 +5,7 @@ import AppBar from "./appBar/AppBar";
 import { useSelector } from "react-redux";
 import { fetchAdditionals, fetchProducts } from "../../services/ProductService";
 import { Toolbar, Box } from "@mui/material";
-import { fetchOperationEditPermissions } from "../../services/OperationService";
+import { fetchOperationEditPermissions, fetchStatusMap } from "../../services/OperationService";
 
 function InternalLayout() {
     const loaded = useSelector((state) => state.session.loaded);
@@ -20,6 +20,7 @@ function InternalLayout() {
             fetchProducts();
             fetchAdditionals();
             fetchOperationEditPermissions();
+            fetchStatusMap();
         }
     }, []);
 
