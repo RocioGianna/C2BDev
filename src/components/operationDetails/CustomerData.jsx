@@ -64,7 +64,7 @@ export function CustomerData({ row }) {
                             </TableRow>
                             <TableRow>
                                 <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                    <div>Cuenta bancaria</div>
+                                    <div>Nº Cuenta Bancaria / IBAN</div>
                                     <EditableDetailField value={row.customer.bankAccount} name={"bankAccount"} operationStatus={row.status} permissionNeeded={"CUSTOMER"} />
                                 </TableCell>
                             </TableRow>
