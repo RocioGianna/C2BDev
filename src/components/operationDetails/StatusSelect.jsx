@@ -17,7 +17,9 @@ export function StatusSelect({ operationStatus }) {
             <EditableDetailField name={"select"} value={operationStatus} operationStatus={operationStatus} permissionNeeded={"STATUS"} type="select">
                 <MenuItem value={operationStatus}>{operationStatus}</MenuItem>
                 {statusOptions.map((status) => (
-                    <MenuItem value={status}>{status}</MenuItem>
+                    <MenuItem key={status} value={status}>
+                        {status}
+                    </MenuItem>
                 ))}
             </EditableDetailField>
         </Box>
