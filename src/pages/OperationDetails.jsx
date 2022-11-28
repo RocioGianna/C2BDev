@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Box } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { OperationTitle } from "../components/operationDetails/OperationTitle";
-import { OperationData } from "../components/operationDetails/OperationData";
 import { Chat } from "../components/operationDetails/Chat";
 import { Collaborator } from "../components/operationDetails/Collaborator";
 import { Documentation } from "../components/operationDetails/Documentation";
 import { CustomerData } from "../components/operationDetails/CustomerData";
 import { ProductData } from "../components/operationDetails/ProductData";
-import { PhoneData } from "../components/operationDetails/PhoneData";
 import { fetchOperation } from "../services/OperationService.js";
 
 export default function OperationDetails() {
