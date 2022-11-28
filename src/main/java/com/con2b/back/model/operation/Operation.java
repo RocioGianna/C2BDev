@@ -15,9 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
 
 @Entity
 @Getter
@@ -87,6 +86,4 @@ public class Operation {
     public void addDocumentation(Documentation documentationId){
         this.documentation.add(documentationId);
     }
-
-
 }

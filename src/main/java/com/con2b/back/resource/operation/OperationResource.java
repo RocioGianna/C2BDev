@@ -2,6 +2,7 @@ package com.con2b.back.resource.operation;
 
 import com.con2b.back.dto.GenericResponseDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
+import com.con2b.back.dto.operation.OperationEditDTO;
 import com.con2b.back.dto.operation.SmallOperationDTO;
 import com.con2b.back.beans.operation.OperationEditPermissions;
 import com.con2b.back.beans.operation.OperationPossibleNextStatus;
@@ -84,6 +85,24 @@ public class OperationResource {
     @GetMapping("/status-map")
     public ResponseEntity<?> getPossibleNextStatus() {
         return ResponseEntity.ok().body(new GenericResponseDTO(true, operationPossibleNextStatus.getMap()));
+    }
+
+    @PutMapping("/{operationId}")
+    public ResponseEntity<?> editOperation(@RequestBody OperationEditDTO value, @PathVariable Long operationId) throws Exception {
+        try{
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, operationService.editOperation(value, operationId)));
+        }catch (Exception e){
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Operation id not found."));
+        }
+    }
+
+    @PutMapping("/{detailsId}/{operationId}")
+    public ResponseEntity<?> editOperationDetails(@RequestBody OperationEditDTO value,@PathVariable Long detailsId, @PathVariable Long operationId) throws Exception {
+        try{
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, operationService.editOperation(value, detailsId, operationId)));
+        }catch (Exception e){
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Operation id not found."));
+        }
     }
 
 }
