@@ -37,7 +37,6 @@ public class OperationResource {
     @PreAuthorize("hasAnyRole('COLLABORATOR_MOVISTAR', 'COLLABORATOR_ALL')")
     public ResponseEntity<?> createOperation(@RequestBody NewOperationDTO newOperationDTO, @RequestHeader("userId") Long userId )throws Exception{
         Optional<User2b> opUser = userService.getUserById(userId);
-
         if(opUser.isPresent() && newOperationDTO.getCollaboratorCode().equals(opUser.get().getUserCode()) ){
             return ResponseEntity.ok().body(new GenericResponseDTO<>(operationService.createOperation(newOperationDTO)));
         }else{
@@ -88,18 +87,28 @@ public class OperationResource {
     }
 
     @PutMapping("/{operationId}")
-    public ResponseEntity<?> editOperation(@RequestBody OperationEditDTO value, @PathVariable Long operationId) throws Exception {
+    public ResponseEntity<?> editOperation(@RequestBody OperationEditDTO value, @PathVariable Long operationId, @RequestHeader("userId") Long userId ) throws Exception {
         try{
-            return ResponseEntity.ok().body(new GenericResponseDTO(true, operationService.editOperation(value, operationId)));
+            Optional<User2b> opUser = userService.getUserById(userId);
+            if(opUser.isPresent()) {
+                return ResponseEntity.ok().body(new GenericResponseDTO(operationService.editOperation(value, operationId, opUser.get().getRole())));
+            }else{
+                return ResponseEntity.ok().body(new GenericResponseDTO(false, "UserId not found"));
+            }
         }catch (Exception e){
             return ResponseEntity.ok().body(new GenericResponseDTO(false,"Operation id not found."));
         }
     }
 
     @PutMapping("/{detailsId}/{operationId}")
-    public ResponseEntity<?> editOperationDetails(@RequestBody OperationEditDTO value,@PathVariable Long detailsId, @PathVariable Long operationId) throws Exception {
+    public ResponseEntity<?> editOperationDetails(@RequestBody OperationEditDTO value,@PathVariable Long detailsId, @PathVariable Long operationId, @RequestHeader("userId") Long userId) throws Exception {
         try{
-            return ResponseEntity.ok().body(new GenericResponseDTO(true, operationService.editOperation(value, detailsId, operationId)));
+            Optional<User2b> opUser = userService.getUserById(userId);
+            if(opUser.isPresent()) {
+                return ResponseEntity.ok().body(new GenericResponseDTO(operationService.editOperationDetails(value, detailsId, operationId, opUser.get().getRole())));
+            }else{
+                return ResponseEntity.ok().body(new GenericResponseDTO(false, "UserId not found"));
+            }
         }catch (Exception e){
             return ResponseEntity.ok().body(new GenericResponseDTO(false,"Operation id not found."));
         }

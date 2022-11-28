@@ -19,7 +19,6 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.List;
-import java.util.Set;
 
 
 import static org.springframework.util.StringUtils.capitalize;
@@ -125,7 +124,7 @@ public class OperationService {
         return operationRepository.findAll();
     }
 
-    public Operation editOperation(OperationEditDTO operationEditDTO, Long operationId) throws Exception {
+    public Operation editOperation(OperationEditDTO operationEditDTO, Long operationId, Role role) throws Exception {
         Optional<Operation> operation = operationRepository.findById(operationId);
         if(operation.isEmpty()){
             throw new Exception("The operation id is invalid");
@@ -133,7 +132,6 @@ public class OperationService {
         OperationColumn column = operationEditDTO.getColumn();
         Object instance = null;
         String methodName = "set"+ capitalize(operationEditDTO.getAttribute());
-        Role role = operation.get().getCollaborator().getRole();
         Status status = operation.get().getStatus();
 
         if(!operationEditPermissions.isColumnEditable(role, status, column)){
@@ -197,13 +195,12 @@ public class OperationService {
         return operationRepository.save(operation.get());
     }
 
-    public Operation editOperation(OperationEditDTO operationEditDTO, Long detailsId, Long operationId) throws Exception {
+    public Operation editOperationDetails(OperationEditDTO operationEditDTO, Long detailsId, Long operationId, Role role) throws Exception {
         Optional<Operation> operation = operationRepository.findById(operationId);
         if(operation.isEmpty()){
             throw new Exception("The operation id is invalid");
         }
         OperationColumn column = operationEditDTO.getColumn();
-        Role role = operation.get().getCollaborator().getRole();
         Status status = operation.get().getStatus();
         if(!operationEditPermissions.isColumnEditable(role, status, column)){
             throw new Exception("The current client can't edit this field.");
