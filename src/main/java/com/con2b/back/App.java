@@ -42,6 +42,7 @@ public class App extends SpringBootServletInitializer {
 		return args -> {
 			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 2494000000", true, Role.COLLABORATOR_MOVISTAR));
 			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 2494000001", true, Role.ADMIN));
+			userService.saveUser(new User2b(null,"processor@2bconexion.com","pass","Processor","Processor","003","+54 2494000002",true,Role.PROCESSOR_ADVANCED));
 		};
 	}
 
