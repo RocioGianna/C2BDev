@@ -20,7 +20,7 @@ public class Product {
     private Long id;
     private String name;
     private String description;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     @JsonIgnore
     private Set<ProductOption> options;
     @ManyToMany(fetch = FetchType.LAZY)

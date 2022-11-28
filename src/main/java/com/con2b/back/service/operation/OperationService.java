@@ -3,7 +3,7 @@ package com.con2b.back.service.operation;
 import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.model.operation.*;
-import com.con2b.back.repository.operation.LineTypeRepository;
+import com.con2b.back.repository.operation.StepRepository;
 import com.con2b.back.repository.operation.OperationRepository;
 import com.con2b.back.service.product.ProductService;
 import com.con2b.back.service.user.UserService;
@@ -19,7 +19,7 @@ import java.util.List;
 public class OperationService {
 
     @Autowired
-    private LineTypeRepository lineTypeRepository;
+    private StepRepository stepRepository;
     @Autowired
     private OperationRepository operationRepository;
     @Autowired
@@ -36,8 +36,8 @@ public class OperationService {
     private UserService userService;
 
 
-    public LineType saveLineType(LineType lineType){
-        return lineTypeRepository.save(lineType);
+    public Step saveStep(Step step){
+        return stepRepository.save(step);
     }
 
     public Operation getOperation(Long operationId) throws Exception {
@@ -61,11 +61,6 @@ public class OperationService {
         Customer customer = customerService.saveCustomer(newOperationDTO.getCustomer());
         Address installationAddress = addressService.saveAddress(newOperationDTO.getInstallationAddress());
         Address shippingAddress = addressService.saveAddress(newOperationDTO.getShippingAddress());
-        if(newOperationDTO.getOperationDetails() != null) {
-            for (OperationDetails od : newOperationDTO.getOperationDetails()) {
-                operationDetailsId.add(operationDetailsService.saveOperationDetails(od));
-            }
-        }
 
         String operationCode = "XXX";
 
@@ -101,6 +96,13 @@ public class OperationService {
         if(operationSave.getDocumentation() != null && !operationSave.getDocumentation().isEmpty()){
             for(Documentation d: operationSave.getDocumentation()){
                 documentationService.updatePathFile(d, operationSave.getId());
+            }
+        }
+
+        if(newOperationDTO.getOperationDetails() != null) {
+            for (OperationDetails od : newOperationDTO.getOperationDetails()) {
+                od.setOperation(operationSave);
+                operationDetailsId.add(operationDetailsService.saveOperationDetails(od));
             }
         }
 

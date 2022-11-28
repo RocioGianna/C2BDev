@@ -1,5 +1,7 @@
 package com.con2b.back.model.operation;
 
+import com.con2b.back.model.product.AdditionalProduct;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,5 +38,9 @@ public class OperationDetails {
 
     @Column(nullable = true)
     private String currentOwnerNID;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Operation operation;
 
 }
