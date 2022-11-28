@@ -26,4 +26,11 @@ public class UserResource {
         return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.getUsersByUserCode(userCode).stream().map(SmallUserDTO::new).collect(Collectors.toList())));
     }
 
+
+    @GetMapping("/processors")
+    @PreAuthorize("hasAnyRole('PROCESSOR','PROCESSOR_ADVANCED', 'MANAGER', 'ADMIN', 'SUPER_ADMIN')")
+    public ResponseEntity<?> getProcessorsByUserCode(@RequestParam(defaultValue = "") String processorCode ){
+        return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.getProcessorsByUserCode(processorCode).stream().map(SmallUserDTO::new).collect(Collectors.toList())));
+    }
+
 }
