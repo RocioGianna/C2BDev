@@ -7,10 +7,12 @@ import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.dto.operation.OperationEditDTO;
 import com.con2b.back.model.operation.*;
 import com.con2b.back.model.user.Role;
+import com.con2b.back.model.user.User2b;
 import com.con2b.back.repository.operation.LineTypeRepository;
 import com.con2b.back.repository.operation.OperationRepository;
 import com.con2b.back.service.product.ProductService;
 import com.con2b.back.service.user.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -140,9 +142,7 @@ public class OperationService {
 
         switch(column){
             case OPERATION_CODE:
-                instance = operation.get().getOperationCode();
-                Method method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
-                method.invoke(instance,operationEditDTO.getValue());
+                operation.get().setOperationCode((String) operationEditDTO.getValue());
                 break;
             case REPROCESS:
                 operation.get().setReprocess((Boolean)operationEditDTO.getValue());
@@ -155,19 +155,15 @@ public class OperationService {
                 }
                 break;
             case CHANNEL:
-                instance = operation.get().getChannel();
-                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
-                method.invoke(instance,operationEditDTO.getValue());
+                operation.get().setChannel(Channel.valueOf(operationEditDTO.getValue().toString()));
                 break;
             case PROCESSOR:
-                instance = operation.get().getProcessor();
-                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
-                method.invoke(instance,operationEditDTO.getValue());
+                Long processorId = Long.parseLong(operationEditDTO.getValue().toString());
+                User2b processor = userService.getUserById(processorId).get();
+                operation.get().setProcessor(processor);
                 break;
             case COLLABORATOR:
-                instance = operation.get().getCollaborator();
-                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
-                method.invoke(instance,operationEditDTO.getValue());
+                operation.get().setCollaborator((User2b) operationEditDTO.getValue());
                 break;
             case COLLABORATOR_EMAIL:
                 operation.get().setCollaboratorEmail(operationEditDTO.getValue().toString());
@@ -176,19 +172,13 @@ public class OperationService {
                 operation.get().setCollaboratorPhone(operationEditDTO.getValue().toString());
                 break;
             case CUSTOMER:
-                instance = operation.get().getCustomer();
-                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
-                method.invoke(instance,operationEditDTO.getValue());
+                operation.get().setCustomer((Customer) operationEditDTO.getValue());
                 break;
             case INSTALLATION_ADDRESS:
-                instance = operation.get().getInstallationAddress();
-                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
-                method.invoke(instance,operationEditDTO.getValue());
+                operation.get().setInstallationAddress((Address) operationEditDTO.getValue());
                 break;
             case SHIPPING_ADDRESS:
-                instance = operation.get().getShippingAddress();
-                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
-                method.invoke(instance,operationEditDTO.getValue());
+                operation.get().setShippingAddress((Address) operationEditDTO.getValue());
                 break;
         }
 
