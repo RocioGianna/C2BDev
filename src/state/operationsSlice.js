@@ -4,6 +4,7 @@ const initialState = {
     operations: null,
     permissions: null,
     statusMap: null,
+    operation: null,
 };
 
 export const operationsSlice = createSlice({
@@ -22,9 +23,13 @@ export const operationsSlice = createSlice({
             prev.statusMap = action.payload;
             return prev;
         },
+        operationFetched: (prev, action) => {
+            prev.operation = action.payload;
+            return prev;
+        },
     },
 });
 
-export const { operationsFetched, permissionsFetched, statusMapFetched } = operationsSlice.actions;
+export const { operationsFetched, permissionsFetched, statusMapFetched, operationFetched } = operationsSlice.actions;
 
 export default operationsSlice.reducer;
