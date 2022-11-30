@@ -82,8 +82,6 @@ function CustomerStep(props) {
         return phoneSteps.some((step) => step.mobile === true);
     }
 
-    const { errors } = useFormikContext();
-
     return (
         <Box sx={{ flexGrow: 1 }} label={props.label}>
             <Grid container spacing={2}>

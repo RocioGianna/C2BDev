@@ -21,6 +21,7 @@ export function ProductData({ row }) {
     let operationDetails = row.operationDetails;
     const [expanded, setExpanded] = useState(true);
     const phoneSteps = getAllSteps();
+    console.log({ phoneSteps });
     const mobileAmount = phoneSteps.filter((step) => step.mobile === true).length;
     const fixedAmount = phoneSteps.length - mobileAmount;
 
@@ -91,7 +92,10 @@ export function ProductData({ row }) {
                 <AccordionDetails>
                     <Grid container spacing={1}>
                         {operationDetails.map((opDetail, index) => {
-                            const step = phoneSteps.find((step) => opDetail.stepId === step.id);
+                            const step = phoneSteps.find((step) => {
+                                console.log(step);
+                                return opDetail.stepId === step.id;
+                            });
                             const type = opDetail.type === "NEW" ? "Nuevo" : opDetail.type === "PORTABILITY" ? "Portabilidad" : "Existente";
                             let additionalData = { ...opDetail, type, step };
                             return <OperationProductDetails key={index} additional={additionalData} />;

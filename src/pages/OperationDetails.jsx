@@ -8,39 +8,40 @@ import { Documentation } from "../components/operationDetails/Documentation";
 import { CustomerData } from "../components/operationDetails/CustomerData";
 import { ProductData } from "../components/operationDetails/ProductData";
 import { fetchOperation } from "../services/OperationService.js";
+import { useSelector } from "react-redux";
 
 export default function OperationDetails() {
-    const [data, setData] = useState(null);
     let params = useParams();
+    const operation = useSelector((state) => state.operations.operation);
 
     useEffect(() => {
-        fetchOperation(params.opId).then((res) => setData(res.data));
+        fetchOperation(params.opId);
     }, []);
 
-    if (!data) return <></>;
+    if (!operation) return <></>;
 
     return (
         <Grid container justifyContent="center" spacing={3} sx={{ height: "100%" }}>
             <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between" }}>
-                <OperationTitle operation={data} />
+                <OperationTitle operation={operation} />
             </Grid>
             <Grid item xs={4}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <CustomerData row={data} />
+                        <CustomerData row={operation} />
                     </Grid>
                     <Grid item xs={12}>
-                        <Documentation documentation={data.documentation} />
+                        <Documentation documentation={operation.documentation} />
                     </Grid>
                 </Grid>
             </Grid>
             <Grid item xs={4}>
-                <ProductData row={data} />
+                <ProductData row={operation} />
             </Grid>
             <Grid item xs={4}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Collaborator row={data} />
+                        <Collaborator row={operation} />
                     </Grid>
                     <Grid item xs={12}>
                         <Chat />

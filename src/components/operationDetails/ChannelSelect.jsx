@@ -13,7 +13,7 @@ export function ChannelSelect({ channel, operationStatus }) {
             <Typography variant="subtitle2" sx={{ mr: 1, alignItems: "center" }}>
                 Canal
             </Typography>
-            <EditableDetailField name={"selectOptional"} value={channelName} operationStatus={operationStatus} permissionNeeded={permissionNeeded} type="select">
+            <EditableDetailField value={channelName} name={"selectOptional"} column={permissionNeeded} operationStatus={operationStatus} type="select">
                 <MenuItem value={""}>-</MenuItem>
                 <MenuItem value={"AR"}>AR</MenuItem>
                 <MenuItem value={"FM"}>FM</MenuItem>

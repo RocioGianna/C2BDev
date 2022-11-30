@@ -11,14 +11,16 @@ import { useSelector } from "react-redux";
 import parsePhoneNumber from "libphonenumber-js";
 import PhoneInput from "./form/PhoneInput.jsx";
 import FormSelect from "./form/FormSelect.jsx";
+import { putOperation } from "../services/OperationService.js";
 
-export function EditableDetailField({ value, name, operationStatus, permissionNeeded, type = "text", children }) {
+export function EditableDetailField({ value, name, operationStatus, column, type = "text", children }) {
     const [editMode, setEditMode] = useState(false);
     const [hoverMode, setHoverMode] = useState(false);
 
     const editPermissions = useSelector((state) => state.operations.permissions);
     const editPermission = editPermissions[operationStatus];
-    const canEdit = editPermission.includes(permissionNeeded);
+    const canEdit = editPermission.includes(column);
+    const operation = useSelector((state) => state.operations.operation);
 
     let initialValues = {};
     let validationSchema = {};
@@ -43,6 +45,10 @@ export function EditableDetailField({ value, name, operationStatus, permissionNe
             <Formik
                 validationSchema={() => yup.object().shape(validationSchema)}
                 onSubmit={async (values, helpers) => {
+                    let operationId = operation.id;
+                    let attribute = name;
+                    let value = values[name];
+                    putOperation(operationId, column, attribute, value);
                     setEditMode(false);
                 }}
                 initialValues={initialValues}
