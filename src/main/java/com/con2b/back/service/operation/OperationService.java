@@ -158,8 +158,7 @@ public class OperationService {
                 operation.get().setChannel(Channel.valueOf(operationEditDTO.getValue().toString()));
                 break;
             case PROCESSOR:
-                Long processorId = Long.parseLong(operationEditDTO.getValue().toString());
-                User2b processor = userService.getUserById(processorId).get();
+                User2b processor = userService.getUserByUserCode(operationEditDTO.getValue().toString());
                 operation.get().setProcessor(processor);
                 break;
             case COLLABORATOR:
