@@ -21,7 +21,6 @@ export function ProductData({ row }) {
     let operationDetails = row.operationDetails;
     const [expanded, setExpanded] = useState(true);
     const phoneSteps = getAllSteps();
-    console.log({ phoneSteps });
     const mobileAmount = phoneSteps.filter((step) => step.mobile === true).length;
     const fixedAmount = phoneSteps.length - mobileAmount;
 
