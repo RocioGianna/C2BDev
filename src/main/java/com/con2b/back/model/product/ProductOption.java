@@ -1,7 +1,6 @@
 package com.con2b.back.model.product;
 
-import com.con2b.back.model.operation.LineType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.con2b.back.model.operation.Step;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class ProductOption {
     private String name;
     private String description;
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<LineType> steps;
+    private List<Step> steps;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Product product;

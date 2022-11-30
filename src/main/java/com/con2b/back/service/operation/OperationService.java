@@ -8,11 +8,10 @@ import com.con2b.back.dto.operation.OperationEditDTO;
 import com.con2b.back.model.operation.*;
 import com.con2b.back.model.user.Role;
 import com.con2b.back.model.user.User2b;
-import com.con2b.back.repository.operation.LineTypeRepository;
+import com.con2b.back.repository.operation.StepRepository;
 import com.con2b.back.repository.operation.OperationRepository;
 import com.con2b.back.service.product.ProductService;
 import com.con2b.back.service.user.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,7 @@ import static org.springframework.util.StringUtils.capitalize;
 public class OperationService {
 
     @Autowired
-    private LineTypeRepository lineTypeRepository;
+    private StepRepository stepRepository;
     @Autowired
     private OperationRepository operationRepository;
     @Autowired
@@ -50,8 +49,8 @@ public class OperationService {
     private OperationPossibleNextStatus operationPossibleNextStatus;
 
 
-    public LineType saveLineType(LineType lineType){
-        return lineTypeRepository.save(lineType);
+    public Step saveStep(Step step){
+        return stepRepository.save(step);
     }
 
     public Operation getOperation(Long operationId) throws Exception {
@@ -75,11 +74,6 @@ public class OperationService {
         Customer customer = customerService.saveCustomer(newOperationDTO.getCustomer());
         Address installationAddress = addressService.saveAddress(newOperationDTO.getInstallationAddress());
         Address shippingAddress = addressService.saveAddress(newOperationDTO.getShippingAddress());
-        if(newOperationDTO.getOperationDetails() != null) {
-            for (OperationDetails od : newOperationDTO.getOperationDetails()) {
-                operationDetailsId.add(operationDetailsService.saveOperationDetails(od));
-            }
-        }
 
         String operationCode = "XXX";
 
@@ -87,7 +81,6 @@ public class OperationService {
 
         operation.setOperationCode(operationCode);
         operation.setStatus(Status.PENDING);
-
         operation.setCollaborator(userService.getUserByUserCode(newOperationDTO.getCollaboratorCode()));
         if(newOperationDTO.getCollaboratorEmail() != null && !newOperationDTO.getCollaboratorEmail().isEmpty())
             operation.setCollaboratorEmail(newOperationDTO.getCollaboratorEmail());
@@ -116,6 +109,13 @@ public class OperationService {
         if(operationSave.getDocumentation() != null && !operationSave.getDocumentation().isEmpty()){
             for(Documentation d: operationSave.getDocumentation()){
                 documentationService.updatePathFile(d, operationSave.getId());
+            }
+        }
+
+        if(newOperationDTO.getOperationDetails() != null) {
+            for (OperationDetails od : newOperationDTO.getOperationDetails()) {
+                od.setOperation(operationSave);
+                operationDetailsId.add(operationDetailsService.saveOperationDetails(od));
             }
         }
 

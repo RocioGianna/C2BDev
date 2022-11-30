@@ -19,7 +19,7 @@ public class AdditionalProduct {
     @Id @GeneratedValue
     private Long id;
     private String name;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "additionalProduct")
     private Set<AdditionalProductOption> options;
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore

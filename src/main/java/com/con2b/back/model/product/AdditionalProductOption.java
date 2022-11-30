@@ -1,6 +1,6 @@
 package com.con2b.back.model.product;
 
-import com.con2b.back.model.operation.LineType;
+import com.con2b.back.model.operation.Step;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -25,7 +25,7 @@ public class AdditionalProductOption {
     private String description;
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<LineType> steps;
+    private List<Step> steps;
     private boolean isPopular;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore

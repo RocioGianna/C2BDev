@@ -50,15 +50,15 @@ public class App extends SpringBootServletInitializer {
 	@Bean
 	CommandLineRunner createProducts(ProductService productService, OperationService operationService){
 		return args -> {
-			LineType fixed = operationService.saveLineType(new LineType(null, "Fijo", false));
-			LineType fiveGb = operationService.saveLineType(new LineType(null, "5GB + 0cent/min", true));
-			LineType l = operationService.saveLineType(new LineType(null, "Línea L", true));
-			LineType xl = operationService.saveLineType(new LineType(null, "Línea XL", true));
-			LineType infinite = operationService.saveLineType(new LineType(null, "Línea Infinita", true));
-			LineType bares = operationService.saveLineType(new LineType(null, "Línea Adicional Bares", true));
+			Step fixed = operationService.saveStep(new Step(null, "Fijo", StepType.FIXED));
+			Step fiveGb = operationService.saveStep(new Step(null, "5GB + 0cent/min", StepType.MOBILE));
+			Step l = operationService.saveStep(new Step(null, "Línea L", StepType.MOBILE));
+			Step xl = operationService.saveStep(new Step(null, "Línea XL", StepType.MOBILE));
+			Step infinite = operationService.saveStep(new Step(null, "Línea Infinita", StepType.MOBILE));
+			Step bares = operationService.saveStep(new Step(null, "Línea Adicional Bares", StepType.MOBILE));
 
 			Product prod1 = productService.saveProduct(new Product(null, "MiMovistar","Fibra+Movil+Fijo+TV", new HashSet<>(), new HashSet<>(), false));
-			List<LineType> steps = new ArrayList<>();
+			List<Step> steps = new ArrayList<>();
 			steps.add(fixed);
 			steps.add(xl);
 			steps.add(fiveGb);
