@@ -47,7 +47,7 @@ const multiStepInitialValues = {
 };
 
 export function MultiStepForm({ ...props }) {
-    const additionals = useSelector((state) => state.formSteps);
+    const formSteps = useSelector((state) => state.formSteps);
     const [activeStep, setActiveStep] = useState(0);
     const stepsArray = props.steps.map((s) => steps[s]);
     const currentChild = stepsArray[activeStep];
@@ -57,7 +57,7 @@ export function MultiStepForm({ ...props }) {
 
     const currentPhoneStepIndex = activeStep - (isAdmin() ? 3 : 2);
 
-    const currentLabel = props.steps[activeStep] === "PHONE_STEP" ? (additionals.phoneSteps[currentPhoneStepIndex].mobile ? "Linea Movil - " + additionals.phoneSteps[currentPhoneStepIndex].name : "Linea Fija") : currentChild.label;
+    const currentLabel = props.steps[activeStep] === "PHONE_STEP" ? (formSteps.phoneSteps[currentPhoneStepIndex].stepType ==="MOBILE" ? "Linea Movil - " + formSteps.phoneSteps[currentPhoneStepIndex].name : "Linea Fija") : currentChild.label;
 
     const currentOnSubmit = currentChild.onSubmit;
 

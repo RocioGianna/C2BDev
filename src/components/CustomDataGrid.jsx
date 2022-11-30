@@ -65,17 +65,7 @@ function Filter({ columns, setResult, rows }) {
     const [value, setValue] = useState("");
 
     function updateResult() {
-        let currentProperty = property;
-        let currentOperator = operator;
-        let currrentValue = value;
         const result = rows;
-
-        /* console.log("currentPropery:" + currentProperty);
-        console.log("currentOperator:" + currentOperator.name);
-        console.log("currrentValue:" + currrentValue); */
-
-        /* result.filter((op) => currentOperator.fn(op[currentProperty], currentValue)); */
-
         setResult(result);
     }
 

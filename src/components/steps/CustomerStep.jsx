@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Grid } from "@mui/material";
-import { TextField } from "formik-material-ui";
+import { TextField } from "formik-mui";
 import { Field, useField, useFormikContext } from "formik";
 import ConditionalForm from "../form/ConditionalForm";
 import * as yup from "yup";
@@ -81,8 +81,6 @@ function CustomerStep(props) {
         const phoneSteps = useSelector((state) => state.formSteps.phoneSteps);
         return phoneSteps.some((step) => step.mobile === true);
     }
-
-    const { errors } = useFormikContext();
 
     return (
         <Box sx={{ flexGrow: 1 }} label={props.label}>
