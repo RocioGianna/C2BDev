@@ -1,7 +1,8 @@
-import { permissionsFetched, statusMapFetched } from "../state/operationsSlice";
+import { permissionsFetched, statusMapFetched, operationFetched } from "../state/operationsSlice";
 import { store } from "../state/store";
 import { doSecurePost } from "../utils/RequestUtils";
 import { doSecureGet } from "../utils/RequestUtils";
+import { doSecurePut } from "../utils/RequestUtils";
 
 export async function postOperation(body) {
     try {
@@ -43,6 +44,7 @@ export async function fetchOperation(opId) {
     try {
         const res = await doSecureGet(`${ENV2B_BACKEND_URL}/api/v1/operations/${opId}`);
         if (res.data.ok) {
+            store.dispatch(operationFetched(res.data.data));
             return res.data;
         } else throw { message: "Unexpected server error", res };
     } catch (error) {
@@ -69,6 +71,19 @@ export async function fetchStatusMap() {
         const res = await doSecureGet(`${ENV2B_BACKEND_URL}/api/v1/operations/status-map`);
         if (res.data.ok) {
             store.dispatch(statusMapFetched(res.data.data));
+            return res.data;
+        } else throw { message: "Unexpected server error", res };
+    } catch (error) {
+        console.log(error.message);
+        return null;
+    }
+}
+
+export async function putOperation(opId, column, attribute, value) {
+    try {
+        const res = await doSecurePut(`${ENV2B_BACKEND_URL}/api/v1/operations/${opId}`, { column: column, attribute: attribute, value: value });
+        if (res.data.ok) {
+            store.dispatch(operationFetched(res.data.data));
             return res.data;
         } else throw { message: "Unexpected server error", res };
     } catch (error) {
