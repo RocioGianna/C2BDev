@@ -11,6 +11,7 @@ import { SnackbarProvider } from "notistack";
 import NotificationDispatcher from "./components/NotificationDispatcher";
 import Fade from "@mui/material/Fade";
 import "../src/styles/globalStyles.css";
+import "@fontsource/poppins";
 
 const theme = createTheme({
     palette: {
