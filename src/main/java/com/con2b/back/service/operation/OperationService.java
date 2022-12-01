@@ -127,61 +127,68 @@ public class OperationService {
     }
 
     public Operation editOperation(OperationEditDTO operationEditDTO, Long operationId, Role role) throws Exception {
-        Optional<Operation> operation = operationRepository.findById(operationId);
-        if(operation.isEmpty()){
+        Optional<Operation> op = operationRepository.findById(operationId);
+        if(op.isEmpty()){
             throw new Exception("The operation id is invalid");
         }
         OperationColumn column = operationEditDTO.getColumn();
+        Operation operation = op.get();
         Object instance = null;
         String methodName = "set"+ capitalize(operationEditDTO.getAttribute());
-        Status status = operation.get().getStatus();
+        Status status = operation.getStatus();
 
         if(!operationEditPermissions.isColumnEditable(role, status, column)){
-            throw new Exception("The current client can't edit this field.");
+            throw new Exception("The current user can't edit this field.");
         }
 
         switch(column){
             case OPERATION_CODE:
-                operation.get().setOperationCode((String) operationEditDTO.getValue());
+                operation.setOperationCode((String) operationEditDTO.getValue());
                 break;
             case REPROCESS:
-                operation.get().setReprocess((Boolean)operationEditDTO.getValue());
+                operation.setReprocess((Boolean)operationEditDTO.getValue());
                 break;
             case STATUS:
                 if(operationPossibleNextStatus.getPossibleNextStatusFromStatus(status).contains(Status.valueOf(operationEditDTO.getValue().toString()))){
-                    operation.get().setStatus(Status.valueOf(operationEditDTO.getValue().toString()));
+                    operation.setStatus(Status.valueOf(operationEditDTO.getValue().toString()));
                 }else{
                     throw new Exception("Isn't possible change the status.");
                 }
                 break;
             case CHANNEL:
-                operation.get().setChannel(Channel.valueOf(operationEditDTO.getValue().toString()));
+                operation.setChannel(Channel.valueOf(operationEditDTO.getValue().toString()));
                 break;
             case PROCESSOR:
                 User2b processor = userService.getUserByUserCode(operationEditDTO.getValue().toString());
-                operation.get().setProcessor(processor);
+                operation.setProcessor(processor);
                 break;
             case COLLABORATOR:
-                operation.get().setCollaborator((User2b) operationEditDTO.getValue());
+                operation.setCollaborator((User2b) operationEditDTO.getValue());
                 break;
             case COLLABORATOR_EMAIL:
-                operation.get().setCollaboratorEmail(operationEditDTO.getValue().toString());
+                operation.setCollaboratorEmail(operationEditDTO.getValue().toString());
                 break;
             case COLLABORATOR_PHONE:
-                operation.get().setCollaboratorPhone(operationEditDTO.getValue().toString());
+                operation.setCollaboratorPhone(operationEditDTO.getValue().toString());
                 break;
             case CUSTOMER:
-                operation.get().setCustomer((Customer) operationEditDTO.getValue());
+                instance = operation.getCustomer();
+                Method method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
+                method.invoke(instance,operationEditDTO.getValue());
                 break;
             case INSTALLATION_ADDRESS:
-                operation.get().setInstallationAddress((Address) operationEditDTO.getValue());
+                instance = operation.getInstallationAddress();
+                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
+                method.invoke(instance,operationEditDTO.getValue());
                 break;
             case SHIPPING_ADDRESS:
-                operation.get().setShippingAddress((Address) operationEditDTO.getValue());
+                instance = operation.getShippingAddress();
+                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
+                method.invoke(instance,operationEditDTO.getValue());
                 break;
         }
 
-        return operationRepository.save(operation.get());
+        return operationRepository.save(operation);
     }
 
     public Operation editOperationDetails(OperationEditDTO operationEditDTO, Long detailsId, Long operationId, Role role) throws Exception {
@@ -192,7 +199,7 @@ public class OperationService {
         OperationColumn column = operationEditDTO.getColumn();
         Status status = operation.get().getStatus();
         if(!operationEditPermissions.isColumnEditable(role, status, column)){
-            throw new Exception("The current client can't edit this field.");
+            throw new Exception("The current user can't edit this field.");
         }
 
         String methodName = "set"+ capitalize(operationEditDTO.getAttribute());

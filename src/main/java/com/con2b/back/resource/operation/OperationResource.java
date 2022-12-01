@@ -100,8 +100,8 @@ public class OperationResource {
         }
     }
 
-    @PutMapping("/{detailsId}/{operationId}")
-    public ResponseEntity<?> editOperationDetails(@RequestBody OperationEditDTO value,@PathVariable Long detailsId, @PathVariable Long operationId, @RequestHeader("userId") Long userId) throws Exception {
+    @PutMapping("/{operationId}/{detailsId}")
+    public ResponseEntity<?> editOperationDetails(@RequestBody OperationEditDTO value,@PathVariable Long operationId, @PathVariable Long detailsId,  @RequestHeader("userId") Long userId) throws Exception {
         try{
             Optional<User2b> opUser = userService.getUserById(userId);
             if(opUser.isPresent()) {
