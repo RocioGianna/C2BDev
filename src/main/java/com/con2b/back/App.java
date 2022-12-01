@@ -9,6 +9,7 @@ import com.con2b.back.model.user.Role;
 import com.con2b.back.model.product.AdditionalProduct;
 import com.con2b.back.model.product.Product;
 import com.con2b.back.model.product.ProductOption;
+import com.con2b.back.service.operation.AddressService;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.UserService;
 import com.con2b.back.service.product.ProductService;
@@ -38,10 +39,12 @@ public class App extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	CommandLineRunner createUsers (UserService userService){
+	CommandLineRunner createUsers (UserService userService, AddressService addressService){
 		return args -> {
-			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 2494000000", true, Role.COLLABORATOR_MOVISTAR));
-			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 2494000001", true, Role.ADMIN));
+			Address a1 = new Address(null,"moreno","7000","asdasd123","BsAs");
+			addressService.saveAddress(a1);
+			userService.saveUser(new User2b(null, "user@2bconexion.com", "pass", "User", "User", "001", "+54 2494000000", true,"asd","asd","asd", a1, Role.COLLABORATOR_MOVISTAR));
+			userService.saveUser(new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "002","+54 2494000001", true,"asd","asd","asd", a1, Role.ADMIN));
 		};
 	}
 

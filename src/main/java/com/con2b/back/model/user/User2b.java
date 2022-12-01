@@ -1,5 +1,6 @@
 package com.con2b.back.model.user;
 
+import com.con2b.back.model.operation.Address;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,10 @@ public class User2b {
     private String userCode;
     private String phone;
     private boolean enabled;
+    private String nid;
+    private String bankAccount;
+    private String refererCode;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Address billingAddress;
     private Role role;
 }

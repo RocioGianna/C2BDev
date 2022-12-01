@@ -1,14 +1,15 @@
 package com.con2b.back.resource.user;
 
 import com.con2b.back.dto.GenericResponseDTO;
-import com.con2b.back.dto.user.SmallUserDTO;
+import com.con2b.back.dto.user.*;
+import com.con2b.back.model.user.User2b;
 import com.con2b.back.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -20,10 +21,64 @@ public class UserResource {
     @Autowired
     private UserService userService;
 
+    @PostMapping("")
+    @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN', 'SUPER_ADMIN')")
+    public ResponseEntity<?> createUser(@RequestBody NewUserDTO user){
+        return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.createUser(user)));
+    }
+
+    @PutMapping("/changePasword")
+    public ResponseEntity<?> updatePassword(@RequestBody UserPasswordDTO pass, @RequestHeader("userId") Long userId){
+        Optional<User2b> opUser = userService.getUserById(userId);
+        try{
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.changePassword(pass,opUser.get())));
+        }catch(Exception e){
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Collaborator code doesn't match with user code"));
+        }
+    }
+
+    @PutMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('PROCESSOR')")
+    public ResponseEntity<?> updateUser(@RequestBody ProcessorUserEditDTO newData, @PathVariable Long userId){
+        Optional<User2b> opUser = userService.getUserById(userId);
+        try{
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.updateUser(newData, opUser.get())));
+        }catch(Exception e){
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Collaborator code doesn't match with user code"));
+        }
+    }
+
+    @PutMapping("/admin/{userId}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<?> updateUser(@RequestBody AdminUserEditDTO newData, @PathVariable Long userId){
+        Optional<User2b> opUser = userService.getUserById(userId);
+        try{
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.updateUser(newData, opUser.get())));
+        }catch(Exception e){
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Collaborator code doesn't match with user code"));
+        }
+    }
+
+    @PutMapping("")
+    @PreAuthorize("hasAnyRole('COLLABORATOR_ALL', 'COLLABORATOR_MOVISTAR')")
+    public ResponseEntity<?> updateUser(@RequestBody UserEditDTO newData, @RequestHeader("userId") Long userId){
+        Optional<User2b> opUser = userService.getUserById(userId);
+        try{
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.updateUser(newData, opUser.get())));
+        }catch(Exception e){
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Collaborator code doesn't match with user code"));
+        }
+    }
+
+    @GetMapping("/list")
+    @PreAuthorize("hasAnyRole('PROCESSOR','PROCESSOR_ADVANCED', 'MANAGER', 'ADMIN', 'SUPER_ADMIN')")
+    public ResponseEntity<?> getAllUsers(){
+        return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.gerAllUsers().stream().map(UserDTO::new).collect(Collectors.toList())));
+    }
+
     @GetMapping("")
     @PreAuthorize("hasAnyRole('PROCESSOR','PROCESSOR_ADVANCED', 'MANAGER', 'ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> getUsersByUserCode(@RequestParam(defaultValue = "") String userCode ){
         return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.getUsersByUserCode(userCode).stream().map(SmallUserDTO::new).collect(Collectors.toList())));
     }
-
 }
