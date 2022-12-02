@@ -4,8 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 import FilePreview from "./FilePreview";
 import { Box, Button, Typography } from "@mui/material";
 
-export default function Dropzone() {
+export default function Dropzone({ onPush, onDelete }) {
     const [files, setFiles] = useState([]);
+
     const onDrop = useCallback((accFiles, rejFiles) => {
         const mappedAcc = accFiles.map((file) => ({
             file,
@@ -18,8 +19,17 @@ export default function Dropzone() {
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
+    const handleDelete = (id, path) => {
+        setFiles((curr) => curr.filter((f) => f.path !== path));
+        onDelete(id);
+    };
+
+    const handlePush = (id) => {
+        onPush(id);
+    };
+
     return (
-        <React.Fragment>
+        <>
             <Box
                 sx={{
                     border: 1,
@@ -54,7 +64,7 @@ export default function Dropzone() {
                     }}
                 >
                     {files.map((fileWrapper, index) => (
-                        <FilePreview file={fileWrapper.file} key={index} />
+                        <FilePreview file={fileWrapper.file} key={index} handlePush={(id) => handlePush(id)} handleDelete={(id) => handleDelete(id)} />
                     ))}
                 </Box>
                 <Box
@@ -69,6 +79,6 @@ export default function Dropzone() {
                     </Button>
                 </Box>
             </Box>
-        </React.Fragment>
+        </>
     );
 }

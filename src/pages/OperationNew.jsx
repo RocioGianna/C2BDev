@@ -104,7 +104,7 @@ export default function OperationNew() {
                     province: values.billingProvince,
                 },
             },
-            documentationIds: [values.documentation],
+            documentationIds: values.documentation,
         };
 
         if (values.differentInstallAddress) {
@@ -131,14 +131,12 @@ export default function OperationNew() {
         if (isAdmin()) {
             postOperationAdmin(body).then(() => {
                 fetchOperations().then((res) => {
-                    console.log(res);
                     store.dispatch(operationsFetched(res.data));
                 });
             });
         } else {
             postOperation(body).then(() => {
                 fetchOperations().then((res) => {
-                    console.log(res);
                     store.dispatch(operationsFetched(res.data));
                 });
             });

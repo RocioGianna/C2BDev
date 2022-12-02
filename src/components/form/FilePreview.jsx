@@ -1,38 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Box } from "@mui/material";
+import { useSelector } from "react-redux";
+import { useFormikContext } from "formik";
+import { Typography, Box, IconButton } from "@mui/material";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import { postDocumentation, deleteDocumentation } from "../../services/DocumentationService";
 
-export default function FilePreview({ file, onDelete, onUpload }) {
-    const [progress, setProgress] = useState(0);
+import CloseIcon from "@mui/icons-material/Close";
+
+export default function FilePreview({ file, handleDelete, handlePush }) {
+    const session = useSelector((state) => state.session);
+
+    const [preview, setPreview] = useState(null);
+    const [docId, setDocId] = useState(null);
+    const [docPath, setDocPath] = useState(null);
 
     useEffect(() => {
-        async function upload() {
-            const url = await uploadFile(file, setProgress);
-            onUpload(file, url);
-        }
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            if (file.type === "application/pdf") {
+                setPreview(<PictureAsPdfIcon style={{ height: "100%", width: "100%", color: "primary.dark" }} />);
+            } else {
+                if (file.type.startsWith("image/")) {
+                    setPreview(<img style={{ width: "100%" }} src={URL.createObjectURL(file)}></img>);
+                } else {
+                    setPreview(<InsertDriveFileIcon style={{ height: "100%", width: "100%", color: "primary.dark" }} />);
+                }
+            }
+        };
+        postDocumentation(file, session.user.userCode)
+            .then((res) => {
+                const fileName = res.data.path.substring(res.data.path.lastIndexOf("/") + 1);
+                setDocId(res.data.id);
+                setDocPath(fileName);
+                handlePush(res.data.id, fileName);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [file]);
 
-        upload();
-    }, []);
-
-    const fileType = file.type;
-    const icon =
-        fileType === "application/pdf" ? (
-            <PictureAsPdfIcon
-                style={{ height: "100%", width: "100%", color: "primary.dark" }}
-            />
-        ) : fileType === "image/png" ||
-          fileType === "image/jpeg" ||
-          fileType === "image/jpg" ? (
-            <img
-                style={{ width: "100%" }}
-                src={URL.createObjectURL(file)}
-            ></img>
-        ) : (
-            <InsertDriveFileIcon
-                style={{ height: "100%", width: "100%", color: "primary.dark" }}
-            />
-        );
+    const onDelete = () => {
+        deleteDocumentation(docId)
+            .then((res) => {
+                console.log(res);
+                handleDelete(docId, docPath);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     return (
         <Box
@@ -47,48 +65,27 @@ export default function FilePreview({ file, onDelete, onUpload }) {
                 flexDirection: "column",
                 borderColor: "grey.400",
                 borderRadius: "4px",
+                position: "relative",
             }}
         >
-            <Box sx={{ flexBasis: "50%" }}>{icon}</Box>
-            <Typography
-                style={{ overflow: "hidden" }}
-                sx={{ flexBasis: "50%" }}
-                variant="caption"
+            <IconButton
+                onClick={() => {
+                    onDelete(docId);
+                }}
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                }}
             >
+                <CloseIcon />
+            </IconButton>
+
+            <Box sx={{ flexBasis: "50%" }}>{preview}</Box>
+
+            <Typography style={{ overflow: "hidden" }} sx={{ flexBasis: "50%" }} variant="caption">
                 {file.name}
             </Typography>
         </Box>
     );
-
-    function uploadFile(file, onProgress) {
-        const url = "...";
-        const key = "...";
-
-        return (
-            new Promise() <
-            string >
-            ((res, rej) => {
-                const xhr = new XMLHttpRequest();
-                xhr.open("POST", url);
-
-                xhr.onload = () => {
-                    const resp = JSON.parse(xhr.responseText);
-                    res(resp.secure_url);
-                };
-                xhr.onerror = (evt) => rej(evt);
-                xhr.upload.onprogress = (event) => {
-                    if (event.lengthComputable) {
-                        const percentage = (event.loaded / event.total) * 100;
-                        onProgress(Math.round(percentage));
-                    }
-                };
-
-                const formData = new FormData();
-                formData.append("file", file);
-                formData.append("upload_preset", key);
-
-                xhr.send(formData);
-            })
-        );
-    }
 }

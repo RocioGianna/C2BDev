@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { Grid } from "@mui/material";
 import { useFormikContext, Field } from "formik";
-import { TextField } from "formik-material-ui";
+import { TextField } from "formik-mui";
 import { useSelector } from "react-redux";
 import EditableField from "../form/EditableField";
 import PhoneInput from "../form/PhoneInput";
@@ -34,23 +34,28 @@ export function DocumentationStep() {
 
     const user = useSelector((state) => state.session.user);
 
+    const [filesId, setFilesId] = useState([]);
+
+    const onPush = (fileId) => {
+        setFilesId((prev) => [...prev, fileId]);
+        setFieldValue("documentation", [...values.documentation, fileId]);
+    };
+
+    const onDelete = (file) => {
+        setFilesId((prev) => prev.filter((f) => f !== file));
+    };
+
     useEffect(() => {
         if (user) {
-            if (values.collaboratorEmail === "") {
-                setFieldValue("collaboratorEmail", user.email);
-            }
-            if (values.collaboratorPhonePrefix === "") {
-                setFieldValue("collaboratorPhonePrefix", user.phone.split(" ")[0]);
-            }
-            if (values.collaboratorPhoneNumber === "") {
-                setFieldValue("collaboratorPhoneNumber", user.phone.slice(user.phone.indexOf(" ")));
-            }
+            if (values.collaboratorEmail === "") setFieldValue("collaboratorEmail", user.email);
+            if (values.collaboratorPhonePrefix === "") setFieldValue("collaboratorPhonePrefix", user.phone.split(" ")[0]);
+            if (values.collaboratorPhoneNumber === "") setFieldValue("collaboratorPhoneNumber", user.phone.slice(user.phone.indexOf(" ")));
         }
     }, [user]);
 
     return (
         <Grid container gap={2}>
-            <DocumentationDropZone />
+            <DocumentationDropZone onPush={(id) => onPush(id)} onDelete={(id) => onDelete(id)} />
             <Field fullWidth name="observations" label="Observaciones" component={TextField} type="text" InputProps={{ sx: { height: 100 } }} />
             <Field fullWidth name="offeredPrice" label="Precio ofrecido al cliente" component={TextField} type="text" InputProps={{ sx: { height: 100 } }} />
             <EditableField>
