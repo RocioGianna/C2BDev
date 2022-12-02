@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { Field, useField, useFormikContext } from "formik";
-import { TextField } from "formik-material-ui";
+import { TextField } from "formik-mui";
 
 export default function PhoneInput({ phonePrefixName, phoneNumberName, disabled, props, small = false }) {
     const [field] = useField(phonePrefixName);

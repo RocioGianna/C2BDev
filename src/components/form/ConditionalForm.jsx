@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import { Field, useField } from "formik";
-import { CheckboxWithLabel } from "formik-material-ui";
+import { CheckboxWithLabel } from "formik-mui";
 
 export default function ConditionalForm({ children, name, ...props }) {
     const [phoneCheckbox] = useField(name);
