@@ -13,13 +13,10 @@ import PhoneInput from "./form/PhoneInput.jsx";
 import FormSelect from "./form/FormSelect.jsx";
 import { putOperation } from "../services/OperationService.js";
 
-export function EditableDetailField({ value, name, operationStatus, column, type = "text", children }) {
+export function EditableDetailField({ value, name, column, type = "text", children }) {
     const [editMode, setEditMode] = useState(false);
     const [hoverMode, setHoverMode] = useState(false);
 
-    const editPermissions = useSelector((state) => state.operations.permissions);
-    const editPermission = editPermissions[operationStatus];
-    const canEdit = editPermission.includes(column);
     const operation = useSelector((state) => state.operations.operation);
 
     let initialValues = {};
@@ -47,7 +44,7 @@ export function EditableDetailField({ value, name, operationStatus, column, type
                 onSubmit={async (values, helpers) => {
                     let operationId = operation.id;
                     let attribute = name;
-                    let value = values[name];
+                    let value = type === "tel" ? values.phonePrefix + " " + values.phoneNumber : values[name];
                     putOperation(operationId, column, attribute, value);
                     setEditMode(false);
                 }}
@@ -95,7 +92,7 @@ export function EditableDetailField({ value, name, operationStatus, column, type
         return (
             <Stack direction="row" spacing={1} onMouseEnter={() => setHoverMode(true)} onMouseLeave={() => setHoverMode(false)}>
                 <span>{value ? value : "-"}</span>
-                {canEdit && hoverMode && (
+                {hoverMode && (
                     <IconButton onClick={() => setEditMode(true)} size="small" sx={{ p: 0, m: 0 }}>
                         <EditIcon fontSize="inherit" />
                     </IconButton>

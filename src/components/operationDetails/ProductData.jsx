@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Table, TableContainer, AccordionSummary, AccordionDetails, TableHead, Accordion, TableBody, TableRow, TableCell, Box, Paper, Grid } from "@mui/material";
+import { Typography, Stack, Box, Paper, Divider, Accordion, AccordionSummary, AccordionDetails, Grid } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import OperationProductDetails from "./OperationProductDetails";
 
@@ -19,9 +19,9 @@ export function ProductData({ row }) {
     };
 
     let operationDetails = row.operationDetails;
+    operationDetails = [...operationDetails].sort((a, b) => a.id - b.id);
     const [expanded, setExpanded] = useState(true);
     const phoneSteps = getAllSteps();
-    console.log({ phoneSteps });
     const mobileAmount = phoneSteps.filter((step) => step.mobile === true).length;
     const fixedAmount = phoneSteps.length - mobileAmount;
 
@@ -31,78 +31,59 @@ export function ProductData({ row }) {
                 width: "100%",
                 display: "flex",
                 flexDirection: "column",
+                p: 2,
             }}
         >
-            <Typography
-                variant="h6"
-                sx={{
-                    flexGrow: 1,
-                    px: 2,
-                    pt: 1,
-                }}
-            >
-                Producto
-            </Typography>
-            <TableContainer component={Paper}>
-                <Table size="small" sx={{ width: "100%" }}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        <TableRow>
-                            <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Producto</Box>
-                                <Box sx={{ flexGrow: 1, textAlign: "right" }}>{row.productOption.product.name}</Box>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell sx={{ display: "flex", justifyContent: "space-between" }}>
-                                <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Opcion</Box>
-                                <Box sx={{ flexGrow: 1, textAlign: "right" }}>{row.productOption.name}</Box>
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell sx={{ display: "flex", justifyContent: "space-between", gap: 1 }}>
-                                <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Adicionales</Box>
-                                <Box sx={{ flexGrow: 1, textAlign: "right" }}>
-                                    <Box sx={{ width: "100%", textAlign: "right" }}>
-                                        {row.additionalProducts && row.additionalProducts.length > 0 ? (
-                                            row.additionalProducts.map((a, index) => {
-                                                return index > 0 ? <span key={index}>, {a.name}</span> : <span key={index}>{a.name}</span>;
-                                            })
-                                        ) : (
-                                            <div>-</div>
-                                        )}
-                                    </Box>
-                                </Box>
-                            </TableCell>
-                        </TableRow>
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <Accordion expanded={expanded} onChange={() => handleChange()}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1d-content" id="panel1d-header">
-                    <Typography>
-                        {fixedAmount > 0 ? (fixedAmount > 1 ? `${fixedAmount} fijos` : `${fixedAmount} fijo`) : ""}
-                        {mobileAmount > 0 ? (mobileAmount > 1 ? ` ${mobileAmount} moviles` : ` ${mobileAmount} movil`) : ""}
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Grid container spacing={1}>
-                        {operationDetails.map((opDetail, index) => {
-                            const step = phoneSteps.find((step) => {
-                                console.log(step);
-                                return opDetail.stepId === step.id;
-                            });
-                            const type = opDetail.type === "NEW" ? "Nuevo" : opDetail.type === "PORTABILITY" ? "Portabilidad" : "Existente";
-                            let additionalData = { ...opDetail, type, step };
-                            return <OperationProductDetails key={index} additional={additionalData} />;
-                        })}
-                    </Grid>
-                </AccordionDetails>
-            </Accordion>
+            <Typography variant="h6">Producto</Typography>
+            <Stack direction="column">
+                <Box sx={{ display: "flex", justifyContent: "space-between", py: 0.75, px: 1 }}>
+                    <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Producto</Box>
+                    <Box sx={{ flexGrow: 1, textAlign: "right" }}>{row.productOption.product.name}</Box>
+                </Box>
+                <Divider />
+
+                <Box sx={{ display: "flex", justifyContent: "space-between", py: 0.75, px: 1 }}>
+                    <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Opcion</Box>
+                    <Box sx={{ flexGrow: 1, textAlign: "right" }}>{row.productOption.name}</Box>
+                </Box>
+                <Divider />
+
+                <Box sx={{ display: "flex", justifyContent: "space-between", gap: 1, py: 0.75, px: 1 }}>
+                    <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Adicionales</Box>
+                    <Box sx={{ flexGrow: 1, textAlign: "right" }}>
+                        <Box sx={{ width: "100%", textAlign: "right" }}>
+                            {row.additionalProducts && row.additionalProducts.length > 0 ? (
+                                row.additionalProducts.map((a, index) => {
+                                    return index > 0 ? <span key={index}>, {a.name}</span> : <span key={index}>{a.name}</span>;
+                                })
+                            ) : (
+                                <div>-</div>
+                            )}
+                        </Box>
+                    </Box>
+                </Box>
+                <Accordion expanded={expanded} onChange={() => handleChange()} square elevation={0}>
+                    <AccordionSummary sx={{ p: 0 }} expandIcon={<ExpandMoreIcon />} aria-controls="panel1d-content" id="panel1d-header">
+                        <Typography>
+                            {fixedAmount > 0 ? (fixedAmount > 1 ? `${fixedAmount} fijos` : `${fixedAmount} fijo`) : ""}
+                            {mobileAmount > 0 ? (mobileAmount > 1 ? ` ${mobileAmount} moviles` : ` ${mobileAmount} movil`) : ""}
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ p: 0 }}>
+                        <Grid container spacing={1}>
+                            {operationDetails.map((opDetail, index) => {
+                                const step = phoneSteps.find((step) => {
+                                    console.log(step);
+                                    return opDetail.stepId === step.id;
+                                });
+                                const type = opDetail.type === "NEW" ? "Nuevo" : opDetail.type === "PORTABILITY" ? "Portabilidad" : "Existente";
+                                let additionalData = { ...opDetail, type, step };
+                                return <OperationProductDetails key={index} additional={additionalData} />;
+                            })}
+                        </Grid>
+                    </AccordionDetails>
+                </Accordion>
+            </Stack>
         </Paper>
     );
 }

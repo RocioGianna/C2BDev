@@ -15,7 +15,7 @@ export function ProcessorSelect({ processor, operationStatus }) {
     const fetchOptions = async (value) => {
         const res = await fetchProcessors(value);
         const mappedOptions = res.data.map((option) => {
-            return { value: option.id, label: `${option.userCode} - ${option.firstname} ${option.lastname}`, userCode: option.userCode };
+            return { value: option.id, label: `${option.userCode} - ${option.firstName} ${option.lastName}`, userCode: option.userCode };
         });
         setProcessors(mappedOptions);
     };

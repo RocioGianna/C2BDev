@@ -47,9 +47,9 @@ export function PhoneData({ row }) {
                                 <Typography variant="h6">{step.name}</Typography>
                                 <Typography variant="subtitle2">Tipo : {type}</Typography>
                                 {opDetail.phone && <Typography variant="subtitle2">Telefono : {opDetail.phone}</Typography>}
-                                {opDetail.currentOwnerFirstname && (
+                                {opDetail.currentOwnerfirstName && (
                                     <Typography variant="subtitle2">
-                                        Nombre Titular actual : {opDetail.currentOwnerFirstname} {opDetail.currentOwnerLastname}
+                                        Nombre Titular actual : {opDetail.currentOwnerfirstName} {opDetail.currentOwnerlastName}
                                     </Typography>
                                 )}
                                 {opDetail.currentOwnerNID && <Typography variant="subtitle2">DNI Titular Actual : {opDetail.currentOwnerNID}</Typography>}

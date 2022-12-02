@@ -12,7 +12,7 @@ import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 
 const multiStepInitialValues = {
     customerName: "",
-    customerLastname: "",
+    customerlastName: "",
     isProfessionalProduct: "",
     nid: "",
     phonePrefix: "+34",
