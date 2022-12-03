@@ -28,7 +28,7 @@ public class UserService implements UserDetailsService {
     @Autowired
     private AddressService addressService;
     @Autowired
-    private EmailSenderServiceImpl emailSender;
+    private EmailSenderService emailSender;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -89,9 +89,9 @@ public class UserService implements UserDetailsService {
         u.setPassword(this.generatePassword());
 
         User2b savedUser = userRepository.save(u);
-      /*  if(savedUser != null){
-            emailSender.sendEmail(u.getPassword(), u.getEmail(),"contrase;a");
-        }*/
+        if(savedUser != null){
+            emailSender.sendEmail(u.getEmail(),u.getPassword(),"contrase;a");
+        }
         return savedUser;
     }
 
