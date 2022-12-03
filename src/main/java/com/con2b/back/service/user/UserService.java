@@ -58,4 +58,11 @@ public class UserService implements UserDetailsService {
         collaborators.addAll(userRepository.getUsersbyUserCode(userCode, Role.COLLABORATOR_ALL.ordinal()));
         return collaborators;
     }
+
+    public List<User2b> getProcessorsByUserCode(String userCode) {
+        List<User2b> processors = new ArrayList<>();
+        processors.addAll(userRepository.getUsersbyUserCode(userCode, Role.PROCESSOR.ordinal()));
+        processors.addAll(userRepository.getUsersbyUserCode(userCode, Role.PROCESSOR_ADVANCED.ordinal()));
+        return processors;
+    }
 }

@@ -17,4 +17,8 @@ public class OperationDetailsService {
     public OperationDetails saveOperationDetails(OperationDetails operationDetails){
         return operationDetailsRepository.save(operationDetails);
     }
+
+    public OperationDetails getOperationDetailById(Long id){
+        return operationDetailsRepository.findById(id).get();
+    }
 }

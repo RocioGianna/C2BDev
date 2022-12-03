@@ -1,8 +1,13 @@
 package com.con2b.back.service.operation;
 
+import com.con2b.back.beans.operation.OperationEditPermissions;
+import com.con2b.back.beans.operation.OperationPossibleNextStatus;
 import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
+import com.con2b.back.dto.operation.OperationEditDTO;
 import com.con2b.back.model.operation.*;
+import com.con2b.back.model.user.Role;
+import com.con2b.back.model.user.User2b;
 import com.con2b.back.repository.operation.StepRepository;
 import com.con2b.back.repository.operation.OperationRepository;
 import com.con2b.back.service.product.ProductService;
@@ -11,9 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.List;
+
+
+import static org.springframework.util.StringUtils.capitalize;
 
 @Service @Transactional
 public class OperationService {
@@ -34,6 +43,10 @@ public class OperationService {
     private OperationDetailsService operationDetailsService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OperationEditPermissions operationEditPermissions;
+    @Autowired
+    private OperationPossibleNextStatus operationPossibleNextStatus;
 
 
     public Step saveStep(Step step){
@@ -113,4 +126,86 @@ public class OperationService {
         return operationRepository.findAll();
     }
 
+    public Operation editOperation(OperationEditDTO operationEditDTO, Long operationId, Role role) throws Exception {
+        Optional<Operation> op = operationRepository.findById(operationId);
+        if(op.isEmpty()){
+            throw new Exception("The operation id is invalid");
+        }
+        OperationColumn column = operationEditDTO.getColumn();
+        Operation operation = op.get();
+        Object instance = null;
+        String methodName = "set"+ capitalize(operationEditDTO.getAttribute());
+        Status status = operation.getStatus();
+
+        if(!operationEditPermissions.isColumnEditable(role, status, column)){
+            throw new Exception("The current user can't edit this field.");
+        }
+
+        switch(column){
+            case OPERATION_CODE:
+                operation.setOperationCode((String) operationEditDTO.getValue());
+                break;
+            case REPROCESS:
+                operation.setReprocess((Boolean)operationEditDTO.getValue());
+                break;
+            case STATUS:
+                if(operationPossibleNextStatus.getPossibleNextStatusFromStatus(status).contains(Status.valueOf(operationEditDTO.getValue().toString()))){
+                    operation.setStatus(Status.valueOf(operationEditDTO.getValue().toString()));
+                }else{
+                    throw new Exception("Isn't possible change the status.");
+                }
+                break;
+            case CHANNEL:
+                operation.setChannel(Channel.valueOf(operationEditDTO.getValue().toString()));
+                break;
+            case PROCESSOR:
+                User2b processor = userService.getUserByUserCode(operationEditDTO.getValue().toString());
+                operation.setProcessor(processor);
+                break;
+            case COLLABORATOR:
+                operation.setCollaborator((User2b) operationEditDTO.getValue());
+                break;
+            case COLLABORATOR_EMAIL:
+                operation.setCollaboratorEmail(operationEditDTO.getValue().toString());
+                break;
+            case COLLABORATOR_PHONE:
+                operation.setCollaboratorPhone(operationEditDTO.getValue().toString());
+                break;
+            case CUSTOMER:
+                instance = operation.getCustomer();
+                Method method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
+                method.invoke(instance,operationEditDTO.getValue());
+                break;
+            case INSTALLATION_ADDRESS:
+                instance = operation.getInstallationAddress();
+                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
+                method.invoke(instance,operationEditDTO.getValue());
+                break;
+            case SHIPPING_ADDRESS:
+                instance = operation.getShippingAddress();
+                method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
+                method.invoke(instance,operationEditDTO.getValue());
+                break;
+        }
+
+        return operationRepository.save(operation);
+    }
+
+    public Operation editOperationDetails(OperationEditDTO operationEditDTO, Long detailsId, Long operationId, Role role) throws Exception {
+        Optional<Operation> operation = operationRepository.findById(operationId);
+        if(operation.isEmpty()){
+            throw new Exception("The operation id is invalid");
+        }
+        OperationColumn column = operationEditDTO.getColumn();
+        Status status = operation.get().getStatus();
+        if(!operationEditPermissions.isColumnEditable(role, status, column)){
+            throw new Exception("The current user can't edit this field.");
+        }
+
+        String methodName = "set"+ capitalize(operationEditDTO.getAttribute());
+        OperationDetails instance = operationDetailsService.getOperationDetailById(detailsId);
+        Method method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
+        method.invoke(instance,operationEditDTO.getValue());
+        return operationRepository.save(operation.get());
+    }
 }
