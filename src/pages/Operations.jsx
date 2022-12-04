@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import * as React from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { getOperationTableColumnsByRole } from "../utils/RolesUtils.js";
@@ -29,11 +30,11 @@ export default function Operations() {
             })
             .catch((err) => setError(err));
     }, []);
-
+    /*
     function handleClick(event, cellValues) {
         navigate("/ops/" + cellValues.id);
     }
-
+ */
     /*
     columns.find((col) => col.header === "Acciones").renderCell = (cellValues) => {
         return (
@@ -76,9 +77,8 @@ export default function Operations() {
     console.log(data);
     return (
         <Grid container alignItems="center" justifyContent="center">
-            <Stack sx={{ width: "100%" }} gap={2} >
+            <Stack sx={{ width: "100%" }} gap={2}>
                 <TableWithTitle title="Operaciones" action={{ onClick: () => navigate("/ops/new"), label: "Añadir Operación", icon: <AddIcon /> }} tableProps={{ columns, data }} />
-                <TableWithTitle title="Tramitadas" />
             </Stack>
             <Outlet />
         </Grid>

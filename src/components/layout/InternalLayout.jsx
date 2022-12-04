@@ -23,16 +23,18 @@ function InternalLayout() {
         }
     }, []);
 
+    //aa
+
     return (
         <Container maxWidth="xl" sx={{ minHeight: "100vh" }}>
             {loaded && (
-                <>
+                <Box sx={{minHeight: "100vh"}}>
                     <AppBar />
                     <Toolbar />
                     <Box sx={{ py: 4 }}>
                         <Outlet />
                     </Box>
-                </>
+                </Box>
             )}
         </Container>
     );
