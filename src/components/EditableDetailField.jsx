@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Field, Formik, Form } from "formik";
 import { TextField } from "formik-mui";
 import * as yup from "yup";
-import { IconButton, Stack, Box, Typography } from "@mui/material";
+import { IconButton, Stack, Box } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";

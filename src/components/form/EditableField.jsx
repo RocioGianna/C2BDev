@@ -10,8 +10,7 @@ export default function EditableField({ name, label, children }) {
             sx={{
                 display: "flex",
                 width: "100%",
-            }}
-        >
+            }}>
             <>{React.Children.map(children, (child) => React.cloneElement(child, { disabled: !enabled }))}</>
 
             {!enabled && (
