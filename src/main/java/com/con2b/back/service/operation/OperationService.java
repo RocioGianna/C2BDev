@@ -160,6 +160,9 @@ public class OperationService {
                 break;
             case PROCESSOR:
                 User2b processor = userService.getUserByUserCode(operationEditDTO.getValue().toString());
+                if(processor.getRole() != Role.PROCESSOR_ADVANCED && processor.getRole() != Role.PROCESSOR){
+                    throw new Exception("The user isn't a processor");
+                }
                 operation.setProcessor(processor);
                 break;
             case COLLABORATOR:

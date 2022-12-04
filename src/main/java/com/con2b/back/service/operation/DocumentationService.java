@@ -20,7 +20,7 @@ import java.util.Set;
 @Transactional
 public class DocumentationService {
 
-    private String sourcePath = "C:/2B/docs";
+    private String sourcePath = "2B/docs";
     @Autowired
     private DocumentationRepository documentationRepository;
 
@@ -54,11 +54,11 @@ public class DocumentationService {
         StringBuilder builder = new StringBuilder();
         builder.append(sourcePath);
         builder.append("/");
-        builder.append(parts[3]);//userId
+        builder.append(parts[2]);//userId
         builder.append("/");
         builder.append(operationId);
         builder.append("/");
-        builder.append(parts[4]); //fileName
+        builder.append(parts[3]); //fileName
 
         Path source = Paths.get(documentation.getPath()).toAbsolutePath();
         Path dest = Paths.get(builder.toString()).toAbsolutePath();
