@@ -5,7 +5,7 @@ export default function OperationProductDetails({ additional }) {
     let step = additional.step;
     let type = additional.type;
 
-    let changeOwner = additional.currentOwnerFirstname != null;
+    let changeOwner = additional.currentOwnerfirstName != null;
 
     return (
         <Grid item xs={12}>
@@ -33,7 +33,7 @@ export default function OperationProductDetails({ additional }) {
                         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                             <Typography variant="subtitle2">Cambio de titular</Typography>
                             <Typography variant="subtitle2">
-                                {additional.currentOwnerFirstname} {additional.currentOwnerLastname}, {additional.currentOwnerNID}
+                                {additional.currentOwnerfirstName} {additional.currentOwnerlastName}, {additional.currentOwnerNID}
                             </Typography>
                         </Box>
                     </>

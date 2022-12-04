@@ -10,10 +10,12 @@ function AdminStep() {
     useEffect(() => {
         fetchOptions();
     }, []);
-    
+
     const fetchOptions = async (value) => {
         const res = await fetchCollaborators(value);
-        const mappedOptions = res.data.map((option) => {return {...option, label:`${option.userCode} - ${option.firstname} ${option.lastname}`}});
+        const mappedOptions = res.data.map((option) => {
+            return { ...option, label: `${option.userCode} - ${option.firstName} ${option.lastName}` };
+        });
         setOptions(mappedOptions);
     };
 
@@ -21,12 +23,7 @@ function AdminStep() {
         <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <EditableSelect 
-                        options={options} 
-                        name="collaborator" 
-                        onInputChange={(event, value) => fetchOptions(value)} 
-                        getOptionLabel={(option) => !option || option === "" ? "" : option.label}
-                        label="Codigo de colaborador" />
+                    <EditableSelect options={options} name="collaborator" onInputChange={(event, value) => fetchOptions(value)} getOptionLabel={(option) => (!option || option === "" ? "" : option.label)} label="Codigo de colaborador" />
                 </Grid>
             </Grid>
         </Box>

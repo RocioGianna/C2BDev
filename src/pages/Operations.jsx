@@ -1,12 +1,9 @@
 /* eslint-disable react/display-name */
 import * as React from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { getOperationTableColumnsByRole } from "../utils/RolesUtils.js";
-import { IconButton, Typography, Paper, Button, Tooltip, CircularProgress, Alert, Stack } from "@mui/material";
-import ReadMoreIcon from "@mui/icons-material/ReadMore";
+import { getOperationTableColumnsByRole } from "../utils/OperationUtils.jsx";
+import { CircularProgress, Alert, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import PrintIcon from "@mui/icons-material/Print";
-import { isRequiringAttention } from "../utils/OperationUtils.js";
 import Grid from "@mui/material/Grid";
 import { fetchOperations } from "../services/OperationService.js";
 import { useEffect, useState } from "react";
@@ -30,33 +27,6 @@ export default function Operations() {
             })
             .catch((err) => setError(err));
     }, []);
-    /*
-    function handleClick(event, cellValues) {
-        navigate("/ops/" + cellValues.id);
-    }
- */
-    /*
-    columns.find((col) => col.header === "Acciones").renderCell = (cellValues) => {
-        return (
-            <>
-                <Tooltip title="Detalle">
-                    <IconButton
-                        variant="contained"
-                        color="primary"
-                        onClick={(event) => {
-                            handleClick(event, cellValues);
-                        }}>
-                        <ReadMoreIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title="Imprimir">
-                    <IconButton variant="contained" color="primary" onClick={() => {}}>
-                        <PrintIcon />
-                    </IconButton>
-                </Tooltip>
-            </>
-        );
-    };*/
 
     if (error) {
         return (
@@ -66,6 +36,7 @@ export default function Operations() {
         );
     }
 
+
     if (!data || !columns) {
         return (
             <Box sx={{ width: "100%", height: "80vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -74,7 +45,6 @@ export default function Operations() {
         );
     }
 
-    console.log(data);
     return (
         <Grid container alignItems="center" justifyContent="center">
             <Stack sx={{ width: "100%" }} gap={2}>

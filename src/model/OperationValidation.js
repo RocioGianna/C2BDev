@@ -5,7 +5,7 @@ import { countryCodes } from "../utils/ValidationUtils";
 export default {
     userCode: yup.string().required("El codigo de usuario es requerido"),
     name: yup.string().required("El nombre es requerido"),
-    lastname: yup.string().required("El apellido es requerido"),
+    lastName: yup.string().required("El apellido es requerido"),
     nid: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
     phonePrefix: yup
         .string()
@@ -26,4 +26,6 @@ export default {
     municipality: yup.string().required("El municipio es requerido"),
     province: yup.string().required("La provincia es requerida"),
     offeredPrice: yup.string().required("El precio es requerido"),
+    selectOptional: yup.string(),
+    select: yup.string().required("El campo es requerido"),
 };

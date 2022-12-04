@@ -18,8 +18,7 @@ function AppBar() {
                             display: "flex",
                             flexDirection: "row",
                             flexGrow: { xs: 0, md: 1 },
-                        }}
-                    >
+                        }}>
                         <Tabs />
                         <ProfileMenu />
                     </Box>

@@ -78,8 +78,8 @@ export default function OperationNew() {
                 type: opDetailObject.phoneOperationType,
                 phone: opDetailObject.phoneNumber != "" ? opDetailObject.phonePrefix + " " + opDetailObject.phoneNumber : null,
                 currentProvider: opDetailObject.phoneOperator != "" ? opDetailObject.phoneOperator : null,
-                currentOwnerFirstname: opDetailObject.name != "" ? opDetailObject.name : null,
-                currentOwnerLastname: opDetailObject.lastname != "" ? opDetailObject.lastname : null,
+                currentOwnerfirstName: opDetailObject.name != "" ? opDetailObject.name : null,
+                currentOwnerlastName: opDetailObject.lastName != "" ? opDetailObject.lastName : null,
                 currentOwnerNID: opDetailObject.nid != "" ? opDetailObject.nid : null,
             };
         }
@@ -92,7 +92,7 @@ export default function OperationNew() {
             operationDetails: operationDetails,
             customer: {
                 firstName: values.customerName,
-                lastName: values.customerLastname,
+                lastName: values.customerlastName,
                 nid: values.nid,
                 phone: values.phonePrefix + " " + values.phoneNumber,
                 email: values.email,
@@ -104,7 +104,7 @@ export default function OperationNew() {
                     province: values.billingProvince,
                 },
             },
-            documentationIds: [values.documentation],
+            documentationIds: values.documentation,
         };
 
         if (values.differentInstallAddress) {

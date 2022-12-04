@@ -14,57 +14,54 @@ export default function AdditionalsFieldArray({ disabled, name, availableAdditio
 
     const options = availableAdditionals
         .map((additional) => additional.options.map((option) => ({
-                id: option.id, 
-                label: `(${additional.name}) ${option.name}`, 
-                popular: option.popular, 
-                mobile: additional.name,
-                steps: option.steps
-            })))
+            id: option.id,
+            label: `(${additional.name}) ${option.name}`,
+            popular: option.popular,
+            mobile: additional.name,
+            steps: option.steps,
+        })))
         .flat()
         .sort((a, b) => {
-            let sortValue = b.popular - a.popular;
+            const sortValue = b.popular - a.popular;
             if (sortValue != 0) return sortValue;
-            let isMobile = b.mobile === "Linea Movil";
+            const isMobile = b.mobile === "Linea Movil";
             if (isMobile) return 1;
             return -1;
         });
 
     return (
-        <>
-            <FieldArray name="additionals">
-                {({ push, remove }) => (
-                    <Box sx={{ width: "100%", mt: 2 }}>
-                        {field.value.map((_, index) => (
-                            <Box key={index} sx={{ mt: 2, display: "flex", width: "100%" }}>
-                                <Box sx={{ width: "90%" }}>
-                                    <EditableSelect
-                                        options={options}
-                                        name={`${name}[${index}]`}
-                                        disabled={disabled}
-                                        label={`Adicional ${index + 1}`}
-                                        getOptionLabel={(option) => option === "" ? option : option.label}
-                                        onChange={(event, value) => {
-                                            const additional = availableAdditionals
-                                                .map((additional) => additional.options)
-                                                .flat()
-                                                .find((a) => a.id == value?.id);
-                                            setFieldValue(`${name}[${index}]`, additional);
-                                        }}
-                                    />
-                                </Box>
-                                <Box sx={{ flexGrow: 0, width: "10%", flexShrink: 0, display: "flex", justifyContent: "center" }}>
-                                    <IconButton sx={{}} onClick={() => remove(index)} variant="contained">
-                                        <DeleteIcon color="primary" />
-                                    </IconButton>
-                                </Box>
+        <FieldArray name="additionals">
+            {({ push, remove }) => (
+                <Box sx={{ width: "100%", mt: 2 }}>
+                    {field.value.map((_, index) => (
+                        <Box key={index} sx={{ mt: 2, display: "flex", width: "100%" }}>
+                            <Box sx={{ width: "90%" }}>
+                                <EditableSelect
+                                    options={options}
+                                    name={`${name}[${index}]`}
+                                    disabled={disabled}
+                                    label={`Adicional ${index + 1}`}
+                                    getOptionLabel={(option) => option === "" ? option : option.label}
+                                    onChange={(event, value) => {
+                                        const additional = availableAdditionals
+                                            .map((additional) => additional.options)
+                                            .flat()
+                                            .find((a) => a.id == value?.id);
+                                        setFieldValue(`${name}[${index}]`, additional);
+                                    }} />
                             </Box>
-                        ))}
-                        <Button sx={{ mt: 1 }} size="large" variant="outlined" color="primary" onClick={() => push("")} disabled={disabled || lastIsEmpty()}>
-                            <AddIcon />
-                        </Button>
-                    </Box>
-                )}
-            </FieldArray>
-        </>
+                            <Box sx={{ flexGrow: 0, width: "10%", flexShrink: 0, display: "flex", justifyContent: "center" }}>
+                                <IconButton sx={{}} onClick={() => remove(index)} variant="contained">
+                                    <DeleteIcon color="primary" />
+                                </IconButton>
+                            </Box>
+                        </Box>
+                    ))}
+                    <Button sx={{ mt: 1 }} size="large" variant="outlined" color="primary" onClick={() => push("")} disabled={disabled || lastIsEmpty()}>
+                        <AddIcon />
+                    </Button>
+                </Box>
+            )}
+        </FieldArray>
     );
 }

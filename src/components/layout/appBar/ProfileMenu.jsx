@@ -14,18 +14,18 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import useLogout from "../../../hooks/useLogout";
 
 function ProfileMenu() {
-    const firstname = useSelector((state) => state.session.user?.firstname);
-    const lastname = useSelector((state) => state.session.user?.lastname);
+    const firstName = useSelector((state) => state.session.user?.firstName);
+    const lastName = useSelector((state) => state.session.user?.lastName);
     const [initial, setInitial] = useState("");
     const logout = useLogout();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     useEffect(() => {
-        if (firstname) {
-            setInitial(firstname.slice(0, 1)?.toUpperCase());
+        if (firstName) {
+            setInitial(firstName.slice(0, 1)?.toUpperCase());
         }
-    }, [firstname]);
+    }, [firstName]);
 
     return (
         <Box order={{ xs: -1, md: 2 }}>
@@ -37,12 +37,11 @@ function ProfileMenu() {
                             height: 32,
                             bgcolor: deepOrange[400],
                             color: (theme) => theme.palette.common.white,
-                        }}
-                    >
+                        }}>
                         {initial}
                     </Avatar>
                     <Stack alignItems="center" direction="row" sx={{ display: { xs: "none", md: "flex" } }}>
-                        <Typography variant="button">{firstname + " " + lastname}</Typography>
+                        <Typography variant="button">{firstName + " " + lastName}</Typography>
                         <ArrowDropDownIcon />
                     </Stack>
                 </Stack>
@@ -57,13 +56,11 @@ function ProfileMenu() {
                     setAnchorEl(null);
                 }}
                 transformOrigin={{ horizontal: "right", vertical: "top" }}
-                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-            >
+                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
                 <MenuItem
                     onClick={() => {
                         logout();
-                    }}
-                >
+                    }}>
                     <ListItemIcon>
                         <LogoutIcon fontSize="small" />
                     </ListItemIcon>

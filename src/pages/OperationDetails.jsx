@@ -1,56 +1,66 @@
-import React, { useEffect, useState } from "react";
-import { Grid, Box } from "@mui/material";
+import React, { useEffect } from "react";
+import { Grid, Box, CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { OperationTitle } from "../components/operationDetails/OperationTitle";
-import { OperationData } from "../components/operationDetails/OperationData";
 import { Chat } from "../components/operationDetails/Chat";
 import { Collaborator } from "../components/operationDetails/Collaborator";
 import { Documentation } from "../components/operationDetails/Documentation";
 import { CustomerData } from "../components/operationDetails/CustomerData";
 import { ProductData } from "../components/operationDetails/ProductData";
-import { PhoneData } from "../components/operationDetails/PhoneData";
 import { fetchOperation } from "../services/OperationService.js";
+import { useSelector, useDispatch } from "react-redux";
+import { resetOperation } from "../state/operationsSlice";
 
 export default function OperationDetails() {
-    const [data, setData] = useState(null);
-    let params = useParams();
+    const params = useParams();
+    const operation = useSelector((state) => state.operations.operation);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        fetchOperation(params.opId).then((res) => setData(res.data));
+        dispatch(resetOperation());
+        fetchOperation(params.opId);
     }, []);
 
-    if (!data) return <></>;
+
+    if (!operation) {
+        return (
+            <Box sx={{ width: "100%", height: "80vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     return (
-        <Grid container justifyContent="center" spacing={2} sx={{ height: "100%" }}>
-            <Grid item xs={8} sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <OperationTitle />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <OperationData row={data} />
-                    </Grid>
-                </Grid>
-            </Grid>
-            <Grid item xs={4}>
-                <Collaborator row={data} />
+        <Grid container justifyContent="center" spacing={3} sx={{ height: "100%" }}>
+            <Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between" }}>
+                <OperationTitle operation={operation} />
             </Grid>
             <Grid item xs={4}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <CustomerData row={data} />
+                        <CustomerData row={operation} />
                     </Grid>
                     <Grid item xs={12}>
-                        <Documentation />
+                        <Documentation documentation={operation.documentation} />
                     </Grid>
                 </Grid>
             </Grid>
             <Grid item xs={4}>
-                <ProductData row={data} />
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Collaborator row={operation} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <ProductData row={operation} />
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid item xs={4}>
-                <Chat />
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Chat />
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     );

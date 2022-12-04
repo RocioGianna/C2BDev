@@ -1,20 +1,31 @@
 import React from "react";
 import { Typography, Paper, Button, Box, Stack, ThemeProvider, useTheme, IconButton } from "@mui/material";
 import MaterialReactTable from "material-react-table";
-import InfoIcon from "@mui/icons-material/Info";
+import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+import { putOperation } from "../services/OperationService.js";
+import { updateOperation } from "../state/operationsSlice.js";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function TableWithTitle({ title, action, tableProps }) {
+    const navigate = useNavigate();
     const theme = useTheme();
+    const dispatch = useDispatch();
 
     const handleSaveCell = (cell, value) => {
-        /* putOperation(cell.row.id, { [cell.column.id]: value }).then((res) => {
-            console.log(res);
-        }); */
-        console.log(cell);
+        const columnDef = cell.column.columnDef;
+        const attributeName = columnDef.attributeName;
+        const columnName = columnDef.columnName;
+        const operationId = cell.row.original.id;
+        const operation = tableProps.data.find((op) => op.id === operationId);
+        putOperation(operationId, columnName, attributeName, value).then(
+            (res) => {
+                console.log(operation, attributeName, value);
+                dispatch(updateOperation({ ...operation, [attributeName]: value }));
+            },
+        );
     };
-
-    // TODO:
 
     return (
         <Stack gap={1}>
@@ -42,7 +53,6 @@ function TableWithTitle({ title, action, tableProps }) {
                             enableFullScreenToggle={false}
                             enableEditing
                             muiTableBodyCellEditTextFieldProps={({ cell }) => ({
-                            // onBlur is more efficient, but could use onChange instead
                                 onBlur: (event) => {
                                     handleSaveCell(cell, event.target.value);
                                 },
@@ -51,8 +61,8 @@ function TableWithTitle({ title, action, tableProps }) {
                             enableRowActions
                             renderRowActions={(row, index) => (
                                 <Box sx={{ display: "flex" }}>
-                                    <IconButton onClick={() => console.info("Edit")}>
-                                        <InfoIcon />
+                                    <IconButton onClick={() => navigate(`/ops/${row.cell.row.original.id}`)}>
+                                        <ReadMoreIcon />
                                     </IconButton>
                                     <IconButton onClick={() => console.info("Delete")}>
                                         <LocalPrintshopIcon />
