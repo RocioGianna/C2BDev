@@ -32,8 +32,7 @@ const Title = ({ title, handleClose }) => {
                     top: 8,
                     color: (theme) => theme.palette.grey[500],
                 }}
-                onClick={handleClose}
-            >
+                onClick={handleClose}>
                 <CloseIcon />
             </IconButton>
         </DialogTitle>
@@ -70,9 +69,9 @@ export default function OperationNew() {
         const operationDetails = [];
 
         for (let index = 0; index < filteredProps.length / 9; index++) {
-            let opDProps = filteredProps.filter((prop) => prop[0].match(index));
+            const opDProps = filteredProps.filter((prop) => prop[0].match(index));
             opDProps.forEach((o) => (o[0] = o[0].split("_").pop()));
-            let opDetailObject = Object.fromEntries(opDProps);
+            const opDetailObject = Object.fromEntries(opDProps);
             operationDetails[index] = {
                 stepId: opDetailObject.id,
                 type: opDetailObject.phoneOperationType,
@@ -144,33 +143,26 @@ export default function OperationNew() {
     };
 
     return (
-        <>
-            <Dialog open={open} maxWidth={"md"} width={"md"} fullWidth={true} scroll={"paper"} fullScreen={xsMatch}>
-                <Title title={"Nueva Operacion"} handleClose={handleClose} />
-                <DialogContent>
-                    <MultiStepForm
-                        onSubmit={async (values) => {
-                            try {
-                                handleNewOperationPost(values);
-                                dispatch(
-                                    notificationDispatched({
-                                        notification: { message: "Operacion completada", state: "success" },
-                                    })
-                                );
-                                handleClose();
-                            } catch (error) {
-                                console.log(error);
-                                dispatch(
-                                    notificationDispatched({
-                                        notification: { message: "Hubo un error en la subida de la operacion", state: "success" },
-                                    })
-                                );
-                            }
-                        }}
-                        steps={formSteps}
-                    />
-                </DialogContent>
-            </Dialog>
-        </>
+        <Dialog open={open} maxWidth={"md"} width={"md"} fullWidth scroll={"paper"} fullScreen={xsMatch}>
+            <Title title={"Nueva Operacion"} handleClose={handleClose} />
+            <DialogContent>
+                <MultiStepForm
+                    onSubmit={async(values) => {
+                        try {
+                            handleNewOperationPost(values);
+                            dispatch(
+                                notificationDispatched({ notification: { message: "Operacion completada", state: "success" } }),
+                            );
+                            handleClose();
+                        } catch (error) {
+                            console.log(error);
+                            dispatch(
+                                notificationDispatched({ notification: { message: "Hubo un error en la subida de la operacion", state: "success" } }),
+                            );
+                        }
+                    }}
+                    steps={formSteps} />
+            </DialogContent>
+        </Dialog>
     );
 }
