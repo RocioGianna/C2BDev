@@ -11,7 +11,7 @@ function AdminStep() {
         fetchOptions();
     }, []);
 
-    const fetchOptions = async (value) => {
+    const fetchOptions = async(value) => {
         const res = await fetchCollaborators(value);
         const mappedOptions = res.data.map((option) => {
             return { ...option, label: `${option.userCode} - ${option.firstName} ${option.lastName}` };
@@ -31,9 +31,7 @@ function AdminStep() {
 }
 
 const validationSchema = (index) => {
-    return yup.object().shape({
-        collaborator: yup.object().required("El código de colaborador es requerido"),
-    });
+    return yup.object().shape({ collaborator: yup.object().required("El código de colaborador es requerido") });
 };
 
 export default {

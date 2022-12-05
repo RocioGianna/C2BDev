@@ -8,6 +8,8 @@ export function Documentation({ documentation }) {
     const items = documentation;
     const theme = useTheme();
 
+    console.log({ documentation });
+
     function Item({ item }) {
         console.log(item);
         const itemName = item.path.substring(item.path.lastIndexOf("/") + 1);
@@ -34,16 +36,14 @@ export function Documentation({ documentation }) {
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
-            }}
-        >
+            }}>
             <Typography
                 variant="h6"
                 sx={{
                     flexGrow: 1,
                     px: 2,
                     pt: 1,
-                }}
-            >
+                }}>
                 Documentacion
             </Typography>
             <Box style={{ overflow: "hidden" }} sx={{ px: 2 }}>
