@@ -1,11 +1,13 @@
 package com.con2b.back.model.user;
 
+import com.con2b.back.model.product.Provider;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,4 +25,14 @@ public class User2b {
     private String phone;
     private boolean enabled;
     private Role role;
+    @ManyToMany
+    private Set<Provider> allowedProviders;
+
+    public void addAllowedProvider(Provider provider){
+        this.allowedProviders.add(provider);
+    }
+
+    public void removeAllowedProvider(Provider provider){
+        this.allowedProviders.remove(provider);
+    }
 }

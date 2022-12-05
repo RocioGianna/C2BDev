@@ -18,6 +18,7 @@ public class UserDTO {
     private String phone;
     private Role role;
 
+
     public UserDTO(User2b user){
         this.userCode = user.getUserCode();
         this.email = user.getEmail();
