@@ -2,6 +2,7 @@ package com.con2b.back.service.operation;
 
 import com.con2b.back.model.operation.Documentation;
 import com.con2b.back.repository.operation.DocumentationRepository;
+import com.con2b.back.repository.operation.OperationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,8 @@ public class DocumentationService {
     private String sourcePath = "2B/docs";
     @Autowired
     private DocumentationRepository documentationRepository;
+    @Autowired
+    private OperationRepository operationRepository;
 
     public Documentation saveDocumentation(Documentation documentation){
         return documentationRepository.save(documentation);
@@ -69,7 +72,8 @@ public class DocumentationService {
 
         Files.move(source, dest);
         documentation.setPath(builder.toString());
-        return  documentationRepository.save(documentation);
+        documentation.setOperation(operationRepository.findById(operationId).get());
+        return documentationRepository.save(documentation);
     }
 
     public Set<Documentation> getAllDocumentsById(Set<Long> documentId) {
