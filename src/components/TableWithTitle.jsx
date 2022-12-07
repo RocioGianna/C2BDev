@@ -69,9 +69,7 @@ function TableWithTitle({ title, action, tableProps }) {
                                     </IconButton>
                                 </Box>
                             )}
-                            muiTablePaperProps={{ elevation: 0, // change the mui box shadow
-
-                            }} />
+                            muiTablePaperProps={{ elevation: 0 }} />
 
                     </ThemeProvider>
                 )}

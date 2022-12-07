@@ -32,8 +32,7 @@ export function ProductData({ row }) {
                 display: "flex",
                 flexDirection: "column",
                 p: 2,
-            }}
-        >
+            }}>
             <Typography variant="h6">Producto</Typography>
             <Stack direction="column">
                 <Box sx={{ display: "flex", justifyContent: "space-between", py: 0.75, px: 1 }}>
@@ -52,13 +51,15 @@ export function ProductData({ row }) {
                     <Box sx={{ flexGrow: 0, flexShrink: 0 }}>Adicionales</Box>
                     <Box sx={{ flexGrow: 1, textAlign: "right" }}>
                         <Box sx={{ width: "100%", textAlign: "right" }}>
-                            {row.additionalProducts && row.additionalProducts.length > 0 ? (
-                                row.additionalProducts.map((a, index) => {
-                                    return index > 0 ? <span key={index}>, {a.name}</span> : <span key={index}>{a.name}</span>;
-                                })
-                            ) : (
-                                <div>-</div>
-                            )}
+                            {row.additionalProducts && row.additionalProducts.length > 0
+                                ? (
+                                    row.additionalProducts.map((a, index) => {
+                                        return index > 0 ? <span key={index}>, {a.name}</span> : <span key={index}>{a.name}</span>;
+                                    })
+                                )
+                                : (
+                                    <div>-</div>
+                                )}
                         </Box>
                     </Box>
                 </Box>
@@ -73,12 +74,11 @@ export function ProductData({ row }) {
                         <Grid container spacing={1}>
                             {operationDetails.map((opDetail, index) => {
                                 const step = phoneSteps.find((step) => {
-                                    console.log(step);
                                     return opDetail.stepId === step.id;
                                 });
                                 const type = opDetail.type === "NEW" ? "Nuevo" : opDetail.type === "PORTABILITY" ? "Portabilidad" : "Existente";
-                                let additionalData = { ...opDetail, type, step };
-                                return <OperationProductDetails key={index} additional={additionalData} />;
+                                const additionalData = { ...opDetail, type, step };
+                                return <OperationProductDetails key={index} operationId={row.id} operationDetail={additionalData} />;
                             })}
                         </Grid>
                     </AccordionDetails>

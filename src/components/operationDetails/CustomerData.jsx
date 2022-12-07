@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Box, Table, TableContainer, TableHead, TableBody, TableRow, TableCell, Paper, Divider, Stack } from "@mui/material";
+import { Typography, Box, Paper, Divider, Stack } from "@mui/material";
 import Field from "../form/Field";
 
 export function CustomerData({ row }) {

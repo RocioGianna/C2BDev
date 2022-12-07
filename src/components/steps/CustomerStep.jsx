@@ -23,7 +23,7 @@ const validationSchema = () => {
         phoneNumber: yup
             .string()
             .required("El numero es requerido")
-            .test("is-valid-phone", "El formato del telefono no es valido", function (value) {
+            .test("is-valid-phone", "El formato del telefono no es valido", function(value) {
                 return isValidPhoneNumber(this.options.parent.phonePrefix + " " + value);
             }),
         email: yup.string("Ingrese su correo electronico").email("Ingrese un correo electronico valido").required("El correo electronico es requerido"),

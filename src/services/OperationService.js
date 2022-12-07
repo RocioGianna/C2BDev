@@ -81,8 +81,19 @@ export async function fetchStatusMap() {
 
 export async function putOperation(opId, column, attribute, value) {
     try {
-        console.log({ opId, column, attribute, value });
         const res = await doSecurePut(`${ENV2B_BACKEND_URL}/api/v1/operations/${opId}`, { column: column, attribute: attribute, value: value });
+        if (res.data.ok) {
+            return res.data;
+        } else throw { message: "Unexpected server error", res };
+    } catch (error) {
+        console.log(error.message);
+        return null;
+    }
+}
+
+export async function putOperationDetail(opId, opDetailId, value) {
+    try {
+        const res = await doSecurePut(`${ENV2B_BACKEND_URL}/api/v1/operations/${opId}/${opDetailId}`, value);
         if (res.data.ok) {
             return res.data;
         } else throw { message: "Unexpected server error", res };
