@@ -2,6 +2,7 @@ package com.con2b.back.resource.operation;
 
 import com.con2b.back.dto.GenericResponseDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
+import com.con2b.back.dto.operation.OperationDetailEditDTO;
 import com.con2b.back.dto.operation.OperationEditDTO;
 import com.con2b.back.dto.operation.SmallOperationDTO;
 import com.con2b.back.beans.operation.OperationEditPermissions;
@@ -101,7 +102,7 @@ public class OperationResource {
     }
 
     @PutMapping("/{operationId}/{detailsId}")
-    public ResponseEntity<?> editOperationDetails(@RequestBody OperationEditDTO value,@PathVariable Long operationId, @PathVariable Long detailsId,  @RequestHeader("userId") Long userId) throws Exception {
+    public ResponseEntity<?> editOperationDetails(@RequestBody OperationDetailEditDTO value, @PathVariable Long operationId, @PathVariable Long detailsId, @RequestHeader("userId") Long userId) throws Exception {
         try{
             Optional<User2b> opUser = userService.getUserById(userId);
             if(opUser.isPresent()) {
