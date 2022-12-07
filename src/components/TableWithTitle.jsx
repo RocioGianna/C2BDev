@@ -58,14 +58,15 @@ function TableWithTitle({ title, action, tableProps }) {
                                 },
                             })}
                             enableColumnActions={false}
+                            positionActionsColumn="last"
                             enableRowActions
                             renderRowActions={(row, index) => (
                                 <Box sx={{ display: "flex" }}>
                                     <IconButton onClick={() => navigate(`/ops/${row.cell.row.original.id}`)}>
-                                        <ReadMoreIcon />
+                                        <ReadMoreIcon color="primary" />
                                     </IconButton>
                                     <IconButton onClick={() => console.info("Delete")}>
-                                        <LocalPrintshopIcon />
+                                        <LocalPrintshopIcon color="primary" />
                                     </IconButton>
                                 </Box>
                             )}
