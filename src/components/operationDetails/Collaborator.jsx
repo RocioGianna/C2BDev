@@ -1,7 +1,5 @@
 import React from "react";
 import { Typography, Box, Divider, Paper, Stack } from "@mui/material";
-import { EditableDetailField } from "../EditableDetailField";
-import PhoneInput from "../form/PhoneInput";
 import Field from "../form/Field";
 
 export function Collaborator({ row }) {
@@ -12,8 +10,7 @@ export function Collaborator({ row }) {
                 display: "flex",
                 flexDirection: "column",
                 p: 2,
-            }}
-        >
+            }}>
             <Typography variant="h6">Colaborador</Typography>
             <Stack direction="column">
                 <Box sx={{ display: "flex", justifyContent: "space-between", py: 0.75, px: 1 }}>
@@ -26,9 +23,9 @@ export function Collaborator({ row }) {
                     <div>-</div>
                 </Box>
                 <Divider />
-                <Field name="phone" value={row.collaborator.phone} label="Teléfono" operationStatus={row.status} column={"COLLABORATOR_PHONE"} type="tel" />
+                <Field name="phone" value={row.collaboratorPhone} label="Teléfono" operationStatus={row.status} column={"COLLABORATOR_PHONE"} type="tel" />
                 <Divider />
-                <Field name="email" value={row.collaborator.email} label="Email" operationStatus={row.status} column={"COLLABORATOR_EMAIL"} />
+                <Field name="email" value={row.collaboratorEmail} label="Email" operationStatus={row.status} column={"COLLABORATOR_EMAIL"} />
             </Stack>
         </Paper>
     );
