@@ -24,4 +24,20 @@ public class Customer {
     private String bankAccount;
     @OneToOne(fetch = FetchType.EAGER)
     private Address billingAddress;
+
+    public void setAddress(String address) {
+        billingAddress.setAddress(address);
+    }
+
+    public void setZipCode(String zipcode) {
+        billingAddress.setZipcode(zipcode);
+    }
+
+    public void setMunicipality(String municipality) {
+        billingAddress.setMunicipality(municipality);
+    }
+
+    public void setProvince(String province) {
+        billingAddress.setProvince(province);
+    }
 }
