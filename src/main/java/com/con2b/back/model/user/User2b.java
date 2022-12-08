@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -26,6 +28,7 @@ public class User2b {
     private boolean enabled;
     private Role role;
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Provider> allowedProviders;
 
     public void addAllowedProvider(Provider provider){

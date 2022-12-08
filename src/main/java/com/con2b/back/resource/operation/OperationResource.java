@@ -34,7 +34,7 @@ public class OperationResource {
     private OperationPossibleNextStatus operationPossibleNextStatus;
 
     @PostMapping("")
-    @PreAuthorize("hasAnyRole('COLLABORATOR_MOVISTAR', 'COLLABORATOR_ALL')")
+    @PreAuthorize("hasRole('COLLABORATOR')")
     public ResponseEntity<?> createOperation(@RequestBody NewOperationDTO newOperationDTO, @RequestHeader("userId") Long userId )throws Exception{
         Optional<User2b> opUser = userService.getUserById(userId);
         if(opUser.isPresent() && newOperationDTO.getCollaboratorCode().equals(opUser.get().getUserCode()) ){
