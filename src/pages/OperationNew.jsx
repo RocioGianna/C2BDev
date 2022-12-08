@@ -124,8 +124,8 @@ export default function OperationNew() {
             };
         }
 
-        if (user.phone !== body.collaboratorPhone) body.collaboratorPhone = values.collaboratorEmail;
-        if (user.email !== body.collaboratorEmail) body.collaboratorEmail = values.collaboratorPhonePrefix + " " + values.collaboratorPhoneNumber;
+        if (user.phone !== body.collaboratorPhone) body.collaboratorPhone = values.collaboratorPhonePrefix + " " + values.collaboratorPhoneNumber;
+        if (user.email !== body.collaboratorEmail) body.collaboratorEmail = values.collaboratorEmail;
 
         if (isAdmin()) {
             postOperationAdmin(body).then(() => {
