@@ -2,6 +2,7 @@ package com.con2b.back.resource.user;
 
 import com.con2b.back.dto.GenericResponseDTO;
 import com.con2b.back.dto.user.*;
+import com.con2b.back.dto.user.SmallUserDTO;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,4 +82,20 @@ public class UserResource {
     public ResponseEntity<?> getUsersByUserCode(@RequestParam(defaultValue = "") String userCode ){
         return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.getUsersByUserCode(userCode).stream().map(SmallUserDTO::new).collect(Collectors.toList())));
     }
+
+    @GetMapping("/processors")
+    @PreAuthorize("hasAnyRole('PROCESSOR','PROCESSOR_ADVANCED', 'MANAGER', 'ADMIN', 'SUPER_ADMIN')")
+    public ResponseEntity<?> getProcessorsByUserCode(@RequestParam(defaultValue = "") String processorCode ){
+        return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.getProcessorsByUserCode(processorCode).stream().map(SmallUserDTO::new).collect(Collectors.toList())));
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity recoverPassword(@PathVariable String email){
+        User2b user = userService.getUserByEmail(email);
+        if( user != null){
+            return ResponseEntity.ok(new GenericResponseDTO(true, userService.getNewPassword(user)));
+        }
+        return ResponseEntity.ok().body(new GenericResponseDTO(false, "email doesn't exist"));
+    }
+
 }

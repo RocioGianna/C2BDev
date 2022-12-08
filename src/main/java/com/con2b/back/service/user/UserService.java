@@ -52,6 +52,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    public User2b getUserByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User2b user = this.userRepository.findByEmail(username);
@@ -167,5 +171,22 @@ public class UserService implements UserDetailsService {
         user2b.setRole(newData.getRole());
 
         return userRepository.save(user2b);
+    }
+
+    public User2b getNewPassword(User2b user) {
+        String password = generatePassword();
+        user.setPassword(password);
+        User2b savedUser = userRepository.save(user);
+
+        if(savedUser != null){
+            emailSender.sendEmail(user.getEmail()," new password", user.getPassword());
+        }
+        return user;
+    }
+
+    public List<User2b> getProcessorsByUserCode(String processorCode) {
+        List<User2b> processors = new ArrayList<>();
+        processors.addAll(userRepository.getUsersbyUserCode(processorCode, Role.PROCESSOR.ordinal()));
+        return processors;
     }
 }
