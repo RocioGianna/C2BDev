@@ -2,6 +2,7 @@ package com.con2b.back.service.operation;
 
 import com.con2b.back.model.operation.Documentation;
 import com.con2b.back.repository.operation.DocumentationRepository;
+import com.con2b.back.repository.operation.OperationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,9 +21,11 @@ import java.util.Set;
 @Transactional
 public class DocumentationService {
 
-    private String sourcePath = "C:/2B/docs";
+    private String sourcePath = "2B/docs";
     @Autowired
     private DocumentationRepository documentationRepository;
+    @Autowired
+    private OperationRepository operationRepository;
 
     public Documentation saveDocumentation(Documentation documentation){
         return documentationRepository.save(documentation);
@@ -54,11 +57,11 @@ public class DocumentationService {
         StringBuilder builder = new StringBuilder();
         builder.append(sourcePath);
         builder.append("/");
-        builder.append(parts[3]);//userId
+        builder.append(parts[2]);//userId
         builder.append("/");
         builder.append(operationId);
         builder.append("/");
-        builder.append(parts[4]); //fileName
+        builder.append(parts[3]); //fileName
 
         Path source = Paths.get(documentation.getPath()).toAbsolutePath();
         Path dest = Paths.get(builder.toString()).toAbsolutePath();
@@ -69,7 +72,8 @@ public class DocumentationService {
 
         Files.move(source, dest);
         documentation.setPath(builder.toString());
-        return  documentationRepository.save(documentation);
+        documentation.setOperation(operationRepository.findById(operationId).get());
+        return documentationRepository.save(documentation);
     }
 
     public Set<Documentation> getAllDocumentsById(Set<Long> documentId) {

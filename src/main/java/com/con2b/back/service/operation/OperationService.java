@@ -4,6 +4,7 @@ import com.con2b.back.beans.operation.OperationEditPermissions;
 import com.con2b.back.beans.operation.OperationPossibleNextStatus;
 import com.con2b.back.dto.operation.FullOperationDTO;
 import com.con2b.back.dto.operation.NewOperationDTO;
+import com.con2b.back.dto.operation.OperationDetailEditDTO;
 import com.con2b.back.dto.operation.OperationEditDTO;
 import com.con2b.back.model.operation.*;
 import com.con2b.back.model.product.Product;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.lang.reflect.Method;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.List;
 
@@ -165,6 +167,9 @@ public class OperationService {
                 break;
             case PROCESSOR:
                 User2b processor = userService.getUserByUserCode(operationEditDTO.getValue().toString());
+                if(processor.getRole() != Role.PROCESSOR_ADVANCED && processor.getRole() != Role.PROCESSOR){
+                    throw new Exception("The user isn't a processor");
+                }
                 operation.setProcessor(processor);
                 break;
             case COLLABORATOR:
@@ -196,21 +201,26 @@ public class OperationService {
         return operationRepository.save(operation);
     }
 
-    public Operation editOperationDetails(OperationEditDTO operationEditDTO, Long detailsId, Long operationId, Role role) throws Exception {
+    public Operation editOperationDetails(OperationDetailEditDTO operationEditDTO, Long detailsId, Long operationId, Role role) throws Exception {
         Optional<Operation> operation = operationRepository.findById(operationId);
         if(operation.isEmpty()){
             throw new Exception("The operation id is invalid");
         }
-        OperationColumn column = operationEditDTO.getColumn();
         Status status = operation.get().getStatus();
-        if(!operationEditPermissions.isColumnEditable(role, status, column)){
+        if(!operationEditPermissions.isColumnEditable(role, status, OperationColumn.OPERATION_DETAILS)){
             throw new Exception("The current user can't edit this field.");
         }
 
-        String methodName = "set"+ capitalize(operationEditDTO.getAttribute());
-        OperationDetails instance = operationDetailsService.getOperationDetailById(detailsId);
-        Method method = instance.getClass().getDeclaredMethod(methodName, operationEditDTO.getValue().getClass());
-        method.invoke(instance,operationEditDTO.getValue());
+        operation.get().getOperationDetails().forEach(od -> {
+            if(Objects.equals(od.getId(), detailsId)){
+                od.setType(operationEditDTO.getType());
+                od.setPhone(operationEditDTO.getPhone());
+                od.setCurrentProvider(operationEditDTO.getCurrentProvider());
+                od.setCurrentOwnerFirstname(operationEditDTO.getCurrentOwnerFirstname());
+                od.setCurrentOwnerLastname(operationEditDTO.getCurrentOwnerLastname());
+                od.setCurrentOwnerNID(operationEditDTO.getCurrentOwnerNID());
+            }
+        });
         return operationRepository.save(operation.get());
     }
 }
