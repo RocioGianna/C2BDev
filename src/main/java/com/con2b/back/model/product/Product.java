@@ -27,6 +27,8 @@ public class Product {
     @JsonIgnore
     private Set<AdditionalProduct> availableAdditionals;
     private boolean isProfessional;
+    @ManyToOne
+    private Provider provider;
 
     public void addOption(ProductOption option){
         this.options.add(option);

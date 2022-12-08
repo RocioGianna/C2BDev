@@ -24,6 +24,8 @@ public class AdditionalProduct {
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Product> parentProducts;
+    @ManyToOne
+    private Provider provider;
 
     public void addOption(AdditionalProductOption option){
         this.options.add(option);
