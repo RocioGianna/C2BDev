@@ -24,9 +24,13 @@ public class Product {
     @JsonIgnore
     private Set<ProductOption> options;
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "product_additional_products")
     @JsonIgnore
     private Set<AdditionalProduct> availableAdditionals;
     private boolean isProfessional;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Provider provider;
 
     public void addOption(ProductOption option){
         this.options.add(option);

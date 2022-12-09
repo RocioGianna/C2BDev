@@ -7,6 +7,7 @@ import com.con2b.back.dto.operation.NewOperationDTO;
 import com.con2b.back.dto.operation.OperationDetailEditDTO;
 import com.con2b.back.dto.operation.OperationEditDTO;
 import com.con2b.back.model.operation.*;
+import com.con2b.back.model.product.Product;
 import com.con2b.back.model.user.Role;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.repository.operation.StepRepository;
@@ -76,6 +77,12 @@ public class OperationService {
         Customer customer = customerService.saveCustomer(newOperationDTO.getCustomer());
         Address installationAddress = addressService.saveAddress(newOperationDTO.getInstallationAddress());
         Address shippingAddress = addressService.saveAddress(newOperationDTO.getShippingAddress());
+        Product product = productService.getProductOptionById(newOperationDTO.getProductOptionId()).getProduct();
+        User2b collaborator = userService.getUserByUserCode(newOperationDTO.getCollaboratorCode());
+
+        if(!collaborator.getAllowedProviders().contains(product.getProvider())){
+            throw new Exception("Collaborator doesn't have permissions to this provider");
+        }
 
         String operationCode = "XXX";
 
@@ -83,12 +90,14 @@ public class OperationService {
 
         operation.setOperationCode(operationCode);
         operation.setStatus(Status.PENDING);
-        operation.setCollaborator(userService.getUserByUserCode(newOperationDTO.getCollaboratorCode()));
+        operation.setCollaborator(collaborator);
         if(newOperationDTO.getCollaboratorEmail() != null && !newOperationDTO.getCollaboratorEmail().isEmpty())
             operation.setCollaboratorEmail(newOperationDTO.getCollaboratorEmail());
         if(newOperationDTO.getCollaboratorPhone() != null && !newOperationDTO.getCollaboratorPhone().isEmpty())
             operation.setCollaboratorPhone(newOperationDTO.getCollaboratorPhone());
+
         operation.setProductOption(productService.getProductOptionById(newOperationDTO.getProductOptionId()));
+
         if(newOperationDTO.getAdditionalIds() != null && !newOperationDTO.getAdditionalIds().isEmpty()) {
             operation.setAdditionalProducts(productService.getAdditionalProductOptionsById(newOperationDTO.getAdditionalIds()));
         }

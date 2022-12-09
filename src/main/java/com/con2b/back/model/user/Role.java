@@ -1,8 +1,7 @@
 package com.con2b.back.model.user;
 
 public enum Role {
-    COLLABORATOR_MOVISTAR,
-    COLLABORATOR_ALL,
+    COLLABORATOR,
     PROCESSOR,
     PROCESSOR_ADVANCED,
     MANAGER,

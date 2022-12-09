@@ -54,8 +54,7 @@ public class UserService implements UserDetailsService {
 
     public List<User2b> getUsersByUserCode(String userCode) {
         List<User2b> collaborators = new ArrayList<>();
-        collaborators.addAll(userRepository.getUsersbyUserCode(userCode, Role.COLLABORATOR_MOVISTAR.ordinal()));
-        collaborators.addAll(userRepository.getUsersbyUserCode(userCode, Role.COLLABORATOR_ALL.ordinal()));
+        collaborators.addAll(userRepository.getUsersbyUserCode(userCode, Role.COLLABORATOR.ordinal()));
         return collaborators;
     }
 

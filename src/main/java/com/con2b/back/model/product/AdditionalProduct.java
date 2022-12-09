@@ -21,9 +21,12 @@ public class AdditionalProduct {
     private String name;
     @OneToMany(mappedBy = "additionalProduct")
     private Set<AdditionalProductOption> options;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "availableAdditionals")
     @JsonIgnore
     private Set<Product> parentProducts;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Provider provider;
 
     public void addOption(AdditionalProductOption option){
         this.options.add(option);
