@@ -80,6 +80,10 @@ public class OperationService {
         Product product = productService.getProductOptionById(newOperationDTO.getProductOptionId()).getProduct();
         User2b collaborator = userService.getUserByUserCode(newOperationDTO.getCollaboratorCode());
 
+        if(!collaborator.getAllowedProviders().contains(product.getProvider())){
+            throw new Exception("Collaborator doesn't have permissions to this provider");
+        }
+
         String operationCode = "XXX";
 
         Operation operation = new Operation();
@@ -91,9 +95,9 @@ public class OperationService {
             operation.setCollaboratorEmail(newOperationDTO.getCollaboratorEmail());
         if(newOperationDTO.getCollaboratorPhone() != null && !newOperationDTO.getCollaboratorPhone().isEmpty())
             operation.setCollaboratorPhone(newOperationDTO.getCollaboratorPhone());
-        if(collaborator.getAllowedProviders().contains(product.getProvider())){
-            operation.setProductOption(productService.getProductOptionById(newOperationDTO.getProductOptionId()));
-        }
+
+        operation.setProductOption(productService.getProductOptionById(newOperationDTO.getProductOptionId()));
+
         if(newOperationDTO.getAdditionalIds() != null && !newOperationDTO.getAdditionalIds().isEmpty()) {
             operation.setAdditionalProducts(productService.getAdditionalProductOptionsById(newOperationDTO.getAdditionalIds()));
         }
