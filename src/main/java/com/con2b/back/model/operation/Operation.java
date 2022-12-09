@@ -42,9 +42,11 @@ public class Operation {
     private Channel channel;
 
     @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User2b processor;
 
     @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User2b collaborator;
 
     @Column(nullable = true)

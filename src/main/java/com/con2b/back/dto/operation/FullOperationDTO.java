@@ -1,5 +1,7 @@
 package com.con2b.back.dto.operation;
 
+import com.con2b.back.dto.user.SmallUserDTO;
+import com.con2b.back.dto.user.UserDTO;
 import com.con2b.back.model.operation.*;
 import com.con2b.back.model.product.AdditionalProductOption;
 import com.con2b.back.model.product.ProductOption;
@@ -25,8 +27,8 @@ public class FullOperationDTO {
     private Date creationDate;
     private Status status;
     private Channel channel;
-    private User2b processor;
-    private User2b collaborator;
+    private UserDTO processor;
+    private UserDTO collaborator;
     private String collaboratorEmail;
     private String collaboratorPhone;
     private ProductOption productOption;
@@ -44,8 +46,8 @@ public class FullOperationDTO {
         this.creationDate = operation.getCreationDate();
         this.status = operation.getStatus();
         this.channel = operation.getChannel();
-        this.processor = operation.getProcessor();
-        this.collaborator = operation.getCollaborator();
+        this.processor = operation.getProcessor() != null ? new UserDTO(operation.getProcessor()) : null;
+        this.collaborator = operation.getCollaborator() != null ? new UserDTO(operation.getCollaborator()) : null;
         this.collaboratorEmail = operation.getCollaboratorEmail();
         this.collaboratorPhone = operation.getCollaboratorPhone();
         this.productOption = operation.getProductOption();
