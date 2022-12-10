@@ -55,7 +55,7 @@ function CustomerTableCard({ row }) {
                     column: "CUSTOMER",
                 }} />
             <TableCardRow
-                label="Cuenta bancaria"
+                label="Nº Cuenta Bancaria / IBAN"
                 value={row.customer.bankAccount}
                 editable
                 InputComponent={EditableDetailField}
