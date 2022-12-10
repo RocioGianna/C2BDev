@@ -28,7 +28,7 @@ public class UserResource {
         return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.createUser(user)));
     }
 
-    @PutMapping("/changePasword")
+    @PutMapping("/changePassword")
     public ResponseEntity<?> updatePassword(@RequestBody UserPasswordDTO pass, @RequestHeader("userId") Long userId){
         Optional<User2b> opUser = userService.getUserById(userId);
         try{

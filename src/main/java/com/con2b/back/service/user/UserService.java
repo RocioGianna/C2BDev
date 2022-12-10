@@ -113,7 +113,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User2b changePassword(UserPasswordDTO password, User2b user){
-        if(isValid(password.getNewPass()) && passwordEncoder.matches(passwordEncoder.encode(password.getActualPass()),(user.getPassword())))
+        if(isValid(password.getNewPass()) && passwordEncoder.matches(password.getActualPass(),(user.getPassword())))
             user.setPassword(passwordEncoder.encode(password.getNewPass()));
 
         return userRepository.save(user);
