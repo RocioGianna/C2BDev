@@ -90,11 +90,12 @@ public class UserService implements UserDetailsService {
         addressService.saveAddress(user.getAddress());
         u.setBillingAddress(user.getAddress());
         u.setEnabled(true);
-        u.setPassword(this.generatePassword());
+        String pass = this.generatePassword();
+        u.setPassword(passwordEncoder.encode(pass));
 
         User2b savedUser = userRepository.save(u);
         if(savedUser != null){
-            emailSender.sendEmail(u.getEmail(),u.getPassword(),"contrase;a");
+            emailSender.sendEmail(u.getEmail(),"New password", pass);
         }
         return savedUser;
     }
@@ -112,7 +113,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User2b changePassword(UserPasswordDTO password, User2b user){
-        if(isValid(password.getNewPass()) && password.getActualPass().equals(user.getPassword()))
+        if(isValid(password.getNewPass()) && passwordEncoder.matches(passwordEncoder.encode(password.getActualPass()),(user.getPassword())))
             user.setPassword(passwordEncoder.encode(password.getNewPass()));
 
         return userRepository.save(user);
