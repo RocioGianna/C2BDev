@@ -1,14 +1,16 @@
 import React from "react";
-import { Typography, Paper, Button, Box, Stack, ThemeProvider, useTheme, IconButton } from "@mui/material";
+import { Paper, Stack, ThemeProvider, useTheme, IconButton } from "@mui/material";
 import MaterialReactTable from "material-react-table";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
-import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import { putOperation } from "../services/OperationService.js";
 import { updateOperation } from "../state/operationsSlice.js";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { MRT_Localization_ES } from "material-react-table/locales/es";
+import TitleBar from "./containers/TitleBar/TitleBar.jsx";
 
-function TableWithTitle({ title, action, tableProps }) {
+
+function TableWithTitle({ title, actions, tableProps }) {
     const navigate = useNavigate();
     const theme = useTheme();
     const dispatch = useDispatch();
@@ -28,20 +30,8 @@ function TableWithTitle({ title, action, tableProps }) {
     };
 
     return (
-        <Stack gap={1}>
-            <Paper sx={{ px: 2, py: 1 }}>
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Typography variant="h5" sx={{ mt: 0.25 }}>
-                        {title}
-                    </Typography>
-                    {action && (
-                        <Button variant="contained" onClick={action.onClick}>
-                            {action.icon}
-                            {action.label}
-                        </Button>
-                    )}
-                </Box>
-            </Paper>
+        <Stack spacing={2}>
+            <TitleBar title={title} actions={actions} />
             <Paper sx={{ px: 2, py: 1 }}>
                 {tableProps && (
                     <ThemeProvider theme={{ ...theme, palette: { ...theme.palette, background: { ...theme.palette.background, default: "#fff" } } }}>
@@ -60,17 +50,13 @@ function TableWithTitle({ title, action, tableProps }) {
                             enableColumnActions={false}
                             positionActionsColumn="last"
                             enableRowActions
-                            renderRowActions={(row, index) => (
-                                <Box sx={{ display: "flex" }}>
-                                    <IconButton onClick={() => navigate(`/ops/${row.cell.row.original.id}`)}>
-                                        <ReadMoreIcon color="primary" />
-                                    </IconButton>
-                                    <IconButton onClick={() => console.info("Delete")}>
-                                        <LocalPrintshopIcon color="primary" />
-                                    </IconButton>
-                                </Box>
+                            renderRowActions={(row) => (
+                                <IconButton onClick={() => navigate(`/ops/${row.cell.row.original.id}`)}>
+                                    <ReadMoreIcon color="primary" />
+                                </IconButton>
                             )}
-                            muiTablePaperProps={{ elevation: 0 }} />
+                            muiTablePaperProps={{ elevation: 0 }}
+                            localization={MRT_Localization_ES} />
 
                     </ThemeProvider>
                 )}

@@ -7,11 +7,7 @@ export async function postDocumentation(file, userId) {
     formData.append("file", file);
 
     try {
-        const res = await doSecurePost(`${ENV2B_BACKEND_URL}/api/v1/documentation?userId=${userId}`, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
+        const res = await doSecurePost(`${ENV2B_BACKEND_URL}/api/v1/documentation?userId=${userId}`, formData, { headers: { "Content-Type": "multipart/form-data" } });
         if (res.data.ok) {
             return res.data;
         } else throw { message: "Unexpected server error", res };

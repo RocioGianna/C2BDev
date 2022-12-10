@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import moment from "moment";
-import { ChannelSelect } from "../components/operationDetails/ChannelSelect.jsx";
 import { MenuItem, Select } from "@mui/material";
 import { isProcessorOrUpperRole } from "./RolesUtils";
 import { ProcessingChannel } from "../model/ProcessingChannels.js";

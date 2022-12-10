@@ -17,15 +17,8 @@ export default function PhoneInput({ phonePrefixName, phoneNumberName, disabled,
                 {small
                     ? (
                         <Field
-                            sx={{ heigth: "100%", display: "flex", justifyContent: "end", flexDirection: "column" }}
-                            InputProps={{
-                                sx: {
-                                    "& input": {
-                                        textAlign: "center",
-                                        fontSize: "0.875rem",
-                                    },
-                                },
-                            }}
+                            sx={{ height: "100%", display: "flex", justifyContent: "end", flexDirection: "column" }}
+                            InputProps={{ sx: { "& input": { textAlign: "center" } } }}
                             component={TextField}
                             name={phonePrefixName}
                             variant="standard"
@@ -41,15 +34,8 @@ export default function PhoneInput({ phonePrefixName, phoneNumberName, disabled,
                 {small
                     ? (
                         <Field
-                            sx={{ heigth: "100%", display: "flex", justifyContent: "end", flexDirection: "column" }}
-                            InputProps={{
-                                sx: {
-                                    "& input": {
-                                        textAlign: "center",
-                                        fontSize: "0.875rem",
-                                    },
-                                },
-                            }}
+                            sx={{ height: "100%", display: "flex", justifyContent: "end", flexDirection: "column" }}
+                            InputProps={{ sx: { "& input": { textAlign: "center" } } }}
                             variant="standard"
                             size="small"
                             component={TextField}

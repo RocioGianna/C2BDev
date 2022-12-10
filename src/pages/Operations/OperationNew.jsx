@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { MultiStepForm } from "../components/MultiStepForm";
+import { MultiStepForm } from "../../components/MultiStepForm";
 import { useNavigate } from "react-router-dom";
 import { IconButton, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { reset, addStep } from "../state/formStepsSlice";
-import { isAdmin } from "../utils/RolesUtils.js";
+import { reset, addStep } from "../../state/formStepsSlice";
+import { isAdmin } from "../../utils/RolesUtils.js";
 import CloseIcon from "@mui/icons-material/Close";
-import { notificationDispatched } from "../state/notificactionSlice";
+import { notificationDispatched } from "../../state/notificactionSlice";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { fetchOperations, postOperation, postOperationAdmin } from "../services/OperationService";
-import { operationsFetched } from "../state/operationsSlice.js";
-import { store } from "../state/store.js";
+import { fetchOperations, postOperation, postOperationAdmin } from "../../services/OperationService";
+import { operationsFetched } from "../../state/operationsSlice.js";
+import { store } from "../../state/store.js";
 
 const Title = ({ title, handleClose }) => {
     const theme = useTheme();
@@ -149,7 +149,7 @@ export default function OperationNew() {
             <Title title={"Nueva Operacion"} handleClose={handleClose} />
             <DialogContent>
                 <MultiStepForm
-                    onSubmit={async(values) => {
+                    onSubmit={async (values) => {
                         try {
                             handleNewOperationPost(values);
                             dispatch(

@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { EditableDetailField } from "../EditableDetailField.jsx";
 import { useSelector } from "react-redux";
 
-export default function Field({ name, value, label, operationStatus, column, type }) {
+export default function EditableRow({ name, value, label, operationStatus, column, type }) {
     const editPermissions = useSelector((state) => state.operations.permissions);
     const editPermission = editPermissions[operationStatus];
     const canEdit = editPermission.includes(column);

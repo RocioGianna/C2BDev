@@ -6,7 +6,7 @@ export default function FormSelect({ name, children, label, disabled, small }) {
     return (
         <Field
             component={TextField}
-            textFieldProps={{ margin: small ? "none" : "normal" }}
+            InputProps={{ margin: small ? "none" : "normal" }}
             type="text"
             select
             fullWidth

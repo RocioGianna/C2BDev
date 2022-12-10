@@ -11,7 +11,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import useLogout from "../../../hooks/useLogout";
+import useLogout from "../../hooks/useLogout";
 
 function ProfileMenu() {
     const firstName = useSelector((state) => state.session.user?.firstName);

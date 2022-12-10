@@ -11,16 +11,22 @@ import { SnackbarProvider } from "notistack";
 import NotificationDispatcher from "./components/NotificationDispatcher";
 import Fade from "@mui/material/Fade";
 import "../src/styles/globalStyles.css";
-import "@fontsource/poppins";
+import "@fontsource/poppins/100.css";
+import "@fontsource/poppins/200.css";
+import "@fontsource/poppins/300.css";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/500.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/800.css";
+import "@fontsource/poppins/900.css";
 
 const theme = createTheme({
     palette: {
-        background: { default: "#e7ddec" },
-        primary: { dark: "#551482", main: "#6b378d", light: "#9d79b4", extraLight: "#e7ddec" },
+        background: { default: "#ebe8ed" },
+        primary: { dark: "#551482", main: "#6b378d", light: "#9d79b4", extraLight: "#ebe8ed" },
     },
-    typography: {
-        fontFamily: ["Poppins", "sans-serif"].join(","),
-    },
+    typography: { fontFamily: ["Poppins", "sans-serif"].join(",") },
 });
 
 ReactDOM.render(
@@ -35,5 +41,5 @@ ReactDOM.render(
             </SnackbarProvider>
         </ThemeProvider>
     </HashRouter>,
-    document.getElementById("root")
+    document.getElementById("root"),
 );

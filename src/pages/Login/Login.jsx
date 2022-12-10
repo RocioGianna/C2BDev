@@ -3,13 +3,13 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import TextInput from "../components/form/TextInput";
+import TextInput from "../../components/form/TextInput";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import Logo from "../assets/logo/LogoHWhite.png";
-import { login } from "../services/AuthService";
+import Logo from "../../assets/logo/LogoHWhite.svg";
+import { login } from "../../services/AuthService";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -62,15 +62,11 @@ function Login() {
                                 bgcolor: (theme) => theme.palette.primary.dark,
                                 paddingTop: 2,
                                 px: 2,
-                            }}
-                        >
+                            }}>
                             <Typography
                                 variant="h4"
                                 component="h1"
-                                sx={{
-                                    color: (theme) => theme.palette.primary.contrastText,
-                                }}
-                            >
+                                sx={{ color: (theme) => theme.palette.primary.contrastText }}>
                                 <img style={{ maxWidth: 320, width: "100%" }} src={Logo} alt="2B Conexión" />
                             </Typography>
                         </Box>
@@ -90,8 +86,7 @@ function Login() {
                                         formik.handleChange(e);
                                     }}
                                     error={(formik.touched.email2b && Boolean(formik.errors.email2b)) || error}
-                                    helperText={formik.touched.email2b && formik.errors.email2b}
-                                />
+                                    helperText={formik.touched.email2b && formik.errors.email2b} />
                                 <TextInput
                                     id="password"
                                     name="password"
@@ -104,8 +99,7 @@ function Login() {
                                     }}
                                     autoComplete="off"
                                     error={(formik.touched.password && Boolean(formik.errors.password)) || error}
-                                    helperText={formik.touched.password && formik.errors.password}
-                                />
+                                    helperText={formik.touched.password && formik.errors.password} />
 
                                 {error && (
                                     <Typography variant="body2" sx={{ color: (theme) => theme.palette.error.main }}>

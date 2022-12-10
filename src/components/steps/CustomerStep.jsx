@@ -79,7 +79,9 @@ function CustomerStep(props) {
 
     function selectedProductHasAnyMobileStep() {
         const phoneSteps = useSelector((state) => state.formSteps.phoneSteps);
-        return phoneSteps.some((step) => step.mobile === true);
+        return phoneSteps.some((step) => {
+            console.log(step); return step.stepType === "MOBILE";
+        });
     }
 
     return (

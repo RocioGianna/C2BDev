@@ -15,7 +15,7 @@ export function EditableSelect({ getOptionLabel, options, name, onInputChange, l
             textFieldProps={{
                 label: label,
                 variant: "outlined",
-                margin: small ? "none" : "normal",
+                margin: small ? "none" : undefined,
             }}
             size={small ? "small" : "medium"}
             onInputChange={(event, value) => {

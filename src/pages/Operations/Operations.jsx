@@ -1,17 +1,17 @@
 /* eslint-disable react/display-name */
 import * as React from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { getOperationTableColumnsByRole } from "../utils/OperationUtils.jsx";
+import { getOperationTableColumnsByRole } from "../../utils/OperationUtils.jsx";
 import { CircularProgress, Alert, Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Grid from "@mui/material/Grid";
-import { fetchOperations } from "../services/OperationService.js";
+import { fetchOperations } from "../../services/OperationService.js";
 import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
-import { operationsFetched } from "../state/operationsSlice.js";
-import { store } from "../state/store.js";
+import { operationsFetched } from "../../state/operationsSlice.js";
+import { store } from "../../state/store.js";
 import { useSelector } from "react-redux";
-import TableWithTitle from "../components/TableWithTitle.jsx";
+import TableWithTitle from "../../components/TableWithTitle.jsx";
 
 export default function Operations() {
     const columns = getOperationTableColumnsByRole();
@@ -48,7 +48,7 @@ export default function Operations() {
     return (
         <Grid container alignItems="center" justifyContent="center">
             <Stack sx={{ width: "100%" }} gap={2}>
-                <TableWithTitle title="Operaciones" action={{ onClick: () => navigate("/ops/new"), label: "Añadir Operación", icon: <AddIcon /> }} tableProps={{ columns, data }} />
+                <TableWithTitle title="Operaciones" actions={[{ onClick: () => navigate("/ops/new"), label: "Añadir Operación", icon: <AddIcon /> }]} tableProps={{ columns, data }} />
             </Stack>
             <Outlet />
         </Grid>

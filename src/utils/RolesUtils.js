@@ -18,7 +18,7 @@ export function isProcessorOrUpperRole() {
 }
 
 export function isCollaborator() {
-    return hasAnyRole(["COLLABORATOR_MOVISTAR", "COLLABORATOR_ALL"]);
+    return hasRole("COLLABORATOR");
 }
 
 export function getRole() {

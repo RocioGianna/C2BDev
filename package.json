@@ -4,10 +4,12 @@
     "description": "",
     "type": "module",
     "scripts": {
+        "start": "npm run dev",
         "dev": "vite",
+        "prod": "npm run build && npm run preview",
         "build": "vite build",
         "preview": "vite preview",
-        "start": "npm run dev"
+        "format": "eslint . --fix"
     },
     "keywords": [],
     "author": "",
