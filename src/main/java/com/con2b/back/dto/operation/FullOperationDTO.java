@@ -1,11 +1,9 @@
 package com.con2b.back.dto.operation;
 
-import com.con2b.back.dto.user.SmallUserDTO;
 import com.con2b.back.dto.user.UserDTO;
 import com.con2b.back.model.operation.*;
 import com.con2b.back.model.product.AdditionalProductOption;
 import com.con2b.back.model.product.ProductOption;
-import com.con2b.back.model.user.User2b;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +34,7 @@ public class FullOperationDTO {
     private Set<OperationDetails>operationDetails;
     private Customer customer;
     private Address installationAddress;
-    private Address shippingAdress;
+    private Address shippingAddress;
     private Set<Documentation> documentation;
 
     public FullOperationDTO(Operation operation) {
@@ -55,7 +53,7 @@ public class FullOperationDTO {
         this.operationDetails = operation.getOperationDetails();
         this.customer = operation.getCustomer();
         this.installationAddress = operation.getInstallationAddress();
-        this.shippingAdress = operation.getShippingAddress();
+        this.shippingAddress = operation.getShippingAddress();
         this.documentation = operation.getDocumentation();
     }
 }
