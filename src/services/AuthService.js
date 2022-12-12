@@ -1,6 +1,7 @@
 import axios from "axios";
 import { store } from "../state/store";
 import { loggedIn, loggedOut } from "../state/sessionSlice";
+import { doSecurePost } from "../utils/RequestUtils";
 
 export async function login(email, password) {
     try {
@@ -12,7 +13,7 @@ export async function login(email, password) {
                 loggedIn({
                     user: res.data.data.user,
                     accessToken: res.data.data.tokens.accessToken,
-                })
+                }),
             );
             return true;
         }
@@ -32,7 +33,7 @@ export async function refreshAccessToken() {
                     loggedIn({
                         user: res.data.data.user,
                         accessToken: res.data.data.tokens.accessToken,
-                    })
+                    }),
                 );
             }
         } else throw new Error("No refresh token in localStorage");
@@ -43,9 +44,9 @@ export async function refreshAccessToken() {
     return false;
 }
 
-export async function logout(email) {
+export async function logout() {
     try {
-        const res = await axios.post(`${ENV2B_BACKEND_URL}/auth/logout?email=${email}`);
+        const res = await doSecurePost(`${ENV2B_BACKEND_URL}/auth/logout`);
         if (res.data.ok) {
             store.dispatch(loggedOut());
             localStorage.removeItem("refreshToken");
