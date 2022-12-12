@@ -61,7 +61,7 @@ export function ProductStep() {
                 <Grid item xs={12}>
                     <FormSelect name={"isProfessionalProduct"} label={"Tipo de producto"}>
                         {/* <MenuItem value={true}>Profesional</MenuItem> */}
-                        <MenuItem value={false}>Particular</MenuItem>
+                        <MenuItem value={false}>Residencial</MenuItem>
                     </FormSelect>
                 </Grid>
                 <Grid item xs={12}>
