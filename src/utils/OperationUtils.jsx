@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import moment from "moment";
 import { MenuItem, Select } from "@mui/material";
 import { isProcessorOrUpperRole } from "./RolesUtils";
-import { ProcessingChannel } from "../model/ProcessingChannels.js";
+import { ProcessingChannel } from "../model/Operation/ProcessingChannels.js";
 import { putOperation } from "../services/OperationService.js";
 import { store } from "../state/store.js";
 import { updateOperation } from "../state/operationsSlice.js";

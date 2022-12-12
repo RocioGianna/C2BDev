@@ -11,12 +11,21 @@ import Box from "@mui/material/Box";
 import { operationsFetched } from "../../state/operationsSlice.js";
 import { store } from "../../state/store.js";
 import { useSelector } from "react-redux";
-import TableWithTitle from "../../components/TableWithTitle.jsx";
+import IconButton from "@mui/material/IconButton";
+import ReadMoreIcon from "@mui/icons-material/ReadMore";
+import Table from "../../components/new/Table";
+import TitleBar from "../../components/new/TitleBar/TitleBar.jsx";
+import { putOperation } from "../../services/OperationService.js";
+import { updateOperation } from "../../state/operationsSlice.js";
+import { useDispatch } from "react-redux";
 
 export default function Operations() {
-    const columns = getOperationTableColumnsByRole();
-    const navigate = useNavigate();
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const columns = getOperationTableColumnsByRole();
 
     const data = useSelector((state) => state.operations.operations);
 
@@ -48,7 +57,28 @@ export default function Operations() {
     return (
         <Grid container alignItems="center" justifyContent="center">
             <Stack sx={{ width: "100%" }} gap={2}>
-                <TableWithTitle title="Operaciones" actions={[{ onClick: () => navigate("/ops/new"), label: "Añadir Operación", icon: <AddIcon /> }]} tableProps={{ columns, data }} />
+                <TitleBar title="Operaciones" actions={[{ onClick: () => navigate("/ops/new"), label: "Añadir Operación", icon: <AddIcon /> }]} />
+                <Table
+                    columns={columns}
+                    data={data}
+                    handleSaveCell={(cell, value) => {
+                        const columnDef = cell.column.columnDef;
+                        const attributeName = columnDef.attributeName;
+                        const columnName = columnDef.columnName;
+                        const operationId = cell.row.original.id;
+                        const operation = data.find((op) => op.id === operationId);
+                        putOperation(operationId, columnName, attributeName, value).then(
+                            (res) => {
+                                console.log(operation, attributeName, value);
+                                dispatch(updateOperation({ ...operation, [attributeName]: value }));
+                            },
+                        );
+                    }}
+                    renderRowActions={(row) => (
+                        <IconButton onClick={() => navigate(`/ops/${row.cell.row.original.id}`)}>
+                            <ReadMoreIcon color="primary" />
+                        </IconButton>
+                    )} />
             </Stack>
             <Outlet />
         </Grid>

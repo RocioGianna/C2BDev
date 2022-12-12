@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MultiStepForm } from "../../components/MultiStepForm";
+import { MultiStepForm } from "../../components/old/MultiStepForm";
 import { useNavigate } from "react-router-dom";
 import { IconButton, Dialog, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";

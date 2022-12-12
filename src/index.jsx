@@ -8,7 +8,7 @@ import createTheme from "@mui/material/styles/createTheme";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
 import { SnackbarProvider } from "notistack";
-import NotificationDispatcher from "./components/NotificationDispatcher";
+import NotificationDispatcher from "./components/old/NotificationDispatcher";
 import Fade from "@mui/material/Fade";
 import "../src/styles/globalStyles.css";
 import "@fontsource/poppins/100.css";

@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { Grid, Box, CircularProgress, Stack } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { OperationTitle } from "../../components/operationDetails/OperationTitle";
-import CustomerTableCard from "./CustomerTableCard";
-import CollaboratorTableCard from "./CollaboratorTableCard";
-import ProductTableCard from "./ProductTableCard";
-import Chat from "./Chat";
-import { Documentation } from "../../components/operationDetails/Documentation";
-import { ProductData } from "../../components/operationDetails/ProductData";
 import { fetchOperation } from "../../services/OperationService.js";
 import { useSelector, useDispatch } from "react-redux";
 import { resetOperation } from "../../state/operationsSlice";
+import OperationDetailsTitleBar from "./OperationDetailsTitleBar";
+import CustomerCard from "./CustomerCard";
+import DocumentationCard from "./DocumentationCard";
+import CollaboratorCard from "./CollaboratorCard";
+import ProductCard from "./ProductCard";
+import ProductDetailsCard from "./ProductDetailsCard.jsx";
+import Chat from "./Chat";
 
 export default function OperationDetails() {
     const params = useParams();
@@ -34,19 +34,19 @@ export default function OperationDetails() {
     return (
         <Grid container justifyContent="center" spacing={2} sx={{ height: "100%" }}>
             <Grid item xs={12}>
-                <OperationTitle operation={operation} />
+                <OperationDetailsTitleBar operation={operation} />
             </Grid>
             <Grid item xs={4}>
                 <Stack spacing={2}>
-                    <CustomerTableCard row={operation} />
-                    <Documentation documentation={operation.documentation} />
+                    <CustomerCard operation={operation} />
+                    <DocumentationCard operation={operation} />
                 </Stack>
             </Grid>
             <Grid item xs={4}>
                 <Stack spacing={2}>
-                    <CollaboratorTableCard row={operation} />
-                    <ProductTableCard row={operation} />
-                    <ProductData row={operation} />
+                    <CollaboratorCard operation={operation} />
+                    <ProductCard operation={operation} />
+                    <ProductDetailsCard operation={operation} />
                 </Stack>
             </Grid>
             <Grid item xs={4}>
