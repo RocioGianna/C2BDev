@@ -13,7 +13,7 @@ export async function login(email, password) {
                 loggedIn({
                     user: res.data.data.user,
                     accessToken: res.data.data.tokens.accessToken,
-                })
+                }),
             );
             return true;
         }
@@ -33,7 +33,7 @@ export async function refreshAccessToken() {
                     loggedIn({
                         user: res.data.data.user,
                         accessToken: res.data.data.tokens.accessToken,
-                    })
+                    }),
                 );
             }
         } else throw new Error("No refresh token in localStorage");

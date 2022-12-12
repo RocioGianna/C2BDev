@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
-import InternalLayout from "./components/layout/InternalLayout";
+import InternalLayout from "./layout/InternalLayout";
 import { refreshAccessToken } from "./services/AuthService";
 import Home from "./pages/Home";
 import Operations from "./pages/Operations";
-import OperationNew from "./pages/OperationNew";
+import OperationNew from "./pages/Operations/OperationNew";
 import OperationDetails from "./pages/OperationDetails";
 
 function App() {

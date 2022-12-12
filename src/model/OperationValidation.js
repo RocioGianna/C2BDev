@@ -5,7 +5,7 @@ import { countryCodes } from "../utils/ValidationUtils";
 export default {
     userCode: yup.string().required("El codigo de usuario es requerido"),
     name: yup.string().required("El nombre es requerido"),
-    lastname: yup.string().required("El apellido es requerido"),
+    lastName: yup.string().required("El apellido es requerido"),
     nid: yup.string().required("El DNI / NIE / CIF / NIF es requerido"),
     phonePrefix: yup
         .string()
@@ -16,7 +16,7 @@ export default {
     phoneNumber: yup
         .string()
         .required("El numero es requerido")
-        .test("is-valid-phone", "El formato del telefono no es valido", function (value) {
+        .test("is-valid-phone", "El formato del telefono no es valido", function(value) {
             return isValidPhoneNumber(this.options.parent.phonePrefix + " " + value);
         }),
     email: yup.string().email("Ingrese un correo electronico valido").required("El correo electronico es requerido"),
@@ -26,4 +26,6 @@ export default {
     municipality: yup.string().required("El municipio es requerido"),
     province: yup.string().required("La provincia es requerida"),
     offeredPrice: yup.string().required("El precio es requerido"),
+    selectOptional: yup.string(),
+    select: yup.string().required("El campo es requerido"),
 };

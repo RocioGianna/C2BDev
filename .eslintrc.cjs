@@ -37,7 +37,6 @@ module.exports = {
         "quotes": [RuleValue.ERROR, "double", { "avoidEscape": true }], // override Google style guide. Prev value: single
         "semi": [RuleValue.ERROR],
         "space-before-blocks": [RuleValue.ERROR],
-        "space-before-function-paren": [RuleValue.ERROR, "never"], // override Google style guide. Prev value: {asyncArrow: 'always', anonymous: 'never', named: 'never',}
         "space-infix-ops": [RuleValue.ERROR],
 
         // -- Javascript --

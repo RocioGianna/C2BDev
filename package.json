@@ -4,10 +4,12 @@
     "description": "",
     "type": "module",
     "scripts": {
+        "start": "npm run dev",
         "dev": "vite",
+        "prod": "npm run build && npm run preview",
         "build": "vite build",
         "preview": "vite preview",
-        "start": "npm run dev"
+        "format": "eslint . --fix"
     },
     "keywords": [],
     "author": "",
@@ -15,6 +17,7 @@
     "devDependencies": {
         "@emotion/react": "^11.9.3",
         "@emotion/styled": "^11.9.3",
+        "@fontsource/poppins": "^4.5.10",
         "@mui/icons-material": "^5.8.4",
         "@mui/material": "^5.8.6",
         "@mui/x-data-grid": "^5.17.8",
