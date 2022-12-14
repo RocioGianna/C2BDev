@@ -1,6 +1,8 @@
 package com.con2b.back.service.user;
 
 import com.con2b.back.dto.user.*;
+import com.con2b.back.model.user.PasswordResetToken;
+
 import com.con2b.back.model.user.Role;
 import com.con2b.back.model.user.UserDetails2b;
 import com.con2b.back.model.user.User2b;
@@ -29,8 +31,11 @@ public class UserService implements UserDetailsService {
     private AddressService addressService;
     @Autowired
     private EmailSenderService emailSender;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordResetTokenService passwordResetTokenService;
 
     public Optional<User2b> getUserById(Long id){
         return userRepository.findById(id);
@@ -174,20 +179,19 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user2b);
     }
 
-    public User2b getNewPassword(User2b user) {
-        String password = generatePassword();
-        user.setPassword(password);
-        User2b savedUser = userRepository.save(user);
-
-        if(savedUser != null){
-            emailSender.sendEmail(user.getEmail()," new password", user.getPassword());
-        }
-        return user;
-    }
-
     public List<User2b> getProcessorsByUserCode(String processorCode) {
         List<User2b> processors = new ArrayList<>();
         processors.addAll(userRepository.getUsersbyUserCode(processorCode, Role.PROCESSOR.ordinal()));
         return processors;
+    }
+
+
+    public Object getPasswordResetToken(User2b user) {
+        String link = "app.2bconexion.com/password-reset?prt=";
+        link += passwordResetTokenService.createRefreshToken(user.getId()).getToken();
+
+        emailSender.sendEmail(user.getEmail(),"Link new password", link);
+
+        return link + " Email " + user.getEmail() ;
     }
 }

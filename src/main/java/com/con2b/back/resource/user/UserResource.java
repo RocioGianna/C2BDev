@@ -89,13 +89,12 @@ public class UserResource {
         return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.getProcessorsByUserCode(processorCode).stream().map(SmallUserDTO::new).collect(Collectors.toList())));
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity recoverPassword(@PathVariable String email){
+    @PostMapping("/recoverPassword")
+    public ResponseEntity recoverPassword(@RequestBody String email){
         User2b user = userService.getUserByEmail(email);
         if( user != null){
-            return ResponseEntity.ok(new GenericResponseDTO(true, userService.getNewPassword(user)));
+            return ResponseEntity.ok(new GenericResponseDTO(true, userService.getPasswordResetToken(user)));
         }
         return ResponseEntity.ok().body(new GenericResponseDTO(false, "email doesn't exist"));
     }
-
 }
