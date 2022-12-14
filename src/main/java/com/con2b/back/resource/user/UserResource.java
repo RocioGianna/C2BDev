@@ -34,7 +34,7 @@ public class UserResource {
         try{
             return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.changePassword(pass,opUser.get())));
         }catch(Exception e){
-            return ResponseEntity.ok().body(new GenericResponseDTO(false,"Collaborator code doesn't match with user code"));
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,e.getMessage()));
         }
     }
 

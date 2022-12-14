@@ -113,8 +113,17 @@ public class UserService implements UserDetailsService {
     }
 
     public User2b changePassword(UserPasswordDTO password, User2b user){
-        if(isValid(password.getNewPass()) && passwordEncoder.matches(password.getActualPass(),(user.getPassword())))
-            user.setPassword(passwordEncoder.encode(password.getNewPass()));
+            if(passwordEncoder.matches(password.getActualPass(),(user.getPassword()))) {
+                if(isValid(password.getNewPass())) {
+                    user.setPassword(passwordEncoder.encode(password.getNewPass()));
+                }
+                else {
+                    throw new IllegalArgumentException("La contraseña no cumple con los requisitos");
+                }
+            }
+            else {
+                throw new RuntimeException("La contraseña actual no es correcta");
+            }
 
         return userRepository.save(user);
 
