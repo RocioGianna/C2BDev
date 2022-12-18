@@ -220,8 +220,8 @@ public class OperationService {
                 od.setType(operationEditDTO.getType());
                 od.setPhone(operationEditDTO.getPhone());
                 od.setCurrentProvider(operationEditDTO.getCurrentProvider());
-                od.setCurrentOwnerFirstname(operationEditDTO.getCurrentOwnerFirstname());
-                od.setCurrentOwnerLastname(operationEditDTO.getCurrentOwnerLastname());
+                od.setCurrentOwnerFirstName(operationEditDTO.getCurrentOwnerFirstName());
+                od.setCurrentOwnerLastName(operationEditDTO.getCurrentOwnerLastName());
                 od.setCurrentOwnerNID(operationEditDTO.getCurrentOwnerNID());
             }
         });

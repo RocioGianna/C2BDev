@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,9 +17,9 @@ public class OperationDetailEditDTO {
 
     private String currentProvider;
 
-    private String  currentOwnerFirstname;
+    private String  currentOwnerFirstName;
 
-    private String currentOwnerLastname;
+    private String currentOwnerLastName;
 
     private String currentOwnerNID;
 

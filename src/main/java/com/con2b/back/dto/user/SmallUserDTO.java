@@ -13,7 +13,7 @@ public class SmallUserDTO {
 
     public SmallUserDTO(User2b user){
         this.userCode = user.getUserCode();
-        this.firstName = user.getFirstname();
-        this.lastName = user.getLastname();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
     }
 }

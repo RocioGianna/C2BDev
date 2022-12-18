@@ -6,6 +6,9 @@ import com.con2b.back.model.operation.*;
 import com.con2b.back.model.product.*;
 import com.con2b.back.model.user.User2b;
 import com.con2b.back.model.user.Role;
+import com.con2b.back.model.product.AdditionalProduct;
+import com.con2b.back.model.product.Product;
+import com.con2b.back.model.product.ProductOption;
 import com.con2b.back.service.operation.OperationService;
 import com.con2b.back.service.user.ProviderService;
 import com.con2b.back.service.user.UserService;
@@ -43,21 +46,21 @@ public class App extends SpringBootServletInitializer {
 			Set<Provider> providers = new HashSet<>();
 
 			providers.add(movistar);
-			User2b  collabMovi = new User2b(null, "user_movistar@2bconexion.com", "pass", "User", "Movistar", "001", "+54 2494000001", true, Role.COLLABORATOR, providers);
-			userService.saveUser(collabMovi);
+			Address address = new Address(null,"Dirección 1", "1111", "Municipalidad 1", "Provincia 1");
+			User2b collabMovi = userService.createUser("001", "user_movistar@2bconexion.com", "pass", "User", "Movistar", "11111111", "+54 2494000001", "abc.1", address, Role.COLLABORATOR, providers);
 
 			providers.add(otherProvider);
-			User2b  collab = new User2b(null, "user@2bconexion.com", "pass", "User", "All", "002", "+54 2494000002", true, Role.COLLABORATOR, providers);
-			userService.saveUser(collab);
+			address.setAddress("Dirección 2");
+			User2b collab = userService.createUser("002", "user@2bconexion.com", "pass", "User", "All", "22222222", "+54 2494000002","abc.2", address, Role.COLLABORATOR, providers);
 
-			User2b  processor = new User2b(null,"processor@2bconexion.com","pass","Processor","Simple","003","+54 2494000003",true,Role.PROCESSOR, new HashSet<>());
-			userService.saveUser(processor);
+			address.setAddress("Dirección 3");
+			User2b processor = userService.createUser("003", "processor@2bconexion.com", "pass", "Processor", "Simple", "33333333", "+54 2494000003", "abc.3", address, Role.PROCESSOR, new HashSet<>());
 
-			User2b  processorAdvanced = new User2b(null,"processor_advanced@2bconexion.com","pass","Processor","Advanced","004","+54 2494000004",true,Role.PROCESSOR_ADVANCED, new HashSet<>());
-			userService.saveUser(processorAdvanced);
+			address.setAddress("Dirección 4");
+			User2b processorAdvanced = userService.createUser("004", "processor_advanced@2bconexion.com", "pass", "Processor", "Advanced", "44444444", "+54 2494000004", "abc.4", address, Role.PROCESSOR_ADVANCED, new HashSet<>());
 
-			User2b  admin = new User2b(null, "admin@2bconexion.com", "pass", "Admin", "Admin", "005","+54 2494000005", true, Role.ADMIN, new HashSet<>());
-			userService.saveUser(admin);
+			address.setAddress("Dirección 5");
+			User2b admin = userService.createUser("005", "admin@2bconexion.com", "pass", "Admin", "Admin", "55555555","+54 2494000005", "abc.5", address, Role.ADMIN, new HashSet<>());
 
 			Step fixed = operationService.saveStep(new Step(null, "Fijo", StepType.FIXED));
 			Step fiveGb = operationService.saveStep(new Step(null, "5GB + 0cent/min", StepType.MOBILE));
