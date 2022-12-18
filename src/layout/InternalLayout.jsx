@@ -24,8 +24,6 @@ function InternalLayout() {
         }
     }, []);
 
-    // aa
-
     return (
         <Container maxWidth="xl" sx={{ minHeight: "100vh" }}>
             {loaded && (

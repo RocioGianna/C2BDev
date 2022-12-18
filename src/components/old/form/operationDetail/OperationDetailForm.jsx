@@ -82,15 +82,15 @@ export function OperationDetailForm({ operationId, operationDetail, handleClose 
     const prefix = phoneNumber ? phoneNumber.countryCallingCode : "";
     const number = phoneNumber ? phoneNumber.nationalNumber : "";
 
-    const changePhoneOwner = operationDetail.currentOwnerFirstname !== null && operationDetail.currentOwnerFirstname !== "" && operationDetail.currentOwnerLastname !== null && operationDetail.currentOwnerLastname !== "" && operationDetail.currentOwnerNID !== null && operationDetail.currentOwnerNID !== "";
+    const changePhoneOwner = operationDetail.currentOwnerFirstName !== null && operationDetail.currentOwnerFirstName !== "" && operationDetail.currentOwnerLastName !== null && operationDetail.currentOwnerLastName !== "" && operationDetail.currentOwnerNID !== null && operationDetail.currentOwnerNID !== "";
 
     const initialValues = {
         phoneOperationType: operationDetail.type,
         phonePrefix: prefix || "",
         phoneNumber: number || "",
         phoneOperator: operationDetail.currentProvider || "",
-        name: operationDetail.currentOwnerFirstname || "",
-        lastName: operationDetail.currentOwnerLastname || "",
+        name: operationDetail.currentOwnerFirstName || "",
+        lastName: operationDetail.currentOwnerLastName || "",
         nid: operationDetail.currentOwnerNID || "",
         changePhoneOwner: changePhoneOwner,
     };
@@ -137,8 +137,8 @@ export function OperationDetailForm({ operationId, operationDetail, handleClose 
                     }
 
                     // Rename properties
-                    renameProperty(body, "lastName", "currentOwnerLastname");
-                    renameProperty(body, "name", "currentOwnerFirstname");
+                    renameProperty(body, "lastName", "currentOwnerLastName");
+                    renameProperty(body, "name", "currentOwnerFirstName");
                     renameProperty(body, "nid", "currentOwnerNID");
                     renameProperty(body, "phoneOperator", "currentProvider");
                     renameProperty(body, "phoneOperationType", "type");

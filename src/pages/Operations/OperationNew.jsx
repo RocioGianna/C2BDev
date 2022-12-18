@@ -77,8 +77,8 @@ export default function OperationNew() {
                 type: opDetailObject.phoneOperationType,
                 phone: opDetailObject.phoneNumber != "" ? opDetailObject.phonePrefix + " " + opDetailObject.phoneNumber : null,
                 currentProvider: opDetailObject.phoneOperator != "" ? opDetailObject.phoneOperator : null,
-                currentOwnerFirstname: opDetailObject.name != "" ? opDetailObject.name : null,
-                currentOwnerLastname: opDetailObject.lastName != "" ? opDetailObject.lastName : null,
+                currentOwnerFirstName: opDetailObject.name != "" ? opDetailObject.name : null,
+                currentOwnerLastName: opDetailObject.lastName != "" ? opDetailObject.lastName : null,
                 currentOwnerNID: opDetailObject.nid != "" ? opDetailObject.nid : null,
             };
         }

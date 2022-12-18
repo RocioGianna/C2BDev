@@ -26,12 +26,12 @@ function ProductDetailsItem({ operationDetail, step, editable, onEdit }) {
                 <Typography lineHeight={1.5} variant="overline">{OperationDetailsType[operationDetail.type]}</Typography>
                 {operationDetail.currentProvider && <Typography variant="body2">{operationDetail.currentProvider}</Typography>}
             </Stack>
-            { operationDetail.currentOwnerFirstname != null && <>
+            { operationDetail.currentOwnerFirstName != null && <>
                 <Divider sx={{ my: 1 }} />
                 <Stack px={0.5} direction="row" alignItems="center" justifyContent="space-between">
                     <Typography variant="body2">Cambio de titular</Typography>
                     <Typography variant="body2">
-                        {operationDetail.currentOwnerFirstname} {operationDetail.currentOwnerLastname}, {operationDetail.currentOwnerNID}
+                        {operationDetail.currentOwnerFirstName} {operationDetail.currentOwnerLastName}, {operationDetail.currentOwnerNID}
                     </Typography>
                 </Stack>
             </>}
