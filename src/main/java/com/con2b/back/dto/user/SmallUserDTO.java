@@ -8,12 +8,12 @@ import lombok.Setter;
 @Getter
 public class SmallUserDTO {
     private String userCode;
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
 
     public SmallUserDTO(User2b user){
         this.userCode = user.getUserCode();
-        this.firstname = user.getFirstname();
-        this.lastname = user.getLastname();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
     }
 }

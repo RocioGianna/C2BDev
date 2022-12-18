@@ -5,11 +5,13 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ResourceUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,9 +27,14 @@ public class OperationPossibleNextStatus {
         JavaType statusType = mapper.getTypeFactory().constructType(Status.class);
         JavaType mapStatusType = mapper.getTypeFactory().constructMapType(Map.class, statusType, setType);
 
-        BufferedReader json = new BufferedReader(new FileReader(ResourceUtils.getFile("classpath:operation/statusMap.json")));
+        BufferedReader json = new BufferedReader(new InputStreamReader(new ClassPathResource("operation/statusMap.json").getInputStream()));
 
         this.map = mapper.readValue(json, mapStatusType);
     }
+
+    public Set<Status> getPossibleNextStatusFromStatus(Status status){
+        return this.map.get(status);
+    }
+
 
 }

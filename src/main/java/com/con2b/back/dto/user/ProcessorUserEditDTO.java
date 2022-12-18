@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProcessorUserEditDTO {
-    private String firstname;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String nid;
     private Address billingAddress;
     private String bankAccount;

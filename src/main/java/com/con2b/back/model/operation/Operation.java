@@ -15,9 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
 
 @Entity
 @Getter
@@ -43,9 +42,11 @@ public class Operation {
     private Channel channel;
 
     @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User2b processor;
 
     @ManyToOne
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User2b collaborator;
 
     @Column(nullable = true)
@@ -87,6 +88,4 @@ public class Operation {
     public void addDocumentation(Documentation documentationId){
         this.documentation.add(documentationId);
     }
-
-
 }

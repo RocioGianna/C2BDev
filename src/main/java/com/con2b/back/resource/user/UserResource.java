@@ -25,7 +25,11 @@ public class UserResource {
     @PostMapping("")
     @PreAuthorize("hasAnyRole('MANAGER', 'ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> createUser(@RequestBody NewUserDTO user){
-        return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.createUser(user)));
+        try{
+            return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.createUser(user)));
+        }catch(Exception e){
+            return ResponseEntity.ok().body(new GenericResponseDTO(false,e.getMessage()));
+        }
     }
 
     @PutMapping("/changePassword")
@@ -74,7 +78,7 @@ public class UserResource {
     @GetMapping("/list")
     @PreAuthorize("hasAnyRole('PROCESSOR','PROCESSOR_ADVANCED', 'MANAGER', 'ADMIN', 'SUPER_ADMIN')")
     public ResponseEntity<?> getAllUsers(){
-        return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.gerAllUsers().stream().map(UserDTO::new).collect(Collectors.toList())));
+        return ResponseEntity.ok().body(new GenericResponseDTO(true, userService.getAllUsers().stream().map(UserDTO::new).collect(Collectors.toList())));
     }
 
     @GetMapping("")

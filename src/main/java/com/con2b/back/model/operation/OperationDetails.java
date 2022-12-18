@@ -31,10 +31,10 @@ public class OperationDetails {
     private String currentProvider;
 
     @Column(nullable = true)
-    private String  currentOwnerFirstname;
+    private String  currentOwnerFirstName;
 
     @Column(nullable = true)
-    private String currentOwnerLastname;
+    private String currentOwnerLastName;
 
     @Column(nullable = true)
     private String currentOwnerNID;

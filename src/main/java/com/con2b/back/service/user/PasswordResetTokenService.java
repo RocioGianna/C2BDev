@@ -20,7 +20,7 @@ public class PasswordResetTokenService {
     @Autowired
     private UserRepository userRepository;
 
-    public PasswordResetToken createRefreshToken(Long userId) {
+    public PasswordResetToken createPasswordResetToken(Long userId) {
         PasswordResetToken passToken = new PasswordResetToken();
         passToken.setUser(userRepository.findById(userId).get());
         passToken.setExpirationDate(Instant.now().plusMillis(12 * 60 * 60 * 1000));
